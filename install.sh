@@ -95,5 +95,5 @@ else
     echo "\n\033[36m\033[1mCopying Scratch2MCPI Terminal shortcut on Desktop...\033[00m\n"
     wget -P "/home/pi/Desktop" http://scratch2mcpi.github.io/scratch2mcpi_terminal.desktop
 fi
- 
+
 echo "\n\033[32m\033[1mInstallation of scratch2mcpi is completed.\033[00m\n"
