@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Exec=/home/pi/scratch2mcpi/scratch2mcpiturtle.sh
+Icon=scratch
+Terminal=false
+Name=Scratch2MCPITurtle
+Comment=Control Minecraft Pi from Scratch with MCGT
+Categories=Application;Education;Development;
+MimeType=application/x-scratch-project

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Exec=lxterminal -e /home/pi/scratch2mcpi/scratch2mcpiturtle_terminal.sh
+Icon=lxterminal
+Terminal=false
+Name=Scratch2MCPITurtle Terminal
+Comment=Control Minecraft Pi from Scratch 
+Categories=Application;Education;Development;
