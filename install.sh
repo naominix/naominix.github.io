@@ -195,7 +195,7 @@ if [ -f /home/pi/Desktop/scratch2mcpiturtle_terminal.desktop ]; then
     echo "\n\033[33m\033[1mScratch2MCPITurtle Terminal shortcut on Desktop exists. Skipped copying.\033[00m\n"
 else
     echo "\n\033[36m\033[1mCopying Scratch2MCPITurtle Terminal shortcut on Desktop...\033[00m\n"
-    wget -P "/home/pi/Desktop" http://naominix.github.io/scratch2mcpiturtle_terminal.desktop
+    wget -P "/home/pi/Desktop" http://naominix.github.io/desktop/scratch2mcpiturtle_terminal.desktop
 fi
  
 echo "\n\033[32m\033[1mInstallation of scratch2mcpi is completed.\033[00m\n"
