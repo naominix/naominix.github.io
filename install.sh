@@ -207,4 +207,3 @@ else
 fi
  
 echo "\n\033[32m\033[1mInstallation of scratch2mcpi is completed.\033[00m\n"
-
