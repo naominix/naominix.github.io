@@ -14,7 +14,7 @@ fi
 echo "\n\033[36m\033[1mInstalling scratch2mcpi...\033[00m\n"
 sudo apt-get -y install python-setuptools
 sudo easy_install scratchpy
-wget -P /tmp https://github.com/naominix/scratch2mcpi/archive/master.zip
+wget -P /tmp https://github.com/scratch2mcpi/scratch2mcpi/archive/master.zip
 unzip /tmp/master.zip
 if [ -d /home/pi/scratch2mcpi ]; then
     cp -rf scratch2mcpi-master/* scratch2mcpi/
