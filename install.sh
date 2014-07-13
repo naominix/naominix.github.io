@@ -168,6 +168,12 @@ else
     wget -P "/home/pi/Documents/Scratch Projects" http://naominix.github.io/scratch_projects/stuff1.sb
 fi
 
+if [ -f "/home/pi/Documents/Scratch Projects/AdventuresInRasPi.sb" ]; then
+    echo "\n\033[33m\033[1mAdventuresInRasPi.sb exists. Skipped downloading.\033[00m\n"
+else
+    wget -P "/home/pi/Documents/Scratch Projects" http://naominix.github.io/scratch_projects/AdventuresInRasPi.sb
+fi
+
 # Copy Scratch2MCPI shortcut on Desktop
 if [ -f /home/pi/Desktop/scratch2mcpi.desktop ]; then
     echo "\n\033[33m\033[1mScratch2MCPI shortcut on Desktop exists. Skipped copying.\033[00m\n"
