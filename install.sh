@@ -46,6 +46,8 @@ if [ -f /home/pi/scratch2mcpi/scratch2mcpiturtle.py ]; then
     echo "\n\033[33m\033[1mscratch2mcpiturtle.py exists. Skipped copying.\033[00m\n"
 else
     cp  scratch2mcpi-master/scratch2mcpiturtle.py scratch2mcpi/
+    cp  scratch2mcpi-master/scratch2mcpiturtle.sh scratch2mcpi/
+    cp  scratch2mcpi-master/scratch2mcpiturtle_terminal.sh scratch2mcpi/
     rm -rf scratch2mcpi-master
 fi
 rm /tmp/master.zip
