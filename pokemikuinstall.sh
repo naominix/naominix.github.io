@@ -1,7 +1,7 @@
 #!/bin/sh
  
 SQUEAKDIR="/usr/lib/squeak/4.10.2-2793"
-MIDIPLUGIN="so.MIDIPlugin.140712"
+MIDIPLUGIN="so.MIDIPlugin.140719"
 SCRATCHDIR="/usr/share/scratch/locale"
 cd /home/pi
  
