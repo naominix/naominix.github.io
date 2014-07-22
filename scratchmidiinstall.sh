@@ -100,7 +100,7 @@ elif [ "$1" = 'miku' ]; then
 	installeVY1RasPi
 else
 	echo 'Invalid option' 1>&2
-	echo "Usage: curl $GITHUBURL | $CMDNAME            -> Install ScratchMIDI with Timidity" 1>&2
-	echo "       curl $GITHUBURL | $CMDNAME -s (miku)  -> Install eVY1 Scratch for PokeMiku(NSX-39)" 1>&2
+	echo "Usage: curl $GITHUBURL | $CMDNAME          -> Install ScratchMIDI with Timidity" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s miku  -> Install eVY1 Scratch for PokeMiku(NSX-39)" 1>&2
 	exit 1
 fi
