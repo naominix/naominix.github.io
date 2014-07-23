@@ -13,7 +13,7 @@ cd /home/pi
 installPlugin() {
 	echo "\n\033[36m\033[1mInstalling MIDI Plugin File(Overwrite)...\033[00m\n"
 	if [ -f $SQUEAKDIR/so.MIDIPlugin ]; then
-	    sudo cp eVY1RasPi/$MIDIPLUGIN $SQUEAKDIR/so.MIDIPlugin
+	    sudo cp eVY1RasPi-master/$MIDIPLUGIN $SQUEAKDIR/so.MIDIPlugin
 	else
 	    echo "\n\033[33m\033[1m $SQUEAKDIR/so.MIDIPlugin Not Found. Please check Scratch install. Skipped copying.\033[00m\n"
 	fi
@@ -21,6 +21,8 @@ installPlugin() {
 
 # Copy ScratchMIDI
 copyScratchMidi() {
+	    # Install MIDI Plugin
+	    installPlugin
 	    # Copy ScratchMIDI files
 	    cp eVY1RasPi-master/LinuxMIDIPluginEnabler.1.cs ScratchMIDI/
 	    cp eVY1RasPi-master/Scratch20131203MIDI.image ScratchMIDI/
@@ -57,6 +59,7 @@ installeVY1RasPi() {
 	echo "\n\033[36m\033[1mInstalling eVY1 Scratch on RaspberryPi for NSX-39(PokeMiku)...\033[00m\n"
 	wget -P /tmp https://github.com/naominix/eVY1RasPi/archive/master.zip
 	unzip /tmp/master.zip
+	installPlugin
 	if [ -d /home/pi/eVY1RasPi ]; then
 	    cp -rf eVY1RasPi-master/* eVY1RasPi/
 	    rm -rf eVY1RasPi-master
@@ -92,11 +95,9 @@ installTimidity() {
 CMDNAME=$0
 
 if [ $# -eq 0 ]; then
-	installPlugin
 	installScratchMidi
 	installTimidity
 elif [ "$1" = 'miku' ]; then
-	installPlugin
 	installeVY1RasPi
 else
 	echo 'Invalid option' 1>&2
