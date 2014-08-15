@@ -108,10 +108,10 @@ elif [ "$1" = 'midi' ]; then
 	installScratchMidi
 else
 	echo 'Invalid option' 1>&2
-	echo "Usage: curl $GITHUBURL | $CMDNAME             -> Install ScratchMIDI with Timidity(1Port)" 1>&2
-	echo "       curl $GITHUBURL | $CMDNAME -s miku     -> Install eVY1 Scratch for PokeMiku(NSX-39)" 1>&2
+	echo "Usage: curl $GITHUBURL | $CMDNAME             -> Install ScratchMIDI and Timidity(1Port) with so.MIDIPlugin" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s miku     -> Install eVY1 Scratch for PokeMiku(NSX-39) with so.MIDIPlugin" 1>&2
 	echo "       curl $GITHUBURL | $CMDNAME -s plugin   -> Install squeak so.MIDIPlugin only" 1>&2
 	echo "       curl $GITHUBURL | $CMDNAME -s timidity -> Install Timidity(1Port) only" 1>&2
-	echo "       curl $GITHUBURL | $CMDNAME -s midi     -> Install ScratchMIDI only" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s midi     -> Install ScratchMIDI with so.MIDIPlugin" 1>&2
 	exit 1
 fi
