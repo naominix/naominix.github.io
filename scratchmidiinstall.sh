@@ -59,6 +59,7 @@ installeVY1RasPi() {
 	echo "\n\033[36m\033[1mInstalling eVY1 Scratch on RaspberryPi for NSX-39(PokeMiku)...\033[00m\n"
 	wget -P /tmp https://github.com/naominix/eVY1RasPi/archive/master.zip
 	unzip /tmp/master.zip
+	# Install MIDI Plugin
 	installPlugin
 	if [ -d /home/pi/eVY1RasPi ]; then
 	    cp -rf eVY1RasPi-master/* eVY1RasPi/
@@ -99,9 +100,18 @@ if [ $# -eq 0 ]; then
 	installTimidity
 elif [ "$1" = 'miku' ]; then
 	installeVY1RasPi
+elif [ "$1" = 'plugin' ]; then
+	installPlugin
+elif [ "$1" = 'timidity' ]; then
+	installTimidity
+elif [ "$1" = 'midi' ]; then
+	installScratchMidi
 else
 	echo 'Invalid option' 1>&2
-	echo "Usage: curl $GITHUBURL | $CMDNAME          -> Install ScratchMIDI with Timidity" 1>&2
-	echo "       curl $GITHUBURL | $CMDNAME -s miku  -> Install eVY1 Scratch for PokeMiku(NSX-39)" 1>&2
+	echo "Usage: curl $GITHUBURL | $CMDNAME             -> Install ScratchMIDI with Timidity(1Port)" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s miku     -> Install eVY1 Scratch for PokeMiku(NSX-39)" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s plugin   -> Install squeak so.MIDIPlugin only" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s timidity -> Install Timidity(1Port) only" 1>&2
+	echo "       curl $GITHUBURL | $CMDNAME -s midi     -> Install ScratchMIDI only" 1>&2
 	exit 1
 fi
