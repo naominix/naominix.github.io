@@ -100,8 +100,6 @@ if [ $# -eq 0 ]; then
 	installTimidity
 elif [ "$1" = 'miku' ]; then
 	installeVY1RasPi
-elif [ "$1" = 'plugin' ]; then
-	installPlugin
 elif [ "$1" = 'timidity' ]; then
 	installTimidity
 elif [ "$1" = 'midi' ]; then
@@ -110,7 +108,6 @@ else
 	echo 'Invalid option' 1>&2
 	echo "Usage: curl $GITHUBURL | $CMDNAME             -> Install ScratchMIDI and Timidity(1Port) with so.MIDIPlugin" 1>&2
 	echo "       curl $GITHUBURL | $CMDNAME -s miku     -> Install eVY1 Scratch for PokeMiku(NSX-39) with so.MIDIPlugin" 1>&2
-	echo "       curl $GITHUBURL | $CMDNAME -s plugin   -> Install squeak so.MIDIPlugin only" 1>&2
 	echo "       curl $GITHUBURL | $CMDNAME -s timidity -> Install Timidity(1Port) only" 1>&2
 	echo "       curl $GITHUBURL | $CMDNAME -s midi     -> Install ScratchMIDI with so.MIDIPlugin" 1>&2
 	exit 1
