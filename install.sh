@@ -46,7 +46,6 @@ else
     cp  scratch2mcpi-master/scratch2mcpiturtle.sh scratch2mcpi/
     cp  scratch2mcpi-master/scratch2mcpiturtle_terminal.sh scratch2mcpi/
     rm -rf scratch2mcpi-master
-    fi
     rm /tmp/master.zip
  
     # Install Minecraft Stuff
