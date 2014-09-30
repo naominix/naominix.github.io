@@ -34,7 +34,7 @@ else
     if [ -d /home/pi/scratch2mcpi/minecraft-turtle/ ]; then
         rm -rf scratch2mcpi/minecraft-turtle/
     fi
-    mv /tmp/minecraft-turtle-master scratch2mcpi/minecraft-turtle
+    mv minecraft-turtle-master scratch2mcpi/minecraft-turtle
     sed -e "s/import minecraft/import mcpi.minecraft as minecraft/" -e "s/import block/import mcpi.block as block/" scratch2mcpi/minecraft-turtle/minecraftturtle.py > scratch2mcpi/minecraftturtle.py
     rm /tmp/master.zip
  
@@ -56,9 +56,8 @@ else
     if [ -d /home/pi/scratch2mcpi/minecraft-stuff/ ]; then
         rm -rf scratch2mcpi/minecraft-stuff/
     fi
-    mv /tmp/minecraft-stuff-master scratch2mcpi/minecraft-stuff
+    mv minecraft-stuff-master scratch2mcpi/minecraft-stuff
     sed -e "s/^import minecraft/import mcpi.minecraft as minecraft/" -e "s/^import block/import mcpi.block as block/" scratch2mcpi/minecraft-stuff/minecraftstuff.py > scratch2mcpi/minecraftstuff.py
-    fi
     rm /tmp/master.zip
  
     # Download sample Scratch projects
