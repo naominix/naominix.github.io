@@ -38,13 +38,15 @@ else
     sed -e "s/import minecraft/import mcpi.minecraft as minecraft/" -e "s/import block/import mcpi.block as block/" scratch2mcpi/minecraft-turtle/minecraftturtle.py > scratch2mcpi/minecraftturtle.py
     rm /tmp/master.zip
  
-    # Install Scratch2MCPI with Minecraft Graphics Turtle
-    echo "\n\033[36m\033[1mInstalling Scratch2MCPI with MinecraftGraphicsTurtle...\033[00m\n"
+    # Install Scratch2MCPI with Minecraft Graphics Turtle & Stuff (Nasu-lab flavor)
+    echo "\n\033[36m\033[1mInstalling Scratch2MCPI with MinecraftGraphicsTurtle(Nasu-lab flavor)...\033[00m\n"
     wget -P /tmp https://github.com/naominix/scratch2mcpi/archive/master.zip
     unzip /tmp/master.zip
     cp  scratch2mcpi-master/scratch2mcpiturtle.py scratch2mcpi/
     cp  scratch2mcpi-master/scratch2mcpiturtle.sh scratch2mcpi/
     cp  scratch2mcpi-master/scratch2mcpiturtle_terminal.sh scratch2mcpi/
+    cp  scratch2mcpi-master/scratch2mcpiturtleMultiClient.py scratch2mcpi/
+    cp  scratch2mcpi-master/scratch2mcpiturtle-*.py scratch2mcpi/
     rm -rf scratch2mcpi-master
     rm /tmp/master.zip
  
