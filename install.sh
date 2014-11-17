@@ -86,7 +86,7 @@ else
     if [ -f "/home/pi/Documents/Scratch Projects/nasulab_template.sb" ]; then
         echo "\n\033[33m\033[1mnasulab_template.sb exists. Skipped downloading.\033[00m\n"
     else
-        wget -P "/home/pi/Documents/Scratch Projects" http://scratch2mcpi.github.io/scratch_projects/nasulab_template.sb
+        wget -P "/home/pi/Documents/Scratch Projects" http://naominix.github.io/scratch_projects/nasulab_template.sb
     fi
  
     if [ -f "/home/pi/Documents/Scratch Projects/3dnautilus.sb" ]; then
