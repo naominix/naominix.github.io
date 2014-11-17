@@ -68,7 +68,7 @@ else
     else
         wget -P "/home/pi/Documents/Scratch Projects" http://scratch2mcpi.github.io/scratch_projects/mcpi_template.sb
     fi
- 
+
     if [ -f "/home/pi/Documents/Scratch Projects/mcpi_sphere.sb" ]; then
         echo "\n\033[33m\033[1mmcpi_sphere.sb exists. Skipped downloading.\033[00m\n"
     else
@@ -83,6 +83,12 @@ else
  
     # Download MinecraftGraphicsTurtle and Stuff sample Scratch projects
     echo "\n\033[36m\033[1mDownloading MinecraftGraphicsTurtle and Sutff sample Scratch projects...\033[00m\n"
+    if [ -f "/home/pi/Documents/Scratch Projects/nasulab_template.sb" ]; then
+        echo "\n\033[33m\033[1mnasulab_template.sb exists. Skipped downloading.\033[00m\n"
+    else
+        wget -P "/home/pi/Documents/Scratch Projects" http://scratch2mcpi.github.io/scratch_projects/nasulab_template.sb
+    fi
+ 
     if [ -f "/home/pi/Documents/Scratch Projects/3dnautilus.sb" ]; then
         echo "\n\033[33m\033[1m3dnautilus.sb exists. Skipped downloading.\033[00m\n"
     else
