@@ -34,8 +34,9 @@ else
     if [ -d /home/pi/scratch2mcpi/minecraft-turtle/ ]; then
         rm -rf scratch2mcpi/minecraft-turtle/
     fi
-    mv minecraft-turtle-master scratch2mcpi/minecraft-turtle
-    sed -e "s/import minecraft/import mcpi.minecraft as minecraft/" -e "s/import block/import mcpi.block as block/" scratch2mcpi/minecraft-turtle/minecraftturtle.py > scratch2mcpi/minecraftturtle.py
+    mv minecraft-turtle-master scratch2mcpi/mcturtle
+    touch scratch2mcpi/mcturtle/__init__.py
+#    sed -e "s/import minecraft/import mcpi.minecraft as minecraft/" -e "s/import block/import mcpi.block as block/" scratch2mcpi/minecraft-turtle/minecraftturtle.py > scratch2mcpi/minecraftturtle.py
     rm /tmp/master.zip
  
     # Install Scratch2MCPI with Minecraft Graphics Turtle & Stuff (Nasu-lab flavor)
@@ -57,8 +58,9 @@ else
     if [ -d /home/pi/scratch2mcpi/minecraft-stuff/ ]; then
         rm -rf scratch2mcpi/minecraft-stuff/
     fi
-    mv minecraft-stuff-master scratch2mcpi/minecraft-stuff
-    sed -e "s/^import minecraft/import mcpi.minecraft as minecraft/" -e "s/^import block/import mcpi.block as block/" scratch2mcpi/minecraft-stuff/minecraftstuff.py > scratch2mcpi/minecraftstuff.py
+    mv minecraft-stuff-master scratch2mcpi/mcstuff
+    touch scratch2mcpi/mcstuff/__init__.py
+    #sed -e "s/^import minecraft/import mcpi.minecraft as minecraft/" -e "s/^import block/import mcpi.block as block/" scratch2mcpi/minecraft-stuff/minecraftstuff.py > scratch2mcpi/minecraftstuff.py
     rm /tmp/master.zip
  
     # Download sample Scratch projects
