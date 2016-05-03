@@ -8,6 +8,6 @@ mkdir pepper
 cd pepper
 wget http://os.archlinuxarm.org/armv7h/alarm/chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
 tar Jxvf chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
-sudo cp * /usr/lib/chromium-browser/plugins
-sudo echo "CHROMIUM_FLAGS=\"–ppapi-flash-path=/usr/lib/chromium/plugins/libpepflashplayer.so –ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir\"" >> /etc/chromium-browser/default
+sudo cp usr/lib/PepperFlash/* /usr/lib/chromium-browser/plugins
+sudo echo "CHROMIUM_FLAGS=\"–ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so –ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir\"" >> /etc/chromium-browser/default
 cd /home/pi
