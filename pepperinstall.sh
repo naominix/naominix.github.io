@@ -1,5 +1,6 @@
 #!/bin/sh
 cd /home/pi/
+sudo touch /etc/apt/sources.list.d/chromium.list
 sudo cat "deb http://ppa.launchpad.net/canonical-chromium-builds/stage/ubuntu vivid main" > /etc/apt/sources.list.d/chromium.list
 sudo apt-key adv -–keyserver keyserver.ubuntu.com -–recv-keys 5B393194
 sudo apt-get update
