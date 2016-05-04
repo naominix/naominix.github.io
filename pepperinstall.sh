@@ -18,14 +18,18 @@ sudo apt-get -y install chromium-browser chromium-browser-l10n
 echo "\n\033[36m\033[1mInstalling Pepper Flash Plugin...\033[00m\n"
 mkdir pepper
 cd pepper
-wget http://os.archlinuxarm.org/armv7h/alarm/chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
-tar Jxvf chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
-sudo cp usr/lib/PepperFlash/* /usr/lib/chromium-browser/plugins
+#wget http://os.archlinuxarm.org/armv7h/alarm/chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
+#tar Jxvf chromium-pepper-flash-12.0.0.77-1-armv7h.pkg.tar.xz
+wget http://odroidxu.leeharris.me.uk/xu3/chromium-pepperflash-19.0.0.185.r1-1-armv7h.pkg.tar.xz
+tar xvf chromium-pepperflash-19.0.0.185.r1-1-armv7h.pkg.tar.xz
+#sudo cp usr/lib/PepperFlash/* /usr/lib/chromium-browser/plugins
+sudo cp usr/lib/PepperFlash/libpepflashplayer.so /usr/lib/chromium-browser/plugins/
 if [ ! -f "/etc/chromium-browser/default.org" ]; then
     sudo cp /etc/chromium-browser/default /etc/chromium-browser/default.org
 fi
 cp /etc/chromium-browser/default.org ./default
-echo "CHROMIUM_FLAGS=\"--ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir\"" >> default
+#echo "CHROMIUM_FLAGS=\"--ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=12.0.0.77 -password-store=detect -user-data-dir\"" >> default
+echo "CHROMIUM_FLAGS=\"--ppapi-flash-path=/usr/lib/chromium-browser/plugins/libpepflashplayer.so --ppapi-flash-version=19.0.0.185 -password-store=detect -user-data-dir\"" >> default
 sudo mv default /etc/chromium-browser/default
 cd /home/pi
 echo "\n\033[36m\033[1mCleaning temporary directory...\033[00m\n"
