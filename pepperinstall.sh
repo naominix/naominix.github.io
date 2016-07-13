@@ -11,7 +11,8 @@ echo "\n\033[36m\033[1mAdd apt sources.list file...\033[00m\n"
 echo "deb http://ppa.launchpad.net/canonical-chromium-builds/stage/ubuntu vivid main" > chromium.list
 sudo mv chromium.list /etc/apt/sources.list.d/chromium.list
 echo "\n\033[36m\033[1mAdd public key from keyserver...\033[00m\n"
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5B393194
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4E1B983C5B393194
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5B393194
 echo "\n\033[36m\033[1mInstalling Chromium Web Browser...\033[00m\n"
 sudo apt-get update
 sudo apt-get -y install chromium-browser chromium-browser-l10n
