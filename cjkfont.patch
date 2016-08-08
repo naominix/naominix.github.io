@@ -1,0 +1,24 @@
+diff --git src/assets/Resources.as src/assets/Resources.as
+index 4652b49..ac6fb5b 100644
+--- src/assets/Resources.as
++++ src/assets/Resources.as
+@@ -74,6 +74,7 @@ public class Resources {
+ 	[Embed(source='fonts/MysteryQuest-Regular.ttf', fontName='Mystery', embedAsCFF = 'false', advancedAntiAliasing = 'true')] private static const Font4:Class;
+ 	[Embed(source='fonts/PermanentMarker.ttf', fontName='Marker', embedAsCFF = 'false', advancedAntiAliasing = 'true')] private static const Font5:Class;
+ 	[Embed(source='fonts/Scratch.ttf', fontName='Scratch', embedAsCFF = 'false', advancedAntiAliasing = 'true')] private static const Font6:Class;
++	[Embed(source='fonts/DroidSansFallback.ttf', fontName='Droid', embedAsCFF = 'false', advancedAntiAliasing = 'true')] private static const Font7:Class;
+ 
+ 	// Block Icons (2x resolution to look better when scaled)
+ 	[Embed(source='blocks/flagIcon.png')] private static const flagIcon:Class;
+diff --git src/svgeditor/DrawPropertyUI.as src/svgeditor/DrawPropertyUI.as
+index 8764889..3d39c0d 100644
+--- src/svgeditor/DrawPropertyUI.as
++++ src/svgeditor/DrawPropertyUI.as
+@@ -346,6 +346,7 @@ public class DrawPropertyUI extends Sprite {
+ 			m.addItem('Marker');
+ 			m.addItem('Mystery');
+ 			m.addItem('Scratch');
++			m.addItem('Droid');
+ 			m.showOnStage(Scratch.app.stage);
+ 		}
+ 		function fontSelected(fontName:String):void {
