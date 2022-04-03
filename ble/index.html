@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Bluetooth API による通信（micro:bit）</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.css"/>
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">操作用ボタン</h1>
+        <div class="buttons" style="margin-top: 1.5rem">
+          <button class="button is-success is-light" type="button" onclick="onStartButtonClick()">micro:bit 接続</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const UUID_UART_SERVICE = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+      const UUID_TX_CHAR_CHARACTERISTIC = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+      let myCharacteristics;
+
+      async function onStartButtonClick() {
+        try {
+          console.log("Requesting Bluetooth Device...");
+          const device = await navigator.bluetooth.requestDevice({
+            filters: [
+              { services: [UUID_UART_SERVICE] },
+              { namePrefix: "BBC micro:bit" },
+            ],
+          });
+
+          console.log("Connecting to GATT Server...");
+          const server = await device.gatt.connect();
+          console.log("Getting Service...");
+          const service = await server.getPrimaryService(UUID_UART_SERVICE);
+          console.log("Getting Characteristic...");
+          myCharacteristics = await service.getCharacteristic(UUID_TX_CHAR_CHARACTERISTIC);
+          myCharacteristics.startNotifications();
+          console.log("> Notifications started");
+          myCharacteristics.addEventListener("characteristicvaluechanged", handleNotifications);
+        } catch (error) {
+          console.log("Argh! " + error);
+        }
+      }
+
+      async function handleNotifications(event) {
+        if (myCharacteristics) {
+          try {
+            const value = event.target.value;
+            const inputValue = new TextDecoder().decode(value).replace(/\r?\n/g, '');
+            switch (inputValue) {
+              case "buttonA":
+                console.log(`Aボタンが押されたよ`);
+                break;
+              case "buttonB":
+                console.log(`Bボタンが押されたよ`);
+                break;
+              case "left":
+                console.log(`左に傾いたよ`);
+                break;
+              case "right":
+                console.log(`右に傾いたよ`);
+                break;
+              default:
+                console.log(`センサの値 ${parseInt(inputValue)}`);
+            }
+          } catch (error) {
+            console.log("Argh! " + error);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
