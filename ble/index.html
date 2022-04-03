@@ -52,6 +52,21 @@
             const inputValue = new TextDecoder().decode(value).replace(/\r?\n/g, '');
             switch (inputValue) {
               case "buttonA":
+              fetch('http://localhost:8080/move?direction=forward', {
+                    method: "GET",
+                    mode: 'cors'
+                })
+                .then((response) => {
+                    if (response.ok) {
+                    return response.json().then(resJson => {
+                        console.log(JSON.stringify(resJson));
+                    });
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .catch(error => {
+                    console.error(error);
+                });
                 console.log(`Aボタンが押されたよ`);
                 break;
               case "buttonB":
