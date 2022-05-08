@@ -15,16 +15,28 @@
         </div>
       </div>
     </section>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">送信用フォーム・ボタン</h1>
+         <div class="buttons" style="margin-top: 1.5rem">
+          <input id="message" value="hello" />
+          <button id="send">送信</button>
+       </div>
+      </div>
+    </section>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.3.0/d3.min.js"></script>
     <script>
+      d3.select("#send").on("click", sendMessage);
       const UUID_UART_SERVICE = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
       const UUID_TX_CHAR_CHARACTERISTIC = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
       let myCharacteristics;
+      let device;
 
       async function onStartButtonClick() {
         try {
           console.log("Requesting Bluetooth Device...");
-          const device = await navigator.bluetooth.requestDevice({
+          device = await navigator.bluetooth.requestDevice({
             filters: [
               { services: [UUID_UART_SERVICE] },
               { namePrefix: "BBC micro:bit" },
@@ -85,6 +97,12 @@
             console.log("Argh! " + error);
           }
         }
+      }
+      function sendMessage() {
+       if (!device || !device.gatt.connected || !myCharacteristic) return ;
+       var text = document.querySelector("#message").value;
+       var arrayBuffe = new TextEncoder().encode(text);
+       myCharacteristic.writeValue(arrayBuffe);
       }
     </script>
   </body>
