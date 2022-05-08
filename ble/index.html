@@ -64,7 +64,7 @@
             const inputValue = new TextDecoder().decode(value).replace(/\r?\n/g, '');
             switch (inputValue) {
               case "buttonA":
-              var text = document.querySelector("#message").value;
+              var text = "fw";
               var arrayBuffe = new TextEncoder().encode(text);
               myCharacteristics.writeValue(arrayBuffe);
               fetch('http://localhost:8080/move?direction=forward', {
