@@ -30,6 +30,7 @@
       //d3.select("#send").on("click", sendMessage);
       const UUID_UART_SERVICE = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
       const UUID_TX_CHAR_CHARACTERISTIC = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+      const UUID_RX_CHAR_CHARACTERISTIC = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
       let myCharacteristics;
       let device;
 
@@ -48,7 +49,7 @@
           console.log("Getting Service...");
           const service = await server.getPrimaryService(UUID_UART_SERVICE);
           console.log("Getting Characteristic...");
-          myCharacteristics = await service.getCharacteristic(UUID_TX_CHAR_CHARACTERISTIC);
+          myCharacteristics = await service.getCharacteristic(UUID_RX_CHAR_CHARACTERISTIC);
           myCharacteristics.startNotifications();
           console.log("> Notifications started");
           myCharacteristics.addEventListener("characteristicvaluechanged", handleNotifications);
