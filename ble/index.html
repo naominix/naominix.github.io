@@ -55,7 +55,7 @@
           console.log("> Notifications started");
           myCharacteristics.addEventListener("characteristicvaluechanged", handleNotifications);
           myCharacteristics2 = await service.getCharacteristic(UUID_RX_CHAR_CHARACTERISTIC);
-          var text = "fw";
+          var text = "fw\n";
           var arrayBuffe = new TextEncoder().encode(text);
           if(myCharacteristics2.properties.write) {
             myCharacteristics2.writeValue(arrayBuffe);
