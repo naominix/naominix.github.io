@@ -75,9 +75,9 @@
             const inputValue = new TextDecoder().decode(value).replace(/\r?\n/g, '');
             switch (inputValue) {
               case "buttonA":
-              var text = "fw";
+              var text = "fw\n";
               var arrayBuffe = new TextEncoder().encode(text);
-              myCharacteristics.writeValue(arrayBuffe);
+              myCharacteristics2.writeValue(arrayBuffe);
               fetch('http://localhost:8080/move?direction=forward', {
                     method: "GET",
                     mode: 'cors'
