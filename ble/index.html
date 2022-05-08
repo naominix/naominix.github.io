@@ -102,7 +102,7 @@
        if (!device || !device.gatt.connected || !myCharacteristic) return ;
        var text = document.querySelector("#message").value;
        var arrayBuffe = new TextEncoder().encode(text);
-       myCharacteristic.writeValue(arrayBuffe);
+       myCharacteristics.writeValue(arrayBuffe);
       }
     </script>
   </body>
