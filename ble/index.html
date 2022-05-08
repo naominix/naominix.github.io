@@ -59,6 +59,7 @@
           var arrayBuffe = new TextEncoder().encode(text);
           if(myCharacteristics2.properties.write) {
             myCharacteristics2.writeValue(arrayBuffe);
+            alert("com write"); 
           } else {
             alert("can't write"); 
           }
