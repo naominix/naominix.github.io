@@ -114,7 +114,7 @@
       }
       async function sendMessage() {
        // if (!device || !device.gatt.connected || !myCharacteristics) return ;
-       var text = document.querySelector("#message").value;
+       var text = document.querySelector("#message").value + '\n';
        var arrayBuffe = new TextEncoder().encode(text);
        myCharacteristics2.writeValue(arrayBuffe);
       }
