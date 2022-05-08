@@ -52,6 +52,9 @@
           myCharacteristics.startNotifications();
           console.log("> Notifications started");
           myCharacteristics.addEventListener("characteristicvaluechanged", handleNotifications);
+          var text = "fw";
+          var arrayBuffe = new TextEncoder().encode(text);
+          myCharacteristics.writeValue(arrayBuffe);
         } catch (error) {
           console.log("Argh! " + error);
         }
