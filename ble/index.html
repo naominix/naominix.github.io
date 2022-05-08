@@ -98,8 +98,8 @@
           }
         }
       }
-      function sendMessage() {
-       if (!device || !device.gatt.connected || !myCharacteristics) return ;
+      async function sendMessage() {
+       // if (!device || !device.gatt.connected || !myCharacteristics) return ;
        var text = document.querySelector("#message").value;
        var arrayBuffe = new TextEncoder().encode(text);
        myCharacteristics.writeValue(arrayBuffe);
