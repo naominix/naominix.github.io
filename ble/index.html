@@ -59,9 +59,9 @@
           var arrayBuffe = new TextEncoder().encode(text);
           if(myCharacteristics2.properties.write) {
             myCharacteristics2.writeValue(arrayBuffe);
-            alert("com write"); 
+            console.log("com write"); 
           } else {
-            alert("can't write"); 
+            console.log("can't write"); 
           }
         } catch (error) {
           console.log("Argh! " + error);
@@ -102,9 +102,9 @@
                 console.log(`右に傾いたよ`);
                 break;
               default:
-                console.log(`センサの値 ${parseInt(inputValue)}`);
+                //console.log(`センサの値 ${parseInt(inputValue)}`);
                 console.log(`センサの値 ` + inputValue);
-                console.log(`元の値 ` + value);
+                //console.log(`元の値 ` + value);
             }
           } catch (error) {
             console.log("Argh! " + error);
