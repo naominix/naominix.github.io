@@ -54,7 +54,11 @@
           myCharacteristics.addEventListener("characteristicvaluechanged", handleNotifications);
           var text = "fw";
           var arrayBuffe = new TextEncoder().encode(text);
-          myCharacteristics.writeValue(arrayBuffe);
+          if(characteristic.properties.write) {
+            myCharacteristics.writeValue(arrayBuffe);
+          } else {
+            alert("can't write"); 
+          }
         } catch (error) {
           console.log("Argh! " + error);
         }
