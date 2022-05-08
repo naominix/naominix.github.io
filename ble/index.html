@@ -27,7 +27,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.3.0/d3.min.js"></script>
     <script>
-      //d3.select("#send").on("click", sendMessage);
+      d3.select("#send").on("click", sendMessage);
       const UUID_UART_SERVICE = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
       const UUID_TX_CHAR_CHARACTERISTIC = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
       const UUID_RX_CHAR_CHARACTERISTIC = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
@@ -116,7 +116,7 @@
        // if (!device || !device.gatt.connected || !myCharacteristics) return ;
        var text = document.querySelector("#message").value;
        var arrayBuffe = new TextEncoder().encode(text);
-       myCharacteristics.writeValue(arrayBuffe);
+       myCharacteristics2.writeValue(arrayBuffe);
       }
     </script>
   </body>
