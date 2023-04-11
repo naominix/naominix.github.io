@@ -1,12 +1,8 @@
 ```mermaid
-graph TD;
-  A[開始] --> B[変数iに1を代入];
-  B --> C[変数iが9以下かどうか確認];
-  C -- はい --> D[変数jに1を代入];
-  D --> E[変数jが9以下かどうか確認];
-  E -- はい --> F[iとjを掛けた値を出力し、変数jに1を加える];
-  F --> D;
-  E -- いいえ --> G[iに1を加える];
-  G --> C;
-  C -- いいえ --> H[終了];
+graph TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    C -->|One| D[Laptop]
+    C -->|Two| E[iPhone]
+    C -->|Three| F[fa:fa-car Car]
 ```
