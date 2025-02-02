@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>学習指導要領キーワード検索</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    #result { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>学習指導要領キーワード検索</h1>
+  
+  <!-- キーワード入力フォーム -->
+  <form id="searchForm">
+    <label for="keyword">キーワード：</label>
+    <input type="text" id="keyword" name="keyword" required>
+    <button type="submit">検索</button>
+  </form>
+  
+  <!-- 検索結果表示領域 -->
+  <div id="result"></div>
+  
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var keyword = document.getElementById('keyword').value.trim();
+      if (!keyword) {
+        alert('キーワードを入力してください');
+        return;
+      }
+      // Web APIのURL（※自身のデプロイURLに変更してください）
+      var apiUrl = 'https://script.google.com/macros/s/AKfycbzn26Gjw0xbZa4GYtauK6kBMcIYwzpZVKfQIAkOSGIUyfg1j0UQije8ezdvtUG4S5s5/exec?keyword=' + encodeURIComponent(keyword);
+      
+      // 検索中のメッセージを表示
+      document.getElementById('result').innerHTML = '<p>検索中...</p>';
+      
+      fetch(apiUrl)
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('ネットワークエラーが発生しました');
+          }
+          return response.json();
+        })
+        .then(function(data) {
+          var resultDiv = document.getElementById('result');
+          if (data.error) {
+            resultDiv.innerHTML = '<p>エラー: ' + data.error + '</p>';
+            return;
+          }
+          if (data.length === 0) {
+            resultDiv.innerHTML = '<p>該当するデータは見つかりませんでした。</p>';
+            return;
+          }
+          
+          // 結果をテーブル形式で表示
+          var html = '<table>';
+          html += '<thead>';
+          html += '<tr>';
+          html += '<th>学校種別</th>';
+          html += '<th>No</th>';
+          html += '<th>学習指導要領コード</th>';
+          html += '<th>教科等</th>';
+          html += '<th>学習指導要領テキスト</th>';
+          html += '</tr>';
+          html += '</thead>';
+          html += '<tbody>';
+          data.forEach(function(item) {
+            html += '<tr>';
+            html += '<td>' + item.schoolLevel + '</td>';
+            html += '<td>' + item.no + '</td>';
+            html += '<td>' + item["学習指導要領コード"] + '</td>';
+            html += '<td>' + item["教科等"] + '</td>';
+            html += '<td>' + item["学習指導要領テキスト"] + '</td>';
+            html += '</tr>';
+          });
+          html += '</tbody>';
+          html += '</table>';
+          resultDiv.innerHTML = html;
+        })
+        .catch(function(error) {
+          console.error('エラー:', error);
+          document.getElementById('result').innerHTML = '<p>エラーが発生しました: ' + error.message + '</p>';
+        });
+    });
+  </script>
+</body>
+</html>
