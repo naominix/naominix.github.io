@@ -65,7 +65,6 @@ class Scratch3RootLED {
       const server = await this._device.gatt.connect();
       const service = await server.getPrimaryService('48c5d828-ac2a-442d-97a3-0c9822b04979');
       this._characteristic = await service.getCharacteristic('48c5d828-ac2a-442d-97a3-0c9822b0497a');
-      
     } catch (error) {
       console.error('Bluetooth接続エラー:', error);
     }
@@ -84,10 +83,11 @@ class Scratch3RootLED {
 const entry = {
   name: 'Root LED',
   extensionId: 'rootLED',
-  extensionURL: 'https://naominix.github.io/irobot-root-led.mjs',
-  collaborator: 'naominix',
-  iconURL: '',
-  insetIconURL: '',
+  // 拡張機能URLは実際にホストしているURLに合わせてください
+  extensionURL: 'https://example.com/irobot-root-led.js',
+  collaborator: 'Your Name',
+  iconURL: 'https://example.com/irobot-root-led-icon.png',
+  insetIconURL: 'https://example.com/irobot-root-led-inset-icon.svg',
   description: 'Control iRobot Root rt0 LED',
   featured: true,
   disabled: false,
@@ -95,8 +95,13 @@ const entry = {
   internetConnectionRequired: false,
   launchPeripheralConnectionFlow: true,
   useAutoScan: false,
-  helpLink: ''
+  helpLink: 'https://example.com/irobot-root-led-help'
 };
 
-// ここで default export としてブロッククラスとエントリ情報をまとめてエクスポートする
-export default { blockClass: Scratch3RootLED, entry };
+// Xcratch拡張機能では、default export で runtime を引数に取り拡張機能インスタンスを返す関数をエクスポートする必要があります
+export default function(runtime) {
+  return new Scratch3RootLED(runtime);
+}
+
+// 拡張機能のエントリ情報は named export としてエクスポートする
+export { entry };
