@@ -84,10 +84,10 @@ const entry = {
   name: 'Root LED',
   extensionId: 'rootLED',
   // 拡張機能URLは実際にホストしているURLに合わせてください
-  extensionURL: 'https://example.com/irobot-root-led.js',
-  collaborator: 'Your Name',
-  iconURL: 'https://example.com/irobot-root-led-icon.png',
-  insetIconURL: 'https://example.com/irobot-root-led-inset-icon.svg',
+  extensionURL: 'https://naominix.github.io/irobot-root-led.mjs',
+  collaborator: 'naominix',
+  iconURL: '',
+  insetIconURL: '',
   description: 'Control iRobot Root rt0 LED',
   featured: true,
   disabled: false,
@@ -95,7 +95,7 @@ const entry = {
   internetConnectionRequired: false,
   launchPeripheralConnectionFlow: true,
   useAutoScan: false,
-  helpLink: 'https://example.com/irobot-root-led-help'
+  helpLink: ''
 };
 
 // Xcratch拡張機能では、default export で runtime を引数に取り拡張機能インスタンスを返す関数をエクスポートする必要があります
