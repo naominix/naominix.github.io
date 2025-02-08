@@ -84,10 +84,10 @@ class Scratch3RootLED {
 const entry = {
   name: 'Root LED',
   extensionId: 'rootLED',
-  extensionURL: 'https://example.com/irobot-root-led.mjs',
-  collaborator: 'Your Name',
-  iconURL: 'https://example.com/irobot-root-led-icon.png',
-  insetIconURL: 'https://example.com/irobot-root-led-inset-icon.svg',
+  extensionURL: 'https://naominix.github.io/irobot-root-led.mjs',
+  collaborator: 'naominix',
+  iconURL: '',
+  insetIconURL: '',
   description: 'Control iRobot Root rt0 LED',
   featured: true,
   disabled: false,
@@ -95,7 +95,7 @@ const entry = {
   internetConnectionRequired: false,
   launchPeripheralConnectionFlow: true,
   useAutoScan: false,
-  helpLink: 'https://example.com/irobot-root-led-help'
+  helpLink: ''
 };
 
 // ここで default export としてブロッククラスとエントリ情報をまとめてエクスポートする
