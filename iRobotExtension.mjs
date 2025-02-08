@@ -57,7 +57,7 @@ var entry = {
   disabled: false,
   bluetoothRequired: false,
   internetConnectionRequired: false,
-  helpLink: 'https://naominix.github.io/xcx-irobot-extension/',
+  helpLink: 'https://naominix.github.io/',
   setFormatMessage: function setFormatMessage(formatter) {
     formatMessage$1 = formatter;
   },
@@ -1672,35 +1672,22 @@ var EXTENSION_ID = 'iRobotExtension';
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-var extensionURL = 'https://naominix.github.io/xcx-irobot-extension/dist/iRobotExtension.mjs';
+var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
  */
 var ExtensionBlocks = /*#__PURE__*/function () {
-  /**
-   * Construct a set of blocks for iRobotExtension.
-   * @param {Runtime} runtime - the Scratch 3.0 runtime.
-   */
   function ExtensionBlocks(runtime) {
     _classCallCheck$1(this, ExtensionBlocks);
-    /**
-     * The Scratch 3.0 runtime.
-     * @type {Runtime}
-     */
     this.runtime = runtime;
     // Bluetooth接続用のプロパティ
     this._device = null;
     this._characteristic = null;
     if (runtime.formatMessage) {
-      // Replace 'formatMessage' to a formatter which is used in the runtime.
       formatMessage = runtime.formatMessage;
     }
   }
-
-  /**
-   * @returns {object} metadata for this extension and its blocks.
-   */
   return _createClass$1(ExtensionBlocks, [{
     key: "getInfo",
     value: function getInfo() {
@@ -1710,7 +1697,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
-        showStatusButton: false,
+        showStatusButton: true,
+        bluetoothRequired: true,
+        launchPeripheralConnectionFlow: true,
+        useAutoScan: false,
         blocks: [{
           opcode: 'doIt',
           blockType: BlockType$1.REPORTER,
@@ -1781,21 +1771,15 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       log$1.log("doIt: ".concat(statement));
       return func.call(this);
     }
-
-    /**
-     * iRobot Root rt0 のLEDを指定色で点灯させるブロックの処理
-     * @param {object} args - 引数。COLORは16進数文字列（例：#FF0000）
-     * @returns {Promise<void>}
-     */
   }, {
     key: "setLEDColor",
-    value: (function () {
+    value: function () {
       var _setLEDColor = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee(args) {
         var colorStr, color, packet;
         return _regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              colorStr = Cast$1.toString(args.COLOR); // 接続されていない場合、Bluetooth接続を開始
+              colorStr = Cast$1.toString(args.COLOR);
               if (this._characteristic) {
                 _context.next = 4;
                 break;
@@ -1803,20 +1787,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               _context.next = 4;
               return this._connectDevice();
             case 4:
-              // 16進数文字列をRGBに変換
-              color = this._hexToRgb(colorStr); // LED制御用パケットを作成（プロトコル仕様に合わせた内容）
-              packet = new Uint8Array([0x03,
-              // Device ID (LED)
-              0x03,
-              // Command (Set Color)
-              0x01,
-              // Packet ID
-              color.r,
-              // Red
-              color.g,
-              // Green
-              color.b // Blue
-              ]);
+              color = this._hexToRgb(colorStr);
+              packet = new Uint8Array([0x03, 0x03, 0x01, color.r, color.g, color.b]);
               _context.prev = 6;
               _context.next = 9;
               return this._characteristic.writeValue(packet);
@@ -1838,63 +1810,95 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       }
       return setLEDColor;
     }()
-    /**
-     * iRobot Root rt0 へのBluetooth接続処理
-     * @returns {Promise<void>}
-     */
-    )
   }, {
-    key: "_connectDevice",
-    value: (function () {
-      var _connectDevice2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2() {
-        var server, service;
+    key: "connect",
+    value: function () {
+      var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2() {
         return _regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
+              _context2.next = 2;
+              return this._connectDevice();
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function connect() {
+        return _connect.apply(this, arguments);
+      }
+      return connect;
+    }()
+  }, {
+    key: "getStatus",
+    value: function getStatus() {
+      if (this._characteristic) {
+        return {
+          status: 2,
+          msg: formatMessage({
+            id: 'iRobotExtension.connected',
+            default: 'Connected',
+            description: 'Device is connected'
+          })
+        };
+      } else {
+        return {
+          status: 1,
+          msg: formatMessage({
+            id: 'iRobotExtension.disconnected',
+            default: 'Disconnected',
+            description: 'Device is disconnected'
+          })
+        };
+      }
+    }
+  }, {
+    key: "_connectDevice",
+    value: function () {
+      var _connectDevice2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
+        var server, service;
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _context3.next = 3;
               return navigator.bluetooth.requestDevice({
                 filters: [{
                   services: ['48c5d828-ac2a-442d-97a3-0c9822b04979']
                 }]
               });
             case 3:
-              this._device = _context2.sent;
-              _context2.next = 6;
+              this._device = _context3.sent;
+              _context3.next = 6;
               return this._device.gatt.connect();
             case 6:
-              server = _context2.sent;
-              _context2.next = 9;
+              server = _context3.sent;
+              _context3.next = 9;
               return server.getPrimaryService('48c5d828-ac2a-442d-97a3-0c9822b04979');
             case 9:
-              service = _context2.sent;
-              _context2.next = 12;
+              service = _context3.sent;
+              _context3.next = 12;
               return service.getCharacteristic('48c5d828-ac2a-442d-97a3-0c9822b0497a');
             case 12:
-              this._characteristic = _context2.sent;
-              _context2.next = 18;
+              this._characteristic = _context3.sent;
+              _context3.next = 18;
               break;
             case 15:
-              _context2.prev = 15;
-              _context2.t0 = _context2["catch"](0);
-              log$1.error('Bluetooth接続エラー:', _context2.t0);
+              _context3.prev = 15;
+              _context3.t0 = _context3["catch"](0);
+              log$1.error('Bluetooth接続エラー:', _context3.t0);
             case 18:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
-        }, _callee2, this, [[0, 15]]);
+        }, _callee3, this, [[0, 15]]);
       }));
       function _connectDevice() {
         return _connectDevice2.apply(this, arguments);
       }
       return _connectDevice;
     }()
-    /**
-     * 16進数カラーコードをRGBオブジェクトに変換するユーティリティ
-     * @param {string} hex - 例：#FF0000
-     * @returns {{r: number, g: number, b: number}} - 変換結果のRGB値
-     */
-    )
   }, {
     key: "_hexToRgb",
     value: function _hexToRgb(hex) {
@@ -1911,19 +1915,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
   }], [{
     key: "formatMessage",
-    set:
-    /**
-     * A translation object which is used in this class.
-     * @param {FormatObject} formatter - translation object
-     */
-    function set(formatter) {
+    set: function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
-
-    /**
-     * @return {string} - the name of this extension.
-     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1933,31 +1928,16 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
-
-    /**
-     * @return {string} - the ID of this extension.
-     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
-
-    /**
-     * URL to get this extension.
-     * @type {string}
-     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    }
-
-    /**
-     * Set URL to get this extension.
-     * The extensionURL will be changed to the URL of the loading server.
-     * @param {string} url - URL
-     */,
+    },
     set: function set(url) {
       extensionURL = url;
     }
