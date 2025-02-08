@@ -33,7 +33,7 @@ const EXTENSION_ID = 'iRobotExtension';
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-let extensionURL = 'https://naominix.github.io/xcx-irobot-extension/dist/iRobotExtension.mjs';
+let extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
