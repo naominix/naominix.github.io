@@ -77,7 +77,7 @@ class Scratch3RootLED {
       r: parseInt(result[1], 16),
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
-    } : { r:0, g:0, b:0 };
+    } : { r: 0, g: 0, b: 0 };
   }
 }
 
@@ -98,4 +98,5 @@ const entry = {
   helpLink: 'https://example.com/irobot-root-led-help'
 };
 
-export { Scratch3RootLED as blockClass, entry };
+// ここで default export としてブロッククラスとエントリ情報をまとめてエクスポートする
+export default { blockClass: Scratch3RootLED, entry };
