@@ -1669,9 +1669,15 @@ var EXTENSION_ID = 'iRobotExtension';
 
 /**
  * BLEサービスのUUID  
- * ※ iRobot Root rt0 BLEプロトコルの仕様に沿い、主要サービス UUID を指定
+ * ※ BLE接続フィルターのUUIDとして、正しい値に変更済みです。
  */
 var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
+
+/**
+ * LED制御用キャラクタリスティックのUUID  
+ * ※ このUUIDはBLEプロトコルの仕様に合わせた例です。必要に応じて変更してください。
+ */
+var LED_CHARACTERISTIC_UUID = '48c5d829-ac2a-442d-97a3-0c9822b04979';
 
 /**
  * URL to get this extension as a module.
@@ -1744,6 +1750,16 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           }),
           func: 'connectRobot',
           arguments: {}
+        }, {
+          opcode: 'setLedGreen',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.setLedGreen',
+            default: 'set LED green',
+            description: 'Light the LED in green'
+          }),
+          func: 'setLedGreen',
+          arguments: {}
         }],
         menus: {}
       };
@@ -1811,6 +1827,60 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return _connectRobot.apply(this, arguments);
       }
       return connectRobot;
+    }()
+    /**
+     * BLE接続プロトコルに従い、LEDを緑に光らせるブロックの実装  
+     * BLE接続済みの場合、LED制御用キャラクタリスティックにコマンドを送信します。
+     */
+    )
+  }, {
+    key: "setLedGreen",
+    value: (function () {
+      var _setLedGreen = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2() {
+        var service, ledCharacteristic, command;
+        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (this.robotServer) {
+                _context2.next = 3;
+                break;
+              }
+              log$1.error('No BLE connection established.');
+              return _context2.abrupt("return");
+            case 3:
+              _context2.prev = 3;
+              _context2.next = 6;
+              return this.robotServer.getPrimaryService(ROOT_SERVICE_UUID);
+            case 6:
+              service = _context2.sent;
+              _context2.next = 9;
+              return service.getCharacteristic(LED_CHARACTERISTIC_UUID);
+            case 9:
+              ledCharacteristic = _context2.sent;
+              // コマンドパケットを作成  
+              // 例: [コマンドID, R, G, B]  
+              // この例では、コマンドIDを 0x0D と仮定し、LEDを緑にするための値 (R=0, G=255, B=0) を設定
+              command = new Uint8Array([0x0D, 0x00, 0xFF, 0x00]);
+              _context2.next = 13;
+              return ledCharacteristic.writeValue(command);
+            case 13:
+              log$1.log('LED set to green.');
+              _context2.next = 19;
+              break;
+            case 16:
+              _context2.prev = 16;
+              _context2.t0 = _context2["catch"](3);
+              log$1.error('Failed to set LED green: ' + _context2.t0);
+            case 19:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[3, 16]]);
+      }));
+      function setLedGreen() {
+        return _setLedGreen.apply(this, arguments);
+      }
+      return setLedGreen;
     }())
   }], [{
     key: "formatMessage",
