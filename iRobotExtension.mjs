@@ -1755,7 +1755,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
             id: 'iRobotExtension.setLedGreen',
-            default: 'set LED green',
+            default: 'set LED green2',
             description: 'Light the LED in green'
           }),
           func: 'setLedGreen',
