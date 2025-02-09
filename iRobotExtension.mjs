@@ -20,6 +20,11 @@ var translations$1 = {
 };
 
 /**
+ * This is an extension for Xcratch.
+ */
+
+
+/**
  * Formatter to translate the messages in this extension.
  * This will be replaced which is used in the React component.
  * @param {object} messageData - data for format-message
@@ -37,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'iRobotExtension',
-  extensionURL: 'https://naominix.github.io/iRobotExtension.mjs',
+  extensionURL: 'https://naominix.github.io/irobot-extension/dist/iRobotExtension.mjs',
   collaborator: 'naominix',
   iconURL: img$2,
   insetIconURL: img$1,
@@ -50,97 +55,35 @@ var entry = {
   },
   featured: true,
   disabled: false,
-  // BLE接続機能実装のため、bluetoothRequiredはtrueにし、
-  // 接続アイコンを表示させるためlaunchPeripheralConnectionFlowもtrueに設定
-  bluetoothRequired: true,
-  launchPeripheralConnectionFlow: true,
+  bluetoothRequired: false,
   internetConnectionRequired: false,
   helpLink: 'https://naominix.github.io/irobot-extension/',
   setFormatMessage: function setFormatMessage(formatter) {
     formatMessage$1 = formatter;
   },
-  translationMap: translations$1,
-  // BLEデバイスの参照を保持するための内部プロパティ
-  _device: null,
-  /**
-   * 接続ボタンが押されたときに呼ばれる関数です。  
-   * Web Bluetooth API を用いてRoot rt0のBLEデバイス候補を表示し、  
-   * ユーザーが選択したデバイスに接続します。
-   * @returns {Promise<boolean>} 接続に成功した場合はtrue、失敗した場合はfalseを返します。
-   */
-  connect: function () {
-    var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
-      return _regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            _context.prev = 0;
-            _context.next = 3;
-            return navigator.bluetooth.requestDevice({
-              filters: [{
-                services: ['48c5d828-ac2a-442d-97a3-0c9822b04979']
-              }]
-            });
-          case 3:
-            this._device = _context.sent;
-            _context.next = 6;
-            return this._device.gatt.connect();
-          case 6:
-            _context.sent;
-            return _context.abrupt("return", true);
-          case 10:
-            _context.prev = 10;
-            _context.t0 = _context["catch"](0);
-            console.error('BLE Connection Error:', _context.t0);
-            return _context.abrupt("return", false);
-          case 14:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee, this, [[0, 10]]);
-    }));
-    function connect() {
-      return _connect.apply(this, arguments);
-    }
-    return connect;
-  }(),
-  /**
-   * 拡張機能の接続状況を返します。  
-   * 接続済みの場合はstatusが2、未接続の場合はstatusが1となります。
-   * @returns {{status: number, msg: string}}
-   */
-  getStatus: function getStatus() {
-    if (this._device && this._device.gatt.connected) {
-      return {
-        status: 2,
-        msg: formatMessage$1({
-          id: 'iRobotExtension.connected',
-          defaultMessage: 'Connected',
-          description: 'Device is connected'
-        })
-      };
-    } else {
-      return {
-        status: 1,
-        msg: formatMessage$1({
-          id: 'iRobotExtension.disconnected',
-          defaultMessage: 'Disconnected',
-          description: 'Device is disconnected'
-        })
-      };
-    }
-  }
+  translationMap: translations$1
 };
 
 function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
+function _typeof$1(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof$1(o);
+}
+
 function toPrimitive$1(t, r) {
-  if ("object" != _typeof$2(t) || !t) return t;
+  if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof$2(i)) return i;
+    if ("object" != _typeof$1(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
@@ -148,7 +91,7 @@ function toPrimitive$1(t, r) {
 
 function toPropertyKey$1(t) {
   var i = toPrimitive$1(t, "string");
-  return "symbol" == _typeof$2(i) ? i : i + "";
+  return "symbol" == _typeof$1(i) ? i : i + "";
 }
 
 function _defineProperties$1(e, r) {
@@ -161,6 +104,10 @@ function _createClass$1(e, r, t) {
   return r && _defineProperties$1(e.prototype, r), t && _defineProperties$1(e, t), Object.defineProperty(e, "prototype", {
     writable: false
   }), e;
+}
+
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
 /**
@@ -790,130 +737,144 @@ var web = {exports: {}};
 
 var minilog$2 = {exports: {}};
 
-function M() {
-  this._events = {};
-}
-M.prototype = {
-  on: function on(ev, cb) {
-    this._events || (this._events = {});
-    var e = this._events;
-    (e[ev] || (e[ev] = [])).push(cb);
-    return this;
-  },
-  removeListener: function removeListener(ev, cb) {
-    var e = this._events[ev] || [],
-      i;
-    for (i = e.length - 1; i >= 0 && e[i]; i--) {
-      if (e[i] === cb || e[i].cb === cb) {
-        e.splice(i, 1);
+var microee;
+var hasRequiredMicroee;
+function requireMicroee() {
+  if (hasRequiredMicroee) return microee;
+  hasRequiredMicroee = 1;
+  function M() {
+    this._events = {};
+  }
+  M.prototype = {
+    on: function on(ev, cb) {
+      this._events || (this._events = {});
+      var e = this._events;
+      (e[ev] || (e[ev] = [])).push(cb);
+      return this;
+    },
+    removeListener: function removeListener(ev, cb) {
+      var e = this._events[ev] || [],
+        i;
+      for (i = e.length - 1; i >= 0 && e[i]; i--) {
+        if (e[i] === cb || e[i].cb === cb) {
+          e.splice(i, 1);
+        }
       }
+    },
+    removeAllListeners: function removeAllListeners(ev) {
+      if (!ev) {
+        this._events = {};
+      } else {
+        this._events[ev] && (this._events[ev] = []);
+      }
+    },
+    listeners: function listeners(ev) {
+      return this._events ? this._events[ev] || [] : [];
+    },
+    emit: function emit(ev) {
+      this._events || (this._events = {});
+      var args = Array.prototype.slice.call(arguments, 1),
+        i,
+        e = this._events[ev] || [];
+      for (i = e.length - 1; i >= 0 && e[i]; i--) {
+        e[i].apply(this, args);
+      }
+      return this;
+    },
+    when: function when(ev, cb) {
+      return this.once(ev, cb, true);
+    },
+    once: function once(ev, cb, when) {
+      if (!cb) return this;
+      function c() {
+        if (!when) this.removeListener(ev, c);
+        if (cb.apply(this, arguments) && when) this.removeListener(ev, c);
+      }
+      c.cb = cb;
+      this.on(ev, c);
+      return this;
     }
-  },
-  removeAllListeners: function removeAllListeners(ev) {
-    if (!ev) {
-      this._events = {};
-    } else {
-      this._events[ev] && (this._events[ev] = []);
+  };
+  M.mixin = function (dest) {
+    var o = M.prototype,
+      k;
+    for (k in o) {
+      o.hasOwnProperty(k) && (dest.prototype[k] = o[k]);
     }
-  },
-  listeners: function listeners(ev) {
-    return this._events ? this._events[ev] || [] : [];
-  },
-  emit: function emit(ev) {
-    this._events || (this._events = {});
-    var args = Array.prototype.slice.call(arguments, 1),
-      i,
-      e = this._events[ev] || [];
-    for (i = e.length - 1; i >= 0 && e[i]; i--) {
-      e[i].apply(this, args);
+  };
+  microee = M;
+  return microee;
+}
+
+var transform;
+var hasRequiredTransform;
+function requireTransform() {
+  if (hasRequiredTransform) return transform;
+  hasRequiredTransform = 1;
+  var microee = requireMicroee();
+
+  // Implements a subset of Node's stream.Transform - in a cross-platform manner.
+  function Transform() {}
+  microee.mixin(Transform);
+
+  // The write() signature is different from Node's
+  // --> makes it much easier to work with objects in logs.
+  // One of the lessons from v1 was that it's better to target
+  // a good browser rather than the lowest common denominator
+  // internally.
+  // If you want to use external streams, pipe() to ./stringify.js first.
+  Transform.prototype.write = function (name, level, args) {
+    this.emit('item', name, level, args);
+  };
+  Transform.prototype.end = function () {
+    this.emit('end');
+    this.removeAllListeners();
+  };
+  Transform.prototype.pipe = function (dest) {
+    var s = this;
+    // prevent double piping
+    s.emit('unpipe', dest);
+    // tell the dest that it's being piped to
+    dest.emit('pipe', s);
+    function onItem() {
+      dest.write.apply(dest, Array.prototype.slice.call(arguments));
     }
+    function onEnd() {
+      !dest._isStdio && dest.end();
+    }
+    s.on('item', onItem);
+    s.on('end', onEnd);
+    s.when('unpipe', function (from) {
+      var match = from === dest || typeof from == 'undefined';
+      if (match) {
+        s.removeListener('item', onItem);
+        s.removeListener('end', onEnd);
+        dest.emit('unpipe');
+      }
+      return match;
+    });
+    return dest;
+  };
+  Transform.prototype.unpipe = function (from) {
+    this.emit('unpipe', from);
     return this;
-  },
-  when: function when(ev, cb) {
-    return this.once(ev, cb, true);
-  },
-  once: function once(ev, cb, when) {
-    if (!cb) return this;
-    function c() {
-      if (!when) this.removeListener(ev, c);
-      if (cb.apply(this, arguments) && when) this.removeListener(ev, c);
+  };
+  Transform.prototype.format = function (dest) {
+    throw new Error(['Warning: .format() is deprecated in Minilog v2! Use .pipe() instead. For example:', 'var Minilog = require(\'minilog\');', 'Minilog', '  .pipe(Minilog.backends.console.formatClean)', '  .pipe(Minilog.backends.console);'].join('\n'));
+  };
+  Transform.mixin = function (dest) {
+    var o = Transform.prototype,
+      k;
+    for (k in o) {
+      o.hasOwnProperty(k) && (dest.prototype[k] = o[k]);
     }
-    c.cb = cb;
-    this.on(ev, c);
-    return this;
-  }
-};
-M.mixin = function (dest) {
-  var o = M.prototype,
-    k;
-  for (k in o) {
-    o.hasOwnProperty(k) && (dest.prototype[k] = o[k]);
-  }
-};
-var microee$1 = M;
-
-var microee = microee$1;
-
-// Implements a subset of Node's stream.Transform - in a cross-platform manner.
-function Transform$4() {}
-microee.mixin(Transform$4);
-
-// The write() signature is different from Node's
-// --> makes it much easier to work with objects in logs.
-// One of the lessons from v1 was that it's better to target
-// a good browser rather than the lowest common denominator
-// internally.
-// If you want to use external streams, pipe() to ./stringify.js first.
-Transform$4.prototype.write = function (name, level, args) {
-  this.emit('item', name, level, args);
-};
-Transform$4.prototype.end = function () {
-  this.emit('end');
-  this.removeAllListeners();
-};
-Transform$4.prototype.pipe = function (dest) {
-  var s = this;
-  // prevent double piping
-  s.emit('unpipe', dest);
-  // tell the dest that it's being piped to
-  dest.emit('pipe', s);
-  function onItem() {
-    dest.write.apply(dest, Array.prototype.slice.call(arguments));
-  }
-  function onEnd() {
-    !dest._isStdio && dest.end();
-  }
-  s.on('item', onItem);
-  s.on('end', onEnd);
-  s.when('unpipe', function (from) {
-    var match = from === dest || typeof from == 'undefined';
-    if (match) {
-      s.removeListener('item', onItem);
-      s.removeListener('end', onEnd);
-      dest.emit('unpipe');
-    }
-    return match;
-  });
-  return dest;
-};
-Transform$4.prototype.unpipe = function (from) {
-  this.emit('unpipe', from);
-  return this;
-};
-Transform$4.prototype.format = function (dest) {
-  throw new Error(['Warning: .format() is deprecated in Minilog v2! Use .pipe() instead. For example:', 'var Minilog = require(\'minilog\');', 'Minilog', '  .pipe(Minilog.backends.console.formatClean)', '  .pipe(Minilog.backends.console);'].join('\n'));
-};
-Transform$4.mixin = function (dest) {
-  var o = Transform$4.prototype,
-    k;
-  for (k in o) {
-    o.hasOwnProperty(k) && (dest.prototype[k] = o[k]);
-  }
-};
-var transform = Transform$4;
+  };
+  transform = Transform;
+  return transform;
+}
 
 // default filter
-var Transform$3 = transform;
+var Transform$3 = requireTransform();
 var levelMap = {
   debug: 1,
   info: 2,
@@ -974,7 +935,7 @@ Filter.prototype.write = function (name, level, args) {
 var filter = Filter;
 
 (function (module, exports) {
-  var Transform = transform,
+  var Transform = requireTransform(),
     Filter = filter;
   var log = new Transform(),
     slice = Array.prototype.slice;
@@ -1050,7 +1011,7 @@ function color$2(fg, isInverse) {
 }
 var util = color$2;
 
-var Transform$2 = transform,
+var Transform$2 = requireTransform(),
   color$1 = util;
 var colors$1 = {
     debug: ['cyan'],
@@ -1071,7 +1032,7 @@ logger$2.write = function (name, level, args) {
 logger$2.pipe = function () {};
 var color_1 = logger$2;
 
-var Transform$1 = transform,
+var Transform$1 = requireTransform(),
   color = util,
   colors = {
     debug: ['gray'],
@@ -1100,7 +1061,7 @@ logger$1.write = function (name, level, args) {
 logger$1.pipe = function () {};
 var minilog$1 = logger$1;
 
-var Transform = transform;
+var Transform = requireTransform();
 var newlines = /\n+$/,
   logger = new Transform();
 logger.write = function (name, level, args) {
@@ -1134,7 +1095,7 @@ var hasRequiredArray;
 function requireArray() {
   if (hasRequiredArray) return array;
   hasRequiredArray = 1;
-  var Transform = transform,
+  var Transform = requireTransform(),
     cache = [];
   var logger = new Transform();
   logger.write = function (name, level, args) {
@@ -1157,7 +1118,7 @@ var hasRequiredLocalstorage;
 function requireLocalstorage() {
   if (hasRequiredLocalstorage) return localstorage;
   hasRequiredLocalstorage = 1;
-  var Transform = transform,
+  var Transform = requireTransform(),
     cache = false;
   var logger = new Transform();
   logger.write = function (name, level, args) {
@@ -1179,7 +1140,7 @@ var hasRequiredJquery_simple;
 function requireJquery_simple() {
   if (hasRequiredJquery_simple) return jquery_simple;
   hasRequiredJquery_simple = 1;
-  var Transform = transform;
+  var Transform = requireTransform();
   var cid = new Date().valueOf().toString(36);
   function AjaxLogger(options) {
     this.url = options.url || '';
@@ -1355,7 +1316,7 @@ var EXTENSION_ID = 'iRobotExtension';
  * When it was loaded as a module, 'extensionURL' will be replaced a URL which is retrieved from.
  * @type {string}
  */
-var extensionURL = 'https://naominix.github.io/irobot-extension/dist/iRobotExtension.mjs';
+var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
  * Scratch 3.0 blocks for example of Xcratch.
