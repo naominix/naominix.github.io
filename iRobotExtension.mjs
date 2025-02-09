@@ -1860,7 +1860,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               // コマンドパケットを作成  
               // 例: [コマンドID, R, G, B]  
               // この例では、コマンドIDを 0x0D と仮定し、LEDを緑にするための値 (R=0, G=255, B=0) を設定
-              command = new Uint8Array([0x0D, 0x00, 0xFF, 0x00]);
+              command = new Uint8Array([0x03, 0x02, 0x01, 0x03, 0x00, 0xFF, 0x00]);
               _context2.next = 13;
               return ledCharacteristic.writeValue(command);
             case 13:
