@@ -1671,7 +1671,7 @@ var EXTENSION_ID = 'iRobotExtension';
  * BLEサービスのUUID  
  * ※ iRobot Root rt0 BLEプロトコルの仕様に沿い、主要サービス UUID を指定
  */
-var ROOT_SERVICE_UUID = '22bb746f-2ba0-7554-2d6f-726568705327';
+var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 
 /**
  * URL to get this extension as a module.
