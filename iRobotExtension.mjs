@@ -1677,7 +1677,7 @@ var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
  * LED制御用キャラクタリスティックのUUID  
  * ※ このUUIDはBLEプロトコルの仕様に合わせた例です。必要に応じて変更してください。
  */
-var LED_CHARACTERISTIC_UUID = '48c5d829-ac2a-442d-97a3-0c9822b04979';
+var LED_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 
 /**
  * URL to get this extension as a module.
