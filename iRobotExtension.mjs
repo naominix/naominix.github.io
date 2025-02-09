@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'iRobotExtension',
-  extensionURL: 'https://naominix.github.io/irobot-extension/dist/iRobotExtension.mjs',
+  extensionURL: 'https://naominix.github.io/iRobotExtension.mjs',
   collaborator: 'naominix',
   iconURL: img$2,
   insetIconURL: img$1,
