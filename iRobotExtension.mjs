@@ -1677,7 +1677,15 @@ var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
  * LED制御用キャラクタリスティックのUUID  
  * ※ このUUIDはBLEプロトコルの仕様に合わせた例です。必要に応じて変更してください。
  */
-var LED_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+// var UART_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+var UART_CHARACTERISTIC_UUID = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+
+/**
+ * LED制御用キャラクタリスティックのUUID  
+ * ※ このUUIDはBLEプロトコルの仕様に合わせた例です。必要に応じて変更してください。
+ */
+//var TX_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+var TX_CHARACTERISTIC_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 
 /**
  * URL to get this extension as a module.
@@ -1850,17 +1858,17 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             case 3:
               _context2.prev = 3;
               _context2.next = 6;
-              return this.robotServer.getPrimaryService(ROOT_SERVICE_UUID);
+              return this.robotServer.getPrimaryService(UART_CHARACTERISTIC_UUID);
             case 6:
               service = _context2.sent;
               _context2.next = 9;
-              return service.getCharacteristic(LED_CHARACTERISTIC_UUID);
+              return service.getCharacteristic(TX_CHARACTERISTIC_UUID);
             case 9:
               ledCharacteristic = _context2.sent;
               // コマンドパケットを作成  
               // 例: [コマンドID, R, G, B]  
               // この例では、コマンドIDを 0x0D と仮定し、LEDを緑にするための値 (R=0, G=255, B=0) を設定
-              command = new Uint8Array([0x03, 0x02, 0x01, 0x03, 0x00, 0xFF, 0x00]);
+              command = new Uint8Array([0x03, 0x02, 0x01, 0x03, 0x00, 0xFF, 0x00, 0xBB]);
               _context2.next = 13;
               return ledCharacteristic.writeValue(command);
             case 13:
