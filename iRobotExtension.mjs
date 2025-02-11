@@ -1438,11 +1438,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var basePacket = [0x01,
-      // デバイスID
-      0x01,
-      // コマンドID（前進/モータコマンド）
+      // コマンドパケット全体のByte0: デバイスID (0x01固定)
+      0x04,
+      // ※前進命令のCMD値（仕様に合わせて設定してください）
       this.cmdInc,
-      // Inc パラメータ
+      // Inc パラメータ（ID）
       0x00, 0x00, 0x00, 0x00,
       // 予約領域
       speed,
@@ -1452,6 +1452,9 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       speed,
       // 右モーターの速度
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
+      // ※前進命令のCMD値については、元の仕様に従って設定してください。
+      // ここではLEDコマンドとの違いを明確にするため、前進命令はそのままの構成例とします。
+
       var crc = calcCRC(basePacket);
       var fullPacket = new Uint8Array(basePacket.length + 1);
       fullPacket.set(basePacket, 0);
@@ -1472,13 +1475,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      *   R, G, B - 各色の値 (0～255)
      * 
      * LEDコマンドパケット構成 (20バイト):
-     *   Byte0: DEV = 0x01
+     *   Byte0: デバイスID = 0x01 (固定)
      *   Byte1: CMD = 0x02
      *   Byte2: ID  = インクリメントする値 (this.cmdInc)
      *   Byte3: R値
      *   Byte4: G値
      *   Byte5: B値
-     *   Byte6～Byte18: 0x00で埋める（合計13バイト）
+     *   Byte6～Byte18: 0x00で埋める（13バイト）
      *   Byte19: CRC (Byte0～Byte18のCRC)
      * 
      * ※ MODE が "OFF" の場合は RGB をすべて 0 にして送信します。
@@ -1502,26 +1505,26 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      // まずは必要なデータを設定（DEV, CMD, ID, Payload(R,G,B)）
+      // LEDコマンドパケットの生成（20バイト固定）
+      // Byte0: デバイスID (0x01) に修正
       var basePacket = [0x01,
-      // デバイスID
+      // Byte0: デバイスID (固定: 0x01)
       0x02,
-      // CMD
+      // Byte1: CMD (LEDコマンドの場合は0x02)
       this.cmdInc,
-      // ID (インクリメントする値)
+      // Byte2: ID (インクリメントする値)
       r,
-      // R値
+      // Byte3: R値
       g,
-      // G値
-      b // B値
+      // Byte4: G値
+      b // Byte5: B値
       ];
-      // basePacket は現在6バイトなので、20バイトになるように 0x00 を埋める（19バイトまで埋める）
+      // Byte6～Byte18: 0x00で埋める（計13バイト）
       while (basePacket.length < 19) {
         basePacket.push(0x00);
       }
-      // 先頭19バイトからCRCを算出
+      // 20バイト目 (Byte19) にCRCを算出して付加
       var crc = calcCRC(basePacket);
-      // 20バイトのパケットを生成（Byte19にCRCをセット）
       var fullPacket = new Uint8Array(20);
       fullPacket.set(basePacket, 0);
       fullPacket[19] = crc;
