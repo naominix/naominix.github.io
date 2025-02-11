@@ -1276,10 +1276,6 @@ var translations = {
 
 var img = "data:image/png;base64,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";
 
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-
 /**
  * Formatter which is used for translation.
  * This will be replaced with the runtime formatter.
@@ -1306,84 +1302,65 @@ var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 var EXTENSION_ID = 'iRobotExtension';
+
+/**
+ * URL to get this extension as a module.
+ * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
+ * @type {string}
+ */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
- * CRCチェック用関数
- * @param {number[]} packet - CRC未付加のコマンドパケット（バイト配列）
- * @returns {number} CRCチェックバイト
- */
-function calcCRC(packet) {
-  var crc = 0x00;
-  var _iterator = _createForOfIteratorHelper(packet),
-    _step;
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var c = _step.value;
-      for (var i = 0; i < 8; i++) {
-        var b = crc & 0x80;
-        if (c & 0x80 >> i) {
-          b ^= 0x80;
-        }
-        crc <<= 1;
-        if (b) {
-          crc ^= 0x07;
-        }
-        crc &= 0xFF;
-      }
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-  return crc;
-}
-
-/**
- * Scratch 3.0 blocks for iRobotExtension (Xcratch)
+ * Scratch 3.0 blocks for example of Xcratch.
  */
 var ExtensionBlocks = /*#__PURE__*/function () {
   /**
-   * コンストラクタ
-   * @param {Runtime} runtime - Scratch 3.0 の runtime
+   * Construct a set of blocks for iRobotExtension.
+   * @param {Runtime} runtime - the Scratch 3.0 runtime.
    */
   function ExtensionBlocks(runtime) {
     _classCallCheck$1(this, ExtensionBlocks);
+    /**
+     * The Scratch 3.0 runtime.
+     * @type {Runtime}
+     */
     this.runtime = runtime;
     if (runtime.formatMessage) {
+      // Replace 'formatMessage' to a formatter used in the runtime.
       formatMessage = runtime.formatMessage;
     }
-    // BLE関連内部変数
+
+    // BLE 関連の内部変数を初期化
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
     this.receivedBuffer = "";
-    // コマンド送信用 Inc パラメータ（0～255）
-    this.cmdInc = 0;
   }
 
   /**
-   * RX キャラクタリスティックからの通知イベントハンドラ
+   * BLE RX キャラクタリスティックの通知イベントハンドラ
    * @param {Event} event - 通知イベント
    */
   return _createClass$1(ExtensionBlocks, [{
     key: "handleNotifications",
     value: function handleNotifications(event) {
+      // event.target.value は DataView 型
       var value = event.target.value;
       var byteArray = new Uint8Array(value.buffer);
       var bytes = Array.from(byteArray);
       var msg = bytes.join(", ");
+      // 受信データは改行区切りで蓄積
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
     }
 
     /**
      * BLE UARTデバイスに接続する
+     * 非同期処理のため、完了時に callback() を呼び出します。
      * @param {object} args - ブロック引数（未使用）
-     * @param {function} callback - 非同期完了時のコールバック
+     * @param {function} callback - 完了コールバック
      */
   }, {
     key: "connectBLE",
@@ -1413,6 +1390,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         _this.rxCharacteristic = characteristics[1];
         return _this.rxCharacteristic.startNotifications();
       }).then(function () {
+        // RX キャラクタリスティックの通知イベントを登録
         _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
         log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
         callback();
@@ -1423,128 +1401,31 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * 前進するコマンドを送信する
-     * （左右両モーターに同じ速度を設定）
-     * @param {object} args - ブロック引数 { SPEED }
+     * 前進する（ドライブフォワードコマンドを送信）
+     * Python サンプルの drive_forward() に相当する処理です。
+     * @param {object} args - ブロック引数（未使用）
      */
   }, {
     key: "driveForward",
     value: function driveForward(args) {
-      var speed = Cast$1.toNumber(args.SPEED);
-      if (speed < 0) speed = 0;
-      if (speed > 255) speed = 255;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      var basePacket = [0x01,
-      // コマンドパケット全体のByte0: デバイスID (0x01固定)
-      0x04,
-      // ※前進命令のCMD値（仕様に合わせて設定してください）
-      this.cmdInc,
-      // Inc パラメータ（ID）
-      0x00, 0x00, 0x00, 0x00,
-      // 予約領域
-      speed,
-      // 左モーターの速度
-      0x00, 0x00, 0x00,
-      // 予約領域
-      speed,
-      // 右モーターの速度
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
-      // ※前進命令のCMD値については、元の仕様に従って設定してください。
-      // ここではLEDコマンドとの違いを明確にするため、前進命令はそのままの構成例とします。
-
-      var crc = calcCRC(basePacket);
-      var fullPacket = new Uint8Array(basePacket.length + 1);
-      fullPacket.set(basePacket, 0);
-      fullPacket[basePacket.length] = crc;
-
-      //this.cmdInc = (this.cmdInc + 1) & 0xFF;
-
-      this.txCharacteristic.writeValue(fullPacket).then(function () {
-        log$1.log("前進コマンドを送信しました。 速度:" + speed);
+      // 20 バイトのコマンド配列（例）
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("前進コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
       });
     }
 
     /**
-     * LED点灯命令を送信する
-     * 
-     * ブロック引数:
-     *   MODE - LED点灯モード（メニューから選択："OFF", "ON", "BLINK", "SPIN"）
-     *   R, G, B - 各色の値 (0～255)
-     * 
-     * LEDコマンドパケット構成 (20バイト):
-     *   Byte0: デバイスID = 0x01 (固定)
-     *   Byte1: CMD = 0x02
-     *   Byte2: ID  = インクリメントする値 (this.cmdInc)
-     *   Byte3: R値
-     *   Byte4: G値
-     *   Byte5: B値
-     *   Byte6～Byte18: 0x00で埋める（13バイト）
-     *   Byte19: CRC (Byte0～Byte18のCRC)
-     * 
-     * ※ MODE が "OFF" の場合は RGB をすべて 0 にして送信します。
-     * 
-     * @param {object} args - ブロック引数 { MODE, R, G, B }
-     */
-  }, {
-    key: "setLED",
-    value: function setLED(args) {
-      var mode = Cast$1.toString(args.MODE);
-      var r = Cast$1.toNumber(args.R);
-      var g = Cast$1.toNumber(args.G);
-      var b = Cast$1.toNumber(args.B);
-      // MODEが "OFF" の場合は RGB すべて 0 に
-      if (mode === "OFF") {
-        r = 0;
-        g = 0;
-        b = 0;
-      }
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
-        return;
-      }
-      // LEDコマンドパケットの生成（20バイト固定）
-      // Byte0: デバイスID (0x01) に修正
-      var basePacket = [0x01,
-      // Byte0: デバイスID (固定: 0x01)
-      0x02,
-      // Byte1: CMD (LEDコマンドの場合は0x02)
-      this.cmdInc,
-      // Byte2: ID (インクリメントする値)
-      r,
-      // Byte3: R値
-      g,
-      // Byte4: G値
-      b // Byte5: B値
-      ];
-      // Byte6～Byte18: 0x00で埋める（計13バイト）
-      while (basePacket.length < 19) {
-        basePacket.push(0x00);
-      }
-      // 20バイト目 (Byte19) にCRCを算出して付加
-      var crc = calcCRC(basePacket);
-      var fullPacket = new Uint8Array(20);
-      fullPacket.set(basePacket, 0);
-      fullPacket[19] = crc;
-
-      // 次回送信用に Inc パラメータを更新
-      //this.cmdInc = (this.cmdInc + 1) & 0xFF;
-
-      this.txCharacteristic.writeValue(fullPacket).then(function () {
-        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u9001\u4FE1: MODE=".concat(mode, ", R=").concat(r, ", G=").concat(g, ", B=").concat(b));
-      }).catch(function (error) {
-        log$1.error("LEDコマンド送信エラー: " + error);
-      });
-    }
-
-    /**
-     * 受信データを返す（呼び出し後、内部バッファをクリア）
+     * 受信データを返す
+     * （呼び出すと内部バッファの内容を返し、バッファはクリアされます）
      * @param {object} args - ブロック引数（未使用）
-     * @returns {string} 受信データ（カンマ区切りのバイト列）
+     * @returns {string} 受信したデータ（カンマ区切りのバイト列）
      */
   }, {
     key: "getReceivedData",
@@ -1555,7 +1436,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * BLEデバイスから切断する
+     * BLE デバイスから切断する
      * @param {object} args - ブロック引数（未使用）
      */
   }, {
@@ -1582,8 +1463,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * 拡張機能のメタデータおよびブロック定義を返す
-     * @returns {object} メタデータ
+     * @returns {object} metadata for this extension and its blocks.
      */
   }, {
     key: "getInfo",
@@ -1625,44 +1505,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
             id: 'iRobotExtension.driveForward',
-            default: '前進する 速度 [SPEED]',
-            description: 'Send drive forward command with specified speed for both motors'
+            default: '前進する',
+            description: 'Send drive forward command'
           }),
           func: 'driveForward',
-          arguments: {
-            SPEED: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 100
-            }
-          }
-        }, {
-          opcode: 'setLED',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.setLED',
-            default: 'LED [MODE] 色 R: [R] G: [G] B: [B]',
-            description: 'Set LED lights'
-          }),
-          func: 'setLED',
-          arguments: {
-            MODE: {
-              type: ArgumentType$1.STRING,
-              menu: 'ledMode',
-              defaultValue: 'ON'
-            },
-            R: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 255
-            },
-            G: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 255
-            },
-            B: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 255
-            }
-          }
+          arguments: {}
         }, {
           opcode: 'getReceivedData',
           blockType: BlockType$1.REPORTER,
@@ -1684,24 +1531,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           func: 'disconnectBLE',
           arguments: {}
         }],
-        menus: {
-          ledMode: {
-            acceptReporters: false,
-            items: ["OFF", "ON", "BLINK", "SPIN"]
-          }
-        }
+        menus: {}
       };
     }
   }], [{
     key: "formatMessage",
     set:
     /**
-     * Set translation formatter.
+     * A translation object which is used in this class.
+     * @param {FormatObject} formatter - translation object
      */
     function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
+
+    /**
+     * @return {string} - the name of this extension.
+     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1711,16 +1558,31 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
+
+    /**
+     * @return {string} - the ID of this extension.
+     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
+
+    /**
+     * URL to get this extension.
+     * @type {string}
+     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    },
+    }
+
+    /**
+     * Set URL to get this extension.
+     * The extensionURL will be changed to the URL of the loading server.
+     * @param {string} url - URL
+     */,
     set: function set(url) {
       extensionURL = url;
     }
