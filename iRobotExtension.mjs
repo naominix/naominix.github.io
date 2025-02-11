@@ -1438,6 +1438,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var basePacket = [0x01,
+      // デバイスID
+      0x01,
       // コマンドID（前進/モータコマンド）
       this.cmdInc,
       // Inc パラメータ
@@ -1470,7 +1472,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      *   R, G, B - 各色の値 (0～255)
      * 
      * LEDコマンドパケット構成 (20バイト):
-     *   Byte0: DEV = 0x03
+     *   Byte0: DEV = 0x01
      *   Byte1: CMD = 0x02
      *   Byte2: ID  = インクリメントする値 (this.cmdInc)
      *   Byte3: R値
@@ -1501,8 +1503,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       // まずは必要なデータを設定（DEV, CMD, ID, Payload(R,G,B)）
-      var basePacket = [0x03,
-      // DEV
+      var basePacket = [0x01,
+      // デバイスID
       0x02,
       // CMD
       this.cmdInc,
