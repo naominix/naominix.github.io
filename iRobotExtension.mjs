@@ -1310,7 +1310,7 @@ var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
  * CRCチェック用関数
- * @param {number[]} packet - コマンドパケットのバイト配列（CRC未付加）
+ * @param {number[]} packet - CRC未付加のコマンドパケット（バイト配列）
  * @returns {number} CRCチェックバイト
  */
 function calcCRC(packet) {
@@ -1354,14 +1354,14 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
-    // BLE関連の内部変数
+    // BLE 関連内部変数
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
     this.receivedBuffer = "";
-    // コマンド送信用のインクリメント値（0～255）
+    // コマンド送信用 Inc パラメータ（0～255）
     this.cmdInc = 0;
   }
 
@@ -1425,36 +1425,55 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     /**
      * 前進するコマンドを送信する
      * 
-     * コマンドパケット生成時、以下の点を実施：
-     *  - パケット内の Inc パラメータ（ここでは2バイト目）を連続送信時にインクリメント
-     *  - パケット末尾に calcCRC() によるCRCチェックバイトを付加
+     * ブロックから入力された「左モータ」「右モータ」の数値をパケット内の該当位置に設定します。  
+     * パケット内の Inc パラメータは連続送信時にインクリメントし、パケット末尾に CRC チェックバイトを付加します。
+     * 
+     * コマンドパケット例（CRC未付加、全体で19バイト）：
+     *  [0x01, this.cmdInc, 0x00, 0x00, 0x00, 0x00,
+     *   leftSpeed, 0x00, 0x00, 0x00, rightSpeed, 0x00,
+     *   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+     *  最後に calcCRC() により算出した1バイトのCRCを付加し、20バイトパケットとして送信します。
+     * 
+     * @param {object} args - ブロック引数 { LEFT, RIGHT }
      */
   }, {
     key: "driveForward",
     value: function driveForward(args) {
+      // ブロック引数から左右のモータースピードを取得（0～255の数値）
+      var leftSpeed = Cast$1.toNumber(args.LEFT);
+      var rightSpeed = Cast$1.toNumber(args.RIGHT);
+      if (leftSpeed < 0) leftSpeed = 0;
+      if (leftSpeed > 255) leftSpeed = 255;
+      if (rightSpeed < 0) rightSpeed = 0;
+      if (rightSpeed > 255) rightSpeed = 255;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      // 例としての前進コマンドパケット（CRC未付加、全体で20バイトになるはず）
-      // ※ここでは、先頭バイト 0x01 を前進コマンドID、2バイト目に Inc パラメータを設定しています。
+      // コマンドパケット（CRC未付加、計19バイト）
       var basePacket = [0x01,
-      // コマンドID（前進命令）
+      // コマンドID（前進/モータコマンド）
       this.cmdInc,
-      // Inc パラメータ（連続送信時にインクリメント）
-      0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 // 合計19バイト（CRC未付加）
-      ];
-      // CRCチェックバイトを計算
+      // Inc パラメータ
+      0x00, 0x00, 0x00, 0x00,
+      // 予約領域
+      leftSpeed,
+      // 左モーターの速度（ブロック入力値）
+      0x00, 0x00, 0x00,
+      // 予約領域
+      rightSpeed,
+      // 右モーターの速度（ブロック入力値）
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
+      // CRCチェックバイトを計算し、パケット末尾に付加（全体で20バイトとなる）
       var crc = calcCRC(basePacket);
-      // 最終パケットは basePacket + CRC で20バイトとなる
       var fullPacket = new Uint8Array(basePacket.length + 1);
       fullPacket.set(basePacket, 0);
       fullPacket[basePacket.length] = crc;
+
       // 次回送信用に Inc パラメータを更新（0～255の範囲でラップ）
       this.cmdInc = this.cmdInc + 1 & 0xFF;
-      // コマンドパケットを送信
       this.txCharacteristic.writeValue(fullPacket).then(function () {
-        log$1.log("前進コマンドを送信しました。");
+        log$1.log("前進コマンドを送信しました。 左:" + leftSpeed + " 右:" + rightSpeed);
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
       });
@@ -1544,11 +1563,20 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
             id: 'iRobotExtension.driveForward',
-            default: '前進する',
-            description: 'Send drive forward command with CRC'
+            default: '前進する 左モータ [LEFT] 右モータ [RIGHT]',
+            description: 'Send drive forward command with left/right speeds'
           }),
           func: 'driveForward',
-          arguments: {}
+          arguments: {
+            LEFT: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 100
+            },
+            RIGHT: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 100
+            }
+          }
         }, {
           opcode: 'getReceivedData',
           blockType: BlockType$1.REPORTER,
