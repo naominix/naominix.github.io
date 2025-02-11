@@ -1459,7 +1459,9 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       var fullPacket = new Uint8Array(basePacket.length + 1);
       fullPacket.set(basePacket, 0);
       fullPacket[basePacket.length] = crc;
-      this.cmdInc = this.cmdInc + 1 & 0xFF;
+
+      //this.cmdInc = (this.cmdInc + 1) & 0xFF;
+
       this.txCharacteristic.writeValue(fullPacket).then(function () {
         log$1.log("前進コマンドを送信しました。 速度:" + speed);
       }).catch(function (error) {
@@ -1530,7 +1532,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       fullPacket[19] = crc;
 
       // 次回送信用に Inc パラメータを更新
-      this.cmdInc = this.cmdInc + 1 & 0xFF;
+      //this.cmdInc = (this.cmdInc + 1) & 0xFF;
+
       this.txCharacteristic.writeValue(fullPacket).then(function () {
         log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u9001\u4FE1: MODE=".concat(mode, ", R=").concat(r, ", G=").concat(g, ", B=").concat(b));
       }).catch(function (error) {
