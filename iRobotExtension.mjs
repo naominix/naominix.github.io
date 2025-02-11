@@ -1425,27 +1425,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     /**
      * 前進するコマンドを送信する
      * 
-     * ブロックから入力された「左モータ」「右モータ」の数値をパケット内の該当位置に設定します。  
+     * ブロックから入力された「モーター」パラメータの数値を左右両方のモータースピードに設定します。  
      * パケット内の Inc パラメータは連続送信時にインクリメントし、パケット末尾に CRC チェックバイトを付加します。
      * 
-     * コマンドパケット例（CRC未付加、全体で19バイト）：
+     * コマンドパケット例（CRC未付加、計19バイト）：
      *  [0x01, this.cmdInc, 0x00, 0x00, 0x00, 0x00,
-     *   leftSpeed, 0x00, 0x00, 0x00, rightSpeed, 0x00,
+     *   speed, 0x00, 0x00, 0x00, speed, 0x00,
      *   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
      *  最後に calcCRC() により算出した1バイトのCRCを付加し、20バイトパケットとして送信します。
      * 
-     * @param {object} args - ブロック引数 { LEFT, RIGHT }
+     * @param {object} args - ブロック引数 { SPEED }
      */
   }, {
     key: "driveForward",
     value: function driveForward(args) {
-      // ブロック引数から左右のモータースピードを取得（0～255の数値）
-      var leftSpeed = Cast$1.toNumber(args.LEFT);
-      var rightSpeed = Cast$1.toNumber(args.RIGHT);
-      if (leftSpeed < 0) leftSpeed = 0;
-      if (leftSpeed > 255) leftSpeed = 255;
-      if (rightSpeed < 0) rightSpeed = 0;
-      if (rightSpeed > 255) rightSpeed = 255;
+      // ブロック引数からモータースピードを取得（0～255の数値）
+      var speed = Cast$1.toNumber(args.SPEED);
+      if (speed < 0) speed = 0;
+      if (speed > 255) speed = 255;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
@@ -1457,11 +1454,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // Inc パラメータ
       0x00, 0x00, 0x00, 0x00,
       // 予約領域
-      leftSpeed,
+      speed,
       // 左モーターの速度（ブロック入力値）
       0x00, 0x00, 0x00,
       // 予約領域
-      rightSpeed,
+      speed,
       // 右モーターの速度（ブロック入力値）
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
       // CRCチェックバイトを計算し、パケット末尾に付加（全体で20バイトとなる）
@@ -1473,7 +1470,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // 次回送信用に Inc パラメータを更新（0～255の範囲でラップ）
       this.cmdInc = this.cmdInc + 1 & 0xFF;
       this.txCharacteristic.writeValue(fullPacket).then(function () {
-        log$1.log("前進コマンドを送信しました。 左:" + leftSpeed + " 右:" + rightSpeed);
+        log$1.log("前進コマンドを送信しました。 速度:" + speed);
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
       });
@@ -1563,16 +1560,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
             id: 'iRobotExtension.driveForward',
-            default: '前進する 左モータ [LEFT] 右モータ [RIGHT]',
-            description: 'Send drive forward command with left/right speeds'
+            default: '前進する 速度 [SPEED]',
+            description: 'Send drive forward command with specified speed for both motors'
           }),
           func: 'driveForward',
           arguments: {
-            LEFT: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 100
-            },
-            RIGHT: {
+            SPEED: {
               type: ArgumentType$1.NUMBER,
               defaultValue: 100
             }
