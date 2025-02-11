@@ -1354,7 +1354,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
-    // BLE 関連内部変数
+    // BLE関連内部変数
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
@@ -1424,22 +1424,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * 前進するコマンドを送信する
-     * 
-     * ブロックから入力された「モーター」パラメータの数値を左右両方のモータースピードに設定します。  
-     * パケット内の Inc パラメータは連続送信時にインクリメントし、パケット末尾に CRC チェックバイトを付加します。
-     * 
-     * コマンドパケット例（CRC未付加、計19バイト）：
-     *  [0x01, this.cmdInc, 0x00, 0x00, 0x00, 0x00,
-     *   speed, 0x00, 0x00, 0x00, speed, 0x00,
-     *   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-     *  最後に calcCRC() により算出した1バイトのCRCを付加し、20バイトパケットとして送信します。
-     * 
+     * （左右両モーターに同じ速度を設定）
      * @param {object} args - ブロック引数 { SPEED }
      */
   }, {
     key: "driveForward",
     value: function driveForward(args) {
-      // ブロック引数からモータースピードを取得（0～255の数値）
       var speed = Cast$1.toNumber(args.SPEED);
       if (speed < 0) speed = 0;
       if (speed > 255) speed = 255;
@@ -1447,7 +1437,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      // コマンドパケット（CRC未付加、計19バイト）
       var basePacket = [0x01,
       // コマンドID（前進/モータコマンド）
       this.cmdInc,
@@ -1455,24 +1444,92 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       0x00, 0x00, 0x00, 0x00,
       // 予約領域
       speed,
-      // 左モーターの速度（ブロック入力値）
+      // 左モーターの速度
       0x00, 0x00, 0x00,
       // 予約領域
       speed,
-      // 右モーターの速度（ブロック入力値）
+      // 右モーターの速度
       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
-      // CRCチェックバイトを計算し、パケット末尾に付加（全体で20バイトとなる）
       var crc = calcCRC(basePacket);
       var fullPacket = new Uint8Array(basePacket.length + 1);
       fullPacket.set(basePacket, 0);
       fullPacket[basePacket.length] = crc;
-
-      // 次回送信用に Inc パラメータを更新（0～255の範囲でラップ）
       this.cmdInc = this.cmdInc + 1 & 0xFF;
       this.txCharacteristic.writeValue(fullPacket).then(function () {
         log$1.log("前進コマンドを送信しました。 速度:" + speed);
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
+      });
+    }
+
+    /**
+     * LED点灯命令を送信する
+     * 
+     * ブロック引数:
+     *   MODE - LED点灯モード（メニューから選択："OFF", "ON", "BLINK", "SPIN"）
+     *   R, G, B - 各色の値 (0～255)
+     * 
+     * LEDコマンドパケット構成 (20バイト):
+     *   Byte0: DEV = 0x03
+     *   Byte1: CMD = 0x02
+     *   Byte2: ID  = インクリメントする値 (this.cmdInc)
+     *   Byte3: R値
+     *   Byte4: G値
+     *   Byte5: B値
+     *   Byte6～Byte18: 0x00で埋める（合計13バイト）
+     *   Byte19: CRC (Byte0～Byte18のCRC)
+     * 
+     * ※ MODE が "OFF" の場合は RGB をすべて 0 にして送信します。
+     * 
+     * @param {object} args - ブロック引数 { MODE, R, G, B }
+     */
+  }, {
+    key: "setLED",
+    value: function setLED(args) {
+      var mode = Cast$1.toString(args.MODE);
+      var r = Cast$1.toNumber(args.R);
+      var g = Cast$1.toNumber(args.G);
+      var b = Cast$1.toNumber(args.B);
+      // MODEが "OFF" の場合は RGB すべて 0 に
+      if (mode === "OFF") {
+        r = 0;
+        g = 0;
+        b = 0;
+      }
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      // まずは必要なデータを設定（DEV, CMD, ID, Payload(R,G,B)）
+      var basePacket = [0x03,
+      // DEV
+      0x02,
+      // CMD
+      this.cmdInc,
+      // ID (インクリメントする値)
+      r,
+      // R値
+      g,
+      // G値
+      b // B値
+      ];
+      // basePacket は現在6バイトなので、20バイトになるように 0x00 を埋める（19バイトまで埋める）
+      while (basePacket.length < 19) {
+        basePacket.push(0x00);
+      }
+      // 先頭19バイトからCRCを算出
+      var crc = calcCRC(basePacket);
+      // 20バイトのパケットを生成（Byte19にCRCをセット）
+      var fullPacket = new Uint8Array(20);
+      fullPacket.set(basePacket, 0);
+      fullPacket[19] = crc;
+
+      // 次回送信用に Inc パラメータを更新
+      this.cmdInc = this.cmdInc + 1 & 0xFF;
+      this.txCharacteristic.writeValue(fullPacket).then(function () {
+        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u9001\u4FE1: MODE=".concat(mode, ", R=").concat(r, ", G=").concat(g, ", B=").concat(b));
+      }).catch(function (error) {
+        log$1.error("LEDコマンド送信エラー: " + error);
       });
     }
 
@@ -1571,6 +1628,34 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             }
           }
         }, {
+          opcode: 'setLED',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.setLED',
+            default: 'LED [MODE] 色 R: [R] G: [G] B: [B]',
+            description: 'Set LED lights'
+          }),
+          func: 'setLED',
+          arguments: {
+            MODE: {
+              type: ArgumentType$1.STRING,
+              menu: 'ledMode',
+              defaultValue: 'ON'
+            },
+            R: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 255
+            },
+            G: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 255
+            },
+            B: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 255
+            }
+          }
+        }, {
           opcode: 'getReceivedData',
           blockType: BlockType$1.REPORTER,
           text: formatMessage({
@@ -1591,7 +1676,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           func: 'disconnectBLE',
           arguments: {}
         }],
-        menus: {}
+        menus: {
+          ledMode: {
+            acceptReporters: false,
+            items: ["OFF", "ON", "BLINK", "SPIN"]
+          }
+        }
       };
     }
   }], [{
