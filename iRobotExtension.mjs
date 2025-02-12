@@ -1301,6 +1301,10 @@ var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+
+// 追加：Device Informationサービスとシリアル番号CharacteristicのUUID
+var DEVICE_INFORMATION_SERVICE = '0000180a-0000-1000-8000-00805f9b34fb';
+var SERIAL_NUMBER_CHARACTERISTIC = '00002a25-0000-1000-8000-00805f9b34fb';
 var EXTENSION_ID = 'iRobotExtension';
 
 /**
@@ -1334,8 +1338,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
+    this.deviceInformationService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
+    this.serialCharacteristic = null;
     this.receivedBuffer = "";
     // 取得したシリアル番号を保持する変数
     this.serialNumber = "";
@@ -1356,6 +1362,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       try {
         var text = new TextDecoder('utf-8').decode(byteArray);
         // 仕様: シリアル番号は12バイト、例: "RT0123456789"
+        // （ここでは通知経由のデータも処理対象としています）
         if (text.length === 12 && text.startsWith("RT")) {
           this.serialNumber = text;
           log$1.log("シリアル番号を受信しました: " + text);
@@ -1389,24 +1396,27 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         filters: [{
           services: [ROOT_ID_SERVICE]
         }],
-        optionalServices: [UART_SERVICE]
+        optionalServices: [UART_SERVICE, DEVICE_INFORMATION_SERVICE]
       }).then(function (device) {
         _this.bleDevice = device;
         return device.gatt.connect();
       }).then(function (server) {
         _this.bleServer = server;
-        return server.getPrimaryService(UART_SERVICE);
-      }).then(function (service) {
-        _this.uartService = service;
-        return Promise.all([service.getCharacteristic(TX_CHARACTERISTIC), service.getCharacteristic(RX_CHARACTERISTIC)]);
+        // UARTサービスとDevice Informationサービスの両方を取得
+        return Promise.all([server.getPrimaryService(UART_SERVICE), server.getPrimaryService(DEVICE_INFORMATION_SERVICE)]);
+      }).then(function (services) {
+        _this.uartService = services[0];
+        _this.deviceInformationService = services[1];
+        return Promise.all([_this.uartService.getCharacteristic(TX_CHARACTERISTIC), _this.uartService.getCharacteristic(RX_CHARACTERISTIC), _this.deviceInformationService.getCharacteristic(SERIAL_NUMBER_CHARACTERISTIC)]);
       }).then(function (characteristics) {
         _this.txCharacteristic = characteristics[0];
         _this.rxCharacteristic = characteristics[1];
+        _this.serialCharacteristic = characteristics[2];
         return _this.rxCharacteristic.startNotifications();
       }).then(function () {
         // RX キャラクタリスティックの通知イベントを登録
         _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
-        log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
+        log$1.log("BLEデバイスに接続し、UARTおよびDevice Informationサービスを初期化しました。");
         callback();
       }).catch(function (error) {
         log$1.error("接続エラー: " + error);
@@ -1436,47 +1446,27 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * シリアル番号取得コマンドを送信する
-     * 仕様: デバイスIDは0、コマンドは14（0x0E）、インクリメントIDは0、
-     *       先頭19バイトは0（ただし、[0]=デバイスID, [1]=コマンド, [2]=インクリメントID）、
-     *       最後のバイトは先頭19バイトのCRC（各バイトの和 & 0xFF）を付加
+     * シリアル番号Characteristicからシリアル番号を取得する
      * @param {object} args - ブロック引数（未使用）
      * @param {function} callback - 完了コールバック
      */
   }, {
     key: "getSerialNumber",
     value: function getSerialNumber(args, callback) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+      var _this2 = this;
+      if (!this.serialCharacteristic) {
+        log$1.error("シリアル番号Characteristicが未取得です。接続されていない可能性があります。");
         callback();
         return;
       }
-      // 20 バイトのコマンドパケットを作成
-      var command = new Uint8Array(20);
-      // バイト0: デバイスID = 0
-      command[0] = 0x00;
-      // バイト1: コマンド = 14 (16進数: 0x0E)
-      command[1] = 0x0E;
-      // バイト2: インクリメントID = 0
-      command[2] = 0x00;
-      // バイト3～18: 0 を埋める
-      for (var i = 3; i < 19; i++) {
-        command[i] = 0x00;
-      }
-      // CRC計算: 先頭19バイトの和の下位1バイト
-      var crc = 0;
-      for (var _i = 0; _i < 19; _i++) {
-        crc += command[_i];
-      }
-      crc = crc & 0xFF;
-      // バイト19: CRC
-      command[19] = crc;
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("シリアル番号取得コマンドを送信しました。");
-        // ※シリアル番号は、受信通知（handleNotifications）により this.serialNumber に保存されます。
+      this.serialCharacteristic.readValue().then(function (value) {
+        var byteArray = new Uint8Array(value.buffer);
+        var text = new TextDecoder('utf-8').decode(byteArray);
+        _this2.serialNumber = text;
+        log$1.log("シリアル番号を取得しました: " + text);
         callback();
       }).catch(function (error) {
-        log$1.error("シリアル番号取得コマンド送信エラー: " + error);
+        log$1.error("シリアル番号取得エラー: " + error);
         callback();
       });
     }
@@ -1587,7 +1577,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           text: formatMessage({
             id: 'iRobotExtension.getSerialNumber',
             default: 'シリアル番号を取得する',
-            description: 'Send command to get the device serial number'
+            description: 'Read serial number from device information service'
           }),
           func: 'getSerialNumber',
           arguments: {}
