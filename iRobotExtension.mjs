@@ -1337,6 +1337,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
     this.receivedBuffer = "";
+    // 取得したシリアル番号を保持する変数
+    this.serialNumber = "";
   }
 
   /**
@@ -1349,6 +1351,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // event.target.value は DataView 型
       var value = event.target.value;
       var byteArray = new Uint8Array(value.buffer);
+
+      // 受信データを文字列としてデコードを試みる
+      try {
+        var text = new TextDecoder('utf-8').decode(byteArray);
+        // 仕様: シリアル番号は12バイト、例: "RT0123456789"
+        if (text.length === 12 && text.startsWith("RT")) {
+          this.serialNumber = text;
+          log$1.log("シリアル番号を受信しました: " + text);
+        }
+      } catch (e) {
+        // デコードできなかった場合は何もしない
+      }
       var bytes = Array.from(byteArray);
       var msg = bytes.join(", ");
       // 受信データは改行区切りで蓄積
@@ -1419,6 +1433,63 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
       });
+    }
+
+    /**
+     * シリアル番号取得コマンドを送信する
+     * 仕様: デバイスIDは0、コマンドは14（0x0E）、インクリメントIDは0、
+     *       先頭19バイトは0（ただし、[0]=デバイスID, [1]=コマンド, [2]=インクリメントID）、
+     *       最後のバイトは先頭19バイトのCRC（各バイトの和 & 0xFF）を付加
+     * @param {object} args - ブロック引数（未使用）
+     * @param {function} callback - 完了コールバック
+     */
+  }, {
+    key: "getSerialNumber",
+    value: function getSerialNumber(args, callback) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        callback();
+        return;
+      }
+      // 20 バイトのコマンドパケットを作成
+      var command = new Uint8Array(20);
+      // バイト0: デバイスID = 0
+      command[0] = 0x00;
+      // バイト1: コマンド = 14 (16進数: 0x0E)
+      command[1] = 0x0E;
+      // バイト2: インクリメントID = 0
+      command[2] = 0x00;
+      // バイト3～18: 0 を埋める
+      for (var i = 3; i < 19; i++) {
+        command[i] = 0x00;
+      }
+      // CRC計算: 先頭19バイトの和の下位1バイト
+      var crc = 0;
+      for (var _i = 0; _i < 19; _i++) {
+        crc += command[_i];
+      }
+      crc = crc & 0xFF;
+      // バイト19: CRC
+      command[19] = crc;
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("シリアル番号取得コマンドを送信しました。");
+        // ※シリアル番号は、受信通知（handleNotifications）により this.serialNumber に保存されます。
+        callback();
+      }).catch(function (error) {
+        log$1.error("シリアル番号取得コマンド送信エラー: " + error);
+        callback();
+      });
+    }
+
+    /**
+     * 取得したシリアル番号を返す
+     * @param {object} args - ブロック引数（未使用）
+     * @returns {string} 受信したシリアル番号（例："RT0123456789"）
+     */
+  }, {
+    key: "getSerialNumberVariable",
+    value: function getSerialNumberVariable(args) {
+      return this.serialNumber;
     }
 
     /**
@@ -1509,6 +1580,26 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             description: 'Send drive forward command'
           }),
           func: 'driveForward',
+          arguments: {}
+        }, {
+          opcode: 'getSerialNumber',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.getSerialNumber',
+            default: 'シリアル番号を取得する',
+            description: 'Send command to get the device serial number'
+          }),
+          func: 'getSerialNumber',
+          arguments: {}
+        }, {
+          opcode: 'getSerialNumberVariable',
+          blockType: BlockType$1.REPORTER,
+          text: formatMessage({
+            id: 'iRobotExtension.getSerialNumberVariable',
+            default: 'シリアル番号',
+            description: 'Returns the device serial number'
+          }),
+          func: 'getSerialNumberVariable',
           arguments: {}
         }, {
           opcode: 'getReceivedData',
