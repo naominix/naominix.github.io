@@ -1301,10 +1301,6 @@ var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
-
-// 追加：Device Informationサービスとシリアル番号CharacteristicのUUID
-var DEVICE_INFORMATION_SERVICE = '0000180a-0000-1000-8000-00805f9b34fb';
-var SERIAL_NUMBER_CHARACTERISTIC = '00002a25-0000-1000-8000-00805f9b34fb';
 var EXTENSION_ID = 'iRobotExtension';
 
 /**
@@ -1338,13 +1334,9 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
-    this.deviceInformationService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
-    this.serialCharacteristic = null;
     this.receivedBuffer = "";
-    // 取得したシリアル番号を保持する変数
-    this.serialNumber = "";
   }
 
   /**
@@ -1357,19 +1349,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // event.target.value は DataView 型
       var value = event.target.value;
       var byteArray = new Uint8Array(value.buffer);
-
-      // 受信データを文字列としてデコードを試みる
-      try {
-        var text = new TextDecoder('utf-8').decode(byteArray);
-        // 仕様: シリアル番号は12バイト、例: "RT0123456789"
-        // （ここでは通知経由のデータも処理対象としています）
-        if (text.length === 12 && text.startsWith("RT")) {
-          this.serialNumber = text;
-          log$1.log("シリアル番号を受信しました: " + text);
-        }
-      } catch (e) {
-        // デコードできなかった場合は何もしない
-      }
       var bytes = Array.from(byteArray);
       var msg = bytes.join(", ");
       // 受信データは改行区切りで蓄積
@@ -1396,27 +1375,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         filters: [{
           services: [ROOT_ID_SERVICE]
         }],
-        optionalServices: [UART_SERVICE, DEVICE_INFORMATION_SERVICE]
+        optionalServices: [UART_SERVICE]
       }).then(function (device) {
         _this.bleDevice = device;
         return device.gatt.connect();
       }).then(function (server) {
         _this.bleServer = server;
-        // UARTサービスとDevice Informationサービスの両方を取得
-        return Promise.all([server.getPrimaryService(UART_SERVICE), server.getPrimaryService(DEVICE_INFORMATION_SERVICE)]);
-      }).then(function (services) {
-        _this.uartService = services[0];
-        _this.deviceInformationService = services[1];
-        return Promise.all([_this.uartService.getCharacteristic(TX_CHARACTERISTIC), _this.uartService.getCharacteristic(RX_CHARACTERISTIC), _this.deviceInformationService.getCharacteristic(SERIAL_NUMBER_CHARACTERISTIC)]);
+        return server.getPrimaryService(UART_SERVICE);
+      }).then(function (service) {
+        _this.uartService = service;
+        return Promise.all([service.getCharacteristic(TX_CHARACTERISTIC), service.getCharacteristic(RX_CHARACTERISTIC)]);
       }).then(function (characteristics) {
         _this.txCharacteristic = characteristics[0];
         _this.rxCharacteristic = characteristics[1];
-        _this.serialCharacteristic = characteristics[2];
         return _this.rxCharacteristic.startNotifications();
       }).then(function () {
         // RX キャラクタリスティックの通知イベントを登録
         _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
-        log$1.log("BLEデバイスに接続し、UARTおよびDevice Informationサービスを初期化しました。");
+        log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
         callback();
       }).catch(function (error) {
         log$1.error("接続エラー: " + error);
@@ -1426,7 +1402,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * 前進する（ドライブフォワードコマンドを送信）
-     * Python サンプルの drive_forward() に相当する処理です。
      * @param {object} args - ブロック引数（未使用）
      */
   }, {
@@ -1436,7 +1411,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      // 20 バイトのコマンド配列（例）
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
       this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("前進コマンドを送信しました。");
@@ -1446,40 +1420,79 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * シリアル番号Characteristicからシリアル番号を取得する
+     * 後退する（ドライブバックワードコマンドを送信）
      * @param {object} args - ブロック引数（未使用）
-     * @param {function} callback - 完了コールバック
      */
   }, {
-    key: "getSerialNumber",
-    value: function getSerialNumber(args, callback) {
-      var _this2 = this;
-      if (!this.serialCharacteristic) {
-        log$1.error("シリアル番号Characteristicが未取得です。接続されていない可能性があります。");
-        callback();
+    key: "driveBackward",
+    value: function driveBackward(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
         return;
       }
-      this.serialCharacteristic.readValue().then(function (value) {
-        var byteArray = new Uint8Array(value.buffer);
-        var text = new TextDecoder('utf-8').decode(byteArray);
-        _this2.serialNumber = text;
-        log$1.log("シリアル番号を取得しました: " + text);
-        callback();
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("後退コマンドを送信しました。");
       }).catch(function (error) {
-        log$1.error("シリアル番号取得エラー: " + error);
-        callback();
+        log$1.error("後退コマンド送信エラー: " + error);
       });
     }
 
     /**
-     * 取得したシリアル番号を返す
+     * 左回転する（左ターンコマンドを送信）
      * @param {object} args - ブロック引数（未使用）
-     * @returns {string} 受信したシリアル番号（例："RT0123456789"）
      */
   }, {
-    key: "getSerialNumberVariable",
-    value: function getSerialNumberVariable(args) {
-      return this.serialNumber;
+    key: "turnLeft",
+    value: function turnLeft(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("左回転コマンドを送信しました。");
+      }).catch(function (error) {
+        log$1.error("左回転コマンド送信エラー: " + error);
+      });
+    }
+
+    /**
+     * 右回転する（右ターンコマンドを送信）
+     * @param {object} args - ブロック引数（未使用）
+     */
+  }, {
+    key: "turnRight",
+    value: function turnRight(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("右回転コマンドを送信しました。");
+      }).catch(function (error) {
+        log$1.error("右回転コマンド送信エラー: " + error);
+      });
+    }
+
+    /**
+     * 停止する（ストップコマンドを送信）
+     * @param {object} args - ブロック引数（未使用）
+     */
+  }, {
+    key: "stop",
+    value: function stop(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
+      this.txCharacteristic.writeValue(command).then(function () {
+        log$1.log("停止コマンドを送信しました。");
+      }).catch(function (error) {
+        log$1.error("停止コマンド送信エラー: " + error);
+      });
     }
 
     /**
@@ -1572,24 +1585,44 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           func: 'driveForward',
           arguments: {}
         }, {
-          opcode: 'getSerialNumber',
+          opcode: 'driveBackward',
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
-            id: 'iRobotExtension.getSerialNumber',
-            default: 'シリアル番号を取得する',
-            description: 'Read serial number from device information service'
+            id: 'iRobotExtension.driveBackward',
+            default: '後退する',
+            description: 'Send drive backward command'
           }),
-          func: 'getSerialNumber',
+          func: 'driveBackward',
           arguments: {}
         }, {
-          opcode: 'getSerialNumberVariable',
-          blockType: BlockType$1.REPORTER,
+          opcode: 'turnLeft',
+          blockType: BlockType$1.COMMAND,
           text: formatMessage({
-            id: 'iRobotExtension.getSerialNumberVariable',
-            default: 'シリアル番号',
-            description: 'Returns the device serial number'
+            id: 'iRobotExtension.turnLeft',
+            default: '左回転する',
+            description: 'Send turn left command'
           }),
-          func: 'getSerialNumberVariable',
+          func: 'turnLeft',
+          arguments: {}
+        }, {
+          opcode: 'turnRight',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.turnRight',
+            default: '右回転する',
+            description: 'Send turn right command'
+          }),
+          func: 'turnRight',
+          arguments: {}
+        }, {
+          opcode: 'stop',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.stop',
+            default: '停止する',
+            description: 'Send stop command'
+          }),
+          func: 'stop',
           arguments: {}
         }, {
           opcode: 'getReceivedData',
