@@ -1305,13 +1305,11 @@ var EXTENSION_ID = 'iRobotExtension';
 
 /**
  * URL to get this extension as a module.
- * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
- * @type {string}
  */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
 
 /**
- * Scratch 3.0 blocks for example of Xcratch.
+ * Scratch 3.0 blocks for iRobotExtension.
  */
 var ExtensionBlocks = /*#__PURE__*/function () {
   /**
@@ -1330,9 +1328,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       formatMessage = runtime.formatMessage;
     }
 
-    // BLE 関連の内部変数を初期化
+    // Scratch Link を利用するための BLE 関連の内部変数を初期化
     this.bleDevice = null;
-    this.bleServer = null;
     this.uartService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
@@ -1346,19 +1343,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   return _createClass$1(ExtensionBlocks, [{
     key: "handleNotifications",
     value: function handleNotifications(event) {
-      // event.target.value は DataView 型
       var value = event.target.value;
       var byteArray = new Uint8Array(value.buffer);
       var bytes = Array.from(byteArray);
       var msg = bytes.join(", ");
-      // 受信データは改行区切りで蓄積
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
     }
 
     /**
-     * BLE UARTデバイスに接続する
+     * Scratch Link を利用して BLE UARTデバイスに接続する
      * 非同期処理のため、完了時に callback() を呼び出します。
+     * ※以下の API は例示用です。実際の Scratch Link の API に合わせて実装してください。
      * @param {object} args - ブロック引数（未使用）
      * @param {function} callback - 完了コールバック
      */
@@ -1366,33 +1362,35 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "connectBLE",
     value: function connectBLE(args, callback) {
       var _this = this;
-      if (!navigator.bluetooth) {
-        log$1.error("このブラウザは Web Bluetooth API に対応していません。");
+      if (!window.ScratchLink) {
+        log$1.error("Scratch Link が利用できません。Scratch Link がインストールされているか確認してください。");
         callback();
         return;
       }
-      navigator.bluetooth.requestDevice({
-        filters: [{
-          services: [ROOT_ID_SERVICE]
-        }],
-        optionalServices: [UART_SERVICE]
+      // Scratch Link のデバイス選択 API を利用してデバイスを要求
+      ScratchLink.requestDevice({
+        // サービスフィルタ（必要に応じて調整してください）
+        services: [ROOT_ID_SERVICE, UART_SERVICE]
       }).then(function (device) {
         _this.bleDevice = device;
-        return device.gatt.connect();
-      }).then(function (server) {
-        _this.bleServer = server;
-        return server.getPrimaryService(UART_SERVICE);
+        // デバイスへの接続
+        return device.connect();
+      }).then(function () {
+        // UART サービスを取得
+        return _this.bleDevice.getService(UART_SERVICE);
       }).then(function (service) {
         _this.uartService = service;
+        // TX, RX キャラクタリスティックを取得
         return Promise.all([service.getCharacteristic(TX_CHARACTERISTIC), service.getCharacteristic(RX_CHARACTERISTIC)]);
       }).then(function (characteristics) {
         _this.txCharacteristic = characteristics[0];
         _this.rxCharacteristic = characteristics[1];
+        // RX キャラクタリスティックの通知を開始
         return _this.rxCharacteristic.startNotifications();
       }).then(function () {
-        // RX キャラクタリスティックの通知イベントを登録
+        // 通知イベントを登録
         _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
-        log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
+        log$1.log("Scratch Link を利用して BLE デバイスに接続し、UART サービスを初期化しました。");
         callback();
       }).catch(function (error) {
         log$1.error("接続エラー: " + error);
@@ -1516,8 +1514,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "disconnectBLE",
     value: function disconnectBLE(args) {
-      if (this.bleDevice && this.bleDevice.gatt.connected) {
-        this.bleDevice.gatt.disconnect();
+      if (this.bleDevice && typeof this.bleDevice.disconnect === 'function') {
+        this.bleDevice.disconnect();
         log$1.log("BLEデバイスから切断しました。");
       }
     }
@@ -1694,7 +1692,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * Set URL to get this extension.
-     * The extensionURL will be changed to the URL of the loading server.
      * @param {string} url - URL
      */,
     set: function set(url) {
