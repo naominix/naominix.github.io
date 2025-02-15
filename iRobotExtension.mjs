@@ -64,7 +64,7 @@ var entry = {
   translationMap: translations$1
 };
 
-function asyncGeneratorStep(n, t, e, r, o, a, c) {
+function asyncGeneratorStep$1(n, t, e, r, o, a, c) {
   try {
     var i = n[a](c),
       u = i.value;
@@ -73,61 +73,61 @@ function asyncGeneratorStep(n, t, e, r, o, a, c) {
   }
   i.done ? t(u) : Promise.resolve(u).then(r, o);
 }
-function _asyncToGenerator(n) {
+function _asyncToGenerator$1(n) {
   return function () {
     var t = this,
       e = arguments;
     return new Promise(function (r, o) {
       var a = n.apply(t, e);
       function _next(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+        asyncGeneratorStep$1(a, r, o, _next, _throw, "next", n);
       }
       function _throw(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+        asyncGeneratorStep$1(a, r, o, _next, _throw, "throw", n);
       }
       _next(void 0);
     });
   };
 }
 
-function _classCallCheck(a, n) {
+function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _typeof$1(o) {
+function _typeof$3(o) {
   "@babel/helpers - typeof";
 
-  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof$3 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof$1(o);
+  }, _typeof$3(o);
 }
 
-function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
+function toPrimitive$1(t, r) {
+  if ("object" != _typeof$3(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof$1(i)) return i;
+    if ("object" != _typeof$3(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
 }
 
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : i + "";
+function toPropertyKey$1(t) {
+  var i = toPrimitive$1(t, "string");
+  return "symbol" == _typeof$3(i) ? i : i + "";
 }
 
-function _defineProperties(e, r) {
+function _defineProperties$1(e, r) {
   for (var t = 0; t < r.length; t++) {
     var o = r[t];
-    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey$1(o.key), o);
   }
 }
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+function _createClass$1(e, r, t) {
+  return r && _defineProperties$1(e.prototype, r), t && _defineProperties$1(e, t), Object.defineProperty(e, "prototype", {
     writable: false
   }), e;
 }
@@ -136,9 +136,9 @@ function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-var regeneratorRuntime$1 = {exports: {}};
+var regeneratorRuntime$2 = {exports: {}};
 
-var _typeof = {exports: {}};
+var _typeof$2 = {exports: {}};
 
 (function (module) {
   function _typeof(o) {
@@ -151,11 +151,11 @@ var _typeof = {exports: {}};
     }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
   }
   module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
-})(_typeof);
-var _typeofExports = _typeof.exports;
+})(_typeof$2);
+var _typeofExports$1 = _typeof$2.exports;
 
 (function (module) {
-  var _typeof = _typeofExports["default"];
+  var _typeof = _typeofExports$1["default"];
   function _regeneratorRuntime() {
 
     /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
@@ -460,25 +460,25 @@ var _typeofExports = _typeof.exports;
     }, e;
   }
   module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
-})(regeneratorRuntime$1);
-var regeneratorRuntimeExports = regeneratorRuntime$1.exports;
+})(regeneratorRuntime$2);
+var regeneratorRuntimeExports$1 = regeneratorRuntime$2.exports;
 
 // TODO(Babel 8): Remove this file.
 
-var runtime = regeneratorRuntimeExports();
-var regenerator = runtime;
+var runtime$1 = regeneratorRuntimeExports$1();
+var regenerator$1 = runtime$1;
 
 // Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
 try {
-  regeneratorRuntime = runtime;
+  regeneratorRuntime = runtime$1;
 } catch (accidentalStrictMode) {
-  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$1(globalThis)) === "object") {
-    globalThis.regeneratorRuntime = runtime;
+  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$3(globalThis)) === "object") {
+    globalThis.regeneratorRuntime = runtime$1;
   } else {
-    Function("r", "regeneratorRuntime = r")(runtime);
+    Function("r", "regeneratorRuntime = r")(runtime$1);
   }
 }
-var _regeneratorRuntime = /*@__PURE__*/getDefaultExportFromCjs(regenerator);
+var _regeneratorRuntime$1 = /*@__PURE__*/getDefaultExportFromCjs(regenerator$1);
 
 /**
  * Types of block
@@ -523,6 +523,48 @@ var BlockType = {
 };
 var blockType = BlockType;
 var BlockType$1 = /*@__PURE__*/getDefaultExportFromCjs(blockType);
+
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function _typeof$1(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof$1(o);
+}
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof$1(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != _typeof$1(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (String )(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof$1(i) ? i : i + "";
+}
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    writable: false
+  }), e;
+}
 
 var web = {exports: {}};
 
@@ -1067,6 +1109,669 @@ var translations = {
 
 var img = "data:image/png;base64,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";
 
+function asyncGeneratorStep(n, t, e, r, o, a, c) {
+  try {
+    var i = n[a](c),
+      u = i.value;
+  } catch (n) {
+    return void e(n);
+  }
+  i.done ? t(u) : Promise.resolve(u).then(r, o);
+}
+function _asyncToGenerator(n) {
+  return function () {
+    var t = this,
+      e = arguments;
+    return new Promise(function (r, o) {
+      var a = n.apply(t, e);
+      function _next(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
+      }
+      function _throw(n) {
+        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
+      }
+      _next(void 0);
+    });
+  };
+}
+
+var regeneratorRuntime$1 = {exports: {}};
+
+var _typeof = {exports: {}};
+
+(function (module) {
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
+  }
+  module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(_typeof);
+var _typeofExports = _typeof.exports;
+
+(function (module) {
+  var _typeof = _typeofExports["default"];
+  function _regeneratorRuntime() {
+
+    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+    module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
+      return e;
+    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
+    var t,
+      e = {},
+      r = Object.prototype,
+      n = r.hasOwnProperty,
+      o = Object.defineProperty || function (t, e, r) {
+        t[e] = r.value;
+      },
+      i = "function" == typeof Symbol ? Symbol : {},
+      a = i.iterator || "@@iterator",
+      c = i.asyncIterator || "@@asyncIterator",
+      u = i.toStringTag || "@@toStringTag";
+    function define(t, e, r) {
+      return Object.defineProperty(t, e, {
+        value: r,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      }), t[e];
+    }
+    try {
+      define({}, "");
+    } catch (t) {
+      define = function define(t, e, r) {
+        return t[e] = r;
+      };
+    }
+    function wrap(t, e, r, n) {
+      var i = e && e.prototype instanceof Generator ? e : Generator,
+        a = Object.create(i.prototype),
+        c = new Context(n || []);
+      return o(a, "_invoke", {
+        value: makeInvokeMethod(t, r, c)
+      }), a;
+    }
+    function tryCatch(t, e, r) {
+      try {
+        return {
+          type: "normal",
+          arg: t.call(e, r)
+        };
+      } catch (t) {
+        return {
+          type: "throw",
+          arg: t
+        };
+      }
+    }
+    e.wrap = wrap;
+    var h = "suspendedStart",
+      l = "suspendedYield",
+      f = "executing",
+      s = "completed",
+      y = {};
+    function Generator() {}
+    function GeneratorFunction() {}
+    function GeneratorFunctionPrototype() {}
+    var p = {};
+    define(p, a, function () {
+      return this;
+    });
+    var d = Object.getPrototypeOf,
+      v = d && d(d(values([])));
+    v && v !== r && n.call(v, a) && (p = v);
+    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
+    function defineIteratorMethods(t) {
+      ["next", "throw", "return"].forEach(function (e) {
+        define(t, e, function (t) {
+          return this._invoke(e, t);
+        });
+      });
+    }
+    function AsyncIterator(t, e) {
+      function invoke(r, o, i, a) {
+        var c = tryCatch(t[r], t, o);
+        if ("throw" !== c.type) {
+          var u = c.arg,
+            h = u.value;
+          return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
+            invoke("next", t, i, a);
+          }, function (t) {
+            invoke("throw", t, i, a);
+          }) : e.resolve(h).then(function (t) {
+            u.value = t, i(u);
+          }, function (t) {
+            return invoke("throw", t, i, a);
+          });
+        }
+        a(c.arg);
+      }
+      var r;
+      o(this, "_invoke", {
+        value: function value(t, n) {
+          function callInvokeWithMethodAndArg() {
+            return new e(function (e, r) {
+              invoke(t, n, e, r);
+            });
+          }
+          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
+        }
+      });
+    }
+    function makeInvokeMethod(e, r, n) {
+      var o = h;
+      return function (i, a) {
+        if (o === f) throw Error("Generator is already running");
+        if (o === s) {
+          if ("throw" === i) throw a;
+          return {
+            value: t,
+            done: true
+          };
+        }
+        for (n.method = i, n.arg = a;;) {
+          var c = n.delegate;
+          if (c) {
+            var u = maybeInvokeDelegate(c, n);
+            if (u) {
+              if (u === y) continue;
+              return u;
+            }
+          }
+          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
+            if (o === h) throw o = s, n.arg;
+            n.dispatchException(n.arg);
+          } else "return" === n.method && n.abrupt("return", n.arg);
+          o = f;
+          var p = tryCatch(e, r, n);
+          if ("normal" === p.type) {
+            if (o = n.done ? s : l, p.arg === y) continue;
+            return {
+              value: p.arg,
+              done: n.done
+            };
+          }
+          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
+        }
+      };
+    }
+    function maybeInvokeDelegate(e, r) {
+      var n = r.method,
+        o = e.iterator[n];
+      if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
+      var i = tryCatch(o, e.iterator, r.arg);
+      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
+      var a = i.arg;
+      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
+    }
+    function pushTryEntry(t) {
+      var e = {
+        tryLoc: t[0]
+      };
+      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
+    }
+    function resetTryEntry(t) {
+      var e = t.completion || {};
+      e.type = "normal", delete e.arg, t.completion = e;
+    }
+    function Context(t) {
+      this.tryEntries = [{
+        tryLoc: "root"
+      }], t.forEach(pushTryEntry, this), this.reset(true);
+    }
+    function values(e) {
+      if (e || "" === e) {
+        var r = e[a];
+        if (r) return r.call(e);
+        if ("function" == typeof e.next) return e;
+        if (!isNaN(e.length)) {
+          var o = -1,
+            i = function next() {
+              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = false, next;
+              return next.value = t, next.done = true, next;
+            };
+          return i.next = i;
+        }
+      }
+      throw new TypeError(_typeof(e) + " is not iterable");
+    }
+    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
+      value: GeneratorFunctionPrototype,
+      configurable: true
+    }), o(GeneratorFunctionPrototype, "constructor", {
+      value: GeneratorFunction,
+      configurable: true
+    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
+      var e = "function" == typeof t && t.constructor;
+      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
+    }, e.mark = function (t) {
+      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
+    }, e.awrap = function (t) {
+      return {
+        __await: t
+      };
+    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
+      return this;
+    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
+      void 0 === i && (i = Promise);
+      var a = new AsyncIterator(wrap(t, r, n, o), i);
+      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
+        return t.done ? t.value : a.next();
+      });
+    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
+      return this;
+    }), define(g, "toString", function () {
+      return "[object Generator]";
+    }), e.keys = function (t) {
+      var e = Object(t),
+        r = [];
+      for (var n in e) r.push(n);
+      return r.reverse(), function next() {
+        for (; r.length;) {
+          var t = r.pop();
+          if (t in e) return next.value = t, next.done = false, next;
+        }
+        return next.done = true, next;
+      };
+    }, e.values = values, Context.prototype = {
+      constructor: Context,
+      reset: function reset(e) {
+        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
+      },
+      stop: function stop() {
+        this.done = true;
+        var t = this.tryEntries[0].completion;
+        if ("throw" === t.type) throw t.arg;
+        return this.rval;
+      },
+      dispatchException: function dispatchException(e) {
+        if (this.done) throw e;
+        var r = this;
+        function handle(n, o) {
+          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
+        }
+        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
+          var i = this.tryEntries[o],
+            a = i.completion;
+          if ("root" === i.tryLoc) return handle("end");
+          if (i.tryLoc <= this.prev) {
+            var c = n.call(i, "catchLoc"),
+              u = n.call(i, "finallyLoc");
+            if (c && u) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, true);
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            } else if (c) {
+              if (this.prev < i.catchLoc) return handle(i.catchLoc, true);
+            } else {
+              if (!u) throw Error("try statement without catch or finally");
+              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
+            }
+          }
+        }
+      },
+      abrupt: function abrupt(t, e) {
+        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
+          var o = this.tryEntries[r];
+          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
+            var i = o;
+            break;
+          }
+        }
+        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
+        var a = i ? i.completion : {};
+        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
+      },
+      complete: function complete(t, e) {
+        if ("throw" === t.type) throw t.arg;
+        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
+      },
+      finish: function finish(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
+        }
+      },
+      "catch": function _catch(t) {
+        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
+          var r = this.tryEntries[e];
+          if (r.tryLoc === t) {
+            var n = r.completion;
+            if ("throw" === n.type) {
+              var o = n.arg;
+              resetTryEntry(r);
+            }
+            return o;
+          }
+        }
+        throw Error("illegal catch attempt");
+      },
+      delegateYield: function delegateYield(e, r, n) {
+        return this.delegate = {
+          iterator: values(e),
+          resultName: r,
+          nextLoc: n
+        }, "next" === this.method && (this.arg = t), y;
+      }
+    }, e;
+  }
+  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
+})(regeneratorRuntime$1);
+var regeneratorRuntimeExports = regeneratorRuntime$1.exports;
+
+// TODO(Babel 8): Remove this file.
+
+var runtime = regeneratorRuntimeExports();
+var regenerator = runtime;
+
+// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$1(globalThis)) === "object") {
+    globalThis.regeneratorRuntime = runtime;
+  } else {
+    Function("r", "regeneratorRuntime = r")(runtime);
+  }
+}
+var _regeneratorRuntime = /*@__PURE__*/getDefaultExportFromCjs(regenerator);
+
+// src/extension-support/scratch-link-ble.js
+var ScratchLinkBLE = /*#__PURE__*/function () {
+  /**
+   * @param {object} runtime - Scratch の runtime（利用する場合はログ出力などに使用）
+   */
+  function ScratchLinkBLE(runtime) {
+    _classCallCheck(this, ScratchLinkBLE);
+    this.runtime = runtime;
+    this.device = null;
+    this.server = null;
+    // サービスとキャラクタリスティックのキャッシュ
+    this._characteristics = {};
+  }
+
+  /**
+   * BLE 接続の前提条件を確認する（Web Bluetooth API の対応確認）
+   * @returns {Promise<void>}
+   */
+  return _createClass(ScratchLinkBLE, [{
+    key: "open",
+    value: (function () {
+      var _open = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
+        return _regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              if (navigator.bluetooth) {
+                _context.next = 2;
+                break;
+              }
+              throw new Error('このブラウザは Web Bluetooth API に対応していません。');
+            case 2:
+              return _context.abrupt("return", Promise.resolve());
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+      function open() {
+        return _open.apply(this, arguments);
+      }
+      return open;
+    }()
+    /**
+     * BLE デバイスの検索・選択ダイアログを表示する
+     * @param {object} options - navigator.bluetooth.requestDevice に渡すオプション
+     * @returns {Promise<BluetoothDevice>}
+     */
+    )
+  }, {
+    key: "requestDevice",
+    value: (function () {
+      var _requestDevice = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2(options) {
+        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
+              return navigator.bluetooth.requestDevice(options);
+            case 3:
+              this.device = _context2.sent;
+              // 切断時のイベントリスナーを設定
+              this.device.addEventListener('gattserverdisconnected', this._onDisconnected.bind(this));
+              return _context2.abrupt("return", this.device);
+            case 8:
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](0);
+              throw new Error('BLE デバイスの検索に失敗しました: ' + _context2.t0);
+            case 11:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[0, 8]]);
+      }));
+      function requestDevice(_x) {
+        return _requestDevice.apply(this, arguments);
+      }
+      return requestDevice;
+    }()
+    /**
+     * 選択した BLE デバイスに接続する
+     * @returns {Promise<BluetoothRemoteGATTServer>}
+     */
+    )
+  }, {
+    key: "connectDevice",
+    value: (function () {
+      var _connectDevice = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
+        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              if (this.device) {
+                _context3.next = 2;
+                break;
+              }
+              throw new Error('デバイスが選択されていません。');
+            case 2:
+              _context3.prev = 2;
+              _context3.next = 5;
+              return this.device.gatt.connect();
+            case 5:
+              this.server = _context3.sent;
+              return _context3.abrupt("return", this.server);
+            case 9:
+              _context3.prev = 9;
+              _context3.t0 = _context3["catch"](2);
+              throw new Error('デバイスへの接続に失敗しました: ' + _context3.t0);
+            case 12:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this, [[2, 9]]);
+      }));
+      function connectDevice() {
+        return _connectDevice.apply(this, arguments);
+      }
+      return connectDevice;
+    }()
+    /**
+     * 指定したサービスとキャラクタリスティックを取得（キャッシュ利用）
+     * @param {string} serviceUUID - サービスの UUID
+     * @param {string} characteristicUUID - キャラクタリスティックの UUID
+     * @returns {Promise<BluetoothRemoteGATTCharacteristic>}
+     */
+    )
+  }, {
+    key: "getCharacteristic",
+    value: (function () {
+      var _getCharacteristic = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee4(serviceUUID, characteristicUUID) {
+        var key, service, characteristic;
+        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              key = "".concat(serviceUUID, "|").concat(characteristicUUID);
+              if (!this._characteristics[key]) {
+                _context4.next = 3;
+                break;
+              }
+              return _context4.abrupt("return", this._characteristics[key]);
+            case 3:
+              _context4.prev = 3;
+              _context4.next = 6;
+              return this.server.getPrimaryService(serviceUUID);
+            case 6:
+              service = _context4.sent;
+              _context4.next = 9;
+              return service.getCharacteristic(characteristicUUID);
+            case 9:
+              characteristic = _context4.sent;
+              this._characteristics[key] = characteristic;
+              return _context4.abrupt("return", characteristic);
+            case 14:
+              _context4.prev = 14;
+              _context4.t0 = _context4["catch"](3);
+              throw new Error("\u30B5\u30FC\u30D3\u30B9(".concat(serviceUUID, ")\u307E\u305F\u306F\u30AD\u30E3\u30E9\u30AF\u30BF\u30EA\u30B9\u30C6\u30A3\u30C3\u30AF(").concat(characteristicUUID, ")\u306E\u53D6\u5F97\u306B\u5931\u6557\u3057\u307E\u3057\u305F: ") + _context4.t0);
+            case 17:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this, [[3, 14]]);
+      }));
+      function getCharacteristic(_x2, _x3) {
+        return _getCharacteristic.apply(this, arguments);
+      }
+      return getCharacteristic;
+    }()
+    /**
+     * 指定したキャラクタリスティックにデータを書き込む
+     * @param {string} serviceUUID - サービスの UUID
+     * @param {string} characteristicUUID - キャラクタリスティックの UUID
+     * @param {Uint8Array | number[]} data - 送信するデータ
+     * @returns {Promise<void>}
+     */
+    )
+  }, {
+    key: "write",
+    value: (function () {
+      var _write = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee5(serviceUUID, characteristicUUID, data) {
+        var characteristic, buffer;
+        return _regeneratorRuntime.wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              if (this.server) {
+                _context5.next = 2;
+                break;
+              }
+              throw new Error('デバイスに接続されていません。');
+            case 2:
+              _context5.next = 4;
+              return this.getCharacteristic(serviceUUID, characteristicUUID);
+            case 4:
+              characteristic = _context5.sent;
+              // data が配列の場合は Uint8Array に変換
+              buffer = data instanceof Uint8Array ? data : new Uint8Array(data);
+              _context5.prev = 6;
+              _context5.next = 9;
+              return characteristic.writeValue(buffer);
+            case 9:
+              _context5.next = 14;
+              break;
+            case 11:
+              _context5.prev = 11;
+              _context5.t0 = _context5["catch"](6);
+              throw new Error('データ送信に失敗しました: ' + _context5.t0);
+            case 14:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this, [[6, 11]]);
+      }));
+      function write(_x4, _x5, _x6) {
+        return _write.apply(this, arguments);
+      }
+      return write;
+    }()
+    /**
+     * 指定したキャラクタリスティックで通知を開始し、値が変化した際にコールバックを呼び出す
+     * @param {string} serviceUUID - サービスの UUID
+     * @param {string} characteristicUUID - キャラクタリスティックの UUID
+     * @param {function} callback - 通知受信時に呼ばれるコールバック（DataView を引数にとる）
+     * @returns {Promise<void>}
+     */
+    )
+  }, {
+    key: "startNotifications",
+    value: (function () {
+      var _startNotifications = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee6(serviceUUID, characteristicUUID, callback) {
+        var characteristic;
+        return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              if (this.server) {
+                _context6.next = 2;
+                break;
+              }
+              throw new Error('デバイスに接続されていません。');
+            case 2:
+              _context6.next = 4;
+              return this.getCharacteristic(serviceUUID, characteristicUUID);
+            case 4:
+              characteristic = _context6.sent;
+              _context6.prev = 5;
+              _context6.next = 8;
+              return characteristic.startNotifications();
+            case 8:
+              characteristic.addEventListener('characteristicvaluechanged', function (event) {
+                callback(event.target.value);
+              });
+              _context6.next = 14;
+              break;
+            case 11:
+              _context6.prev = 11;
+              _context6.t0 = _context6["catch"](5);
+              throw new Error('通知の開始に失敗しました: ' + _context6.t0);
+            case 14:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this, [[5, 11]]);
+      }));
+      function startNotifications(_x7, _x8, _x9) {
+        return _startNotifications.apply(this, arguments);
+      }
+      return startNotifications;
+    }()
+    /**
+     * BLE 接続を切断する
+     */
+    )
+  }, {
+    key: "close",
+    value: function close() {
+      if (this.device && this.device.gatt.connected) {
+        this.device.gatt.disconnect();
+      }
+      this.device = null;
+      this.server = null;
+      this._characteristics = {};
+    }
+
+    /**
+     * デバイスが切断された場合の処理（必要に応じて runtime へ通知するなど）
+     * @param {Event} event
+     */
+  }, {
+    key: "_onDisconnected",
+    value: function _onDisconnected(event) {
+      console.log('BLE デバイスが切断されました。', event);
+      // 必要に応じて、ここで runtime への通知や再接続処理を実装してください。
+    }
+  }]);
+}();
+
 /**
  * Formatter which is used for translation.
  * This will be replaced with the runtime formatter.
@@ -1110,7 +1815,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
    * @param {Runtime} runtime - the Scratch 3.0 runtime.
    */
   function ExtensionBlocks(runtime) {
-    _classCallCheck(this, ExtensionBlocks);
+    _classCallCheck$1(this, ExtensionBlocks);
     /**
      * The Scratch 3.0 runtime.
      * @type {Runtime}
@@ -1129,12 +1834,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   /**
    * Initialize Scratch Link session
    */
-  return _createClass(ExtensionBlocks, [{
+  return _createClass$1(ExtensionBlocks, [{
     key: "_initSession",
     value: (function () {
-      var _initSession2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
+      var _initSession2 = _asyncToGenerator$1(/*#__PURE__*/_regeneratorRuntime$1.mark(function _callee() {
         var options;
-        return _regeneratorRuntime.wrap(function _callee$(_context) {
+        return _regeneratorRuntime$1.wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               if (!this._session) {
@@ -1209,8 +1914,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "_sendCommand",
     value: (function () {
-      var _sendCommand2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2(command) {
-        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+      var _sendCommand2 = _asyncToGenerator$1(/*#__PURE__*/_regeneratorRuntime$1.mark(function _callee2(command) {
+        return _regeneratorRuntime$1.wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               if (!(!this._connected || !this._session)) {
@@ -1286,7 +1991,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "turnLeft",
     value: function turnLeft() {
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
       this._sendCommand(command);
     }
 
@@ -1306,7 +2011,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "stop",
     value: function stop() {
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
       this._sendCommand(command);
     }
 
