@@ -2215,13 +2215,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             default: 'do it [SCRIPT]',
             description: 'execute javascript for example'
           }),
-          func: 'doIt',
-          arguments: {
-            SCRIPT: {
-              type: ArgumentType$1.STRING,
-              defaultValue: '5 + 5'
-            }
-          }
         }, {
           opcode: 'connectBLE',
           blockType: BlockType$1.COMMAND,
