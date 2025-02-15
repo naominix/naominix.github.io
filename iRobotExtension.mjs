@@ -1070,34 +1070,60 @@ var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAA
 /**
  * Formatter which is used for translation.
  * This will be replaced with the runtime formatter.
+ * @param {object} messageData - format-message object
+ * @returns {string} - message for the locale
  */
 var formatMessage = function formatMessage(messageData) {
   return messageData.default;
 };
+
+/**
+ * Setup format-message for this extension.
+ */
 var setupTranslations = function setupTranslations() {
   var localeSetup = formatMessage.setup && formatMessage.setup();
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
+
+// BLE UUID 定義
+var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
+var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
+var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
+var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 var EXTENSION_ID = 'rootRobot';
-var extensionURL = 'https://example.com/root-robot-extension.mjs';
+
+/**
+ * URL to get this extension as a module.
+ * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
+ * @type {string}
+ */
+var extensionURL = 'https://naominix.github.io/rootRobot.mjs';
+
+/**
+ * Scratch 3.0 blocks for Root Robot extension
+ */
 var ExtensionBlocks = /*#__PURE__*/function () {
+  /**
+   * Construct a set of blocks for Root Robot.
+   * @param {Runtime} runtime - the Scratch 3.0 runtime.
+   */
   function ExtensionBlocks(runtime) {
     _classCallCheck(this, ExtensionBlocks);
+    /**
+     * The Scratch 3.0 runtime.
+     * @type {Runtime}
+     */
     this.runtime = runtime;
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
 
-    // Scratch Link session
+    // Scratch Link session管理
     this._session = null;
-    this._runtime = runtime;
     this._connected = false;
-
-    // Sensor states
-    this._bumperState = false;
-    this._receivedData = '';
+    this._receivedBuffer = "";
   }
 
   /**
@@ -1117,34 +1143,46 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               }
               return _context.abrupt("return");
             case 2:
+              this._session = new ScratchLinkBLE(this.runtime);
+              _context.next = 5;
+              return this._session.open();
+            case 5:
+              // BLEデバイスのスキャンオプション
               options = {
                 filters: [{
-                  services: ['48c5d828-ac2a-442d-97a3-0c9822b04979']
-                }]
+                  services: [ROOT_ID_SERVICE]
+                }],
+                optionalServices: [UART_SERVICE]
               };
-              this._session = new ScratchLinkBLE(this.runtime);
-              _context.next = 6;
-              return this._session.open();
-            case 6:
-              _context.next = 8;
-              return this._session.scan(options);
-            case 8:
-              _context.next = 10;
-              return this._session.connect();
-            case 10:
+              _context.prev = 6;
+              _context.next = 9;
+              return this._session.requestDevice(options);
+            case 9:
+              _context.next = 11;
+              return this._session.connectDevice();
+            case 11:
               this._connected = true;
 
-              // Setup UART service
-              _context.next = 13;
-              return this._session.write('6e400001-b5a3-f393-e0a9-e50e24dcca9e', '6e400002-b5a3-f393-e0a9-e50e24dcca9e', []);
-            case 13:
-              _context.next = 15;
-              return this._session.startNotifications('6e400001-b5a3-f393-e0a9-e50e24dcca9e', '6e400003-b5a3-f393-e0a9-e50e24dcca9e', this._onData.bind(this));
-            case 15:
+              // UART通信の初期化
+              _context.next = 14;
+              return this._session.write(UART_SERVICE, TX_CHARACTERISTIC, []);
+            case 14:
+              _context.next = 16;
+              return this._session.startNotifications(UART_SERVICE, RX_CHARACTERISTIC, this._onData.bind(this));
+            case 16:
+              _context.next = 23;
+              break;
+            case 18:
+              _context.prev = 18;
+              _context.t0 = _context["catch"](6);
+              log$1.error('Failed to initialize Scratch Link session:', _context.t0);
+              this._connected = false;
+              throw _context.t0;
+            case 23:
             case "end":
               return _context.stop();
           }
-        }, _callee, this);
+        }, _callee, this, [[6, 18]]);
       }));
       function _initSession() {
         return _initSession2.apply(this, arguments);
@@ -1153,25 +1191,20 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }()
     /**
      * Handle received data from the robot
-     * @param {Uint8Array} data - Received data
+     * @param {DataView} data - Received data
      */
     )
   }, {
     key: "_onData",
     value: function _onData(data) {
-      var bytes = Array.from(data);
-      this._receivedData += bytes.join(', ') + '\n';
-
-      // Parse device responses
-      if (bytes[0] === 0x02) {
-        // Bumper device
-        this._bumperState = bytes[2] === 1;
-      }
+      var bytes = Array.from(new Uint8Array(data.buffer));
+      this._receivedBuffer += bytes.join(", ") + "\n";
+      log$1.log("受信: " + bytes.join(", "));
     }
 
     /**
      * Send command to the robot
-     * @param {Uint8Array} command - Command bytes
+     * @param {Uint8Array} command - Command bytes to send
      */
   }, {
     key: "_sendCommand",
@@ -1180,19 +1213,29 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return _regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              if (this._connected) {
-                _context2.next = 2;
+              if (!(!this._connected || !this._session)) {
+                _context2.next = 3;
                 break;
               }
+              log$1.error("デバイスが接続されていません");
               return _context2.abrupt("return");
-            case 2:
-              _context2.next = 4;
-              return this._session.write('6e400001-b5a3-f393-e0a9-e50e24dcca9e', '6e400002-b5a3-f393-e0a9-e50e24dcca9e', command);
-            case 4:
+            case 3:
+              _context2.prev = 3;
+              _context2.next = 6;
+              return this._session.write(UART_SERVICE, TX_CHARACTERISTIC, command);
+            case 6:
+              log$1.log("送信: " + Array.from(command).join(", "));
+              _context2.next = 12;
+              break;
+            case 9:
+              _context2.prev = 9;
+              _context2.t0 = _context2["catch"](3);
+              log$1.error("コマンド送信エラー:", _context2.t0);
+            case 12:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, this);
+        }, _callee2, this, [[3, 9]]);
       }));
       function _sendCommand(_x) {
         return _sendCommand2.apply(this, arguments);
@@ -1201,175 +1244,81 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }()
     /**
      * Connect to Root Robot
+     * @param {object} args - block arguments
+     * @param {function} callback - completion callback
      */
     )
   }, {
     key: "connectRobot",
-    value: (function () {
-      var _connectRobot = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
-        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return this._initSession();
-            case 3:
-              return _context3.abrupt("return", true);
-            case 6:
-              _context3.prev = 6;
-              _context3.t0 = _context3["catch"](0);
-              log$1.error('Failed to connect:', _context3.t0);
-              return _context3.abrupt("return", false);
-            case 10:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, this, [[0, 6]]);
-      }));
-      function connectRobot() {
-        return _connectRobot.apply(this, arguments);
-      }
-      return connectRobot;
-    }()
+    value: function connectRobot(args, callback) {
+      this._initSession().then(function () {
+        log$1.log("Root Robotに接続しました");
+        callback();
+      }).catch(function (error) {
+        log$1.error("接続エラー:", error);
+        callback();
+      });
+    }
+
     /**
      * Drive forward
      */
-    )
   }, {
     key: "driveForward",
-    value: (function () {
-      var _driveForward = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee4() {
-        var command;
-        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
-              _context4.next = 3;
-              return this._sendCommand(command);
-            case 3:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, this);
-      }));
-      function driveForward() {
-        return _driveForward.apply(this, arguments);
-      }
-      return driveForward;
-    }()
+    value: function driveForward() {
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
+      this._sendCommand(command);
+    }
+
     /**
      * Drive backward
      */
-    )
   }, {
     key: "driveBackward",
-    value: (function () {
-      var _driveBackward = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee5() {
-        var command;
-        return _regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
-              _context5.next = 3;
-              return this._sendCommand(command);
-            case 3:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, this);
-      }));
-      function driveBackward() {
-        return _driveBackward.apply(this, arguments);
-      }
-      return driveBackward;
-    }()
+    value: function driveBackward() {
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
+      this._sendCommand(command);
+    }
+
     /**
      * Turn left
      */
-    )
   }, {
     key: "turnLeft",
-    value: (function () {
-      var _turnLeft = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee6() {
-        var command;
-        return _regeneratorRuntime.wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
-              _context6.next = 3;
-              return this._sendCommand(command);
-            case 3:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6, this);
-      }));
-      function turnLeft() {
-        return _turnLeft.apply(this, arguments);
-      }
-      return turnLeft;
-    }()
+    value: function turnLeft() {
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
+      this._sendCommand(command);
+    }
+
     /**
      * Turn right
      */
-    )
   }, {
     key: "turnRight",
-    value: (function () {
-      var _turnRight = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee7() {
-        var command;
-        return _regeneratorRuntime.wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
-              _context7.next = 3;
-              return this._sendCommand(command);
-            case 3:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, this);
-      }));
-      function turnRight() {
-        return _turnRight.apply(this, arguments);
-      }
-      return turnRight;
-    }()
+    value: function turnRight() {
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
+      this._sendCommand(command);
+    }
+
     /**
      * Stop
      */
-    )
   }, {
     key: "stop",
-    value: (function () {
-      var _stop = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee8() {
-        var command;
-        return _regeneratorRuntime.wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
-              _context8.next = 3;
-              return this._sendCommand(command);
-            case 3:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8, this);
-      }));
-      function stop() {
-        return _stop.apply(this, arguments);
-      }
-      return stop;
-    }()
+    value: function stop() {
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
+      this._sendCommand(command);
+    }
+
     /**
      * Get received data
+     * @returns {string} Received data as comma-separated bytes
      */
-    )
   }, {
     key: "getReceivedData",
     value: function getReceivedData() {
-      var data = this._receivedData;
-      this._receivedData = '';
+      var data = this._receivedBuffer;
+      this._receivedBuffer = "";
       return data;
     }
 
@@ -1383,8 +1332,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         this._session.close();
         this._session = null;
         this._connected = false;
+        log$1.log("Root Robotから切断しました");
       }
     }
+
+    /**
+     * @returns {object} metadata for this extension and its blocks.
+     */
   }, {
     key: "getInfo",
     value: function getInfo() {
@@ -1465,10 +1419,19 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
   }], [{
     key: "formatMessage",
-    set: function set(formatter) {
+    set:
+    /**
+     * A translation object which is used in this class.
+     * @param {FormatObject} formatter - translation object
+     */
+    function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
+
+    /**
+     * @return {string} - the name of this extension.
+     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1478,16 +1441,31 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
+
+    /**
+     * @return {string} - the ID of this extension.
+     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
+
+    /**
+     * URL to get this extension.
+     * @type {string}
+     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    },
+    }
+
+    /**
+     * Set URL to get this extension.
+     * The extensionURL will be changed to the URL of the loading server.
+     * @param {string} url - URL
+     */,
     set: function set(url) {
       extensionURL = url;
     }
