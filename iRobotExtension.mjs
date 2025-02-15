@@ -2207,7 +2207,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
-        showStatusButton: false,
+        showStatusButton: true,
         blocks: [{
           opcode: 'doIt',
           blockType: BlockType$1.REPORTER,
