@@ -2179,3 +2179,4 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
 export { ExtensionBlocks as blockClass, entry };
 //# sourceMappingURL=iRobotExtension.mjs.map
+
