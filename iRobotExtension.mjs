@@ -2023,11 +2023,32 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      * @param {object} args - ブロック引数（未使用）
      * @param {function} callback - 完了コールバック
      */
+    /**
+     * BLE UARTデバイスに接続する
+     * 非同期処理のため、完了時に callback() を呼び出します。
+     * @param {object} args - ブロック引数（未使用）
+     * @param {function} callback - 完了コールバック
+     */
   }, {
     key: "connectBLE",
     value: function connectBLE(args, callback) {
       var _this = this;
-      this.scratchLink.open().then(function () {
+      // ★ 修正ポイント ★
+      // まず、ネイティブの Web Bluetooth API を使ってブラウザのBLE接続ダイアログを表示します。
+      if (!navigator.bluetooth || !navigator.bluetooth.requestDevice) {
+        log$1.error("Web Bluetooth API がサポートされていません。");
+        callback();
+        return;
+      }
+      navigator.bluetooth.requestDevice({
+        filters: [{
+          services: [ROOT_ID_SERVICE]
+        }],
+        optionalServices: [UART_SERVICE]
+      }).then(function (device) {
+        // ブラウザのダイアログでユーザーがデバイスを選択した場合、以降は Scratch Link 経由の接続を開始
+        return _this.scratchLink.open();
+      }).then(function () {
         return _this.scratchLink.requestDevice({
           filters: [{
             services: [ROOT_ID_SERVICE]
@@ -2043,7 +2064,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         _this.rxCharacteristic = characteristics[1];
         return _this.scratchLink.startNotifications(UART_SERVICE, RX_CHARACTERISTIC, function (dataView) {
           // scratch-link-ble のコールバックは DataView を返すため、
-          // 既存の handleNotifications と同じ形で処理するためにラップする
+          // 既存の handleNotifications と同じ形で処理するためにラップ
           _this.handleNotifications({
             target: {
               value: dataView
