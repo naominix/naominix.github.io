@@ -1958,9 +1958,6 @@ var setupTranslations = function setupTranslations() {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
-
-// BLE UUID 定義
-var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
@@ -2023,37 +2020,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      * @param {object} args - ブロック引数（未使用）
      * @param {function} callback - 完了コールバック
      */
-    /**
-     * BLE UARTデバイスに接続する
-     * 非同期処理のため、完了時に callback() を呼び出します。
-     * @param {object} args - ブロック引数（未使用）
-     * @param {function} callback - 完了コールバック
-     */
   }, {
     key: "connectBLE",
     value: function connectBLE(args, callback) {
       var _this = this;
-      // ★ 修正ポイント ★
-      // まず、ネイティブの Web Bluetooth API を使ってブラウザのBLE接続ダイアログを表示します。
-      if (!navigator.bluetooth || !navigator.bluetooth.requestDevice) {
-        log$1.error("Web Bluetooth API がサポートされていません。");
-        callback();
-        return;
-      }
-      navigator.bluetooth.requestDevice({
-        filters: [{
-          services: [ROOT_ID_SERVICE]
-        }],
-        optionalServices: [UART_SERVICE]
-      }).then(function (device) {
-        // ブラウザのダイアログでユーザーがデバイスを選択した場合、以降は Scratch Link 経由の接続を開始
-        return _this.scratchLink.open();
-      }).then(function () {
+      // ネイティブな Web Bluetooth の呼び出し部分は削除し、
+      // Scratch Link の標準のスキャン・接続フローのみを使用します。
+      this.scratchLink.open().then(function () {
+        // フィルタに UART_SERVICE を指定することで、iRobot Root rt0 を表示させる
         return _this.scratchLink.requestDevice({
           filters: [{
-            services: [ROOT_ID_SERVICE]
-          }],
-          optionalServices: [UART_SERVICE]
+            services: [UART_SERVICE]
+          }]
         });
       }).then(function () {
         return _this.scratchLink.connectDevice();
