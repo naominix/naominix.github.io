@@ -64,6 +64,36 @@ var entry = {
   translationMap: translations$1
 };
 
+function _arrayLikeToArray$1(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray$1(r);
+}
+
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+}
+
+function _unsupportedIterableToArray$1(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
+  }
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(r) {
+  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray$1(r) || _nonIterableSpread();
+}
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -816,6 +846,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
   /**
    * BLE RX キャラクタリスティックの通知イベントハンドラ
+   * タッチセンサーとバンパーセンサーのレスポンスを区別して処理します。
    * @param {Event} event - 通知イベント
    */
   return _createClass(ExtensionBlocks, [{
@@ -830,28 +861,23 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
 
-      // まず、タッチセンサーイベント（Device 17）の処理
+      // タッチセンサーイベント（Device 17）の処理
       if (bytes.length >= 8 && bytes[0] === 17 && bytes[1] === 0x00) {
         // タッチセンサーの状態は、Byte7 の上位 4 ビット (0b<FL><FR><RR><RL>)
         var stateNibble = bytes[7] >> 4;
         this.touchState = {
           FL: Boolean(stateNibble & 0x8),
-          // Front Left センサー
           FR: Boolean(stateNibble & 0x4),
-          // Front Right センサー
           RR: Boolean(stateNibble & 0x2),
-          // Rear Right センサー
-          RL: Boolean(stateNibble & 0x1) // Rear Left センサー
+          RL: Boolean(stateNibble & 0x1)
         };
         log$1.log("タッチセンサー状態更新: FL=" + this.touchState.FL + ", FR=" + this.touchState.FR + ", RR=" + this.touchState.RR + ", RL=" + this.touchState.RL);
-        // タッチセンサーイベントの場合、バンパー処理には進まず終了
-        return;
+        return; // タッチセンサーイベントはバンパー処理には進まない
       }
 
-      // 次に、バンパーセンサーイベントの処理
-      // ※バンパーセンサーイベントとして想定するのは、
-      //    受信データが 8 バイト以上、Cmd が 0x00 であり、
-      //    Byte7 の値が [0x00, 0x40, 0x80, 0xC0] のいずれかの場合のみ
+      // バンパーセンサーイベントの処理
+      // 本来のバンパーイベントは、受信データが8バイト以上、Cmd (Byte1)が 0x00 であり、
+      // Byte7 の値が [0x00, 0x40, 0x80, 0xC0] のいずれかの場合のみとする。
       if (bytes.length >= 8 && bytes[1] === 0x00) {
         var state = bytes[7];
         if (state === 0x00) {
@@ -867,7 +893,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           this.bumperState = "both";
           log$1.log("バンパーセンサー状態更新: both");
         } else {
-          // 期待値以外の場合は、他のレスポンス（モーター駆動、バッテリーレベルなど）の可能性があるため無視する
+          // 期待値以外の場合は無視（モーター駆動やバッテリーレベルのレスポンスの可能性）
           log$1.log("バンパーセンサーのレスポンスとして不適格な値を無視: " + state);
           return;
         }
@@ -908,7 +934,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         _this.rxCharacteristic = characteristics[1];
         return _this.rxCharacteristic.startNotifications();
       }).then(function () {
-        // RX キャラクタリスティックの通知イベントを登録
         _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
         log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
         callback();
@@ -1015,7 +1040,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * 受信データを返す
-     * （呼び出すと内部バッファの内容を返し、バッファはクリアされます）
+     * 内部バッファの内容を返し、バッファをクリアします。
      * @param {object} args - ブロック引数（未使用）
      * @returns {string} 受信したデータ（カンマ区切りのバイト列）
      */
@@ -1041,10 +1066,9 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     // ── LED 制御機能 ──
-
     /**
      * CRC計算（Swift版のアルゴリズムを JavaScript に移植）
-     * @param {number[]} packet - パケット（先頭19バイト）配列
+     * @param {number[]} packet - 先頭19バイトの配列
      * @returns {number} CRC 値（0～255）
      */
   }, {
@@ -1078,8 +1102,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * LEDパケット生成
-     * 仕様：Command 2 - Set LED Animation
-     * [Dev, Cmd, ID, State, Red, Green, Blue, ...]（先頭7バイト）＋ 0埋め、20バイト目に CRC
+     * (詳細は既存の仕様参照)
      * @param {number} state - LED 点灯モード（0=Off, 1=On, 2=Blink, 3=Spin）
      * @param {number} red - Red 値（0～255）
      * @param {number} green - Green 値（0～255）
@@ -1116,16 +1139,85 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       var blue = Number(args.BLUE);
       var packet = this.buildLedPacket(mode, red, green, blue);
       this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u3092\u9001\u4FE1\u3057\u307E\u3057\u305F: mode=".concat(mode, ", red=").concat(red, ", green=").concat(green, ", blue=").concat(blue));
+        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u9001\u4FE1: mode=".concat(mode, ", red=").concat(red, ", green=").concat(green, ", blue=").concat(blue));
       }).catch(function (error) {
         log$1.error("LEDコマンド送信エラー: " + error);
+      });
+    }
+
+    // ── 左右両方のモーター駆動（モータースピード調節） ──
+
+    /**
+     * 32ビット整数をビッグエンディアンの4バイト配列に変換します。
+     * @param {number} num - 変換する整数
+     * @returns {number[]} 4バイトの配列
+     */
+  }, {
+    key: "int32ToBytes",
+    value: function int32ToBytes(num) {
+      return [num >> 24 & 0xFF, num >> 16 & 0xFF, num >> 8 & 0xFF, num & 0xFF];
+    }
+
+    /**
+     * 左右両方のモーター駆動用のコマンドパケットを生成します。
+     * パケット仕様:
+     *   Byte0: 0x01
+     *   Byte1: 0x04
+     *   Byte2: 0x00
+     *   Byte3-6: 左モーター速度 (32-bit signed, ビッグエンディアン)
+     *   Byte7-10: 右モーター速度 (32-bit signed, ビッグエンディアン)
+     *   Byte11-18: 0埋め (8バイト)
+     *   Byte19: CRC (先頭19バイトから calcCRC() により算出)
+     * @param {number} leftSpeed - 左モーター速度
+     * @param {number} rightSpeed - 右モーター速度
+     * @returns {number[]} 20バイトのコマンドパケット
+     */
+  }, {
+    key: "buildMotorPacket",
+    value: function buildMotorPacket(leftSpeed, rightSpeed) {
+      var packet = [];
+      // 固定部分
+      packet.push(0x01, 0x04, 0x00);
+      // 左モーター速度（4バイト）
+      packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(leftSpeed)));
+      // 右モーター速度（4バイト）
+      packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(rightSpeed)));
+      // 0埋め（8バイト）: 既に 3+4+4 = 11 バイトあるので 8 バイト追加して 19 バイトにする
+      while (packet.length < 19) {
+        packet.push(0x00);
+      }
+      // CRC を計算して 20 バイト目にセット
+      var crc = this.calcCRC(packet.slice(0, 19));
+      packet.push(crc);
+      return packet;
+    }
+
+    /**
+     * 左右のモーターを指定した速度で駆動します。
+     * ブロック引数 LEFT_SPEED, RIGHT_SPEED は数値（32ビット整数、単位は仕様に準ずる）
+     * @param {object} args - ブロック引数 { LEFT_SPEED, RIGHT_SPEED }
+     */
+  }, {
+    key: "setMotorSpeed",
+    value: function setMotorSpeed(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      var leftSpeed = Number(args.LEFT_SPEED);
+      var rightSpeed = Number(args.RIGHT_SPEED);
+      var packet = this.buildMotorPacket(leftSpeed, rightSpeed);
+      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
+        log$1.log("\u30E2\u30FC\u30BF\u30FC\u30B9\u30D4\u30FC\u30C9\u8A2D\u5B9A: \u5DE6=".concat(leftSpeed, ", \u53F3=").concat(rightSpeed));
+      }).catch(function (error) {
+        log$1.error("モータースピードコマンド送信エラー: " + error);
       });
     }
 
     // ── バンパーセンサー判定とイベント ──
 
     /**
-     * バンパーセンサーの状態を取得する
+     * バンパーセンサーの状態を取得します。
      * @param {object} args - ブロック引数（未使用）
      * @returns {string} "none", "left", "right", "both"
      */
@@ -1146,7 +1238,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     value: function whenBumperPressed(args) {
       var selectedBumper = args.BUMPER; // "right", "left", "both"
       if (this.bumperState === selectedBumper) {
-        // 一度イベントを検知したら状態をクリアして再検知を可能にする
         this.bumperState = "none";
         return true;
       }
@@ -1274,6 +1365,27 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             BLUE: {
               type: ArgumentType$1.NUMBER,
               defaultValue: 0
+            }
+          }
+        },
+        // ── 追加ブロック: 左右のモーター駆動（モータースピード調節） ──
+        {
+          opcode: 'setMotorSpeed',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.setMotorSpeed',
+            default: '左右のモーターを左 [LEFT_SPEED] 右 [RIGHT_SPEED] の速度で動かす',
+            description: 'Set left and right motor speeds'
+          }),
+          func: 'setMotorSpeed',
+          arguments: {
+            LEFT_SPEED: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 100
+            },
+            RIGHT_SPEED: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 100
             }
           }
         },
