@@ -798,35 +798,14 @@ var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 var EXTENSION_ID = 'iRobotExtension';
-
-/**
- * URL to get this extension as a module.
- * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
- * @type {string}
- */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
-
-/**
- * Scratch 3.0 blocks for example of Xcratch.
- */
 var ExtensionBlocks = /*#__PURE__*/function () {
-  /**
-   * Construct a set of blocks for iRobotExtension.
-   * @param {Runtime} runtime - the Scratch 3.0 runtime.
-   */
   function ExtensionBlocks(runtime) {
     _classCallCheck(this, ExtensionBlocks);
-    /**
-     * The Scratch 3.0 runtime.
-     * @type {Runtime}
-     */
     this.runtime = runtime;
     if (runtime.formatMessage) {
-      // Replace 'formatMessage' to a formatter used in the runtime.
       formatMessage = runtime.formatMessage;
     }
-
-    // BLE 関連の内部変数を初期化
     this.bleDevice = null;
     this.bleServer = null;
     this.uartService = null;
@@ -836,6 +815,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     // バンパーセンサーの状態（"none", "left", "right", "both"）
     this.bumperState = "none";
     // タッチセンサーの状態（各センサーの状態をオブジェクトで保持）
+    // FL: 左前, FR: 右前, RR: 右後, RL: 左後
     this.touchState = {
       FL: false,
       FR: false,
@@ -843,27 +823,19 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       RL: false
     };
   }
-
-  /**
-   * BLE RX キャラクタリスティックの通知イベントハンドラ
-   * タッチセンサーとバンパーセンサーのレスポンスを区別して処理します。
-   * @param {Event} event - 通知イベント
-   */
   return _createClass(ExtensionBlocks, [{
     key: "handleNotifications",
     value: function handleNotifications(event) {
-      // event.target.value は DataView 型
       var value = event.target.value;
       var byteArray = new Uint8Array(value.buffer);
       var bytes = Array.from(byteArray);
       var msg = bytes.join(", ");
-      // 受信データは改行区切りで蓄積
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
 
-      // タッチセンサーイベント（Device 17）の処理
+      // タッチセンサーイベントの処理（Device 17）
       if (bytes.length >= 8 && bytes[0] === 17 && bytes[1] === 0x00) {
-        // タッチセンサーの状態は、Byte7 の上位 4 ビット (0b<FL><FR><RR><RL>)
+        // Byte7 の上位4ビットから状態を取得: 0b<FL><FR><RR><RL>
         var stateNibble = bytes[7] >> 4;
         this.touchState = {
           FL: Boolean(stateNibble & 0x8),
@@ -871,13 +843,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           RR: Boolean(stateNibble & 0x2),
           RL: Boolean(stateNibble & 0x1)
         };
-        log$1.log("タッチセンサー状態更新: FL=" + this.touchState.FL + ", FR=" + this.touchState.FR + ", RR=" + this.touchState.RR + ", RL=" + this.touchState.RL);
-        return; // タッチセンサーイベントはバンパー処理には進まない
+        log$1.log("タッチセンサー状態更新: 左前=" + this.touchState.FL + ", 右前=" + this.touchState.FR + ", 右後=" + this.touchState.RR + ", 左後=" + this.touchState.RL);
+        return; // タッチセンサーイベントはここで処理完了
       }
 
       // バンパーセンサーイベントの処理
-      // 本来のバンパーイベントは、受信データが8バイト以上、Cmd (Byte1)が 0x00 であり、
-      // Byte7 の値が [0x00, 0x40, 0x80, 0xC0] のいずれかの場合のみとする。
       if (bytes.length >= 8 && bytes[1] === 0x00) {
         var state = bytes[7];
         if (state === 0x00) {
@@ -893,19 +863,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           this.bumperState = "both";
           log$1.log("バンパーセンサー状態更新: both");
         } else {
-          // 期待値以外の場合は無視（モーター駆動やバッテリーレベルのレスポンスの可能性）
           log$1.log("バンパーセンサーのレスポンスとして不適格な値を無視: " + state);
           return;
         }
       }
     }
-
-    /**
-     * BLE UARTデバイスに接続する
-     * 非同期処理のため、完了時に callback() を呼び出します。
-     * @param {object} args - ブロック引数（未使用）
-     * @param {function} callback - 完了コールバック
-     */
   }, {
     key: "connectBLE",
     value: function connectBLE(args, callback) {
@@ -942,16 +904,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         callback();
       });
     }
-
-    /**
-     * 前進する（ドライブフォワードコマンドを送信）
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "driveForward",
     value: function driveForward(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
@@ -961,16 +918,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("前進コマンド送信エラー: " + error);
       });
     }
-
-    /**
-     * 後退する（ドライブバックワードコマンドを送信）
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "driveBackward",
     value: function driveBackward(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
@@ -980,16 +932,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("後退コマンド送信エラー: " + error);
       });
     }
-
-    /**
-     * 左回転する（左ターンコマンドを送信）
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "turnLeft",
     value: function turnLeft(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
@@ -999,16 +946,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("左回転コマンド送信エラー: " + error);
       });
     }
-
-    /**
-     * 右回転する（右ターンコマンドを送信）
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "turnRight",
     value: function turnRight(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
@@ -1018,16 +960,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("右回転コマンド送信エラー: " + error);
       });
     }
-
-    /**
-     * 停止する（ストップコマンドを送信）
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "stop",
     value: function stop(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
@@ -1037,13 +974,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("停止コマンド送信エラー: " + error);
       });
     }
-
-    /**
-     * 受信データを返す
-     * 内部バッファの内容を返し、バッファをクリアします。
-     * @param {object} args - ブロック引数（未使用）
-     * @returns {string} 受信したデータ（カンマ区切りのバイト列）
-     */
   }, {
     key: "getReceivedData",
     value: function getReceivedData(args) {
@@ -1051,11 +981,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       this.receivedBuffer = "";
       return data;
     }
-
-    /**
-     * BLE デバイスから切断する
-     * @param {object} args - ブロック引数（未使用）
-     */
   }, {
     key: "disconnectBLE",
     value: function disconnectBLE(args) {
@@ -1066,11 +991,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     // ── LED 制御機能 ──
-    /**
-     * CRC計算（Swift版のアルゴリズムを JavaScript に移植）
-     * @param {number[]} packet - 先頭19バイトの配列
-     * @returns {number} CRC 値（0～255）
-     */
   }, {
     key: "calcCRC",
     value: function calcCRC(packet) {
@@ -1099,16 +1019,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       }
       return crc;
     }
-
-    /**
-     * LEDパケット生成
-     * (詳細は既存の仕様参照)
-     * @param {number} state - LED 点灯モード（0=Off, 1=On, 2=Blink, 3=Spin）
-     * @param {number} red - Red 値（0～255）
-     * @param {number} green - Green 値（0～255）
-     * @param {number} blue - Blue 値（0～255）
-     * @returns {number[]} 20バイトの LED コマンドパケット
-     */
   }, {
     key: "buildLedPacket",
     value: function buildLedPacket(state, red, green, blue) {
@@ -1116,21 +1026,16 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       while (packet.length < 19) {
         packet.push(0x00);
       }
-      packet.push(0x00); // 仮のCRC
+      packet.push(0x00);
       var crcValue = this.calcCRC(packet.slice(0, 19));
       packet[19] = crcValue;
       return packet;
     }
-
-    /**
-     * LED設定（点灯モードと RGB 値を指定）
-     * @param {object} args - ブロック引数 { MODE, RED, GREEN, BLUE }
-     */
   }, {
     key: "setLED",
     value: function setLED(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var mode = Number(args.MODE);
@@ -1146,62 +1051,30 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     // ── 左右両方のモーター駆動（モータースピード調節） ──
-
-    /**
-     * 32ビット整数をビッグエンディアンの4バイト配列に変換します。
-     * @param {number} num - 変換する整数
-     * @returns {number[]} 4バイトの配列
-     */
   }, {
     key: "int32ToBytes",
     value: function int32ToBytes(num) {
       return [num >> 24 & 0xFF, num >> 16 & 0xFF, num >> 8 & 0xFF, num & 0xFF];
     }
-
-    /**
-     * 左右両方のモーター駆動用のコマンドパケットを生成します。
-     * パケット仕様:
-     *   Byte0: 0x01
-     *   Byte1: 0x04
-     *   Byte2: 0x00
-     *   Byte3-6: 左モーター速度 (32-bit signed, ビッグエンディアン)
-     *   Byte7-10: 右モーター速度 (32-bit signed, ビッグエンディアン)
-     *   Byte11-18: 0埋め (8バイト)
-     *   Byte19: CRC (先頭19バイトから calcCRC() により算出)
-     * @param {number} leftSpeed - 左モーター速度
-     * @param {number} rightSpeed - 右モーター速度
-     * @returns {number[]} 20バイトのコマンドパケット
-     */
   }, {
     key: "buildMotorPacket",
     value: function buildMotorPacket(leftSpeed, rightSpeed) {
       var packet = [];
-      // 固定部分
       packet.push(0x01, 0x04, 0x00);
-      // 左モーター速度（4バイト）
       packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(leftSpeed)));
-      // 右モーター速度（4バイト）
       packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(rightSpeed)));
-      // 0埋め（8バイト）: 既に 3+4+4 = 11 バイトあるので 8 バイト追加して 19 バイトにする
       while (packet.length < 19) {
         packet.push(0x00);
       }
-      // CRC を計算して 20 バイト目にセット
       var crc = this.calcCRC(packet.slice(0, 19));
       packet.push(crc);
       return packet;
     }
-
-    /**
-     * 左右のモーターを指定した速度で駆動します。
-     * ブロック引数 LEFT_SPEED, RIGHT_SPEED は数値（32ビット整数、単位は仕様に準ずる）
-     * @param {object} args - ブロック引数 { LEFT_SPEED, RIGHT_SPEED }
-     */
   }, {
     key: "setMotorSpeed",
     value: function setMotorSpeed(args) {
       if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
       var leftSpeed = Number(args.LEFT_SPEED);
@@ -1214,25 +1087,73 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       });
     }
 
-    // ── バンパーセンサー判定とイベント ──
+    // ── タッチセンサー処理 ──
 
     /**
-     * バンパーセンサーの状態を取得します。
-     * @param {object} args - ブロック引数（未使用）
-     * @returns {string} "none", "left", "right", "both"
+     * タッチセンサーの hat ブロック用実装
+     * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
+     * 対応として "leftFront" → FL, "rightFront" → FR, "leftRear" → RL, "rightRear" → RR とします。
+     * センサーが true の場合、一度 false にリセットして true を返します。
+     * @param {object} args - ブロック引数 { SENSOR }
+     * @returns {boolean} センサーが押された場合 true、それ以外は false
      */
+  }, {
+    key: "whenTouchPressed",
+    value: function whenTouchPressed(args) {
+      var sensor = args.SENSOR;
+      var sensorKey;
+      if (sensor === "leftFront") {
+        sensorKey = "FL";
+      } else if (sensor === "rightFront") {
+        sensorKey = "FR";
+      } else if (sensor === "leftRear") {
+        sensorKey = "RL";
+      } else if (sensor === "rightRear") {
+        sensorKey = "rightRear" in {} ? "" : null; // dummy
+        // ※下記 else if で "rightRear" を扱います
+        sensorKey = "RR";
+      } else {
+        return false;
+      }
+      if (this.touchState[sensorKey]) {
+        // リセットして一度だけイベントを発火させる
+        this.touchState[sensorKey] = false;
+        return true;
+      }
+      return false;
+    }
+
+    /**
+     * タッチセンサーの状態をレポートするブロック用実装
+     * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
+     * @param {object} args - ブロック引数 { SENSOR }
+     * @returns {boolean} 該当センサーの状態（true: 押されている, false: 押されていない）
+     */
+  }, {
+    key: "getTouchSensor",
+    value: function getTouchSensor(args) {
+      var sensor = args.SENSOR;
+      var sensorKey;
+      if (sensor === "leftFront") {
+        sensorKey = "FL";
+      } else if (sensor === "rightFront") {
+        sensorKey = "FR";
+      } else if (sensor === "leftRear") {
+        sensorKey = "RL";
+      } else if (sensor === "rightRear") {
+        sensorKey = "RR";
+      } else {
+        return false;
+      }
+      return this.touchState[sensorKey];
+    }
+
+    // ── バンパーセンサー判定とイベント ──
   }, {
     key: "getBumperState",
     value: function getBumperState(args) {
       return this.bumperState || "none";
     }
-
-    /**
-     * バンパーイベントの hat ブロック用実装
-     * 選択された [BUMPER] と内部の bumperState が一致した場合に true を返し、状態をリセットします。
-     * @param {object} args - ブロック引数 { BUMPER }
-     * @returns {boolean} 一致した場合 true、それ以外は false
-     */
   }, {
     key: "whenBumperPressed",
     value: function whenBumperPressed(args) {
@@ -1243,10 +1164,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       }
       return false;
     }
-
-    /**
-     * @returns {object} metadata for this extension and its blocks.
-     */
   }, {
     key: "getInfo",
     value: function getInfo() {
@@ -1338,7 +1255,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           func: 'disconnectBLE',
           arguments: {}
         },
-        // ── 追加ブロック: LED 制御 ──
+        // LED 制御ブロック
         {
           opcode: 'setLED',
           blockType: BlockType$1.COMMAND,
@@ -1368,7 +1285,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             }
           }
         },
-        // ── 追加ブロック: 左右のモーター駆動（モータースピード調節） ──
+        // 左右モーター駆動ブロック
         {
           opcode: 'setMotorSpeed',
           blockType: BlockType$1.COMMAND,
@@ -1389,7 +1306,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             }
           }
         },
-        // ── 追加ブロック: バンパーセンサー状態取得 ──
+        // バンパーセンサー関連
         {
           opcode: 'getBumperState',
           blockType: BlockType$1.REPORTER,
@@ -1400,9 +1317,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           }),
           func: 'getBumperState',
           arguments: {}
-        },
-        // ── 追加ブロック: バンパーイベント hat ブロック ──
-        {
+        }, {
           opcode: 'whenBumperPressed',
           blockType: BlockType$1.HAT,
           text: formatMessage({
@@ -1416,6 +1331,42 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               type: ArgumentType$1.STRING,
               menu: 'BUMPER_MENU',
               defaultValue: 'right'
+            }
+          }
+        },
+        // タッチセンサー関連：ハットブロック
+        {
+          opcode: 'whenTouchPressed',
+          blockType: BlockType$1.HAT,
+          text: formatMessage({
+            id: 'iRobotExtension.whenTouchPressed',
+            default: 'タッチセンサー [SENSOR] が押されたとき',
+            description: 'Trigger when the specified touch sensor is pressed'
+          }),
+          func: 'whenTouchPressed',
+          arguments: {
+            SENSOR: {
+              type: ArgumentType$1.STRING,
+              menu: 'TOUCH_SENSOR_MENU',
+              defaultValue: 'leftFront'
+            }
+          }
+        },
+        // タッチセンサー関連：状態レポーターブロック
+        {
+          opcode: 'getTouchSensor',
+          blockType: BlockType$1.REPORTER,
+          text: formatMessage({
+            id: 'iRobotExtension.getTouchSensor',
+            default: 'タッチセンサー [SENSOR] の状態',
+            description: 'Report the state of the specified touch sensor'
+          }),
+          func: 'getTouchSensor',
+          arguments: {
+            SENSOR: {
+              type: ArgumentType$1.STRING,
+              menu: 'TOUCH_SENSOR_MENU',
+              defaultValue: 'leftFront'
             }
           }
         }],
@@ -1463,25 +1414,41 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               default: '両方'
             }),
             value: 'both'
+          }],
+          TOUCH_SENSOR_MENU: [{
+            text: formatMessage({
+              id: 'iRobotExtension.touchLeftFront',
+              default: '左前'
+            }),
+            value: 'leftFront'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.touchRightFront',
+              default: '右前'
+            }),
+            value: 'rightFront'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.touchLeftRear',
+              default: '左後'
+            }),
+            value: 'leftRear'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.touchRightRear',
+              default: '右後'
+            }),
+            value: 'rightRear'
           }]
         }
       };
     }
   }], [{
     key: "formatMessage",
-    set:
-    /**
-     * A translation object which is used in this class.
-     * @param {FormatObject} formatter - translation object
-     */
-    function set(formatter) {
+    set: function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
-
-    /**
-     * @return {string} - the name of this extension.
-     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1491,31 +1458,16 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
-
-    /**
-     * @return {string} - the ID of this extension.
-     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
-
-    /**
-     * URL to get this extension.
-     * @type {string}
-     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    }
-
-    /**
-     * Set URL to get this extension.
-     * The extensionURL will be changed to the URL of the loading server.
-     * @param {string} url - URL
-     */,
+    },
     set: function set(url) {
       extensionURL = url;
     }
