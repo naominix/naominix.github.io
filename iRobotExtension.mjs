@@ -1089,7 +1089,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       });
     }
 
-    // ── バンパーセンサー判定 ──
+    // ── バンパーセンサー判定とイベント ──
 
     /**
      * バンパーセンサーの状態を取得する
@@ -1100,6 +1100,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "getBumperState",
     value: function getBumperState(args) {
       return this.bumperState || "none";
+    }
+
+    /**
+     * バンパーイベントの hat ブロック用実装
+     * 選択された [BUMPER] と内部の bumperState が一致した場合に true を返し、状態をリセットします。
+     * @param {object} args - ブロック引数 { BUMPER }
+     * @returns {boolean} 一致した場合 true、それ以外は false
+     */
+  }, {
+    key: "whenBumperPressed",
+    value: function whenBumperPressed(args) {
+      var selectedBumper = args.BUMPER; // "right", "left", "both"
+      if (this.bumperState === selectedBumper) {
+        // 一度イベントを検知したら状態をクリアして再検知を可能にする
+        this.bumperState = "none";
+        return true;
+      }
+      return false;
     }
 
     /**
@@ -1237,6 +1255,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           }),
           func: 'getBumperState',
           arguments: {}
+        },
+        // ── 追加ブロック: バンパーイベント hat ブロック ──
+        {
+          opcode: 'whenBumperPressed',
+          blockType: BlockType$1.HAT,
+          text: formatMessage({
+            id: 'iRobotExtension.whenBumperPressed',
+            default: 'バンパー [BUMPER] が押されたとき',
+            description: 'Trigger when the specified bumper event occurs'
+          }),
+          func: 'whenBumperPressed',
+          arguments: {
+            BUMPER: {
+              type: ArgumentType$1.STRING,
+              menu: 'BUMPER_MENU',
+              defaultValue: 'right'
+            }
+          }
         }],
         menus: {
           LED_MODE: [{
@@ -1263,6 +1299,25 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               default: 'Spin'
             }),
             value: '3'
+          }],
+          BUMPER_MENU: [{
+            text: formatMessage({
+              id: 'iRobotExtension.bumperRight',
+              default: '右'
+            }),
+            value: 'right'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.bumperLeft',
+              default: '左'
+            }),
+            value: 'left'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.bumperBoth',
+              default: '両方'
+            }),
+            value: 'both'
           }]
         }
       };
