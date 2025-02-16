@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'iRobotExtension',
-  extensionURL: 'https://naominix.github.io/iRobotExtension.mjs',
+  extensionURL: 'https://naominix.github.io/irobot-extension/dist/iRobotExtension.mjs',
   collaborator: 'naominix',
   iconURL: img$2,
   insetIconURL: img$1,
@@ -68,22 +68,22 @@ function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _typeof$2(o) {
+function _typeof$1(o) {
   "@babel/helpers - typeof";
 
-  return _typeof$2 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof$2(o);
+  }, _typeof$1(o);
 }
 
 function toPrimitive$1(t, r) {
-  if ("object" != _typeof$2(t) || !t) return t;
+  if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof$2(i)) return i;
+    if ("object" != _typeof$1(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
@@ -91,7 +91,7 @@ function toPrimitive$1(t, r) {
 
 function toPropertyKey$1(t) {
   var i = toPrimitive$1(t, "string");
-  return "symbol" == _typeof$2(i) ? i : i + "";
+  return "symbol" == _typeof$1(i) ? i : i + "";
 }
 
 function _defineProperties$1(e, r) {
@@ -154,26 +154,67 @@ var BlockType = {
 var blockType = BlockType;
 var BlockType$1 = /*@__PURE__*/getDefaultExportFromCjs(blockType);
 
+/**
+ * Block argument types
+ * @enum {string}
+ */
+var ArgumentType = {
+  /**
+   * Numeric value with angle picker
+   */
+  ANGLE: 'angle',
+  /**
+   * Boolean value with hexagonal placeholder
+   */
+  BOOLEAN: 'Boolean',
+  /**
+   * Numeric value with color picker
+   */
+  COLOR: 'color',
+  /**
+   * Numeric value with text field
+   */
+  NUMBER: 'number',
+  /**
+   * String value with text field
+   */
+  STRING: 'string',
+  /**
+   * String value with matrix field
+   */
+  MATRIX: 'matrix',
+  /**
+   * MIDI note number with note picker (piano) field
+   */
+  NOTE: 'note',
+  /**
+   * Inline image on block (as part of the label)
+   */
+  IMAGE: 'image'
+};
+var argumentType = ArgumentType;
+var ArgumentType$1 = /*@__PURE__*/getDefaultExportFromCjs(argumentType);
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _typeof$1(o) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof$1(o);
+  }, _typeof(o);
 }
 
 function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
+  if ("object" != _typeof(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof$1(i)) return i;
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
@@ -181,7 +222,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : i + "";
+  return "symbol" == _typeof(i) ? i : i + "";
 }
 
 function _defineProperties(e, r) {
@@ -191,10 +232,506 @@ function _defineProperties(e, r) {
   }
 }
 function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+  return t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
     writable: false
   }), e;
 }
+
+var Color$1 = /*#__PURE__*/function () {
+  function Color() {
+    _classCallCheck(this, Color);
+  }
+  return _createClass(Color, null, [{
+    key: "RGB_BLACK",
+    get:
+    /**
+     * @typedef {object} RGBObject - An object representing a color in RGB format.
+     * @property {number} r - the red component, in the range [0, 255].
+     * @property {number} g - the green component, in the range [0, 255].
+     * @property {number} b - the blue component, in the range [0, 255].
+     */
+
+    /**
+     * @typedef {object} HSVObject - An object representing a color in HSV format.
+     * @property {number} h - hue, in the range [0-359).
+     * @property {number} s - saturation, in the range [0,1].
+     * @property {number} v - value, in the range [0,1].
+     */
+
+    /** @type {RGBObject} */
+    function get() {
+      return {
+        r: 0,
+        g: 0,
+        b: 0
+      };
+    }
+
+    /** @type {RGBObject} */
+  }, {
+    key: "RGB_WHITE",
+    get: function get() {
+      return {
+        r: 255,
+        g: 255,
+        b: 255
+      };
+    }
+
+    /**
+     * Convert a Scratch decimal color to a hex string, #RRGGBB.
+     * @param {number} decimal RGB color as a decimal.
+     * @return {string} RGB color as #RRGGBB hex string.
+     */
+  }, {
+    key: "decimalToHex",
+    value: function decimalToHex(decimal) {
+      if (decimal < 0) {
+        decimal += 0xFFFFFF + 1;
+      }
+      var hex = Number(decimal).toString(16);
+      hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
+      return hex;
+    }
+
+    /**
+     * Convert a Scratch decimal color to an RGB color object.
+     * @param {number} decimal RGB color as decimal.
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "decimalToRgb",
+    value: function decimalToRgb(decimal) {
+      var a = decimal >> 24 & 0xFF;
+      var r = decimal >> 16 & 0xFF;
+      var g = decimal >> 8 & 0xFF;
+      var b = decimal & 0xFF;
+      return {
+        r: r,
+        g: g,
+        b: b,
+        a: a > 0 ? a : 255
+      };
+    }
+
+    /**
+     * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
+     * CC-BY-SA Tim Down:
+     * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+     * @param {!string} hex Hex representation of the color.
+     * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hexToRgb",
+    value: function hexToRgb(hex) {
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    /**
+     * Convert an RGB color object to a hex color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!string} Hex representation of the color.
+     */
+  }, {
+    key: "rgbToHex",
+    value: function rgbToHex(rgb) {
+      return Color.decimalToHex(Color.rgbToDecimal(rgb));
+    }
+
+    /**
+     * Convert an RGB color object to a Scratch decimal color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!number} Number representing the color.
+     */
+  }, {
+    key: "rgbToDecimal",
+    value: function rgbToDecimal(rgb) {
+      return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
+    }
+
+    /**
+    * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
+    * @param {!string} hex Hex representation of the color.
+    * @return {!number} Number representing the color.
+    */
+  }, {
+    key: "hexToDecimal",
+    value: function hexToDecimal(hex) {
+      return Color.rgbToDecimal(Color.hexToRgb(hex));
+    }
+
+    /**
+     * Convert an HSV color to RGB format.
+     * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hsvToRgb",
+    value: function hsvToRgb(hsv) {
+      var h = hsv.h % 360;
+      if (h < 0) h += 360;
+      var s = Math.max(0, Math.min(hsv.s, 1));
+      var v = Math.max(0, Math.min(hsv.v, 1));
+      var i = Math.floor(h / 60);
+      var f = h / 60 - i;
+      var p = v * (1 - s);
+      var q = v * (1 - s * f);
+      var t = v * (1 - s * (1 - f));
+      var r;
+      var g;
+      var b;
+      switch (i) {
+        default:
+        case 0:
+          r = v;
+          g = t;
+          b = p;
+          break;
+        case 1:
+          r = q;
+          g = v;
+          b = p;
+          break;
+        case 2:
+          r = p;
+          g = v;
+          b = t;
+          break;
+        case 3:
+          r = p;
+          g = q;
+          b = v;
+          break;
+        case 4:
+          r = t;
+          g = p;
+          b = v;
+          break;
+        case 5:
+          r = v;
+          g = p;
+          b = q;
+          break;
+      }
+      return {
+        r: Math.floor(r * 255),
+        g: Math.floor(g * 255),
+        b: Math.floor(b * 255)
+      };
+    }
+
+    /**
+     * Convert an RGB color to HSV format.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     */
+  }, {
+    key: "rgbToHsv",
+    value: function rgbToHsv(rgb) {
+      var r = rgb.r / 255;
+      var g = rgb.g / 255;
+      var b = rgb.b / 255;
+      var x = Math.min(Math.min(r, g), b);
+      var v = Math.max(Math.max(r, g), b);
+
+      // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
+      var h = 0;
+      var s = 0;
+      if (x !== v) {
+        var f = r === x ? g - b : g === x ? b - r : r - g;
+        var i = r === x ? 3 : g === x ? 5 : 1;
+        h = (i - f / (v - x)) * 60 % 360;
+        s = (v - x) / v;
+      }
+      return {
+        h: h,
+        s: s,
+        v: v
+      };
+    }
+
+    /**
+     * Linear interpolation between rgb0 and rgb1.
+     * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
+     * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
+     * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
+     * @return {RGBObject} the interpolated color.
+     */
+  }, {
+    key: "mixRgb",
+    value: function mixRgb(rgb0, rgb1, fraction1) {
+      if (fraction1 <= 0) return rgb0;
+      if (fraction1 >= 1) return rgb1;
+      var fraction0 = 1 - fraction1;
+      return {
+        r: fraction0 * rgb0.r + fraction1 * rgb1.r,
+        g: fraction0 * rgb0.g + fraction1 * rgb1.g,
+        b: fraction0 * rgb0.b + fraction1 * rgb1.b
+      };
+    }
+  }]);
+}();
+var color$3 = Color$1;
+
+var Color = color$3;
+
+/**
+ * @fileoverview
+ * Utilities for casting and comparing Scratch data-types.
+ * Scratch behaves slightly differently from JavaScript in many respects,
+ * and these differences should be encapsulated below.
+ * For example, in Scratch, add(1, join("hello", world")) -> 1.
+ * This is because "hello world" is cast to 0.
+ * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
+ * Use when coercing a value before computation.
+ */
+var Cast = /*#__PURE__*/function () {
+  function Cast() {
+    _classCallCheck(this, Cast);
+  }
+  return _createClass(Cast, null, [{
+    key: "toNumber",
+    value:
+    /**
+     * Scratch cast to number.
+     * Treats NaN as 0.
+     * In Scratch 2.0, this is captured by `interp.numArg.`
+     * @param {*} value Value to cast to number.
+     * @return {number} The Scratch-casted number value.
+     */
+    function toNumber(value) {
+      // If value is already a number we don't need to coerce it with
+      // Number().
+      if (typeof value === 'number') {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        if (Number.isNaN(value)) {
+          return 0;
+        }
+        return value;
+      }
+      if (typeof value === 'string') {
+        // Replace full-width numbers with half-width ones.
+        value = value.replace(/[０-９＋．ｅ]/g, function (s) {
+          return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+        value = value.replace(/[-－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-');
+      }
+      var n = Number(value);
+      if (Number.isNaN(n)) {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        return 0;
+      }
+      return n;
+    }
+
+    /**
+     * Scratch cast to boolean.
+     * In Scratch 2.0, this is captured by `interp.boolArg.`
+     * Treats some string values differently from JavaScript.
+     * @param {*} value Value to cast to boolean.
+     * @return {boolean} The Scratch-casted boolean value.
+     */
+  }, {
+    key: "toBoolean",
+    value: function toBoolean(value) {
+      // Already a boolean?
+      if (typeof value === 'boolean') {
+        return value;
+      }
+      if (typeof value === 'string') {
+        // These specific strings are treated as false in Scratch.
+        if (value === '' || value === '0' || value.toLowerCase() === 'false') {
+          return false;
+        }
+        // All other strings treated as true.
+        return true;
+      }
+      // Coerce other values and numbers.
+      return Boolean(value);
+    }
+
+    /**
+     * Scratch cast to string.
+     * @param {*} value Value to cast to string.
+     * @return {string} The Scratch-casted string value.
+     */
+  }, {
+    key: "toString",
+    value: function toString(value) {
+      return String(value).replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color array to be used for the renderer.
+     * @param {*} value Value to convert to RGB color array.
+     * @return {Array.<number>} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorList",
+    value: function toRgbColorList(value) {
+      var color = Cast.toRgbColorObject(value);
+      return [color.r, color.g, color.b];
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color object to be used for the renderer.
+     * @param {*} value Value to convert to RGB color object.
+     * @return {RGBOject} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorObject",
+    value: function toRgbColorObject(value) {
+      var color;
+      if (typeof value === 'string' && value.substring(0, 1) === '#') {
+        color = Color.hexToRgb(value);
+
+        // If the color wasn't *actually* a hex color, cast to black
+        if (!color) color = {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        };
+      } else {
+        color = Color.decimalToRgb(Cast.toNumber(value));
+      }
+      return color;
+    }
+
+    /**
+     * Determine if a Scratch argument is a white space string (or null / empty).
+     * @param {*} val value to check.
+     * @return {boolean} True if the argument is all white spaces or null / empty.
+     */
+  }, {
+    key: "isWhiteSpace",
+    value: function isWhiteSpace(val) {
+      return val === null || typeof val === 'string' && val.trim().length === 0;
+    }
+
+    /**
+     * Compare two values, using Scratch cast, case-insensitive string compare, etc.
+     * In Scratch 2.0, this is captured by `interp.compare.`
+     * @param {*} v1 First value to compare.
+     * @param {*} v2 Second value to compare.
+     * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
+     */
+  }, {
+    key: "compare",
+    value: function compare(v1, v2) {
+      var n1 = Number(v1);
+      var n2 = Number(v2);
+      if (n1 === 0 && Cast.isWhiteSpace(v1)) {
+        n1 = NaN;
+      } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
+        n2 = NaN;
+      }
+      if (isNaN(n1) || isNaN(n2)) {
+        // At least one argument can't be converted to a number.
+        // Scratch compares strings as case insensitive.
+        var s1 = Cast.toString(v1).toLowerCase();
+        var s2 = Cast.toString(v2).toLowerCase();
+        if (s1 < s2) {
+          return -1;
+        } else if (s1 > s2) {
+          return 1;
+        }
+        return 0;
+      }
+      // Handle the special case of Infinity
+      if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
+        return 0;
+      }
+      // Compare as numbers.
+      return n1 - n2;
+    }
+
+    /**
+     * Determine if a Scratch argument number represents a round integer.
+     * @param {*} val Value to check.
+     * @return {boolean} True if number looks like an integer.
+     */
+  }, {
+    key: "isInt",
+    value: function isInt(val) {
+      // Values that are already numbers.
+      if (typeof val === 'number') {
+        if (isNaN(val)) {
+          // NaN is considered an integer.
+          return true;
+        }
+        // True if it's "round" (e.g., 2.0 and 2).
+        return val === parseInt(val, 10);
+      } else if (typeof val === 'boolean') {
+        // `True` and `false` always represent integer after Scratch cast.
+        return true;
+      } else if (typeof val === 'string') {
+        // If it contains a decimal point, don't consider it an int.
+        return val.indexOf('.') < 0;
+      }
+      return false;
+    }
+  }, {
+    key: "LIST_INVALID",
+    get: function get() {
+      return 'INVALID';
+    }
+  }, {
+    key: "LIST_ALL",
+    get: function get() {
+      return 'ALL';
+    }
+
+    /**
+     * Compute a 1-based index into a list, based on a Scratch argument.
+     * Two special cases may be returned:
+     * LIST_ALL: if the block is referring to all of the items in the list.
+     * LIST_INVALID: if the index was invalid in any way.
+     * @param {*} index Scratch arg, including 1-based numbers or special cases.
+     * @param {number} length Length of the list.
+     * @param {boolean} acceptAll Whether it should accept "all" or not.
+     * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
+     */
+  }, {
+    key: "toListIndex",
+    value: function toListIndex(index, length, acceptAll) {
+      if (typeof index !== 'number') {
+        if (index === 'all') {
+          return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
+        }
+        if (index === 'last') {
+          if (length > 0) {
+            return length;
+          }
+          return Cast.LIST_INVALID;
+        } else if (index === 'random' || index === 'any') {
+          if (length > 0) {
+            return 1 + Math.floor(Math.random() * length);
+          }
+          return Cast.LIST_INVALID;
+        }
+      }
+      index = Math.floor(Cast.toNumber(index));
+      if (index < 1 || index > length) {
+        return Cast.LIST_INVALID;
+      }
+      return index;
+    }
+  }]);
+}();
+var cast = Cast;
+var Cast$1 = /*@__PURE__*/getDefaultExportFromCjs(cast);
 
 var web = {exports: {}};
 
@@ -739,668 +1276,9 @@ var translations = {
 
 var img = "data:image/png;base64,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";
 
-function asyncGeneratorStep(n, t, e, r, o, a, c) {
-  try {
-    var i = n[a](c),
-      u = i.value;
-  } catch (n) {
-    return void e(n);
-  }
-  i.done ? t(u) : Promise.resolve(u).then(r, o);
-}
-function _asyncToGenerator(n) {
-  return function () {
-    var t = this,
-      e = arguments;
-    return new Promise(function (r, o) {
-      var a = n.apply(t, e);
-      function _next(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
-      }
-      function _throw(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
-      }
-      _next(void 0);
-    });
-  };
-}
-
-var regeneratorRuntime$1 = {exports: {}};
-
-var _typeof = {exports: {}};
-
-(function (module) {
-  function _typeof(o) {
-    "@babel/helpers - typeof";
-
-    return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-      return typeof o;
-    } : function (o) {
-      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-    }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
-  }
-  module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
-})(_typeof);
-var _typeofExports = _typeof.exports;
-
-(function (module) {
-  var _typeof = _typeofExports["default"];
-  function _regeneratorRuntime() {
-
-    /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
-    module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
-      return e;
-    }, module.exports.__esModule = true, module.exports["default"] = module.exports;
-    var t,
-      e = {},
-      r = Object.prototype,
-      n = r.hasOwnProperty,
-      o = Object.defineProperty || function (t, e, r) {
-        t[e] = r.value;
-      },
-      i = "function" == typeof Symbol ? Symbol : {},
-      a = i.iterator || "@@iterator",
-      c = i.asyncIterator || "@@asyncIterator",
-      u = i.toStringTag || "@@toStringTag";
-    function define(t, e, r) {
-      return Object.defineProperty(t, e, {
-        value: r,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      }), t[e];
-    }
-    try {
-      define({}, "");
-    } catch (t) {
-      define = function define(t, e, r) {
-        return t[e] = r;
-      };
-    }
-    function wrap(t, e, r, n) {
-      var i = e && e.prototype instanceof Generator ? e : Generator,
-        a = Object.create(i.prototype),
-        c = new Context(n || []);
-      return o(a, "_invoke", {
-        value: makeInvokeMethod(t, r, c)
-      }), a;
-    }
-    function tryCatch(t, e, r) {
-      try {
-        return {
-          type: "normal",
-          arg: t.call(e, r)
-        };
-      } catch (t) {
-        return {
-          type: "throw",
-          arg: t
-        };
-      }
-    }
-    e.wrap = wrap;
-    var h = "suspendedStart",
-      l = "suspendedYield",
-      f = "executing",
-      s = "completed",
-      y = {};
-    function Generator() {}
-    function GeneratorFunction() {}
-    function GeneratorFunctionPrototype() {}
-    var p = {};
-    define(p, a, function () {
-      return this;
-    });
-    var d = Object.getPrototypeOf,
-      v = d && d(d(values([])));
-    v && v !== r && n.call(v, a) && (p = v);
-    var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p);
-    function defineIteratorMethods(t) {
-      ["next", "throw", "return"].forEach(function (e) {
-        define(t, e, function (t) {
-          return this._invoke(e, t);
-        });
-      });
-    }
-    function AsyncIterator(t, e) {
-      function invoke(r, o, i, a) {
-        var c = tryCatch(t[r], t, o);
-        if ("throw" !== c.type) {
-          var u = c.arg,
-            h = u.value;
-          return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) {
-            invoke("next", t, i, a);
-          }, function (t) {
-            invoke("throw", t, i, a);
-          }) : e.resolve(h).then(function (t) {
-            u.value = t, i(u);
-          }, function (t) {
-            return invoke("throw", t, i, a);
-          });
-        }
-        a(c.arg);
-      }
-      var r;
-      o(this, "_invoke", {
-        value: function value(t, n) {
-          function callInvokeWithMethodAndArg() {
-            return new e(function (e, r) {
-              invoke(t, n, e, r);
-            });
-          }
-          return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
-        }
-      });
-    }
-    function makeInvokeMethod(e, r, n) {
-      var o = h;
-      return function (i, a) {
-        if (o === f) throw Error("Generator is already running");
-        if (o === s) {
-          if ("throw" === i) throw a;
-          return {
-            value: t,
-            done: true
-          };
-        }
-        for (n.method = i, n.arg = a;;) {
-          var c = n.delegate;
-          if (c) {
-            var u = maybeInvokeDelegate(c, n);
-            if (u) {
-              if (u === y) continue;
-              return u;
-            }
-          }
-          if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) {
-            if (o === h) throw o = s, n.arg;
-            n.dispatchException(n.arg);
-          } else "return" === n.method && n.abrupt("return", n.arg);
-          o = f;
-          var p = tryCatch(e, r, n);
-          if ("normal" === p.type) {
-            if (o = n.done ? s : l, p.arg === y) continue;
-            return {
-              value: p.arg,
-              done: n.done
-            };
-          }
-          "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg);
-        }
-      };
-    }
-    function maybeInvokeDelegate(e, r) {
-      var n = r.method,
-        o = e.iterator[n];
-      if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y;
-      var i = tryCatch(o, e.iterator, r.arg);
-      if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y;
-      var a = i.arg;
-      return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y);
-    }
-    function pushTryEntry(t) {
-      var e = {
-        tryLoc: t[0]
-      };
-      1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e);
-    }
-    function resetTryEntry(t) {
-      var e = t.completion || {};
-      e.type = "normal", delete e.arg, t.completion = e;
-    }
-    function Context(t) {
-      this.tryEntries = [{
-        tryLoc: "root"
-      }], t.forEach(pushTryEntry, this), this.reset(true);
-    }
-    function values(e) {
-      if (e || "" === e) {
-        var r = e[a];
-        if (r) return r.call(e);
-        if ("function" == typeof e.next) return e;
-        if (!isNaN(e.length)) {
-          var o = -1,
-            i = function next() {
-              for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = false, next;
-              return next.value = t, next.done = true, next;
-            };
-          return i.next = i;
-        }
-      }
-      throw new TypeError(_typeof(e) + " is not iterable");
-    }
-    return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", {
-      value: GeneratorFunctionPrototype,
-      configurable: true
-    }), o(GeneratorFunctionPrototype, "constructor", {
-      value: GeneratorFunction,
-      configurable: true
-    }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) {
-      var e = "function" == typeof t && t.constructor;
-      return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name));
-    }, e.mark = function (t) {
-      return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t;
-    }, e.awrap = function (t) {
-      return {
-        __await: t
-      };
-    }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () {
-      return this;
-    }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) {
-      void 0 === i && (i = Promise);
-      var a = new AsyncIterator(wrap(t, r, n, o), i);
-      return e.isGeneratorFunction(r) ? a : a.next().then(function (t) {
-        return t.done ? t.value : a.next();
-      });
-    }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () {
-      return this;
-    }), define(g, "toString", function () {
-      return "[object Generator]";
-    }), e.keys = function (t) {
-      var e = Object(t),
-        r = [];
-      for (var n in e) r.push(n);
-      return r.reverse(), function next() {
-        for (; r.length;) {
-          var t = r.pop();
-          if (t in e) return next.value = t, next.done = false, next;
-        }
-        return next.done = true, next;
-      };
-    }, e.values = values, Context.prototype = {
-      constructor: Context,
-      reset: function reset(e) {
-        if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = false, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t);
-      },
-      stop: function stop() {
-        this.done = true;
-        var t = this.tryEntries[0].completion;
-        if ("throw" === t.type) throw t.arg;
-        return this.rval;
-      },
-      dispatchException: function dispatchException(e) {
-        if (this.done) throw e;
-        var r = this;
-        function handle(n, o) {
-          return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o;
-        }
-        for (var o = this.tryEntries.length - 1; o >= 0; --o) {
-          var i = this.tryEntries[o],
-            a = i.completion;
-          if ("root" === i.tryLoc) return handle("end");
-          if (i.tryLoc <= this.prev) {
-            var c = n.call(i, "catchLoc"),
-              u = n.call(i, "finallyLoc");
-            if (c && u) {
-              if (this.prev < i.catchLoc) return handle(i.catchLoc, true);
-              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-            } else if (c) {
-              if (this.prev < i.catchLoc) return handle(i.catchLoc, true);
-            } else {
-              if (!u) throw Error("try statement without catch or finally");
-              if (this.prev < i.finallyLoc) return handle(i.finallyLoc);
-            }
-          }
-        }
-      },
-      abrupt: function abrupt(t, e) {
-        for (var r = this.tryEntries.length - 1; r >= 0; --r) {
-          var o = this.tryEntries[r];
-          if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) {
-            var i = o;
-            break;
-          }
-        }
-        i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null);
-        var a = i ? i.completion : {};
-        return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a);
-      },
-      complete: function complete(t, e) {
-        if ("throw" === t.type) throw t.arg;
-        return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y;
-      },
-      finish: function finish(t) {
-        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-          var r = this.tryEntries[e];
-          if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y;
-        }
-      },
-      "catch": function _catch(t) {
-        for (var e = this.tryEntries.length - 1; e >= 0; --e) {
-          var r = this.tryEntries[e];
-          if (r.tryLoc === t) {
-            var n = r.completion;
-            if ("throw" === n.type) {
-              var o = n.arg;
-              resetTryEntry(r);
-            }
-            return o;
-          }
-        }
-        throw Error("illegal catch attempt");
-      },
-      delegateYield: function delegateYield(e, r, n) {
-        return this.delegate = {
-          iterator: values(e),
-          resultName: r,
-          nextLoc: n
-        }, "next" === this.method && (this.arg = t), y;
-      }
-    }, e;
-  }
-  module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
-})(regeneratorRuntime$1);
-var regeneratorRuntimeExports = regeneratorRuntime$1.exports;
-
-// TODO(Babel 8): Remove this file.
-
-var runtime = regeneratorRuntimeExports();
-var regenerator = runtime;
-
-// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
-try {
-  regeneratorRuntime = runtime;
-} catch (accidentalStrictMode) {
-  if ((typeof globalThis === "undefined" ? "undefined" : _typeof$1(globalThis)) === "object") {
-    globalThis.regeneratorRuntime = runtime;
-  } else {
-    Function("r", "regeneratorRuntime = r")(runtime);
-  }
-}
-var _regeneratorRuntime = /*@__PURE__*/getDefaultExportFromCjs(regenerator);
-
-// src/extension-support/scratch-link-ble.js
-var ScratchLinkBLE = /*#__PURE__*/function () {
-  /**
-   * @param {object} runtime - Scratch の runtime（利用する場合はログ出力などに使用）
-   */
-  function ScratchLinkBLE(runtime) {
-    _classCallCheck(this, ScratchLinkBLE);
-    this.runtime = runtime;
-    this.device = null;
-    this.server = null;
-    // サービスとキャラクタリスティックのキャッシュ
-    this._characteristics = {};
-  }
-
-  /**
-   * BLE 接続の前提条件を確認する（Web Bluetooth API の対応確認）
-   * @returns {Promise<void>}
-   */
-  return _createClass(ScratchLinkBLE, [{
-    key: "open",
-    value: (function () {
-      var _open = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
-        return _regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              if (navigator.bluetooth) {
-                _context.next = 2;
-                break;
-              }
-              throw new Error('このブラウザは Web Bluetooth API に対応していません。');
-            case 2:
-              return _context.abrupt("return", Promise.resolve());
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }));
-      function open() {
-        return _open.apply(this, arguments);
-      }
-      return open;
-    }()
-    /**
-     * BLE デバイスの検索・選択ダイアログを表示する
-     * @param {object} options - navigator.bluetooth.requestDevice に渡すオプション
-     * @returns {Promise<BluetoothDevice>}
-     */
-    )
-  }, {
-    key: "requestDevice",
-    value: (function () {
-      var _requestDevice = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2(options) {
-        return _regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              _context2.next = 3;
-              return navigator.bluetooth.requestDevice(options);
-            case 3:
-              this.device = _context2.sent;
-              // 切断時のイベントリスナーを設定
-              this.device.addEventListener('gattserverdisconnected', this._onDisconnected.bind(this));
-              return _context2.abrupt("return", this.device);
-            case 8:
-              _context2.prev = 8;
-              _context2.t0 = _context2["catch"](0);
-              throw new Error('BLE デバイスの検索に失敗しました: ' + _context2.t0);
-            case 11:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, this, [[0, 8]]);
-      }));
-      function requestDevice(_x) {
-        return _requestDevice.apply(this, arguments);
-      }
-      return requestDevice;
-    }()
-    /**
-     * 選択した BLE デバイスに接続する
-     * @returns {Promise<BluetoothRemoteGATTServer>}
-     */
-    )
-  }, {
-    key: "connectDevice",
-    value: (function () {
-      var _connectDevice = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
-        return _regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              if (this.device) {
-                _context3.next = 2;
-                break;
-              }
-              throw new Error('デバイスが選択されていません。');
-            case 2:
-              _context3.prev = 2;
-              _context3.next = 5;
-              return this.device.gatt.connect();
-            case 5:
-              this.server = _context3.sent;
-              return _context3.abrupt("return", this.server);
-            case 9:
-              _context3.prev = 9;
-              _context3.t0 = _context3["catch"](2);
-              throw new Error('デバイスへの接続に失敗しました: ' + _context3.t0);
-            case 12:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, this, [[2, 9]]);
-      }));
-      function connectDevice() {
-        return _connectDevice.apply(this, arguments);
-      }
-      return connectDevice;
-    }()
-    /**
-     * 指定したサービスとキャラクタリスティックを取得（キャッシュ利用）
-     * @param {string} serviceUUID - サービスの UUID
-     * @param {string} characteristicUUID - キャラクタリスティックの UUID
-     * @returns {Promise<BluetoothRemoteGATTCharacteristic>}
-     */
-    )
-  }, {
-    key: "getCharacteristic",
-    value: (function () {
-      var _getCharacteristic = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee4(serviceUUID, characteristicUUID) {
-        var key, service, characteristic;
-        return _regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              key = "".concat(serviceUUID, "|").concat(characteristicUUID);
-              if (!this._characteristics[key]) {
-                _context4.next = 3;
-                break;
-              }
-              return _context4.abrupt("return", this._characteristics[key]);
-            case 3:
-              _context4.prev = 3;
-              _context4.next = 6;
-              return this.server.getPrimaryService(serviceUUID);
-            case 6:
-              service = _context4.sent;
-              _context4.next = 9;
-              return service.getCharacteristic(characteristicUUID);
-            case 9:
-              characteristic = _context4.sent;
-              this._characteristics[key] = characteristic;
-              return _context4.abrupt("return", characteristic);
-            case 14:
-              _context4.prev = 14;
-              _context4.t0 = _context4["catch"](3);
-              throw new Error("\u30B5\u30FC\u30D3\u30B9(".concat(serviceUUID, ")\u307E\u305F\u306F\u30AD\u30E3\u30E9\u30AF\u30BF\u30EA\u30B9\u30C6\u30A3\u30C3\u30AF(").concat(characteristicUUID, ")\u306E\u53D6\u5F97\u306B\u5931\u6557\u3057\u307E\u3057\u305F: ") + _context4.t0);
-            case 17:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, this, [[3, 14]]);
-      }));
-      function getCharacteristic(_x2, _x3) {
-        return _getCharacteristic.apply(this, arguments);
-      }
-      return getCharacteristic;
-    }()
-    /**
-     * 指定したキャラクタリスティックにデータを書き込む
-     * @param {string} serviceUUID - サービスの UUID
-     * @param {string} characteristicUUID - キャラクタリスティックの UUID
-     * @param {Uint8Array | number[]} data - 送信するデータ
-     * @returns {Promise<void>}
-     */
-    )
-  }, {
-    key: "write",
-    value: (function () {
-      var _write = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee5(serviceUUID, characteristicUUID, data) {
-        var characteristic, buffer;
-        return _regeneratorRuntime.wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              if (this.server) {
-                _context5.next = 2;
-                break;
-              }
-              throw new Error('デバイスに接続されていません。');
-            case 2:
-              _context5.next = 4;
-              return this.getCharacteristic(serviceUUID, characteristicUUID);
-            case 4:
-              characteristic = _context5.sent;
-              // data が配列の場合は Uint8Array に変換
-              buffer = data instanceof Uint8Array ? data : new Uint8Array(data);
-              _context5.prev = 6;
-              _context5.next = 9;
-              return characteristic.writeValue(buffer);
-            case 9:
-              _context5.next = 14;
-              break;
-            case 11:
-              _context5.prev = 11;
-              _context5.t0 = _context5["catch"](6);
-              throw new Error('データ送信に失敗しました: ' + _context5.t0);
-            case 14:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, this, [[6, 11]]);
-      }));
-      function write(_x4, _x5, _x6) {
-        return _write.apply(this, arguments);
-      }
-      return write;
-    }()
-    /**
-     * 指定したキャラクタリスティックで通知を開始し、値が変化した際にコールバックを呼び出す
-     * @param {string} serviceUUID - サービスの UUID
-     * @param {string} characteristicUUID - キャラクタリスティックの UUID
-     * @param {function} callback - 通知受信時に呼ばれるコールバック（DataView を引数にとる）
-     * @returns {Promise<void>}
-     */
-    )
-  }, {
-    key: "startNotifications",
-    value: (function () {
-      var _startNotifications = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee6(serviceUUID, characteristicUUID, callback) {
-        var characteristic;
-        return _regeneratorRuntime.wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              if (this.server) {
-                _context6.next = 2;
-                break;
-              }
-              throw new Error('デバイスに接続されていません。');
-            case 2:
-              _context6.next = 4;
-              return this.getCharacteristic(serviceUUID, characteristicUUID);
-            case 4:
-              characteristic = _context6.sent;
-              _context6.prev = 5;
-              _context6.next = 8;
-              return characteristic.startNotifications();
-            case 8:
-              characteristic.addEventListener('characteristicvaluechanged', function (event) {
-                callback(event.target.value);
-              });
-              _context6.next = 14;
-              break;
-            case 11:
-              _context6.prev = 11;
-              _context6.t0 = _context6["catch"](5);
-              throw new Error('通知の開始に失敗しました: ' + _context6.t0);
-            case 14:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6, this, [[5, 11]]);
-      }));
-      function startNotifications(_x7, _x8, _x9) {
-        return _startNotifications.apply(this, arguments);
-      }
-      return startNotifications;
-    }()
-    /**
-     * BLE 接続を切断する
-     */
-    )
-  }, {
-    key: "close",
-    value: function close() {
-      if (this.device && this.device.gatt.connected) {
-        this.device.gatt.disconnect();
-      }
-      this.device = null;
-      this.server = null;
-      this._characteristics = {};
-    }
-
-    /**
-     * デバイスが切断された場合の処理（必要に応じて runtime へ通知するなど）
-     * @param {Event} event
-     */
-  }, {
-    key: "_onDisconnected",
-    value: function _onDisconnected(event) {
-      console.log('BLE デバイスが切断されました。', event);
-      // 必要に応じて、ここで runtime への通知や再接続処理を実装してください。
-    }
-  }]);
-}();
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 
 /**
  * Formatter which is used for translation.
@@ -1423,7 +1301,7 @@ var setupTranslations = function setupTranslations() {
 };
 
 // BLE UUID 定義
-var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979'; // 使用しない場合は削除しても良い
+var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
@@ -1456,11 +1334,15 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       formatMessage = runtime.formatMessage;
     }
 
-    // Scratch Link 経由の BLE 接続用クラスを初期化
-    this.scratchLink = new ScratchLinkBLE(this.runtime);
+    // BLE 関連の内部変数を初期化
+    this.bleDevice = null;
+    this.bleServer = null;
+    this.uartService = null;
     this.txCharacteristic = null;
     this.rxCharacteristic = null;
     this.receivedBuffer = "";
+    // バンパーセンサーの状態（"none", "left", "right", "both"）
+    this.bumperState = "none";
   }
 
   /**
@@ -1478,6 +1360,23 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       // 受信データは改行区切りで蓄積
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
+
+      // バンパーセンサーイベントの処理（仕様：Byte1 が 0x00 の場合）
+      if (bytes.length >= 8 && bytes[1] === 0x00) {
+        var state = bytes[7];
+        if (state === 0x00) {
+          this.bumperState = "none";
+        } else if (state === 0x40) {
+          this.bumperState = "right";
+        } else if (state === 0x80) {
+          this.bumperState = "left";
+        } else if (state === 0xC0) {
+          this.bumperState = "both";
+        } else {
+          this.bumperState = "unknown";
+        }
+        log$1.log("バンパーセンサー状態更新: " + this.bumperState);
+      }
     }
 
     /**
@@ -1490,32 +1389,32 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "connectBLE",
     value: function connectBLE(args, callback) {
       var _this = this;
-      // ネイティブな Web Bluetooth の呼び出し部分は削除し、
-      // Scratch Link の標準のスキャン・接続フローのみを使用します。
-      this.scratchLink.open().then(function () {
-        // フィルタに UART_SERVICE を指定することで、iRobot Root rt0 を表示させる
-        return _this.scratchLink.requestDevice({
-          filters: [{
-            services: [ROOT_ID_SERVICE]
-          }]
-        });
-      }).then(function () {
-        return _this.scratchLink.connectDevice();
-      }).then(function () {
-        return Promise.all([_this.scratchLink.getCharacteristic(UART_SERVICE, TX_CHARACTERISTIC), _this.scratchLink.getCharacteristic(UART_SERVICE, RX_CHARACTERISTIC)]);
+      if (!navigator.bluetooth) {
+        log$1.error("このブラウザは Web Bluetooth API に対応していません。");
+        callback();
+        return;
+      }
+      navigator.bluetooth.requestDevice({
+        filters: [{
+          services: [ROOT_ID_SERVICE]
+        }],
+        optionalServices: [UART_SERVICE]
+      }).then(function (device) {
+        _this.bleDevice = device;
+        return device.gatt.connect();
+      }).then(function (server) {
+        _this.bleServer = server;
+        return server.getPrimaryService(UART_SERVICE);
+      }).then(function (service) {
+        _this.uartService = service;
+        return Promise.all([service.getCharacteristic(TX_CHARACTERISTIC), service.getCharacteristic(RX_CHARACTERISTIC)]);
       }).then(function (characteristics) {
         _this.txCharacteristic = characteristics[0];
         _this.rxCharacteristic = characteristics[1];
-        return _this.scratchLink.startNotifications(UART_SERVICE, RX_CHARACTERISTIC, function (dataView) {
-          // scratch-link-ble のコールバックは DataView を返すため、
-          // 既存の handleNotifications と同じ形で処理するためにラップ
-          _this.handleNotifications({
-            target: {
-              value: dataView
-            }
-          });
-        });
+        return _this.rxCharacteristic.startNotifications();
       }).then(function () {
+        // RX キャラクタリスティックの通知イベントを登録
+        _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
         log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
         callback();
       }).catch(function (error) {
@@ -1536,7 +1435,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
-      this.scratchLink.write(UART_SERVICE, TX_CHARACTERISTIC, command).then(function () {
+      this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("前進コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
@@ -1555,7 +1454,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
-      this.scratchLink.write(UART_SERVICE, TX_CHARACTERISTIC, command).then(function () {
+      this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("後退コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("後退コマンド送信エラー: " + error);
@@ -1574,7 +1473,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
-      this.scratchLink.write(UART_SERVICE, TX_CHARACTERISTIC, command).then(function () {
+      this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("左回転コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("左回転コマンド送信エラー: " + error);
@@ -1593,7 +1492,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
-      this.scratchLink.write(UART_SERVICE, TX_CHARACTERISTIC, command).then(function () {
+      this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("右回転コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("右回転コマンド送信エラー: " + error);
@@ -1612,7 +1511,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return;
       }
       var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
-      this.scratchLink.write(UART_SERVICE, TX_CHARACTERISTIC, command).then(function () {
+      this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("停止コマンドを送信しました。");
       }).catch(function (error) {
         log$1.error("停止コマンド送信エラー: " + error);
@@ -1640,10 +1539,119 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "disconnectBLE",
     value: function disconnectBLE(args) {
-      if (this.scratchLink) {
-        this.scratchLink.close();
+      if (this.bleDevice && this.bleDevice.gatt.connected) {
+        this.bleDevice.gatt.disconnect();
         log$1.log("BLEデバイスから切断しました。");
       }
+    }
+
+    /**
+     * 既存の doIt ブロック（任意の JavaScript 式を実行）
+     * @param {object} args - ブロック引数
+     * @returns {any} 式の評価結果
+     */
+  }, {
+    key: "doIt",
+    value: function doIt(args) {
+      var statement = Cast$1.toString(args.SCRIPT);
+      var func = new Function("return (".concat(statement, ")"));
+      log$1.log("doIt: ".concat(statement));
+      return func.call(this);
+    }
+
+    // ── LED 制御機能 ──
+
+    /**
+     * CRC計算（Swift版のアルゴリズムを JavaScript に移植）
+     * @param {number[]} packet - パケット（先頭19バイト）配列
+     * @returns {number} CRC 値（0～255）
+     */
+  }, {
+    key: "calcCRC",
+    value: function calcCRC(packet) {
+      var crc = 0;
+      var _iterator = _createForOfIteratorHelper(packet),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var c = _step.value;
+          for (var i = 0; i < 8; i++) {
+            var b = crc & 0x80;
+            if (c & 0x80 >> i) {
+              b ^= 0x80;
+            }
+            crc = crc << 1 & 0xFF;
+            if (b !== 0) {
+              crc ^= 0x07;
+            }
+            crc &= 0xFF;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      return crc;
+    }
+
+    /**
+     * LEDパケット生成
+     * 仕様：Command 2 - Set LED Animation
+     * [Dev, Cmd, ID, State, Red, Green, Blue, ...]（先頭7バイト）＋ 0埋め、20バイト目に CRC
+     * @param {number} state - LED 点灯モード（0=Off, 1=On, 2=Blink, 3=Spin）
+     * @param {number} red - Red 値（0～255）
+     * @param {number} green - Green 値（0～255）
+     * @param {number} blue - Blue 値（0～255）
+     * @returns {number[]} 20バイトの LED コマンドパケット
+     */
+  }, {
+    key: "buildLedPacket",
+    value: function buildLedPacket(state, red, green, blue) {
+      var packet = [0x03, 0x02, 0x00, state, red, green, blue];
+      while (packet.length < 19) {
+        packet.push(0x00);
+      }
+      packet.push(0x00); // 仮のCRC
+      var crcValue = this.calcCRC(packet.slice(0, 19));
+      packet[19] = crcValue;
+      return packet;
+    }
+
+    /**
+     * LED設定（点灯モードと RGB 値を指定）
+     * @param {object} args - ブロック引数 { MODE, RED, GREEN, BLUE }
+     */
+  }, {
+    key: "setLED",
+    value: function setLED(args) {
+      if (!this.txCharacteristic) {
+        log$1.error("TX キャラクタリスティックが未取得です。接続されていない可能性があります。");
+        return;
+      }
+      var mode = Number(args.MODE);
+      var red = Number(args.RED);
+      var green = Number(args.GREEN);
+      var blue = Number(args.BLUE);
+      var packet = this.buildLedPacket(mode, red, green, blue);
+      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
+        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u3092\u9001\u4FE1\u3057\u307E\u3057\u305F: mode=".concat(mode, ", red=").concat(red, ", green=").concat(green, ", blue=").concat(blue));
+      }).catch(function (error) {
+        log$1.error("LEDコマンド送信エラー: " + error);
+      });
+    }
+
+    // ── バンパーセンサー判定 ──
+
+    /**
+     * バンパーセンサーの状態を取得する
+     * @param {object} args - ブロック引数（未使用）
+     * @returns {string} "none", "left", "right", "both"
+     */
+  }, {
+    key: "getBumperState",
+    value: function getBumperState(args) {
+      return this.bumperState || "none";
     }
 
     /**
@@ -1658,8 +1666,23 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
-        showStatusButton: true,
+        showStatusButton: false,
         blocks: [{
+          opcode: 'doIt',
+          blockType: BlockType$1.REPORTER,
+          text: formatMessage({
+            id: 'iRobotExtension.doIt',
+            default: 'do it [SCRIPT]',
+            description: 'execute javascript for example'
+          }),
+          func: 'doIt',
+          arguments: {
+            SCRIPT: {
+              type: ArgumentType$1.STRING,
+              defaultValue: '5 + 5'
+            }
+          }
+        }, {
           opcode: 'connectBLE',
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
@@ -1739,8 +1762,76 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           }),
           func: 'disconnectBLE',
           arguments: {}
+        },
+        // ── 追加ブロック: LED 制御 ──
+        {
+          opcode: 'setLED',
+          blockType: BlockType$1.COMMAND,
+          text: formatMessage({
+            id: 'iRobotExtension.setLED',
+            default: 'LED を [MODE] にして 色(R,G,B) を [RED] [GREEN] [BLUE] にする',
+            description: 'Set LED color and mode'
+          }),
+          func: 'setLED',
+          arguments: {
+            MODE: {
+              type: ArgumentType$1.STRING,
+              menu: "LED_MODE",
+              defaultValue: "0"
+            },
+            RED: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 255
+            },
+            GREEN: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 0
+            },
+            BLUE: {
+              type: ArgumentType$1.NUMBER,
+              defaultValue: 0
+            }
+          }
+        },
+        // ── 追加ブロック: バンパーセンサー状態取得 ──
+        {
+          opcode: 'getBumperState',
+          blockType: BlockType$1.REPORTER,
+          text: formatMessage({
+            id: 'iRobotExtension.getBumperState',
+            default: 'バンパーセンサーの状態',
+            description: 'Get bumper sensor state'
+          }),
+          func: 'getBumperState',
+          arguments: {}
         }],
-        menus: {}
+        menus: {
+          LED_MODE: [{
+            text: formatMessage({
+              id: 'iRobotExtension.modeOff',
+              default: 'Off'
+            }),
+            value: '0'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.modeOn',
+              default: 'On'
+            }),
+            value: '1'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.modeBlink',
+              default: 'Blink'
+            }),
+            value: '2'
+          }, {
+            text: formatMessage({
+              id: 'iRobotExtension.modeSpin',
+              default: 'Spin'
+            }),
+            value: '3'
+          }]
+        }
       };
     }
   }], [{
