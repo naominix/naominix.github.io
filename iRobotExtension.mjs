@@ -805,6 +805,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     this.receivedBuffer = "";
     // バンパーセンサーの状態（"none", "left", "right", "both"）
     this.bumperState = "none";
+    // タッチセンサーの状態（各センサーの状態をオブジェクトで保持）
+    this.touchState = {
+      FL: false,
+      FR: false,
+      RR: false,
+      RL: false
+    };
   }
 
   /**
@@ -823,7 +830,26 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       this.receivedBuffer += msg + "\n";
       log$1.log("受信: " + msg);
 
-      // バンパーセンサーイベントの処理（仕様：Byte1 が 0x00 の場合）
+      // タッチセンサーイベントの処理
+      // 仕様：Device = 17, Cmd = 0, Byte7 上位4ビットにタッチセンサー状態
+      if (bytes.length >= 8 && bytes[0] === 17 && bytes[1] === 0x00) {
+        // タッチセンサーの状態は、Byte7 の上位 4 ビット (0b<FL><FR><RR><RL>)
+        var stateNibble = bytes[7] >> 4;
+        this.touchState = {
+          FL: Boolean(stateNibble & 0x8),
+          // Front Left センサー
+          FR: Boolean(stateNibble & 0x4),
+          // Front Right センサー
+          RR: Boolean(stateNibble & 0x2),
+          // Rear Right センサー
+          RL: Boolean(stateNibble & 0x1) // Rear Left センサー
+        };
+        log$1.log("タッチセンサー状態更新: FL=" + this.touchState.FL + ", FR=" + this.touchState.FR + ", RR=" + this.touchState.RR + ", RL=" + this.touchState.RL);
+        // タッチセンサーイベントの場合はバンパー処理は行わない
+        return;
+      }
+
+      // バンパーセンサーイベントの処理（タッチセンサー以外）
       if (bytes.length >= 8 && bytes[1] === 0x00) {
         var state = bytes[7];
         if (state === 0x00) {
