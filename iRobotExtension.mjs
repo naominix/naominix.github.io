@@ -822,9 +822,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       RR: false,
       RL: false
     };
-    // モーターの現在の速度（正：前進、負：後退）
-    this.currentLeftSpeed = 0;
-    this.currentRightSpeed = 0;
   }
   return _createClass(ExtensionBlocks, [{
     key: "handleNotifications",
@@ -843,6 +840,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         this.touchState = {
           FL: Boolean(stateNibble & 0x8),
           FR: Boolean(stateNibble & 0x4),
+          // 右後は下位第2ビット、左後は下位第1ビット
           RR: Boolean(stateNibble & 0x2),
           RL: Boolean(stateNibble & 0x1)
         };
@@ -910,22 +908,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "driveForward",
     value: function driveForward(args) {
-      var _this2 = this;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
-      // 前進コマンド：左右の速度を 100（正の値）に設定
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64,
-      // 左速度 = 100
-      0x00, 0x00, 0x00, 0x64,
-      // 右速度 = 100
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
       this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("前進コマンドを送信しました。");
-        // 内部状態を更新
-        _this2.currentLeftSpeed = 100;
-        _this2.currentRightSpeed = 100;
       }).catch(function (error) {
         log$1.error("前進コマンド送信エラー: " + error);
       });
@@ -933,21 +922,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "driveBackward",
     value: function driveBackward(args) {
-      var _this3 = this;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
-      // 後退コマンド：左右の速度を -100（負の値）に設定
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C,
-      // 左速度 = -100
-      0xFF, 0xFF, 0xFF, 0x9C,
-      // 右速度 = -100
-      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
       this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("後退コマンドを送信しました。");
-        _this3.currentLeftSpeed = -100;
-        _this3.currentRightSpeed = -100;
       }).catch(function (error) {
         log$1.error("後退コマンド送信エラー: " + error);
       });
@@ -959,7 +940,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
       this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("左回転コマンドを送信しました。");
       }).catch(function (error) {
@@ -973,7 +954,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
+      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
       this.txCharacteristic.writeValue(command).then(function () {
         log$1.log("右回転コマンドを送信しました。");
       }).catch(function (error) {
@@ -1090,38 +1071,18 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       packet.push(crc);
       return packet;
     }
-
-    /**
-     * 速度調節ブロック
-     * ユーザが指定する LEFT_SPEED, RIGHT_SPEED は絶対値（正値）として入力されると仮定し、
-     * 現在の動作方向（this.currentLeftSpeed, this.currentRightSpeed の符号）を保持して新たな速度値を計算します。
-     */
   }, {
     key: "setMotorSpeed",
     value: function setMotorSpeed(args) {
-      var _this4 = this;
       if (!this.txCharacteristic) {
         log$1.error("TX キャラクタリスティックが未取得です。");
         return;
       }
-      // ユーザ入力の絶対値（正値）を取得
-      var newLeftAbs = Math.abs(Number(args.LEFT_SPEED));
-      var newRightAbs = Math.abs(Number(args.RIGHT_SPEED));
-      var newLeftSpeed = newLeftAbs;
-      var newRightSpeed = newRightAbs;
-      // 既に動作中の場合は現在の方向（符号）を保持
-      if (this.currentLeftSpeed !== 0) {
-        newLeftSpeed = Math.sign(this.currentLeftSpeed) * newLeftAbs;
-      }
-      if (this.currentRightSpeed !== 0) {
-        newRightSpeed = Math.sign(this.currentRightSpeed) * newRightAbs;
-      }
-      var packet = this.buildMotorPacket(newLeftSpeed, newRightSpeed);
+      var leftSpeed = Number(args.LEFT_SPEED);
+      var rightSpeed = Number(args.RIGHT_SPEED);
+      var packet = this.buildMotorPacket(leftSpeed, rightSpeed);
       this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("\u30E2\u30FC\u30BF\u30FC\u30B9\u30D4\u30FC\u30C9\u8A2D\u5B9A: \u5DE6=".concat(newLeftSpeed, ", \u53F3=").concat(newRightSpeed));
-        // 内部状態を更新
-        _this4.currentLeftSpeed = newLeftSpeed;
-        _this4.currentRightSpeed = newRightSpeed;
+        log$1.log("\u30E2\u30FC\u30BF\u30FC\u30B9\u30D4\u30FC\u30C9\u8A2D\u5B9A: \u5DE6=".concat(leftSpeed, ", \u53F3=").concat(rightSpeed));
       }).catch(function (error) {
         log$1.error("モータースピードコマンド送信エラー: " + error);
       });
@@ -1134,6 +1095,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
      * 内部では "leftFront"→"FL", "rightFront"→"FR", "leftRear"→"RL", "rightRear"→"RR" とします。
      * センサーが true の場合、一度 false にリセットして true を返します。
+     * @param {object} args - ブロック引数 { SENSOR }
+     * @returns {boolean} センサーが押された場合 true、それ以外は false
      */
   }, {
     key: "whenTouchPressed",
@@ -1152,7 +1115,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         return false;
       }
       if (this.touchState[sensorKey]) {
-        // イベント発火後、一度リセットして連続検知を防ぐ
+        // 一度イベントを発火したらリセットして連続検知を防止
         this.touchState[sensorKey] = false;
         return true;
       }
@@ -1162,6 +1125,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     /**
      * タッチセンサーの状態をレポートするブロック用実装
      * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
+     * @param {object} args - ブロック引数 { SENSOR }
+     * @returns {boolean} 該当センサーの状態（true: 押されている, false: 押されていない）
      */
   }, {
     key: "getTouchSensor",
@@ -1319,14 +1284,14 @@ var ExtensionBlocks = /*#__PURE__*/function () {
             }
           }
         },
-        // 左右モーター駆動ブロック（速度調節）
+        // 左右モーター駆動ブロック
         {
           opcode: 'setMotorSpeed',
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
             id: 'iRobotExtension.setMotorSpeed',
             default: '左右のモーターを左 [LEFT_SPEED] 右 [RIGHT_SPEED] の速度で動かす',
-            description: 'Set left and right motor speeds while preserving current direction'
+            description: 'Set left and right motor speeds'
           }),
           func: 'setMotorSpeed',
           arguments: {
