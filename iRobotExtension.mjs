@@ -1254,8 +1254,8 @@ var webExports = web.exports;
 
 var minilog = webExports;
 minilog.enable();
-var log$1 = minilog('vm');
-var log$2 = /*@__PURE__*/getDefaultExportFromCjs(log$1);
+var log = minilog('vm');
+var log$1 = /*@__PURE__*/getDefaultExportFromCjs(log);
 
 var en = {
 	"iRobotExtension.name": "iRobotExtension",
@@ -1275,283 +1275,6 @@ var translations = {
 };
 
 var img = "data:image/png;base64,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";
-
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return _arrayLikeToArray(r);
-}
-
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-  }
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(r) {
-  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-}
-
-var log = log$1;
-var uint8ArrayToBase64 = function uint8ArrayToBase64(array) {
-  return window.btoa(String.fromCharCode.apply(String, _toConsumableArray(array)));
-};
-var base64ToUint8Array = function base64ToUint8Array(base64) {
-  var raw = window.atob(base64);
-  return Uint8Array.from(Array.prototype.map.call(raw, function (x) {
-    return x.charCodeAt(0);
-  }));
-};
-var WebBLE = /*#__PURE__*/function () {
-  /**
-   * A BLE peripheral object.  It handles connecting, over Web Bluetooth API, to
-   * BLE peripherals, and reading and writing data to them.
-   * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
-   * @param {string} extensionId - the id of the extension using this object.
-   * @param {object} peripheralOptions - the list of options for peripheral discovery.
-   * @param {object} connectCallback - a callback for connection.
-   * @param {object} resetCallback - a callback for resetting extension state.
-   */
-  function WebBLE(runtime, extensionId, peripheralOptions, connectCallback) {
-    var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-    _classCallCheck$1(this, WebBLE);
-    /**
-     * Remote device which have been connected.
-     * @type {BluetoothDevice}
-     */
-    this._device = null;
-
-    /**
-     * Remote GATT server
-     * @type {BluetoothRemoteGATTServer}
-     */
-    this._server = null;
-    this._connectCallback = connectCallback;
-    this._disconnected = true;
-    this._characteristicDidChangeCallback = null;
-    this._resetCallback = resetCallback;
-    this._extensionId = extensionId;
-    this._peripheralOptions = peripheralOptions;
-    this._runtime = runtime;
-    this.requestPeripheral();
-  }
-
-  /**
-   * Request connection to the peripheral.
-   * Request user to choose a device, and then connect it automatically.
-   */
-  return _createClass$1(WebBLE, [{
-    key: "requestPeripheral",
-    value: function requestPeripheral() {
-      var _this = this;
-      if (this._server) {
-        this.disconnect();
-      }
-      navigator.bluetooth.requestDevice(this._peripheralOptions).then(function (device) {
-        _this._device = device;
-        log.debug("device=".concat(_this._device.name));
-        _this._runtime.connectPeripheral(_this._extensionId, _this._device.id);
-      }).catch(function (e) {
-        _this._handleRequestError(e);
-      });
-    }
-
-    /**
-     * Try connecting to the GATT server of the device, and then call the connect
-     * callback when connection is successful.
-     */
-  }, {
-    key: "connectPeripheral",
-    value: function connectPeripheral(/* id */
-    ) {
-      var _this2 = this;
-      if (!this._device) {
-        throw new Error('device is not chosen');
-      }
-      this._device.gatt.connect().then(function (gattServer) {
-        log.debug("GATTServer is connected");
-        _this2._server = gattServer;
-        _this2._runtime.emit(_this2._runtime.constructor.PERIPHERAL_CONNECTED);
-        _this2._disconnected = false;
-        _this2._connectCallback();
-        _this2._device.addEventListener('gattserverdisconnected', function (event) {
-          _this2.onDisconnected(event);
-        });
-      });
-    }
-
-    /**
-     * Disconnect from the device and clean up.
-     * Then emit the connection state by the runtime.
-     */
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (!this._server) return;
-      this._server.disconnect();
-      this._disconnected = true;
-      this._server = null;
-      this._device = null;
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
-    }
-
-    /**
-     * @return {bool} whether the peripheral is connected.
-     */
-  }, {
-    key: "isConnected",
-    value: function isConnected() {
-      if (!this._server) return false;
-      return this._server.connected;
-    }
-
-    /**
-     * Start receiving notifications from the specified ble service.
-     * @param {number} serviceId - the ble service to read.
-     * @param {number} characteristicId - the ble characteristic to get notifications from.
-     * @param {object} onCharacteristicChanged - callback for characteristic change notifications
-     *  like function(base64message).
-     * @return {Promise} - a promise from the remote startNotifications request.
-     */
-  }, {
-    key: "startNotifications",
-    value: function startNotifications(serviceId, characteristicId) {
-      var onCharacteristicChanged = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      return this._server.getPrimaryService(serviceId).then(function (service) {
-        return service.getCharacteristic(characteristicId);
-      }).then(function (characteristic) {
-        characteristic.addEventListener('characteristicvaluechanged', function (event) {
-          var dataView = event.target.value;
-          onCharacteristicChanged(uint8ArrayToBase64(new Uint8Array(dataView.buffer)));
-        });
-        characteristic.startNotifications();
-      });
-    }
-
-    /**
-     * Read from the specified ble service.
-     * @param {number} serviceId - the ble service to read.
-     * @param {number} characteristicId - the ble characteristic to read.
-     * @param {boolean} optStartNotifications - whether to start receiving characteristic change notifications.
-     * @param {object} onCharacteristicChanged - callback for characteristic change notifications
-     *  like function(base64message).
-     * @return {Promise} - a promise from the remote read request which resolve {message: base64string}.
-     */
-  }, {
-    key: "read",
-    value: function read(serviceId, characteristicId) {
-      var _this3 = this;
-      var optStartNotifications = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-      var onCharacteristicChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-      return this._server.getPrimaryService(serviceId).then(function (service) {
-        return service.getCharacteristic(characteristicId);
-      }).then(function (characteristic) {
-        if (optStartNotifications) {
-          _this3.startNotifications(serviceId, characteristicId, onCharacteristicChanged);
-        }
-        return characteristic.readValue();
-      }).then(function (dataView) {
-        return {
-          message: uint8ArrayToBase64(new Uint8Array(dataView.buffer))
-        };
-      });
-    }
-
-    /**
-     * Write data to the specified ble service.
-     * @param {number} serviceId - the ble service to write.
-     * @param {number} characteristicId - the ble characteristic to write.
-     * @param {string} message - the message to send.
-     * @param {string} encoding - the message encoding type.
-     * @param {boolean} withResponse - if true, resolve after peripheral's response.
-     * @return {Promise} - a promise from the remote send request.
-     */
-    // eslint-disable-next-line no-unused-vars
-  }, {
-    key: "write",
-    value: function write(serviceId, characteristicId, message) {
-      var encoding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-      var withResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
-      var value = encoding === 'base64' ? base64ToUint8Array(message) : message;
-      return this._server.getPrimaryService(serviceId).then(function (service) {
-        return service.getCharacteristic(characteristicId);
-      }).then(function (characteristic) {
-        if (withResponse && characteristic.writeValueWithResponse) {
-          return characteristic.writeValueWithResponse(value);
-        }
-        if (characteristic.writeValueWithoutResponse) {
-          return characteristic.writeValueWithoutResponse(value);
-        }
-        return characteristic.writeValue(value);
-      });
-    }
-
-    /**
-     * Handle an error resulting from losing connection to a peripheral.
-     *
-     * This could be due to:
-     * - battery depletion
-     * - going out of bluetooth range
-     * - being powered down
-     *
-     * Disconnect the device, and if the extension using this object has a
-     * reset callback, call it. Finally, emit an error to the runtime.
-     */
-  }, {
-    key: "handleDisconnectError",
-    value: function handleDisconnectError(/* e */
-    ) {
-      // log.error(`BLE error: ${JSON.stringify(e)}`);
-
-      if (this._disconnected) return;
-      this.disconnect();
-      if (this._resetCallback) {
-        this._resetCallback();
-      }
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
-        message: "Scratch lost connection to",
-        extensionId: this._extensionId
-      });
-    }
-  }, {
-    key: "_handleRequestError",
-    value: function _handleRequestError(/* e */
-    ) {
-      // log.error(`BLE error: ${JSON.stringify(e)}`);
-
-      this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
-        message: "Scratch lost connection to",
-        extensionId: this._extensionId
-      });
-    }
-
-    /**
-     * Called when disconnected by the device.
-     */
-  }, {
-    key: "onDisconnected",
-    value: function onDisconnected(/* event */
-    ) {
-      this.handleDisconnectError(new Error('device disconnected'));
-    }
-  }]);
-}();
-var WebBLE_1 = WebBLE;
-var WebBLE$1 = /*@__PURE__*/getDefaultExportFromCjs(WebBLE_1);
 
 /**
  * Formatter which is used for translation.
@@ -1576,7 +1299,7 @@ var EXTENSION_ID = 'iRobotExtension';
 
 /**
  * URL to get this extension as a module.
- * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
+ * Changed from the previous URL to https://naominix.github.io/iRobotExtension.mjs
  * @type {string}
  */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
@@ -1596,10 +1319,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
      * @type {Runtime}
      */
     this.runtime = runtime;
-    // Scratch Link 経由の接続済みデバイスを保持する変数
+    // 接続済みデバイスを保持する変数
     this._device = null;
-    // WebBLE のインスタンスを保持する変数
-    this._webBLE = null;
     if (runtime.formatMessage) {
       // ランタイムのフォーマッタを使用する
       formatMessage = runtime.formatMessage;
@@ -1620,11 +1341,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
         showStatusButton: true,
-        // BLE 接続用のデバイス定義
+        // Scratch Link 側のフィルタ（サービスUUID）
         device: {
           id: 'iRobotRootBLE',
-          // Scratch Link 側のフィルタは固有のサービス UUID を利用
-          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979'
+          bluetoothService: '0c3a972a-441d-ac78-c513-029b22804979'
         },
         blocks: [{
           opcode: 'connect',
@@ -1666,7 +1386,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * connect ブロックの処理: WebBLE を用いて iRobot Root rt0 に接続を試みる
+     * connect ブロックの処理: Web Bluetooth と Scratch Link の両方で iRobot Root rt0 に接続を試みる
      * @returns {Promise} - 接続成功時に解決する Promise
      */
   }, {
@@ -1674,34 +1394,38 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     value: function connect() {
       var _this = this;
       return new Promise(function (resolve, reject) {
-        // WebBLE を用いて BLE デバイスの選択・接続を開始する
-        _this._webBLE = new WebBLE$1(_this.runtime, ExtensionBlocks.EXTENSION_ID, {
+        if (_this._device) {
+          resolve();
+          return;
+        }
+        // Web Bluetoothでのフィルタ例: Manufacturer DataとサービスUUIDを指定
+        navigator.bluetooth.requestDevice({
           filters: [{
-            // 固有のサービス UUID でフィルタリング
-            services: ['48c5d828-ac2a-442d-97a3-0c9822b04979'],
-            // メーカー固有データでフィルタリング（例: companyIdentifier=6, データプレフィックス "RT0"）
+            services: ['0c3a972a-441d-ac78-c513-029b22804979'],
             manufacturerData: [{
-              companyIdentifier: 6,
-              dataPrefix: new Uint8Array([0x52, 0x54, 0x30])
+              companyIdentifier: 0x0600,
+              // iRobot
+              dataPrefix: new Uint8Array([0x52, 0x54, 0x30]) // "RT0"
             }]
           }],
-          optionalServices: ['d3323800-6784-4e17-aad2-c65c52b8cbd8', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
-        }, function () {
-          // WebBLE 接続成功時のコールバック
-          log$2.log('WebBLE connected');
-          // WebBLE 経由で接続できたので、次に Scratch Link 経由の接続を試みる
-          _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (scratchLinkDevice) {
-            _this._device = scratchLinkDevice;
-            log$2.log('Scratch Link connected device:', scratchLinkDevice);
-            resolve();
-          }).catch(function (error) {
-            log$2.error('Scratch Link connection failed:', error);
-            reject(error);
-          });
-        }, function () {
-          // BLE 接続が切断されたときのリセット処理
-          log$2.error('BLE connection lost');
-          // 必要に応じてここで状態のリセットなどの処理を行う
+          optionalServices: ['0c3a972a-441d-ac78-c513-029b22804979', '0000180a-0000-1000-8000-00805f9b34fb',
+          // UARTサービスなど、必要に応じて追加
+          '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+        }).then(function (device) {
+          console.log('Web Bluetooth device selected:', device);
+          // 必要に応じてGATT接続
+          return device.gatt.connect();
+        }).then(function (server) {
+          console.log('GATT server connected:', server);
+          // 次にScratch Link経由の接続を試みる
+          return _this.runtime.ioDevices.openDevice('iRobotRootBLE');
+        }).then(function (scratchLinkDevice) {
+          _this._device = scratchLinkDevice;
+          console.log('Scratch Link connected device:', scratchLinkDevice);
+          resolve();
+        }).catch(function (error) {
+          console.error('Failed to connect to iRobot Root:', error);
+          reject(error);
         });
       });
     }
@@ -1713,8 +1437,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }, {
     key: "isConnected",
     value: function isConnected() {
-      // WebBLE と Scratch Link のいずれかが接続されていれば true
-      return this._webBLE && this._webBLE.isConnected() || !!this._device;
+      return !!this._device;
     }
 
     /**
@@ -1727,7 +1450,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     value: function doIt(args) {
       var statement = Cast$1.toString(args.SCRIPT);
       var func = new Function("return (".concat(statement, ")"));
-      log$2.log("doIt: ".concat(statement));
+      log$1.log("doIt: ".concat(statement));
       return func.call(this);
     }
   }], [{
