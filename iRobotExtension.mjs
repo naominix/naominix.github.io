@@ -64,6 +64,57 @@ var entry = {
   translationMap: translations$1
 };
 
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = true,
+      o = false;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = true, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+
 function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -1308,29 +1359,15 @@ var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
  * Xcratch ブロック拡張機能クラス（iRobot Root rt0 BLE 接続版）
  */
 var ExtensionBlocks = /*#__PURE__*/function () {
-  /**
-   * Xcratch 用 iRobotExtension のブロックセットを構築する。
-   * @param {Runtime} runtime - Xcratch のランタイム
-   */
   function ExtensionBlocks(runtime) {
     _classCallCheck$1(this, ExtensionBlocks);
-    /**
-     * Xcratch のランタイム
-     * @type {Runtime}
-     */
     this.runtime = runtime;
     // 接続済みデバイスを保持する変数
     this._device = null;
     if (runtime.formatMessage) {
-      // ランタイムのフォーマッタを使用する
       formatMessage = runtime.formatMessage;
     }
   }
-
-  /**
-   * この拡張機能およびブロックの metadata を返す
-   * @returns {object} metadata for this extension and its blocks.
-   */
   return _createClass$1(ExtensionBlocks, [{
     key: "getInfo",
     value: function getInfo() {
@@ -1387,6 +1424,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * connect ブロックの処理: Web Bluetooth と Scratch Link の両方で iRobot Root rt0 に接続を試みる
+     * 両方の接続処理を並列に実行することで、両方のダイアログが同時に表示されるようにする。
      * @returns {Promise} - 接続成功時に解決する Promise
      */
   }, {
@@ -1398,8 +1436,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           resolve();
           return;
         }
-        // Web Bluetoothでのフィルタ例: Manufacturer DataとサービスUUIDを指定
-        navigator.bluetooth.requestDevice({
+        // 両方の接続処理を並列に開始
+        var webBluetoothPromise = navigator.bluetooth.requestDevice({
           filters: [{
             services: ['0c3a972a-441d-ac78-c513-029b22804979'],
             manufacturerData: [{
@@ -1408,20 +1446,20 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               dataPrefix: new Uint8Array([0x52, 0x54, 0x30]) // "RT0"
             }]
           }],
-          optionalServices: ['0c3a972a-441d-ac78-c513-029b22804979', '0000180a-0000-1000-8000-00805f9b34fb',
-          // UARTサービスなど、必要に応じて追加
-          '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+          optionalServices: ['0c3a972a-441d-ac78-c513-029b22804979', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
         }).then(function (device) {
           console.log('Web Bluetooth device selected:', device);
-          // 必要に応じてGATT接続
           return device.gatt.connect();
-        }).then(function (server) {
-          console.log('GATT server connected:', server);
-          // 次にScratch Link経由の接続を試みる
-          return _this.runtime.ioDevices.openDevice('iRobotRootBLE');
-        }).then(function (scratchLinkDevice) {
+        });
+        var scratchLinkPromise = _this.runtime.ioDevices.openDevice('iRobotRootBLE');
+        Promise.all([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
+          var _results = _slicedToArray(results, 2),
+            gattServer = _results[0],
+            scratchLinkDevice = _results[1];
           _this._device = scratchLinkDevice;
-          console.log('Scratch Link connected device:', scratchLinkDevice);
+          console.log('Both connections established:');
+          console.log('GATT server:', gattServer);
+          console.log('Scratch Link device:', scratchLinkDevice);
           resolve();
         }).catch(function (error) {
           console.error('Failed to connect to iRobot Root:', error);
@@ -1429,22 +1467,11 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         });
       });
     }
-
-    /**
-     * isConnected ブロックの処理: 接続状態を返す
-     * @returns {boolean} - 接続済みなら true を返す
-     */
   }, {
     key: "isConnected",
     value: function isConnected() {
       return !!this._device;
     }
-
-    /**
-     * doIt ブロックの処理: 与えられた JavaScript 式を実行する
-     * @param {object} args - ブロック引数
-     * @returns {*} - JavaScript 式の結果
-     */
   }, {
     key: "doIt",
     value: function doIt(args) {
@@ -1455,19 +1482,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
   }], [{
     key: "formatMessage",
-    set:
-    /**
-     * 言語設定用のフォーマッタを設定する。
-     * @param {FormatObject} formatter - translation object
-     */
-    function set(formatter) {
+    set: function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
-
-    /**
-     * @return {string} - この拡張機能の名称
-     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1477,30 +1495,16 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
-
-    /**
-     * @return {string} - この拡張機能の ID
-     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
-
-    /**
-     * この拡張機能の URL
-     * @type {string}
-     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    }
-
-    /**
-     * 拡張機能の URL を設定する。
-     * @param {string} url - URL
-     */,
+    },
     set: function set(url) {
       extensionURL = url;
     }
