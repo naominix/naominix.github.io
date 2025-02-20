@@ -64,57 +64,6 @@ var entry = {
   translationMap: translations$1
 };
 
-function _arrayWithHoles(r) {
-  if (Array.isArray(r)) return r;
-}
-
-function _iterableToArrayLimit(r, l) {
-  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
-  if (null != t) {
-    var e,
-      n,
-      i,
-      u,
-      a = [],
-      f = true,
-      o = false;
-    try {
-      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
-    } catch (r) {
-      o = true, n = r;
-    } finally {
-      try {
-        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
-      } finally {
-        if (o) throw n;
-      }
-    }
-    return a;
-  }
-}
-
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-  }
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _slicedToArray(r, e) {
-  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
-}
-
 function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -1363,8 +1312,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     var _this = this;
     _classCallCheck$1(this, ExtensionBlocks);
     this.runtime = runtime;
-    this._device = null; // Scratch Link 経由の接続済みデバイス
-
+    // Scratch Link 経由の接続済みデバイス（またはWeb Bluetooth側の接続結果のフォールバック用）
+    this._device = null;
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
@@ -1440,9 +1389,9 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * connect ブロックの処理：
-     * Web Bluetooth API と Scratch Link の両方で接続を試みる
-     * → 両方のダイアログが同時に表示される（Promise.all() を利用）
+     * connect ブロックの処理:
+     * Web Bluetooth と Scratch Link の両方で接続を試み、両方のダイアログを同時に表示する。
+     * もし Scratch Link の接続が得られなくても、Web Bluetooth の結果でフォールバックする。
      * @returns {Promise} - 接続成功時に解決する Promise
      */
   }, {
@@ -1454,14 +1403,14 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           resolve();
           return;
         }
-        // Web Bluetooth での接続（ユーザーにデバイス選択ダイアログを表示）
+        // Web Bluetooth の接続処理（ユーザーにデバイス選択ダイアログを表示）
         var webBluetoothPromise = navigator.bluetooth.requestDevice({
           filters: [{
             services: ['48c5d828-ac2a-442d-97a3-0c9822b04979'],
             manufacturerData: [{
               companyIdentifier: 0x0600,
               // iRobot 固有ID
-              dataPrefix: new Uint8Array([0x52, 0x54, 0x30]) // "RT0" など、ロボット種別を示すデータ
+              dataPrefix: new Uint8Array([0x52, 0x54, 0x30]) // 例: "RT0"（ロボット種別）
             }]
           }],
           optionalServices: ['48c5d828-ac2a-442d-97a3-0c9822b04979', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
@@ -1470,28 +1419,38 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           return device.gatt.connect();
         });
 
-        // Scratch Link 経由の接続（こちらは当拡張でフィルタ済みのデバイスを対象）
+        // Scratch Link 経由の接続処理
         var scratchLinkPromise = _this2.runtime.ioDevices.openDevice('iRobotRootBLE');
 
-        // 両方の接続処理を並列に実行
-        Promise.all([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
-          var _results = _slicedToArray(results, 2),
-            gattServer = _results[0],
-            scratchLinkDevice = _results[1];
-          _this2._device = scratchLinkDevice;
-          console.log('Both connections established:');
-          console.log('GATT server:', gattServer);
-          console.log('Scratch Link device:', scratchLinkDevice);
-          resolve();
+        // 両方の接続処理を並列に開始し、結果を待つ
+        Promise.allSettled([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
+          var wbResult = results[0];
+          var slResult = results[1];
+          if (wbResult.status === "fulfilled") {
+            if (slResult.status === "fulfilled") {
+              _this2._device = slResult.value;
+              console.log('Scratch Link connection established:', slResult.value);
+            } else {
+              console.warn("Scratch Link connection failed; falling back to Web Bluetooth connection");
+              // フォールバック用に Web Bluetooth 接続結果をダミーとして保持
+              _this2._device = {
+                gatt: wbResult.value,
+                dummy: true
+              };
+            }
+            resolve();
+          } else {
+            reject(new Error("Web Bluetooth connection failed"));
+          }
         }).catch(function (error) {
-          console.error('Failed to connect to iRobot Root:', error);
+          console.error('Connection error:', error);
           reject(error);
         });
       });
     }
 
     /**
-     * isConnected ブロックの処理：接続済みなら true を返す
+     * isConnected ブロックの処理: 接続済みなら true を返す
      * @returns {boolean}
      */
   }, {
@@ -1501,7 +1460,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * doIt ブロックの処理：与えられた JavaScript 式を実行する
+     * doIt ブロックの処理: 与えられた JavaScript 式を実行する
      * @param {object} args - ブロック引数
      * @returns {*} - JavaScript 式の結果
      */
