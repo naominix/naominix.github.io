@@ -1278,17 +1278,10 @@ var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAA
 
 /**
  * Formatter which is used for translation.
- * This will be replaced with the runtime formatter.
- * @param {object} messageData - format-message object
- * @returns {string} - message for the locale
  */
 var formatMessage = function formatMessage(messageData) {
   return messageData.default;
 };
-
-/**
- * Setup format-message for this extension.
- */
 var setupTranslations = function setupTranslations() {
   var localeSetup = formatMessage.setup && formatMessage.setup();
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
@@ -1296,42 +1289,14 @@ var setupTranslations = function setupTranslations() {
   }
 };
 var EXTENSION_ID = 'iRobotExtension';
-
-/**
- * URL to get this extension as a module.
- * Changed to https://naominix.github.io/iRobotExtension.mjs
- * @type {string}
- */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
-
-/**
- * Xcratch ブロック拡張機能クラス（iRobot Root rt0 BLE 接続版）
- */
 var ExtensionBlocks = /*#__PURE__*/function () {
   function ExtensionBlocks(runtime) {
-    var _this = this;
     _classCallCheck$1(this, ExtensionBlocks);
     this.runtime = runtime;
-    // Scratch Link 経由の接続済みデバイス（またはWeb Bluetooth側の接続結果のフォールバック用）
     this._device = null;
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
-    }
-
-    // ステータスボタン（＝ ioDevices.openDevice() の呼び出し）時にも
-    // 当拡張の connect() メソッドを使うよう、openDevice() をオーバーライドする。
-    if (this.runtime.ioDevices && typeof this.runtime.ioDevices.openDevice === 'function') {
-      var originalOpenDevice = this.runtime.ioDevices.openDevice;
-      this.runtime.ioDevices.openDevice = function (id) {
-        if (id === 'iRobotRootBLE') {
-          // ステータスボタンから呼ばれた場合も、当拡張の connect() を呼ぶ
-          return _this.connect();
-        }
-        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-          args[_key - 1] = arguments[_key];
-        }
-        return originalOpenDevice.call.apply(originalOpenDevice, [_this.runtime.ioDevices, id].concat(args));
-      };
     }
   }
   return _createClass$1(ExtensionBlocks, [{
@@ -1344,10 +1309,12 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
         showStatusButton: true,
-        // Scratch Link 側のフィルタには、Root Identifier service UUID を指定
+        // Scratch Link 側のフィルタ用設定
         device: {
           id: 'iRobotRootBLE',
-          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979'
+          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979',
+          // 追加: ステータスボタン押下時に呼ばれるメソッド名を指定
+          scan: 'scan'
         },
         blocks: [{
           opcode: 'connect',
@@ -1389,81 +1356,93 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * connect ブロックの処理:
-     * Web Bluetooth と Scratch Link の両方で接続を試み、両方のダイアログを同時に表示する。
-     * もし Scratch Link の接続が得られなくても、Web Bluetooth の結果でフォールバックする。
-     * @returns {Promise} - 接続成功時に解決する Promise
+     * ステータスボタン/接続ブロック 両方から呼ばれるスキャン・接続メソッド
+     * Web Bluetooth と Scratch Link の両方で接続を試みる
      */
   }, {
-    key: "connect",
-    value: function connect() {
-      var _this2 = this;
+    key: "scan",
+    value: function scan() {
+      var _this = this;
       return new Promise(function (resolve, reject) {
-        if (_this2._device) {
+        if (_this._device) {
+          // 既に接続済みの場合
           resolve();
           return;
         }
-        // Web Bluetooth の接続処理（ユーザーにデバイス選択ダイアログを表示）
         var webBluetoothPromise = navigator.bluetooth.requestDevice({
           filters: [{
             services: ['48c5d828-ac2a-442d-97a3-0c9822b04979'],
             manufacturerData: [{
               companyIdentifier: 0x0600,
-              // iRobot 固有ID
-              dataPrefix: new Uint8Array([0x52, 0x54, 0x30]) // 例: "RT0"（ロボット種別）
+              dataPrefix: new Uint8Array([0x52, 0x54, 0x30])
             }]
           }],
           optionalServices: ['48c5d828-ac2a-442d-97a3-0c9822b04979', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
         }).then(function (device) {
-          console.log('Web Bluetooth device selected:', device);
+          console.log('[Web Bluetooth] device selected:', device);
           return device.gatt.connect();
+        }).catch(function (err) {
+          console.warn('[Web Bluetooth] connection failed:', err);
+          // Web Bluetooth が失敗しても Scratch Link に期待するので reject はしない
+        });
+        var scratchLinkPromise = _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (device) {
+          console.log('[Scratch Link] device connected:', device);
+          _this._device = device; // Scratch Link 経由のデバイスを保持
+        }).catch(function (err) {
+          console.warn('[Scratch Link] connection failed:', err);
         });
 
-        // Scratch Link 経由の接続処理
-        var scratchLinkPromise = _this2.runtime.ioDevices.openDevice('iRobotRootBLE');
-
-        // 両方の接続処理を並列に開始し、結果を待つ
+        // 両方の処理を並列実行するが、一方が失敗してももう一方で成功するかもしれない
         Promise.allSettled([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
           var wbResult = results[0];
           var slResult = results[1];
-          if (wbResult.status === "fulfilled") {
-            if (slResult.status === "fulfilled") {
-              _this2._device = slResult.value;
-              console.log('Scratch Link connection established:', slResult.value);
-            } else {
-              console.warn("Scratch Link connection failed; falling back to Web Bluetooth connection");
-              // フォールバック用に Web Bluetooth 接続結果をダミーとして保持
-              _this2._device = {
-                gatt: wbResult.value,
+          var success = false;
+
+          // Scratch Link 側が成功したかチェック
+          if (slResult.status === 'fulfilled') {
+            // 既に this._device = scratchLinkDevice; 済み
+            success = true;
+          } else {
+            // Scratch Link 失敗、しかし Web Bluetooth が成功しているかも
+            if (wbResult.status === 'fulfilled' && wbResult.value) {
+              // wbResult.value は GATT Server
+              // フォールバック用にダミーオブジェクトをセット
+              _this._device = {
+                gattServer: wbResult.value,
                 dummy: true
               };
+              success = true;
             }
+          }
+          if (success) {
             resolve();
           } else {
-            reject(new Error("Web Bluetooth connection failed"));
+            reject(new Error('No successful connection from either Scratch Link or Web Bluetooth'));
           }
-        }).catch(function (error) {
-          console.error('Connection error:', error);
-          reject(error);
+        }).catch(function (err) {
+          reject(err);
         });
       });
     }
 
     /**
-     * isConnected ブロックの処理: 接続済みなら true を返す
-     * @returns {boolean}
+     * connect ブロックの処理
+     * → 実態は scan() を呼ぶだけ
+     */
+  }, {
+    key: "connect",
+    value: function connect() {
+      return this.scan();
+    }
+
+    /**
+     * 接続状態を返す
      */
   }, {
     key: "isConnected",
     value: function isConnected() {
       return !!this._device;
     }
-
-    /**
-     * doIt ブロックの処理: 与えられた JavaScript 式を実行する
-     * @param {object} args - ブロック引数
-     * @returns {*} - JavaScript 式の結果
-     */
   }, {
     key: "doIt",
     value: function doIt(args) {
