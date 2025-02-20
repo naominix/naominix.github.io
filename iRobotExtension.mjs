@@ -1678,7 +1678,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         _this._webBLE = new WebBLE$1(_this.runtime, ExtensionBlocks.EXTENSION_ID, {
           filters: [{
             // 固有のサービス UUID でフィルタリング
-            services: ['d3323800-6784-4e17-aad2-c65c52b8cbd8'],
+            services: ['48c5d828-ac2a-442d-97a3-0c9822b04979'],
             // メーカー固有データでフィルタリング（例: companyIdentifier=6, データプレフィックス "RT0"）
             manufacturerData: [{
               companyIdentifier: 6,
