@@ -1624,7 +1624,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         device: {
           id: 'iRobotRootBLE',
           // Scratch Link 側のフィルタは固有のサービス UUID を利用
-          bluetoothService: 'd3323800-6784-4e17-aad2-c65c52b8cbd8'
+          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979'
         },
         blocks: [{
           opcode: 'connect',
