@@ -1290,11 +1290,17 @@ var setupTranslations = function setupTranslations() {
 };
 var EXTENSION_ID = 'iRobotExtension';
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
+
+/**
+ * Xcratch ブロック拡張機能クラス（iRobot Root rt0 BLE 接続版）
+ * 純粋に Scratch Link のみを利用する実装例。
+ */
 var ExtensionBlocks = /*#__PURE__*/function () {
   function ExtensionBlocks(runtime) {
     _classCallCheck$1(this, ExtensionBlocks);
     this.runtime = runtime;
-    this._device = null;
+    this._device = null; // Scratch Link 経由で接続されたデバイス
+
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
@@ -1309,12 +1315,10 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
         showStatusButton: true,
-        // Scratch Link 側のフィルタ用設定
+        // Scratch Link 側で使用するフィルタ: Root Identifier service UUID
         device: {
           id: 'iRobotRootBLE',
-          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979',
-          // 追加: ステータスボタン押下時に呼ばれるメソッド名を指定
-          scan: 'scan'
+          bluetoothService: '48c5d828-ac2a-442d-97a3-0c9822b04979'
         },
         blocks: [{
           opcode: 'connect',
@@ -1356,93 +1360,45 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * ステータスボタン/接続ブロック 両方から呼ばれるスキャン・接続メソッド
-     * Web Bluetooth と Scratch Link の両方で接続を試みる
+     * connect ブロックの処理:
+     * Scratch Link を用いて BLE デバイスをスキャンし、指定した UUID を含むデバイスがあれば接続。
      */
   }, {
-    key: "scan",
-    value: function scan() {
+    key: "connect",
+    value: function connect() {
       var _this = this;
       return new Promise(function (resolve, reject) {
+        // 既に接続済みの場合はそのまま
         if (_this._device) {
-          // 既に接続済みの場合
           resolve();
           return;
         }
-        var webBluetoothPromise = navigator.bluetooth.requestDevice({
-          filters: [{
-            services: ['48c5d828-ac2a-442d-97a3-0c9822b04979'],
-            manufacturerData: [{
-              companyIdentifier: 0x0600,
-              dataPrefix: new Uint8Array([0x52, 0x54, 0x30])
-            }]
-          }],
-          optionalServices: ['48c5d828-ac2a-442d-97a3-0c9822b04979', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
-        }).then(function (device) {
-          console.log('[Web Bluetooth] device selected:', device);
-          return device.gatt.connect();
-        }).catch(function (err) {
-          console.warn('[Web Bluetooth] connection failed:', err);
-          // Web Bluetooth が失敗しても Scratch Link に期待するので reject はしない
-        });
-        var scratchLinkPromise = _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (device) {
-          console.log('[Scratch Link] device connected:', device);
-          _this._device = device; // Scratch Link 経由のデバイスを保持
-        }).catch(function (err) {
-          console.warn('[Scratch Link] connection failed:', err);
-        });
-
-        // 両方の処理を並列実行するが、一方が失敗してももう一方で成功するかもしれない
-        Promise.allSettled([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
-          var wbResult = results[0];
-          var slResult = results[1];
-          var success = false;
-
-          // Scratch Link 側が成功したかチェック
-          if (slResult.status === 'fulfilled') {
-            // 既に this._device = scratchLinkDevice; 済み
-            success = true;
-          } else {
-            // Scratch Link 失敗、しかし Web Bluetooth が成功しているかも
-            if (wbResult.status === 'fulfilled' && wbResult.value) {
-              // wbResult.value は GATT Server
-              // フォールバック用にダミーオブジェクトをセット
-              _this._device = {
-                gattServer: wbResult.value,
-                dummy: true
-              };
-              success = true;
-            }
-          }
-          if (success) {
-            resolve();
-          } else {
-            reject(new Error('No successful connection from either Scratch Link or Web Bluetooth'));
-          }
-        }).catch(function (err) {
-          reject(err);
+        // Scratch Link でデバイススキャン & 接続を行う
+        _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (device) {
+          _this._device = device;
+          console.log('Connected to iRobot Root via Scratch Link:', device);
+          resolve();
+        }).catch(function (error) {
+          console.error('Failed to connect via Scratch Link:', error);
+          reject(error);
         });
       });
     }
 
     /**
-     * connect ブロックの処理
-     * → 実態は scan() を呼ぶだけ
-     */
-  }, {
-    key: "connect",
-    value: function connect() {
-      return this.scan();
-    }
-
-    /**
-     * 接続状態を返す
+     * isConnected ブロックの処理:
+     * 接続状態を判定する。
      */
   }, {
     key: "isConnected",
     value: function isConnected() {
       return !!this._device;
     }
+
+    /**
+     * doIt ブロックの処理:
+     * 与えられた JavaScript 式を実行して結果を返す（デバッグ用）。
+     */
   }, {
     key: "doIt",
     value: function doIt(args) {
