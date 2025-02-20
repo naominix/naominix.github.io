@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'iRobotExtension',
-  extensionURL: 'https://naominix.github.io/irobot-extension/dist/iRobotExtension.mjs',
+  extensionURL: 'https://naominix.github.io/iRobotExtension.mjs',
   collaborator: 'naominix',
   iconURL: img$2,
   insetIconURL: img$1,
@@ -64,74 +64,44 @@ var entry = {
   translationMap: translations$1
 };
 
-function _arrayLikeToArray$1(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return _arrayLikeToArray$1(r);
-}
-
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-
-function _unsupportedIterableToArray$1(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
-  }
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _toConsumableArray(r) {
-  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray$1(r) || _nonIterableSpread();
-}
-
-function _classCallCheck(a, n) {
+function _classCallCheck$1(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _typeof(o) {
+function _typeof$1(o) {
   "@babel/helpers - typeof";
 
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
+  }, _typeof$1(o);
 }
 
-function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
+function toPrimitive$1(t, r) {
+  if ("object" != _typeof$1(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof(i)) return i;
+    if ("object" != _typeof$1(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
 }
 
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
+function toPropertyKey$1(t) {
+  var i = toPrimitive$1(t, "string");
+  return "symbol" == _typeof$1(i) ? i : i + "";
 }
 
-function _defineProperties(e, r) {
+function _defineProperties$1(e, r) {
   for (var t = 0; t < r.length; t++) {
     var o = r[t];
-    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey$1(o.key), o);
   }
 }
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+function _createClass$1(e, r, t) {
+  return r && _defineProperties$1(e.prototype, r), t && _defineProperties$1(e, t), Object.defineProperty(e, "prototype", {
     writable: false
   }), e;
 }
@@ -224,6 +194,544 @@ var ArgumentType = {
 };
 var argumentType = ArgumentType;
 var ArgumentType$1 = /*@__PURE__*/getDefaultExportFromCjs(argumentType);
+
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (String )(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: false
+  }), e;
+}
+
+var Color$1 = /*#__PURE__*/function () {
+  function Color() {
+    _classCallCheck(this, Color);
+  }
+  return _createClass(Color, null, [{
+    key: "RGB_BLACK",
+    get:
+    /**
+     * @typedef {object} RGBObject - An object representing a color in RGB format.
+     * @property {number} r - the red component, in the range [0, 255].
+     * @property {number} g - the green component, in the range [0, 255].
+     * @property {number} b - the blue component, in the range [0, 255].
+     */
+
+    /**
+     * @typedef {object} HSVObject - An object representing a color in HSV format.
+     * @property {number} h - hue, in the range [0-359).
+     * @property {number} s - saturation, in the range [0,1].
+     * @property {number} v - value, in the range [0,1].
+     */
+
+    /** @type {RGBObject} */
+    function get() {
+      return {
+        r: 0,
+        g: 0,
+        b: 0
+      };
+    }
+
+    /** @type {RGBObject} */
+  }, {
+    key: "RGB_WHITE",
+    get: function get() {
+      return {
+        r: 255,
+        g: 255,
+        b: 255
+      };
+    }
+
+    /**
+     * Convert a Scratch decimal color to a hex string, #RRGGBB.
+     * @param {number} decimal RGB color as a decimal.
+     * @return {string} RGB color as #RRGGBB hex string.
+     */
+  }, {
+    key: "decimalToHex",
+    value: function decimalToHex(decimal) {
+      if (decimal < 0) {
+        decimal += 0xFFFFFF + 1;
+      }
+      var hex = Number(decimal).toString(16);
+      hex = "#".concat('000000'.substr(0, 6 - hex.length)).concat(hex);
+      return hex;
+    }
+
+    /**
+     * Convert a Scratch decimal color to an RGB color object.
+     * @param {number} decimal RGB color as decimal.
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "decimalToRgb",
+    value: function decimalToRgb(decimal) {
+      var a = decimal >> 24 & 0xFF;
+      var r = decimal >> 16 & 0xFF;
+      var g = decimal >> 8 & 0xFF;
+      var b = decimal & 0xFF;
+      return {
+        r: r,
+        g: g,
+        b: b,
+        a: a > 0 ? a : 255
+      };
+    }
+
+    /**
+     * Convert a hex color (e.g., F00, #03F, #0033FF) to an RGB color object.
+     * CC-BY-SA Tim Down:
+     * https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+     * @param {!string} hex Hex representation of the color.
+     * @return {RGBObject} null on failure, or rgb: {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hexToRgb",
+    value: function hexToRgb(hex) {
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    /**
+     * Convert an RGB color object to a hex color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!string} Hex representation of the color.
+     */
+  }, {
+    key: "rgbToHex",
+    value: function rgbToHex(rgb) {
+      return Color.decimalToHex(Color.rgbToDecimal(rgb));
+    }
+
+    /**
+     * Convert an RGB color object to a Scratch decimal color.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {!number} Number representing the color.
+     */
+  }, {
+    key: "rgbToDecimal",
+    value: function rgbToDecimal(rgb) {
+      return (rgb.r << 16) + (rgb.g << 8) + rgb.b;
+    }
+
+    /**
+    * Convert a hex color (e.g., F00, #03F, #0033FF) to a decimal color number.
+    * @param {!string} hex Hex representation of the color.
+    * @return {!number} Number representing the color.
+    */
+  }, {
+    key: "hexToDecimal",
+    value: function hexToDecimal(hex) {
+      return Color.rgbToDecimal(Color.hexToRgb(hex));
+    }
+
+    /**
+     * Convert an HSV color to RGB format.
+     * @param {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     * @return {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     */
+  }, {
+    key: "hsvToRgb",
+    value: function hsvToRgb(hsv) {
+      var h = hsv.h % 360;
+      if (h < 0) h += 360;
+      var s = Math.max(0, Math.min(hsv.s, 1));
+      var v = Math.max(0, Math.min(hsv.v, 1));
+      var i = Math.floor(h / 60);
+      var f = h / 60 - i;
+      var p = v * (1 - s);
+      var q = v * (1 - s * f);
+      var t = v * (1 - s * (1 - f));
+      var r;
+      var g;
+      var b;
+      switch (i) {
+        default:
+        case 0:
+          r = v;
+          g = t;
+          b = p;
+          break;
+        case 1:
+          r = q;
+          g = v;
+          b = p;
+          break;
+        case 2:
+          r = p;
+          g = v;
+          b = t;
+          break;
+        case 3:
+          r = p;
+          g = q;
+          b = v;
+          break;
+        case 4:
+          r = t;
+          g = p;
+          b = v;
+          break;
+        case 5:
+          r = v;
+          g = p;
+          b = q;
+          break;
+      }
+      return {
+        r: Math.floor(r * 255),
+        g: Math.floor(g * 255),
+        b: Math.floor(b * 255)
+      };
+    }
+
+    /**
+     * Convert an RGB color to HSV format.
+     * @param {RGBObject} rgb - {r: red [0,255], g: green [0,255], b: blue [0,255]}.
+     * @return {HSVObject} hsv - {h: hue [0,360), s: saturation [0,1], v: value [0,1]}
+     */
+  }, {
+    key: "rgbToHsv",
+    value: function rgbToHsv(rgb) {
+      var r = rgb.r / 255;
+      var g = rgb.g / 255;
+      var b = rgb.b / 255;
+      var x = Math.min(Math.min(r, g), b);
+      var v = Math.max(Math.max(r, g), b);
+
+      // For grays, hue will be arbitrarily reported as zero. Otherwise, calculate
+      var h = 0;
+      var s = 0;
+      if (x !== v) {
+        var f = r === x ? g - b : g === x ? b - r : r - g;
+        var i = r === x ? 3 : g === x ? 5 : 1;
+        h = (i - f / (v - x)) * 60 % 360;
+        s = (v - x) / v;
+      }
+      return {
+        h: h,
+        s: s,
+        v: v
+      };
+    }
+
+    /**
+     * Linear interpolation between rgb0 and rgb1.
+     * @param {RGBObject} rgb0 - the color corresponding to fraction1 <= 0.
+     * @param {RGBObject} rgb1 - the color corresponding to fraction1 >= 1.
+     * @param {number} fraction1 - the interpolation parameter. If this is 0.5, for example, mix the two colors equally.
+     * @return {RGBObject} the interpolated color.
+     */
+  }, {
+    key: "mixRgb",
+    value: function mixRgb(rgb0, rgb1, fraction1) {
+      if (fraction1 <= 0) return rgb0;
+      if (fraction1 >= 1) return rgb1;
+      var fraction0 = 1 - fraction1;
+      return {
+        r: fraction0 * rgb0.r + fraction1 * rgb1.r,
+        g: fraction0 * rgb0.g + fraction1 * rgb1.g,
+        b: fraction0 * rgb0.b + fraction1 * rgb1.b
+      };
+    }
+  }]);
+}();
+var color$3 = Color$1;
+
+var Color = color$3;
+
+/**
+ * @fileoverview
+ * Utilities for casting and comparing Scratch data-types.
+ * Scratch behaves slightly differently from JavaScript in many respects,
+ * and these differences should be encapsulated below.
+ * For example, in Scratch, add(1, join("hello", world")) -> 1.
+ * This is because "hello world" is cast to 0.
+ * In JavaScript, 1 + Number("hello" + "world") would give you NaN.
+ * Use when coercing a value before computation.
+ */
+var Cast = /*#__PURE__*/function () {
+  function Cast() {
+    _classCallCheck(this, Cast);
+  }
+  return _createClass(Cast, null, [{
+    key: "toNumber",
+    value:
+    /**
+     * Scratch cast to number.
+     * Treats NaN as 0.
+     * In Scratch 2.0, this is captured by `interp.numArg.`
+     * @param {*} value Value to cast to number.
+     * @return {number} The Scratch-casted number value.
+     */
+    function toNumber(value) {
+      // If value is already a number we don't need to coerce it with
+      // Number().
+      if (typeof value === 'number') {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        if (Number.isNaN(value)) {
+          return 0;
+        }
+        return value;
+      }
+      if (typeof value === 'string') {
+        // Replace full-width numbers with half-width ones.
+        value = value.replace(/[０-９＋．ｅ]/g, function (s) {
+          return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+        });
+        value = value.replace(/[-－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-');
+      }
+      var n = Number(value);
+      if (Number.isNaN(n)) {
+        // Scratch treats NaN as 0, when needed as a number.
+        // E.g., 0 + NaN -> 0.
+        return 0;
+      }
+      return n;
+    }
+
+    /**
+     * Scratch cast to boolean.
+     * In Scratch 2.0, this is captured by `interp.boolArg.`
+     * Treats some string values differently from JavaScript.
+     * @param {*} value Value to cast to boolean.
+     * @return {boolean} The Scratch-casted boolean value.
+     */
+  }, {
+    key: "toBoolean",
+    value: function toBoolean(value) {
+      // Already a boolean?
+      if (typeof value === 'boolean') {
+        return value;
+      }
+      if (typeof value === 'string') {
+        // These specific strings are treated as false in Scratch.
+        if (value === '' || value === '0' || value.toLowerCase() === 'false') {
+          return false;
+        }
+        // All other strings treated as true.
+        return true;
+      }
+      // Coerce other values and numbers.
+      return Boolean(value);
+    }
+
+    /**
+     * Scratch cast to string.
+     * @param {*} value Value to cast to string.
+     * @return {string} The Scratch-casted string value.
+     */
+  }, {
+    key: "toString",
+    value: function toString(value) {
+      return String(value).replace(/\\n/g, '\n').replace(/\\t/g, '\t');
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color array to be used for the renderer.
+     * @param {*} value Value to convert to RGB color array.
+     * @return {Array.<number>} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorList",
+    value: function toRgbColorList(value) {
+      var color = Cast.toRgbColorObject(value);
+      return [color.r, color.g, color.b];
+    }
+
+    /**
+     * Cast any Scratch argument to an RGB color object to be used for the renderer.
+     * @param {*} value Value to convert to RGB color object.
+     * @return {RGBOject} [r,g,b], values between 0-255.
+     */
+  }, {
+    key: "toRgbColorObject",
+    value: function toRgbColorObject(value) {
+      var color;
+      if (typeof value === 'string' && value.substring(0, 1) === '#') {
+        color = Color.hexToRgb(value);
+
+        // If the color wasn't *actually* a hex color, cast to black
+        if (!color) color = {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        };
+      } else {
+        color = Color.decimalToRgb(Cast.toNumber(value));
+      }
+      return color;
+    }
+
+    /**
+     * Determine if a Scratch argument is a white space string (or null / empty).
+     * @param {*} val value to check.
+     * @return {boolean} True if the argument is all white spaces or null / empty.
+     */
+  }, {
+    key: "isWhiteSpace",
+    value: function isWhiteSpace(val) {
+      return val === null || typeof val === 'string' && val.trim().length === 0;
+    }
+
+    /**
+     * Compare two values, using Scratch cast, case-insensitive string compare, etc.
+     * In Scratch 2.0, this is captured by `interp.compare.`
+     * @param {*} v1 First value to compare.
+     * @param {*} v2 Second value to compare.
+     * @returns {number} Negative number if v1 < v2; 0 if equal; positive otherwise.
+     */
+  }, {
+    key: "compare",
+    value: function compare(v1, v2) {
+      var n1 = Number(v1);
+      var n2 = Number(v2);
+      if (n1 === 0 && Cast.isWhiteSpace(v1)) {
+        n1 = NaN;
+      } else if (n2 === 0 && Cast.isWhiteSpace(v2)) {
+        n2 = NaN;
+      }
+      if (isNaN(n1) || isNaN(n2)) {
+        // At least one argument can't be converted to a number.
+        // Scratch compares strings as case insensitive.
+        var s1 = Cast.toString(v1).toLowerCase();
+        var s2 = Cast.toString(v2).toLowerCase();
+        if (s1 < s2) {
+          return -1;
+        } else if (s1 > s2) {
+          return 1;
+        }
+        return 0;
+      }
+      // Handle the special case of Infinity
+      if (n1 === Infinity && n2 === Infinity || n1 === -Infinity && n2 === -Infinity) {
+        return 0;
+      }
+      // Compare as numbers.
+      return n1 - n2;
+    }
+
+    /**
+     * Determine if a Scratch argument number represents a round integer.
+     * @param {*} val Value to check.
+     * @return {boolean} True if number looks like an integer.
+     */
+  }, {
+    key: "isInt",
+    value: function isInt(val) {
+      // Values that are already numbers.
+      if (typeof val === 'number') {
+        if (isNaN(val)) {
+          // NaN is considered an integer.
+          return true;
+        }
+        // True if it's "round" (e.g., 2.0 and 2).
+        return val === parseInt(val, 10);
+      } else if (typeof val === 'boolean') {
+        // `True` and `false` always represent integer after Scratch cast.
+        return true;
+      } else if (typeof val === 'string') {
+        // If it contains a decimal point, don't consider it an int.
+        return val.indexOf('.') < 0;
+      }
+      return false;
+    }
+  }, {
+    key: "LIST_INVALID",
+    get: function get() {
+      return 'INVALID';
+    }
+  }, {
+    key: "LIST_ALL",
+    get: function get() {
+      return 'ALL';
+    }
+
+    /**
+     * Compute a 1-based index into a list, based on a Scratch argument.
+     * Two special cases may be returned:
+     * LIST_ALL: if the block is referring to all of the items in the list.
+     * LIST_INVALID: if the index was invalid in any way.
+     * @param {*} index Scratch arg, including 1-based numbers or special cases.
+     * @param {number} length Length of the list.
+     * @param {boolean} acceptAll Whether it should accept "all" or not.
+     * @return {(number|string)} 1-based index for list, LIST_ALL, or LIST_INVALID.
+     */
+  }, {
+    key: "toListIndex",
+    value: function toListIndex(index, length, acceptAll) {
+      if (typeof index !== 'number') {
+        if (index === 'all') {
+          return acceptAll ? Cast.LIST_ALL : Cast.LIST_INVALID;
+        }
+        if (index === 'last') {
+          if (length > 0) {
+            return length;
+          }
+          return Cast.LIST_INVALID;
+        } else if (index === 'random' || index === 'any') {
+          if (length > 0) {
+            return 1 + Math.floor(Math.random() * length);
+          }
+          return Cast.LIST_INVALID;
+        }
+      }
+      index = Math.floor(Cast.toNumber(index));
+      if (index < 1 || index > length) {
+        return Cast.LIST_INVALID;
+      }
+      return index;
+    }
+  }]);
+}();
+var cast = Cast;
+var Cast$1 = /*@__PURE__*/getDefaultExportFromCjs(cast);
 
 var web = {exports: {}};
 
@@ -746,8 +1254,8 @@ var webExports = web.exports;
 
 var minilog = webExports;
 minilog.enable();
-var log = minilog('vm');
-var log$1 = /*@__PURE__*/getDefaultExportFromCjs(log);
+var log$1 = minilog('vm');
+var log$2 = /*@__PURE__*/getDefaultExportFromCjs(log$1);
 
 var en = {
 	"iRobotExtension.name": "iRobotExtension",
@@ -768,9 +1276,282 @@ var translations = {
 
 var img = "data:image/png;base64,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";
 
-function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
-function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
-function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray(r);
+}
+
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+}
+
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(r) {
+  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
+}
+
+var log = log$1;
+var uint8ArrayToBase64 = function uint8ArrayToBase64(array) {
+  return window.btoa(String.fromCharCode.apply(String, _toConsumableArray(array)));
+};
+var base64ToUint8Array = function base64ToUint8Array(base64) {
+  var raw = window.atob(base64);
+  return Uint8Array.from(Array.prototype.map.call(raw, function (x) {
+    return x.charCodeAt(0);
+  }));
+};
+var WebBLE = /*#__PURE__*/function () {
+  /**
+   * A BLE peripheral object.  It handles connecting, over Web Bluetooth API, to
+   * BLE peripherals, and reading and writing data to them.
+   * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
+   * @param {string} extensionId - the id of the extension using this object.
+   * @param {object} peripheralOptions - the list of options for peripheral discovery.
+   * @param {object} connectCallback - a callback for connection.
+   * @param {object} resetCallback - a callback for resetting extension state.
+   */
+  function WebBLE(runtime, extensionId, peripheralOptions, connectCallback) {
+    var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    _classCallCheck$1(this, WebBLE);
+    /**
+     * Remote device which have been connected.
+     * @type {BluetoothDevice}
+     */
+    this._device = null;
+
+    /**
+     * Remote GATT server
+     * @type {BluetoothRemoteGATTServer}
+     */
+    this._server = null;
+    this._connectCallback = connectCallback;
+    this._disconnected = true;
+    this._characteristicDidChangeCallback = null;
+    this._resetCallback = resetCallback;
+    this._extensionId = extensionId;
+    this._peripheralOptions = peripheralOptions;
+    this._runtime = runtime;
+    this.requestPeripheral();
+  }
+
+  /**
+   * Request connection to the peripheral.
+   * Request user to choose a device, and then connect it automatically.
+   */
+  return _createClass$1(WebBLE, [{
+    key: "requestPeripheral",
+    value: function requestPeripheral() {
+      var _this = this;
+      if (this._server) {
+        this.disconnect();
+      }
+      navigator.bluetooth.requestDevice(this._peripheralOptions).then(function (device) {
+        _this._device = device;
+        log.debug("device=".concat(_this._device.name));
+        _this._runtime.connectPeripheral(_this._extensionId, _this._device.id);
+      }).catch(function (e) {
+        _this._handleRequestError(e);
+      });
+    }
+
+    /**
+     * Try connecting to the GATT server of the device, and then call the connect
+     * callback when connection is successful.
+     */
+  }, {
+    key: "connectPeripheral",
+    value: function connectPeripheral(/* id */
+    ) {
+      var _this2 = this;
+      if (!this._device) {
+        throw new Error('device is not chosen');
+      }
+      this._device.gatt.connect().then(function (gattServer) {
+        log.debug("GATTServer is connected");
+        _this2._server = gattServer;
+        _this2._runtime.emit(_this2._runtime.constructor.PERIPHERAL_CONNECTED);
+        _this2._disconnected = false;
+        _this2._connectCallback();
+        _this2._device.addEventListener('gattserverdisconnected', function (event) {
+          _this2.onDisconnected(event);
+        });
+      });
+    }
+
+    /**
+     * Disconnect from the device and clean up.
+     * Then emit the connection state by the runtime.
+     */
+  }, {
+    key: "disconnect",
+    value: function disconnect() {
+      if (!this._server) return;
+      this._server.disconnect();
+      this._disconnected = true;
+      this._server = null;
+      this._device = null;
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
+    }
+
+    /**
+     * @return {bool} whether the peripheral is connected.
+     */
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      if (!this._server) return false;
+      return this._server.connected;
+    }
+
+    /**
+     * Start receiving notifications from the specified ble service.
+     * @param {number} serviceId - the ble service to read.
+     * @param {number} characteristicId - the ble characteristic to get notifications from.
+     * @param {object} onCharacteristicChanged - callback for characteristic change notifications
+     *  like function(base64message).
+     * @return {Promise} - a promise from the remote startNotifications request.
+     */
+  }, {
+    key: "startNotifications",
+    value: function startNotifications(serviceId, characteristicId) {
+      var onCharacteristicChanged = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      return this._server.getPrimaryService(serviceId).then(function (service) {
+        return service.getCharacteristic(characteristicId);
+      }).then(function (characteristic) {
+        characteristic.addEventListener('characteristicvaluechanged', function (event) {
+          var dataView = event.target.value;
+          onCharacteristicChanged(uint8ArrayToBase64(new Uint8Array(dataView.buffer)));
+        });
+        characteristic.startNotifications();
+      });
+    }
+
+    /**
+     * Read from the specified ble service.
+     * @param {number} serviceId - the ble service to read.
+     * @param {number} characteristicId - the ble characteristic to read.
+     * @param {boolean} optStartNotifications - whether to start receiving characteristic change notifications.
+     * @param {object} onCharacteristicChanged - callback for characteristic change notifications
+     *  like function(base64message).
+     * @return {Promise} - a promise from the remote read request which resolve {message: base64string}.
+     */
+  }, {
+    key: "read",
+    value: function read(serviceId, characteristicId) {
+      var _this3 = this;
+      var optStartNotifications = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var onCharacteristicChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      return this._server.getPrimaryService(serviceId).then(function (service) {
+        return service.getCharacteristic(characteristicId);
+      }).then(function (characteristic) {
+        if (optStartNotifications) {
+          _this3.startNotifications(serviceId, characteristicId, onCharacteristicChanged);
+        }
+        return characteristic.readValue();
+      }).then(function (dataView) {
+        return {
+          message: uint8ArrayToBase64(new Uint8Array(dataView.buffer))
+        };
+      });
+    }
+
+    /**
+     * Write data to the specified ble service.
+     * @param {number} serviceId - the ble service to write.
+     * @param {number} characteristicId - the ble characteristic to write.
+     * @param {string} message - the message to send.
+     * @param {string} encoding - the message encoding type.
+     * @param {boolean} withResponse - if true, resolve after peripheral's response.
+     * @return {Promise} - a promise from the remote send request.
+     */
+    // eslint-disable-next-line no-unused-vars
+  }, {
+    key: "write",
+    value: function write(serviceId, characteristicId, message) {
+      var encoding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+      var withResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+      var value = encoding === 'base64' ? base64ToUint8Array(message) : message;
+      return this._server.getPrimaryService(serviceId).then(function (service) {
+        return service.getCharacteristic(characteristicId);
+      }).then(function (characteristic) {
+        if (withResponse && characteristic.writeValueWithResponse) {
+          return characteristic.writeValueWithResponse(value);
+        }
+        if (characteristic.writeValueWithoutResponse) {
+          return characteristic.writeValueWithoutResponse(value);
+        }
+        return characteristic.writeValue(value);
+      });
+    }
+
+    /**
+     * Handle an error resulting from losing connection to a peripheral.
+     *
+     * This could be due to:
+     * - battery depletion
+     * - going out of bluetooth range
+     * - being powered down
+     *
+     * Disconnect the device, and if the extension using this object has a
+     * reset callback, call it. Finally, emit an error to the runtime.
+     */
+  }, {
+    key: "handleDisconnectError",
+    value: function handleDisconnectError(/* e */
+    ) {
+      // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+      if (this._disconnected) return;
+      this.disconnect();
+      if (this._resetCallback) {
+        this._resetCallback();
+      }
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
+        message: "Scratch lost connection to",
+        extensionId: this._extensionId
+      });
+    }
+  }, {
+    key: "_handleRequestError",
+    value: function _handleRequestError(/* e */
+    ) {
+      // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+      this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
+        message: "Scratch lost connection to",
+        extensionId: this._extensionId
+      });
+    }
+
+    /**
+     * Called when disconnected by the device.
+     */
+  }, {
+    key: "onDisconnected",
+    value: function onDisconnected(/* event */
+    ) {
+      this.handleDisconnectError(new Error('device disconnected'));
+    }
+  }]);
+}();
+var WebBLE_1 = WebBLE;
+var WebBLE$1 = /*@__PURE__*/getDefaultExportFromCjs(WebBLE_1);
 
 /**
  * Formatter which is used for translation.
@@ -791,379 +1572,45 @@ var setupTranslations = function setupTranslations() {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
-
-// BLE UUID 定義
-var ROOT_ID_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
-var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
-var TX_CHARACTERISTIC = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
-var RX_CHARACTERISTIC = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
 var EXTENSION_ID = 'iRobotExtension';
+
+/**
+ * URL to get this extension as a module.
+ * When it was loaded as a module, 'extensionURL' will be replaced with a URL retrieved from.
+ * @type {string}
+ */
 var extensionURL = 'https://naominix.github.io/iRobotExtension.mjs';
+
+/**
+ * Xcratch ブロック拡張機能クラス（iRobot Root rt0 BLE 接続版）
+ */
 var ExtensionBlocks = /*#__PURE__*/function () {
+  /**
+   * Xcratch 用 iRobotExtension のブロックセットを構築する。
+   * @param {Runtime} runtime - Xcratch のランタイム
+   */
   function ExtensionBlocks(runtime) {
-    _classCallCheck(this, ExtensionBlocks);
+    _classCallCheck$1(this, ExtensionBlocks);
+    /**
+     * Xcratch のランタイム
+     * @type {Runtime}
+     */
     this.runtime = runtime;
+    // Scratch Link 経由の接続済みデバイスを保持する変数
+    this._device = null;
+    // WebBLE のインスタンスを保持する変数
+    this._webBLE = null;
     if (runtime.formatMessage) {
+      // ランタイムのフォーマッタを使用する
       formatMessage = runtime.formatMessage;
     }
-    this.bleDevice = null;
-    this.bleServer = null;
-    this.uartService = null;
-    this.txCharacteristic = null;
-    this.rxCharacteristic = null;
-    this.receivedBuffer = "";
-    // バンパーセンサーの状態（"none", "left", "right", "both"）
-    this.bumperState = "none";
-    // タッチセンサーの状態（各センサーの状態をオブジェクトで保持）
-    // FL: 左前, FR: 右前, RR: 右後, RL: 左後
-    this.touchState = {
-      FL: false,
-      FR: false,
-      RR: false,
-      RL: false
-    };
   }
-  return _createClass(ExtensionBlocks, [{
-    key: "handleNotifications",
-    value: function handleNotifications(event) {
-      var value = event.target.value;
-      var byteArray = new Uint8Array(value.buffer);
-      var bytes = Array.from(byteArray);
-      var msg = bytes.join(", ");
-      this.receivedBuffer += msg + "\n";
-      log$1.log("受信: " + msg);
 
-      // タッチセンサーイベントの処理（Device 17）
-      if (bytes.length >= 8 && bytes[0] === 17 && bytes[1] === 0x00) {
-        // Byte7 の上位4ビットから状態を取得: 0b<FL><FR><RR><RL>
-        var stateNibble = bytes[7] >> 4;
-        this.touchState = {
-          FL: Boolean(stateNibble & 0x8),
-          FR: Boolean(stateNibble & 0x4),
-          // 右後は下位第2ビット、左後は下位第1ビット
-          RR: Boolean(stateNibble & 0x2),
-          RL: Boolean(stateNibble & 0x1)
-        };
-        log$1.log("タッチセンサー状態更新: 左前=" + this.touchState.FL + ", 右前=" + this.touchState.FR + ", 右後=" + this.touchState.RR + ", 左後=" + this.touchState.RL);
-        return; // タッチセンサーイベントはここで処理完了
-      }
-
-      // バンパーセンサーイベントの処理
-      if (bytes.length >= 8 && bytes[1] === 0x00) {
-        var state = bytes[7];
-        if (state === 0x00) {
-          this.bumperState = "none";
-          log$1.log("バンパーセンサー状態更新: none");
-        } else if (state === 0x40) {
-          this.bumperState = "right";
-          log$1.log("バンパーセンサー状態更新: right");
-        } else if (state === 0x80) {
-          this.bumperState = "left";
-          log$1.log("バンパーセンサー状態更新: left");
-        } else if (state === 0xC0) {
-          this.bumperState = "both";
-          log$1.log("バンパーセンサー状態更新: both");
-        } else {
-          log$1.log("バンパーセンサーのレスポンスとして不適格な値を無視: " + state);
-          return;
-        }
-      }
-    }
-  }, {
-    key: "connectBLE",
-    value: function connectBLE(args, callback) {
-      var _this = this;
-      if (!navigator.bluetooth) {
-        log$1.error("このブラウザは Web Bluetooth API に対応していません。");
-        callback();
-        return;
-      }
-      navigator.bluetooth.requestDevice({
-        filters: [{
-          services: [ROOT_ID_SERVICE]
-        }],
-        optionalServices: [UART_SERVICE]
-      }).then(function (device) {
-        _this.bleDevice = device;
-        return device.gatt.connect();
-      }).then(function (server) {
-        _this.bleServer = server;
-        return server.getPrimaryService(UART_SERVICE);
-      }).then(function (service) {
-        _this.uartService = service;
-        return Promise.all([service.getCharacteristic(TX_CHARACTERISTIC), service.getCharacteristic(RX_CHARACTERISTIC)]);
-      }).then(function (characteristics) {
-        _this.txCharacteristic = characteristics[0];
-        _this.rxCharacteristic = characteristics[1];
-        return _this.rxCharacteristic.startNotifications();
-      }).then(function () {
-        _this.rxCharacteristic.addEventListener("characteristicvaluechanged", _this.handleNotifications.bind(_this));
-        log$1.log("BLEデバイスに接続し、UARTサービスを初期化しました。");
-        callback();
-      }).catch(function (error) {
-        log$1.error("接続エラー: " + error);
-        callback();
-      });
-    }
-  }, {
-    key: "driveForward",
-    value: function driveForward(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xD1]);
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("前進コマンドを送信しました。");
-      }).catch(function (error) {
-        log$1.error("前進コマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "driveBackward",
-    value: function driveBackward(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0xFF, 0xFF, 0xFF, 0x9C, 0xFF, 0xFF, 0xFF, 0x9C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x71]);
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("後退コマンドを送信しました。");
-      }).catch(function (error) {
-        log$1.error("後退コマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "turnLeft",
-    value: function turnLeft(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x8A]);
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("左回転コマンドを送信しました。");
-      }).catch(function (error) {
-        log$1.error("左回転コマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "turnRight",
-    value: function turnRight(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25]);
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("右回転コマンドを送信しました。");
-      }).catch(function (error) {
-        log$1.error("右回転コマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "stop",
-    value: function stop(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var command = new Uint8Array([0x01, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7E]);
-      this.txCharacteristic.writeValue(command).then(function () {
-        log$1.log("停止コマンドを送信しました。");
-      }).catch(function (error) {
-        log$1.error("停止コマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "getReceivedData",
-    value: function getReceivedData(args) {
-      var data = this.receivedBuffer;
-      this.receivedBuffer = "";
-      return data;
-    }
-  }, {
-    key: "disconnectBLE",
-    value: function disconnectBLE(args) {
-      if (this.bleDevice && this.bleDevice.gatt.connected) {
-        this.bleDevice.gatt.disconnect();
-        log$1.log("BLEデバイスから切断しました。");
-      }
-    }
-
-    // ── LED 制御機能 ──
-  }, {
-    key: "calcCRC",
-    value: function calcCRC(packet) {
-      var crc = 0;
-      var _iterator = _createForOfIteratorHelper(packet),
-        _step;
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var c = _step.value;
-          for (var i = 0; i < 8; i++) {
-            var b = crc & 0x80;
-            if (c & 0x80 >> i) {
-              b ^= 0x80;
-            }
-            crc = crc << 1 & 0xFF;
-            if (b !== 0) {
-              crc ^= 0x07;
-            }
-            crc &= 0xFF;
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-      return crc;
-    }
-  }, {
-    key: "buildLedPacket",
-    value: function buildLedPacket(state, red, green, blue) {
-      var packet = [0x03, 0x02, 0x00, state, red, green, blue];
-      while (packet.length < 19) {
-        packet.push(0x00);
-      }
-      packet.push(0x00);
-      var crcValue = this.calcCRC(packet.slice(0, 19));
-      packet[19] = crcValue;
-      return packet;
-    }
-  }, {
-    key: "setLED",
-    value: function setLED(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var mode = Number(args.MODE);
-      var red = Number(args.RED);
-      var green = Number(args.GREEN);
-      var blue = Number(args.BLUE);
-      var packet = this.buildLedPacket(mode, red, green, blue);
-      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("LED\u30B3\u30DE\u30F3\u30C9\u9001\u4FE1: mode=".concat(mode, ", red=").concat(red, ", green=").concat(green, ", blue=").concat(blue));
-      }).catch(function (error) {
-        log$1.error("LEDコマンド送信エラー: " + error);
-      });
-    }
-
-    // ── 左右両方のモーター駆動（モータースピード調節） ──
-  }, {
-    key: "int32ToBytes",
-    value: function int32ToBytes(num) {
-      return [num >> 24 & 0xFF, num >> 16 & 0xFF, num >> 8 & 0xFF, num & 0xFF];
-    }
-  }, {
-    key: "buildMotorPacket",
-    value: function buildMotorPacket(leftSpeed, rightSpeed) {
-      var packet = [];
-      packet.push(0x01, 0x04, 0x00);
-      packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(leftSpeed)));
-      packet.push.apply(packet, _toConsumableArray(this.int32ToBytes(rightSpeed)));
-      while (packet.length < 19) {
-        packet.push(0x00);
-      }
-      var crc = this.calcCRC(packet.slice(0, 19));
-      packet.push(crc);
-      return packet;
-    }
-  }, {
-    key: "setMotorSpeed",
-    value: function setMotorSpeed(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
-      }
-      var leftSpeed = Number(args.LEFT_SPEED);
-      var rightSpeed = Number(args.RIGHT_SPEED);
-      var packet = this.buildMotorPacket(leftSpeed, rightSpeed);
-      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("\u30E2\u30FC\u30BF\u30FC\u30B9\u30D4\u30FC\u30C9\u8A2D\u5B9A: \u5DE6=".concat(leftSpeed, ", \u53F3=").concat(rightSpeed));
-      }).catch(function (error) {
-        log$1.error("モータースピードコマンド送信エラー: " + error);
-      });
-    }
-
-    // ── タッチセンサー処理 ──
-
-    /**
-     * タッチセンサーの hat ブロック用実装
-     * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
-     * 内部では "leftFront"→"FL", "rightFront"→"FR", "leftRear"→"RL", "rightRear"→"RR" とします。
-     * センサーが true の場合、一度 false にリセットして true を返します。
-     * @param {object} args - ブロック引数 { SENSOR }
-     * @returns {boolean} センサーが押された場合 true、それ以外は false
-     */
-  }, {
-    key: "whenTouchPressed",
-    value: function whenTouchPressed(args) {
-      var sensor = args.SENSOR;
-      var sensorKey;
-      if (sensor === "leftFront") {
-        sensorKey = "FL";
-      } else if (sensor === "rightFront") {
-        sensorKey = "FR";
-      } else if (sensor === "leftRear") {
-        sensorKey = "RL";
-      } else if (sensor === "rightRear") {
-        sensorKey = "RR";
-      } else {
-        return false;
-      }
-      if (this.touchState[sensorKey]) {
-        // 一度イベントを発火したらリセットして連続検知を防止
-        this.touchState[sensorKey] = false;
-        return true;
-      }
-      return false;
-    }
-
-    /**
-     * タッチセンサーの状態をレポートするブロック用実装
-     * 引数 SENSOR は "leftFront", "rightFront", "leftRear", "rightRear" のいずれか
-     * @param {object} args - ブロック引数 { SENSOR }
-     * @returns {boolean} 該当センサーの状態（true: 押されている, false: 押されていない）
-     */
-  }, {
-    key: "getTouchSensor",
-    value: function getTouchSensor(args) {
-      var sensor = args.SENSOR;
-      var sensorKey;
-      if (sensor === "leftFront") {
-        sensorKey = "FL";
-      } else if (sensor === "rightFront") {
-        sensorKey = "FR";
-      } else if (sensor === "leftRear") {
-        sensorKey = "RL";
-      } else if (sensor === "rightRear") {
-        sensorKey = "RR";
-      } else {
-        return false;
-      }
-      return this.touchState[sensorKey];
-    }
-
-    // ── バンパーセンサー判定とイベント ──
-  }, {
-    key: "getBumperState",
-    value: function getBumperState(args) {
-      return this.bumperState || "none";
-    }
-  }, {
-    key: "whenBumperPressed",
-    value: function whenBumperPressed(args) {
-      var selectedBumper = args.BUMPER;
-      if (this.bumperState === selectedBumper) {
-        this.bumperState = "none";
-        return true;
-      }
-      return false;
-    }
-  }, {
+  /**
+   * この拡張機能およびブロックの metadata を返す
+   * @returns {object} metadata for this extension and its blocks.
+   */
+  return _createClass$1(ExtensionBlocks, [{
     key: "getInfo",
     value: function getInfo() {
       setupTranslations();
@@ -1172,282 +1619,132 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
-        showStatusButton: false,
+        showStatusButton: true,
+        // BLE 接続用のデバイス定義
+        device: {
+          id: 'iRobotRootBLE',
+          // Scratch Link 側のフィルタは固有のサービス UUID を利用
+          bluetoothService: 'd3323800-6784-4e17-aad2-c65c52b8cbd8'
+        },
         blocks: [{
-          opcode: 'connectBLE',
+          opcode: 'connect',
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
-            id: 'iRobotExtension.connectBLE',
-            default: 'BLE UARTデバイスに接続する',
-            description: 'Connect to BLE UART device'
+            id: 'iRobotExtension.connect',
+            default: 'connect to iRobot Root',
+            description: 'connect to iRobot Root via BLE'
           }),
-          func: 'connectBLE',
-          arguments: {}
+          func: 'connect'
         }, {
-          opcode: 'driveForward',
-          blockType: BlockType$1.COMMAND,
+          opcode: 'isConnected',
+          blockType: BlockType$1.BOOLEAN,
           text: formatMessage({
-            id: 'iRobotExtension.driveForward',
-            default: '前進する',
-            description: 'Send drive forward command'
+            id: 'iRobotExtension.isConnected',
+            default: 'iRobot Root is connected?',
+            description: 'check if the iRobot Root is connected'
           }),
-          func: 'driveForward',
-          arguments: {}
+          func: 'isConnected'
         }, {
-          opcode: 'driveBackward',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.driveBackward',
-            default: '後退する',
-            description: 'Send drive backward command'
-          }),
-          func: 'driveBackward',
-          arguments: {}
-        }, {
-          opcode: 'turnLeft',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.turnLeft',
-            default: '左回転する',
-            description: 'Send turn left command'
-          }),
-          func: 'turnLeft',
-          arguments: {}
-        }, {
-          opcode: 'turnRight',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.turnRight',
-            default: '右回転する',
-            description: 'Send turn right command'
-          }),
-          func: 'turnRight',
-          arguments: {}
-        }, {
-          opcode: 'stop',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.stop',
-            default: '停止する',
-            description: 'Send stop command'
-          }),
-          func: 'stop',
-          arguments: {}
-        }, {
-          opcode: 'getReceivedData',
+          opcode: 'doIt',
           blockType: BlockType$1.REPORTER,
+          blockAllThreads: false,
           text: formatMessage({
-            id: 'iRobotExtension.getReceivedData',
-            default: '受信データ',
-            description: 'Get received data from BLE UART'
+            id: 'iRobotExtension.doIt',
+            default: 'do it [SCRIPT]',
+            description: 'execute javascript for example'
           }),
-          func: 'getReceivedData',
-          arguments: {}
-        }, {
-          opcode: 'disconnectBLE',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.disconnectBLE',
-            default: '切断する',
-            description: 'Disconnect BLE device'
-          }),
-          func: 'disconnectBLE',
-          arguments: {}
-        },
-        // LED 制御ブロック
-        {
-          opcode: 'setLED',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.setLED',
-            default: 'LED を [MODE] にして 色(R,G,B) を [RED] [GREEN] [BLUE] にする',
-            description: 'Set LED color and mode'
-          }),
-          func: 'setLED',
+          func: 'doIt',
           arguments: {
-            MODE: {
+            SCRIPT: {
               type: ArgumentType$1.STRING,
-              menu: "LED_MODE",
-              defaultValue: "0"
-            },
-            RED: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 255
-            },
-            GREEN: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 0
-            },
-            BLUE: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 0
-            }
-          }
-        },
-        // 左右モーター駆動ブロック
-        {
-          opcode: 'setMotorSpeed',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.setMotorSpeed',
-            default: '左右のモーターを左 [LEFT_SPEED] 右 [RIGHT_SPEED] の速度で動かす',
-            description: 'Set left and right motor speeds'
-          }),
-          func: 'setMotorSpeed',
-          arguments: {
-            LEFT_SPEED: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 100
-            },
-            RIGHT_SPEED: {
-              type: ArgumentType$1.NUMBER,
-              defaultValue: 100
-            }
-          }
-        },
-        // バンパーセンサー関連
-        {
-          opcode: 'getBumperState',
-          blockType: BlockType$1.REPORTER,
-          text: formatMessage({
-            id: 'iRobotExtension.getBumperState',
-            default: 'バンパーセンサーの状態',
-            description: 'Get bumper sensor state'
-          }),
-          func: 'getBumperState',
-          arguments: {}
-        }, {
-          opcode: 'whenBumperPressed',
-          blockType: BlockType$1.HAT,
-          text: formatMessage({
-            id: 'iRobotExtension.whenBumperPressed',
-            default: 'バンパー [BUMPER] が押されたとき',
-            description: 'Trigger when the specified bumper event occurs'
-          }),
-          func: 'whenBumperPressed',
-          arguments: {
-            BUMPER: {
-              type: ArgumentType$1.STRING,
-              menu: 'BUMPER_MENU',
-              defaultValue: 'right'
-            }
-          }
-        },
-        // タッチセンサー関連：ハットブロック
-        {
-          opcode: 'whenTouchPressed',
-          blockType: BlockType$1.HAT,
-          text: formatMessage({
-            id: 'iRobotExtension.whenTouchPressed',
-            default: 'タッチセンサー [SENSOR] が押されたとき',
-            description: 'Trigger when the specified touch sensor is pressed'
-          }),
-          func: 'whenTouchPressed',
-          arguments: {
-            SENSOR: {
-              type: ArgumentType$1.STRING,
-              menu: 'TOUCH_SENSOR_MENU',
-              defaultValue: 'leftFront'
-            }
-          }
-        },
-        // タッチセンサー関連：状態レポーターブロック
-        {
-          opcode: 'getTouchSensor',
-          blockType: BlockType$1.REPORTER,
-          text: formatMessage({
-            id: 'iRobotExtension.getTouchSensor',
-            default: 'タッチセンサー [SENSOR] の状態',
-            description: 'Report the state of the specified touch sensor'
-          }),
-          func: 'getTouchSensor',
-          arguments: {
-            SENSOR: {
-              type: ArgumentType$1.STRING,
-              menu: 'TOUCH_SENSOR_MENU',
-              defaultValue: 'leftFront'
+              defaultValue: '5 + 5'
             }
           }
         }],
-        menus: {
-          LED_MODE: [{
-            text: formatMessage({
-              id: 'iRobotExtension.modeOff',
-              default: 'Off'
-            }),
-            value: '0'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.modeOn',
-              default: 'On'
-            }),
-            value: '1'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.modeBlink',
-              default: 'Blink'
-            }),
-            value: '2'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.modeSpin',
-              default: 'Spin'
-            }),
-            value: '3'
-          }],
-          BUMPER_MENU: [{
-            text: formatMessage({
-              id: 'iRobotExtension.bumperRight',
-              default: '右'
-            }),
-            value: 'right'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.bumperLeft',
-              default: '左'
-            }),
-            value: 'left'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.bumperBoth',
-              default: '両方'
-            }),
-            value: 'both'
-          }],
-          TOUCH_SENSOR_MENU: [{
-            text: formatMessage({
-              id: 'iRobotExtension.touchLeftFront',
-              default: '左前'
-            }),
-            value: 'leftFront'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.touchRightFront',
-              default: '右前'
-            }),
-            value: 'rightFront'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.touchLeftRear',
-              default: '左後'
-            }),
-            value: 'leftRear'
-          }, {
-            text: formatMessage({
-              id: 'iRobotExtension.touchRightRear',
-              default: '右後'
-            }),
-            value: 'rightRear'
-          }]
-        }
+        menus: {}
       };
+    }
+
+    /**
+     * connect ブロックの処理: WebBLE を用いて iRobot Root rt0 に接続を試みる
+     * @returns {Promise} - 接続成功時に解決する Promise
+     */
+  }, {
+    key: "connect",
+    value: function connect() {
+      var _this = this;
+      return new Promise(function (resolve, reject) {
+        // WebBLE を用いて BLE デバイスの選択・接続を開始する
+        _this._webBLE = new WebBLE$1(_this.runtime, ExtensionBlocks.EXTENSION_ID, {
+          filters: [{
+            // 固有のサービス UUID でフィルタリング
+            services: ['d3323800-6784-4e17-aad2-c65c52b8cbd8'],
+            // メーカー固有データでフィルタリング（例: companyIdentifier=6, データプレフィックス "RT0"）
+            manufacturerData: [{
+              companyIdentifier: 6,
+              dataPrefix: new Uint8Array([0x52, 0x54, 0x30])
+            }]
+          }],
+          optionalServices: ['d3323800-6784-4e17-aad2-c65c52b8cbd8', '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+        }, function () {
+          // WebBLE 接続成功時のコールバック
+          log$2.log('WebBLE connected');
+          // WebBLE 経由で接続できたので、次に Scratch Link 経由の接続を試みる
+          _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (scratchLinkDevice) {
+            _this._device = scratchLinkDevice;
+            log$2.log('Scratch Link connected device:', scratchLinkDevice);
+            resolve();
+          }).catch(function (error) {
+            log$2.error('Scratch Link connection failed:', error);
+            reject(error);
+          });
+        }, function () {
+          // BLE 接続が切断されたときのリセット処理
+          log$2.error('BLE connection lost');
+          // 必要に応じてここで状態のリセットなどの処理を行う
+        });
+      });
+    }
+
+    /**
+     * isConnected ブロックの処理: 接続状態を返す
+     * @returns {boolean} - 接続済みなら true を返す
+     */
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      // WebBLE と Scratch Link のいずれかが接続されていれば true
+      return this._webBLE && this._webBLE.isConnected() || !!this._device;
+    }
+
+    /**
+     * doIt ブロックの処理: 与えられた JavaScript 式を実行する
+     * @param {object} args - ブロック引数
+     * @returns {*} - JavaScript 式の結果
+     */
+  }, {
+    key: "doIt",
+    value: function doIt(args) {
+      var statement = Cast$1.toString(args.SCRIPT);
+      var func = new Function("return (".concat(statement, ")"));
+      log$2.log("doIt: ".concat(statement));
+      return func.call(this);
     }
   }], [{
     key: "formatMessage",
-    set: function set(formatter) {
+    set:
+    /**
+     * 言語設定用のフォーマッタを設定する。
+     * @param {FormatObject} formatter - translation object
+     */
+    function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
+
+    /**
+     * @return {string} - この拡張機能の名称
+     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
@@ -1457,16 +1754,30 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         description: 'name of the extension'
       });
     }
+
+    /**
+     * @return {string} - この拡張機能の ID
+     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
+
+    /**
+     * この拡張機能の URL
+     * @type {string}
+     */
   }, {
     key: "extensionURL",
     get: function get() {
       return extensionURL;
-    },
+    }
+
+    /**
+     * 拡張機能の URL を設定する。
+     * @param {string} url - URL
+     */,
     set: function set(url) {
       extensionURL = url;
     }
