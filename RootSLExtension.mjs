@@ -1832,7 +1832,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         name: ExtensionBlocks.EXTENSION_NAME,
         extensionURL: ExtensionBlocks.extensionURL,
         blockIconURI: img,
-        showStatusButton: false,
+        showStatusButton: true,
         blocks: [{
           opcode: 'moveForward',
           blockType: BlockType.COMMAND,
@@ -1982,9 +1982,9 @@ var RootRt0Extension = /*#__PURE__*/function () {
     _classCallCheck$1(this, RootRt0Extension);
     this.runtime = runtime;
     this.device = null;
-    this.serviceUUID = '48c8dddb-...'; // 実際のサービス UUID に置き換える
-    this.commandUUID = '...'; // 実際のコマンド UUID に置き換える
-    this.sensorUUID = '...'; // 実際のセンサー UUID に置き換える
+    this.serviceUUID = '48c5d828-ac2a-442d-97a3-0c9822b04979'; // 実際のサービス UUID に置き換える
+    this.commandUUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e'; // 実際のコマンド UUID に置き換える
+    this.sensorUUID = '6e400002-b5a3-f393-e0a9-e50e24dcca9e'; // 実際のセンサー UUID に置き換える
   }
 
   // Scratch Link 経由で Root rt0 に接続
