@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'RootSLExtension',
-  extensionURL: 'https://nasumixboe.github.io/RootSLExtension.mjs',
+  extensionURL: 'https://naominix.github.io/RootSLExtension.mjs',
   collaborator: 'nasumixboe',
   iconURL: img$2,
   insetIconURL: img$1,
@@ -1399,7 +1399,7 @@ var setupTranslations = function setupTranslations() {
   }
 };
 var EXTENSION_ID = 'iRobotExtension';
-var extensionURL = 'https://nasumixboe.github.io/RootSLExtension.mjs';
+var extensionURL = 'https://naominix.github.io/RootSLExtension.mjs';
 
 // Root rt0 用の定義
 var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
