@@ -1398,7 +1398,7 @@ var setupTranslations = function setupTranslations() {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
-var EXTENSION_ID = 'iRobotExtension';
+var EXTENSION_ID = 'RootSLExtension';
 var extensionURL = 'https://naominix.github.io/RootSLExtension.mjs';
 
 // Root rt0 用の定義
