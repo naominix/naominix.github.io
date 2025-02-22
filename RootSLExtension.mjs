@@ -1426,8 +1426,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       return {
         id: EXTENSION_ID,
         name: formatMessage({
-          id: 'iRobotExtension.name',
-          default: 'iRobotExtension',
+          id: 'RootSLExtension.name',
+          default: 'RootSLExtension',
           description: 'name of the extension'
         }),
         extensionURL: extensionURL,
@@ -1442,7 +1442,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           opcode: 'connect',
           blockType: BlockType.COMMAND,
           text: formatMessage({
-            id: 'iRobotExtension.connect',
+            id: 'RootSLExtension.connect',
             default: 'connect to iRobot Root',
             description: 'connect to iRobot Root via BLE'
           }),
@@ -1451,17 +1451,17 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           opcode: 'isConnected',
           blockType: BlockType.BOOLEAN,
           text: formatMessage({
-            id: 'iRobotExtension.isConnected',
+            id: 'RootSLExtension.isConnected',
             default: 'iRobot Root is connected?',
             description: 'check if iRobot Root is connected'
           }),
           func: 'isConnected'
         }, {
-          opcode: 'do-it',
+          opcode: 'doIt',
           blockType: BlockType.REPORTER,
           blockAllThreads: false,
           text: formatMessage({
-            id: 'iRobotExtension.doIt',
+            id: 'RootSLExtension.doIt',
             default: 'do it [SCRIPT]',
             description: 'execute javascript for example'
           }),
@@ -1553,7 +1553,7 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     }
 
     /**
-     * do-it ブロックの処理:
+     * doIt ブロックの処理:
      * 与えられた JavaScript 式を実行して結果を返す（デバッグ用）。
      * @param {object} args - ブロック引数
      * @returns {*} - JavaScript 式の結果
@@ -1576,8 +1576,8 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     key: "EXTENSION_NAME",
     get: function get() {
       return formatMessage({
-        id: 'iRobotExtension.name',
-        default: 'iRobotExtension',
+        id: 'RootSLExtension.name',
+        default: 'RootSLExtension',
         description: 'name of the extension'
       });
     }
