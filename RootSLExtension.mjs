@@ -58,6 +58,7 @@ var entry = {
   disabled: false,
   bluetoothRequired: true,
   internetConnectionRequired: false,
+  launchPeripheralConnectionFlow: true,
   helpLink: 'https://nasumixboe.github.io/xcx-rootsl-extension/',
   setFormatMessage: function setFormatMessage(formatter) {
     formatMessage$1 = formatter;
