@@ -1381,17 +1381,10 @@ var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAA
 
 /**
  * Formatter which is used for translation.
- * This will be replaced with the runtime formatter.
- * @param {object} messageData - format-message object
- * @returns {string} - message for the locale
  */
 var formatMessage = function formatMessage(messageData) {
   return messageData.default;
 };
-
-/**
- * Setup format-message for this extension.
- */
 var setupTranslations = function setupTranslations() {
   var localeSetup = formatMessage.setup && formatMessage.setup();
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
@@ -1409,28 +1402,77 @@ var MANUFACTURER_DATA_PREFIX = new Uint8Array([0x52, 0x54, 0x30]); // "RT0" な�
 /**
  * Xcratch 拡張機能クラス
  */
-var ExtensionBlocks = /*#__PURE__*/function () {
-  function ExtensionBlocks(runtime) {
-    _classCallCheck$1(this, ExtensionBlocks);
+var RootSLExtension = /*#__PURE__*/function () {
+  function RootSLExtension(runtime) {
+    var _this = this;
+    _classCallCheck$1(this, RootSLExtension);
     this.runtime = runtime;
-    // _device: Scratch Link側の接続結果（またはWeb Bluetoothのフォールバック）
-    this._device = null;
+    this._device = null; // 接続済みデバイス（Scratch Link or Web Bluetooth フォールバック）
+
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
+
+    // === micro:bit more のように、openDevice() をオーバーライドする ===
+    if (this.runtime.ioDevices && typeof this.runtime.ioDevices.openDevice === 'function') {
+      var originalOpenDevice = this.runtime.ioDevices.openDevice;
+      this.runtime.ioDevices.openDevice = function (deviceId) {
+        for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+        // ターゲットデバイスID（iRobotRootBLE）の場合のみ、独自フローに差し替え
+        if (deviceId === 'iRobotRootBLE') {
+          // 1) Scratch Link のダイアログを開く (Promise)
+          var scratchLinkPromise = originalOpenDevice.call.apply(originalOpenDevice, [_this.runtime.ioDevices, deviceId].concat(args)).then(function (device) {
+            console.log('[Scratch Link] device connected:', device);
+            _this._device = device; // 接続成功なら保持
+          }).catch(function (err) {
+            console.warn('[Scratch Link] connection failed:', err);
+          });
+
+          // 2) Web Bluetooth のダイアログを開く (Promise)
+          var webBluetoothPromise = navigator.bluetooth.requestDevice({
+            filters: [{
+              services: [ROOT_SERVICE_UUID],
+              manufacturerData: [{
+                companyIdentifier: IROBOT_COMPANY_ID,
+                dataPrefix: MANUFACTURER_DATA_PREFIX
+              }]
+            }],
+            optionalServices: [ROOT_SERVICE_UUID, '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+          }).then(function (device) {
+            console.log('[Web Bluetooth] device selected:', device);
+            // 必要なら GATT 接続
+            return device.gatt.connect();
+          }).catch(function (err) {
+            console.warn('[Web Bluetooth] connection failed:', err);
+          });
+
+          // 両方の Promise を並行して実行し、結果を返す
+          return Promise.allSettled([scratchLinkPromise, webBluetoothPromise]).then(function (results) {
+            // Scratch Link 側が成功していれば _device がセット済み
+            // もし Scratch Link が失敗したが Web Bluetooth は成功した場合は
+            // ダミーとして this._device = { ... } をセットするなどのフォールバックも可能
+            return _this._device;
+          }).catch(function (err) {
+            console.error('Connection error:', err);
+            throw err;
+          });
+        } else {
+          // 別のデバイスIDなら元の動作
+          return originalOpenDevice.call.apply(originalOpenDevice, [_this.runtime.ioDevices, deviceId].concat(args));
+        }
+      };
+    }
   }
-  return _createClass$1(ExtensionBlocks, [{
+  return _createClass$1(RootSLExtension, [{
     key: "getInfo",
     value: function getInfo() {
       setupTranslations();
       return {
-        id: EXTENSION_ID,
-        name: formatMessage({
-          id: 'RootSLExtension.name',
-          default: 'RootSLExtension',
-          description: 'name of the extension'
-        }),
-        extensionURL: extensionURL,
+        id: RootSLExtension.EXTENSION_ID,
+        name: RootSLExtension.EXTENSION_NAME,
+        extensionURL: RootSLExtension.extensionURL,
         blockIconURI: img,
         showStatusButton: true,
         // Scratch Link 側のフィルタ設定：Root Identifier service UUID を指定
@@ -1479,66 +1521,13 @@ var ExtensionBlocks = /*#__PURE__*/function () {
 
     /**
      * connect ブロックの処理:
-     * Web Bluetooth と Scratch Link の両方で接続を試みる。
-     * Web Bluetooth では、対象サービスUUIDおよびメーカー固有データで絞り込み、
-     * Scratch Link では getInfo() で指定した UUID でデバイスをリスト表示します。
-     * 両方の結果を待ち、Scratch Link 側の接続が成功していればそれを接続済みとみなします。
-     * @returns {Promise} - 接続成功時に解決する Promise
+     * 「ステータスボタン」と同様に openDevice('iRobotRootBLE') を呼ぶだけ。
+     * これにより、上書きした処理が実行され、2つのダイアログがほぼ同時に表示される。
      */
   }, {
     key: "connect",
     value: function connect() {
-      var _this = this;
-      return new Promise(function (resolve, reject) {
-        if (_this._device) {
-          resolve();
-          return;
-        }
-        // Web Bluetooth の接続処理：ブラウザ側のデバイス選択ダイアログを表示
-        var webBluetoothPromise = navigator.bluetooth.requestDevice({
-          filters: [{
-            services: [ROOT_SERVICE_UUID],
-            manufacturerData: [{
-              companyIdentifier: IROBOT_COMPANY_ID,
-              dataPrefix: MANUFACTURER_DATA_PREFIX
-            }]
-          }],
-          optionalServices: [ROOT_SERVICE_UUID, '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
-        }).then(function (device) {
-          console.log('[Web Bluetooth] device selected:', device);
-          return device.gatt.connect();
-        }).catch(function (err) {
-          console.warn('[Web Bluetooth] connection failed:', err);
-        });
-
-        // Scratch Link の接続処理：getInfo() で指定したフィルタによりデバイスをスキャン
-        var scratchLinkPromise = _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (device) {
-          console.log('[Scratch Link] device connected:', device);
-          _this._device = device;
-        }).catch(function (err) {
-          console.warn('[Scratch Link] connection failed:', err);
-        });
-
-        // 両方の接続処理を並列に実行し、結果を待つ
-        Promise.allSettled([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
-          // Scratch Link 側が成功すればそれを採用
-          if (results[1].status === 'fulfilled') {
-            resolve();
-          } else if (results[0].status === 'fulfilled' && results[0].value) {
-            // Web Bluetooth 側のみ成功している場合は、フォールバックとしてダミーデバイスを設定
-            _this._device = {
-              gattServer: results[0].value,
-              dummy: true
-            };
-            resolve();
-          } else {
-            reject(new Error('Both connection methods failed'));
-          }
-        }).catch(function (err) {
-          console.error('Connection error:', err);
-          reject(err);
-        });
-      });
+      return this.runtime.ioDevices.openDevice('iRobotRootBLE');
     }
 
     /**
@@ -1555,8 +1544,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
     /**
      * doIt ブロックの処理:
      * 与えられた JavaScript 式を実行して結果を返す（デバッグ用）。
-     * @param {object} args - ブロック引数
-     * @returns {*} - JavaScript 式の結果
      */
   }, {
     key: "doIt",
@@ -1597,5 +1584,5 @@ var ExtensionBlocks = /*#__PURE__*/function () {
   }]);
 }();
 
-export { ExtensionBlocks as blockClass, entry };
+export { RootSLExtension as blockClass, entry };
 //# sourceMappingURL=RootSLExtension.mjs.map
