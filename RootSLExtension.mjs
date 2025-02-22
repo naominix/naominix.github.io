@@ -56,7 +56,7 @@ var entry = {
   tags: [],
   featured: true,
   disabled: false,
-  bluetoothRequired: false,
+  bluetoothRequired: true,
   internetConnectionRequired: false,
   helpLink: 'https://nasumixboe.github.io/xcx-rootsl-extension/',
   setFormatMessage: function setFormatMessage(formatter) {
