@@ -56,9 +56,8 @@ var entry = {
   tags: [],
   featured: true,
   disabled: false,
-  bluetoothRequired: true,
+  bluetoothRequired: false,
   internetConnectionRequired: false,
-  launchPeripheralConnectionFlow: true,
   helpLink: 'https://nasumixboe.github.io/xcx-rootsl-extension/',
   setFormatMessage: function setFormatMessage(formatter) {
     formatMessage$1 = formatter;
@@ -1401,67 +1400,63 @@ var IROBOT_COMPANY_ID = 0x0600; // iRobot のメーカーID
 var MANUFACTURER_DATA_PREFIX = new Uint8Array([0x52, 0x54, 0x30]); // "RT0" など
 
 /**
- * Xcratch 拡張機能クラス
+ * RootSLExtension クラス
  */
 var RootSLExtension = /*#__PURE__*/function () {
   function RootSLExtension(runtime) {
     var _this = this;
     _classCallCheck$1(this, RootSLExtension);
     this.runtime = runtime;
-    this._device = null; // 接続済みデバイス（Scratch Link or Web Bluetooth フォールバック）
-
+    this._device = null; // Scratch Link あるいは Web Bluetooth 接続結果
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
 
-    // === micro:bit more のように、openDevice() をオーバーライドする ===
+    // micro:bit more の実装では、launchPeripheralConnectionFlow: true として
+    // ユーザー操作イベント内で Web Bluetooth の requestDevice() も同時に起動するようにしている。
+    // ここでは openDevice() をオーバーライドして、その中で両方の接続処理を呼び出します。
     if (this.runtime.ioDevices && typeof this.runtime.ioDevices.openDevice === 'function') {
-      var originalOpenDevice = this.runtime.ioDevices.openDevice;
+      var originalOpenDevice = this.runtime.ioDevices.openDevice.bind(this.runtime.ioDevices);
       this.runtime.ioDevices.openDevice = function (deviceId) {
         for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
           args[_key - 1] = arguments[_key];
         }
-        // ターゲットデバイスID（iRobotRootBLE）の場合のみ、独自フローに差し替え
         if (deviceId === 'iRobotRootBLE') {
-          // 1) Scratch Link のダイアログを開く (Promise)
-          var scratchLinkPromise = originalOpenDevice.call.apply(originalOpenDevice, [_this.runtime.ioDevices, deviceId].concat(args)).then(function (device) {
+          // まず Scratch Link の接続フローを呼ぶ
+          var scratchLinkPromise = originalOpenDevice.apply(void 0, [deviceId].concat(args)).then(function (device) {
             console.log('[Scratch Link] device connected:', device);
-            _this._device = device; // 接続成功なら保持
+            _this._device = device;
           }).catch(function (err) {
             console.warn('[Scratch Link] connection failed:', err);
           });
 
-          // 2) Web Bluetooth のダイアログを開く (Promise)
-          var webBluetoothPromise = navigator.bluetooth.requestDevice({
-            filters: [{
-              services: [ROOT_SERVICE_UUID],
-              manufacturerData: [{
-                companyIdentifier: IROBOT_COMPANY_ID,
-                dataPrefix: MANUFACTURER_DATA_PREFIX
-              }]
-            }],
-            optionalServices: [ROOT_SERVICE_UUID, '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
-          }).then(function (device) {
-            console.log('[Web Bluetooth] device selected:', device);
-            // 必要なら GATT 接続
-            return device.gatt.connect();
-          }).catch(function (err) {
-            console.warn('[Web Bluetooth] connection failed:', err);
-          });
-
-          // 両方の Promise を並行して実行し、結果を返す
-          return Promise.allSettled([scratchLinkPromise, webBluetoothPromise]).then(function (results) {
-            // Scratch Link 側が成功していれば _device がセット済み
-            // もし Scratch Link が失敗したが Web Bluetooth は成功した場合は
-            // ダミーとして this._device = { ... } をセットするなどのフォールバックも可能
+          // ユーザー操作イベント内で、すぐに Web Bluetooth の接続フローも起動する
+          // ※ setTimeout(…, 0) を使うことで、同一イベントループ内に収める工夫を行う
+          setTimeout(function () {
+            navigator.bluetooth.requestDevice({
+              filters: [{
+                services: [ROOT_SERVICE_UUID],
+                manufacturerData: [{
+                  companyIdentifier: IROBOT_COMPANY_ID,
+                  dataPrefix: MANUFACTURER_DATA_PREFIX
+                }]
+              }],
+              optionalServices: [ROOT_SERVICE_UUID, '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+            }).then(function (device) {
+              console.log('[Web Bluetooth] device selected:', device);
+              return device.gatt.connect();
+            }).catch(function (err) {
+              console.warn('[Web Bluetooth] connection failed:', err);
+            });
+          }, 0);
+          return Promise.allSettled([scratchLinkPromise]).then(function () {
             return _this._device;
           }).catch(function (err) {
-            console.error('Connection error:', err);
+            console.error('Combined connection error:', err);
             throw err;
           });
         } else {
-          // 別のデバイスIDなら元の動作
-          return originalOpenDevice.call.apply(originalOpenDevice, [_this.runtime.ioDevices, deviceId].concat(args));
+          return originalOpenDevice.apply(void 0, [deviceId].concat(args));
         }
       };
     }
@@ -1472,14 +1467,19 @@ var RootSLExtension = /*#__PURE__*/function () {
       setupTranslations();
       return {
         id: RootSLExtension.EXTENSION_ID,
-        name: RootSLExtension.EXTENSION_NAME,
-        extensionURL: RootSLExtension.extensionURL,
+        name: formatMessage({
+          id: 'RootSLExtension.name',
+          default: 'RootSLExtension',
+          description: 'name of the extension'
+        }),
+        extensionURL: extensionURL,
         blockIconURI: img,
         showStatusButton: true,
-        // Scratch Link 側のフィルタ設定：Root Identifier service UUID を指定
+        // Scratch Link 側のフィルタ設定に launchPeripheralConnectionFlow を追加
         device: {
           id: 'iRobotRootBLE',
-          bluetoothService: ROOT_SERVICE_UUID
+          bluetoothService: ROOT_SERVICE_UUID,
+          launchPeripheralConnectionFlow: true
         },
         blocks: [{
           opcode: 'connect',
@@ -1522,8 +1522,9 @@ var RootSLExtension = /*#__PURE__*/function () {
 
     /**
      * connect ブロックの処理:
-     * 「ステータスボタン」と同様に openDevice('iRobotRootBLE') を呼ぶだけ。
-     * これにより、上書きした処理が実行され、2つのダイアログがほぼ同時に表示される。
+     * ステータスボタン押下時にも openDevice('iRobotRootBLE') を呼ぶことで、
+     * 上書きした処理が実行され、Scratch Link のダイアログと Web Bluetooth のダイアログが
+     * 同一のユーザー操作イベント内で起動されるようになります。
      */
   }, {
     key: "connect",
@@ -1534,7 +1535,6 @@ var RootSLExtension = /*#__PURE__*/function () {
     /**
      * isConnected ブロックの処理:
      * 接続済みなら true を返す。
-     * @returns {boolean}
      */
   }, {
     key: "isConnected",
