@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'RootSLExtension',
-  extensionURL: 'https://naominix.github.io/RootSLExtension.mjs',
+  extensionURL: 'https://nasumixboe.github.io/RootSLExtension.mjs',
   collaborator: 'nasumixboe',
   iconURL: img$2,
   insetIconURL: img$1,
@@ -1380,134 +1380,90 @@ var translations = {
 var img = "data:image/png;base64,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";
 
 /**
- * Web Bluetooth のサービス UUID やメーカー固有データなど、
- * Root rt0 用に必要な定義
- */
-var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
-var IROBOT_COMPANY_ID = 0x0600; // 0x0600 = iRobot
-var MANUFACTURER_DATA_PREFIX = new Uint8Array([0x52, 0x54, 0x30]); // "RT0" など
-
-/**
- * Formatter for translations
+ * Formatter which is used for translation.
+ * This will be replaced with the runtime formatter.
+ * @param {object} messageData - format-message object
+ * @returns {string} - message for the locale
  */
 var formatMessage = function formatMessage(messageData) {
   return messageData.default;
 };
+
+/**
+ * Setup format-message for this extension.
+ */
 var setupTranslations = function setupTranslations() {
   var localeSetup = formatMessage.setup && formatMessage.setup();
   if (localeSetup && localeSetup.translations[localeSetup.locale]) {
     Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
   }
 };
+var EXTENSION_ID = 'iRobotExtension';
+var extensionURL = 'https://nasumixboe.github.io/RootSLExtension.mjs';
+
+// Root rt0 用の定義
+var ROOT_SERVICE_UUID = '48c5d828-ac2a-442d-97a3-0c9822b04979';
+var IROBOT_COMPANY_ID = 0x0600; // iRobot のメーカーID
+var MANUFACTURER_DATA_PREFIX = new Uint8Array([0x52, 0x54, 0x30]); // "RT0" など
 
 /**
- * Xcratch でロードしたときの拡張機能IDなどの定義
+ * Xcratch 拡張機能クラス
  */
-var EXTENSION_ID = 'RootMoreExtension';
-var extensionURL = 'https://naominix.github.io/RootSLExtension.mjs';
-
-/**
- * Scratch Link と連携しつつ、Web Bluetooth のデバイス情報を受け取るためのクラス
- * （micro:bit more の 'MicrobitMoreBLE' 相当）
- */
-var RootMoreBLE = /*#__PURE__*/function () {
-  function RootMoreBLE(runtime) {
-    _classCallCheck$1(this, RootMoreBLE);
+var ExtensionBlocks = /*#__PURE__*/function () {
+  function ExtensionBlocks(runtime) {
+    _classCallCheck$1(this, ExtensionBlocks);
     this.runtime = runtime;
-    this._bleDevice = null;
-  }
-
-  /**
-   * Web Bluetooth で取得したデバイスを保持し、
-   * Scratch Link に渡すための準備を行う。
-   * micro:bit more では 'setWebBluetoothDevice' として実装されている。
-   * @param {BluetoothDevice} device 
-   */
-  return _createClass$1(RootMoreBLE, [{
-    key: "setWebBluetoothDevice",
-    value: function setWebBluetoothDevice(device) {
-      this._bleDevice = device;
-      // 必要に応じて、ここで Scratch Link 側へ情報を渡す
-      // たとえば runtime.ioDevices._devices[...] に何らかの形で通知する等
-    }
-
-    /**
-     * Scratch Link 経由での接続開始。
-     * micro:bit more では、ここで Scratch Link の open() などを呼んでいる。
-     */
-  }, {
-    key: "openScratchLinkDevice",
-    value: function openScratchLinkDevice(deviceId) {
-      return this.runtime.ioDevices.openDevice(deviceId);
-    }
-  }]);
-}();
-/**
- * ルート拡張クラス
- */
-var RootMoreExtension = /*#__PURE__*/function () {
-  /**
-   * コンストラクタ
-   * @param {Runtime} runtime 
-   */
-  function RootMoreExtension(runtime) {
-    _classCallCheck$1(this, RootMoreExtension);
-    this.runtime = runtime;
+    // _device: Scratch Link側の接続結果（またはWeb Bluetoothのフォールバック）
+    this._device = null;
     if (runtime.formatMessage) {
       formatMessage = runtime.formatMessage;
     }
-    // Web Bluetooth と Scratch Link の橋渡し役
-    this._ble = new RootMoreBLE(runtime);
-
-    // Scratch Link で接続したデバイスオブジェクト
-    this._scratchLinkDevice = null;
   }
-
-  /**
-   * 拡張機能情報
-   */
-  return _createClass$1(RootMoreExtension, [{
+  return _createClass$1(ExtensionBlocks, [{
     key: "getInfo",
     value: function getInfo() {
       setupTranslations();
       return {
-        id: RootMoreExtension.EXTENSION_ID,
-        name: RootMoreExtension.EXTENSION_NAME,
-        extensionURL: RootMoreExtension.extensionURL,
+        id: EXTENSION_ID,
+        name: formatMessage({
+          id: 'iRobotExtension.name',
+          default: 'iRobotExtension',
+          description: 'name of the extension'
+        }),
+        extensionURL: extensionURL,
         blockIconURI: img,
         showStatusButton: true,
-        // Scratch Link 側に定義するデバイスIDやフィルタ
+        // Scratch Link 側のフィルタ設定：Root Identifier service UUID を指定
         device: {
-          id: 'RootMoreBLE',
-          // ここで指定した UUID をアドバタイズで検出し、Scratch Link がデバイスをリスト表示する
+          id: 'iRobotRootBLE',
           bluetoothService: ROOT_SERVICE_UUID
         },
         blocks: [{
           opcode: 'connect',
           blockType: BlockType.COMMAND,
           text: formatMessage({
-            id: 'RootMoreExtension.connect',
-            default: 'connect to iRobot Root (more)',
-            description: 'connect to iRobot Root via Scratch Link + Web Bluetooth'
+            id: 'iRobotExtension.connect',
+            default: 'connect to iRobot Root',
+            description: 'connect to iRobot Root via BLE'
           }),
           func: 'connect'
         }, {
           opcode: 'isConnected',
           blockType: BlockType.BOOLEAN,
           text: formatMessage({
-            id: 'RootMoreExtension.isConnected',
-            default: 'Root is connected?',
+            id: 'iRobotExtension.isConnected',
+            default: 'iRobot Root is connected?',
             description: 'check if iRobot Root is connected'
           }),
           func: 'isConnected'
         }, {
-          opcode: 'doIt',
+          opcode: 'do-it',
           blockType: BlockType.REPORTER,
           blockAllThreads: false,
           text: formatMessage({
-            id: 'RootMoreExtension.doIt',
+            id: 'iRobotExtension.doIt',
             default: 'do it [SCRIPT]',
-            description: 'execute javascript for debug'
+            description: 'execute javascript for example'
           }),
           func: 'doIt',
           arguments: {
@@ -1522,32 +1478,23 @@ var RootMoreExtension = /*#__PURE__*/function () {
     }
 
     /**
-     * connect ブロックの処理
-     * micro:bit more と同様に、
-     * 1) Scratch Link のダイアログを開く
-     * 2) 同時に Web Bluetooth のダイアログを開く
-     * 3) Web Bluetooth で選択されたデバイスを Scratch Link に渡す
+     * connect ブロックの処理:
+     * Web Bluetooth と Scratch Link の両方で接続を試みる。
+     * Web Bluetooth では、対象サービスUUIDおよびメーカー固有データで絞り込み、
+     * Scratch Link では getInfo() で指定した UUID でデバイスをリスト表示します。
+     * 両方の結果を待ち、Scratch Link 側の接続が成功していればそれを接続済みとみなします。
+     * @returns {Promise} - 接続成功時に解決する Promise
      */
   }, {
     key: "connect",
     value: function connect() {
       var _this = this;
       return new Promise(function (resolve, reject) {
-        if (_this._scratchLinkDevice) {
-          // 既に接続済み
+        if (_this._device) {
           resolve();
           return;
         }
-
-        // 1) Scratch Link ダイアログを開く
-        var scratchLinkPromise = _this._ble.openScratchLinkDevice('RootMoreBLE').then(function (device) {
-          console.log('[Scratch Link] device connected:', device);
-          _this._scratchLinkDevice = device;
-        }).catch(function (err) {
-          console.warn('[Scratch Link] connection failed:', err);
-        });
-
-        // 2) Web Bluetooth のダイアログを開く
+        // Web Bluetooth の接続処理：ブラウザ側のデバイス選択ダイアログを表示
         var webBluetoothPromise = navigator.bluetooth.requestDevice({
           filters: [{
             services: [ROOT_SERVICE_UUID],
@@ -1559,25 +1506,33 @@ var RootMoreExtension = /*#__PURE__*/function () {
           optionalServices: [ROOT_SERVICE_UUID, '0000180a-0000-1000-8000-00805f9b34fb', '6e400001-b5a3-f393-e0a9-e50e24dcca9e']
         }).then(function (device) {
           console.log('[Web Bluetooth] device selected:', device);
-          // 3) Web Bluetooth で選択されたデバイスを set しておき、必要なら Scratch Link へ通知
-          _this._ble.setWebBluetoothDevice(device);
-          // 実際の micro:bit more では、ここで micro:bit のペアリングを確立して
-          // Scratch Link 側が同じデバイスを扱えるようにしている
           return device.gatt.connect();
         }).catch(function (err) {
-          console.warn('[Web Bluetooth] requestDevice failed:', err);
+          console.warn('[Web Bluetooth] connection failed:', err);
         });
 
-        // 両方の処理を並列に走らせる
-        Promise.all([scratchLinkPromise, webBluetoothPromise]).then(function () {
-          // Scratch Link が成功 or Web Bluetooth が成功、いずれかを確認
-          if (_this._scratchLinkDevice) {
-            // Scratch Link 側で成功していれば接続完了
+        // Scratch Link の接続処理：getInfo() で指定したフィルタによりデバイスをスキャン
+        var scratchLinkPromise = _this.runtime.ioDevices.openDevice('iRobotRootBLE').then(function (device) {
+          console.log('[Scratch Link] device connected:', device);
+          _this._device = device;
+        }).catch(function (err) {
+          console.warn('[Scratch Link] connection failed:', err);
+        });
+
+        // 両方の接続処理を並列に実行し、結果を待つ
+        Promise.allSettled([webBluetoothPromise, scratchLinkPromise]).then(function (results) {
+          // Scratch Link 側が成功すればそれを採用
+          if (results[1].status === 'fulfilled') {
+            resolve();
+          } else if (results[0].status === 'fulfilled' && results[0].value) {
+            // Web Bluetooth 側のみ成功している場合は、フォールバックとしてダミーデバイスを設定
+            _this._device = {
+              gattServer: results[0].value,
+              dummy: true
+            };
             resolve();
           } else {
-            // Scratch Link が失敗しても Web Bluetooth 側は接続できているかもしれないが、
-            // micro:bit more では Scratch Link 通信がメインなのでここでは失敗扱い
-            reject(new Error('Failed to connect via Scratch Link (and/or Web Bluetooth)'));
+            reject(new Error('Both connection methods failed'));
           }
         }).catch(function (err) {
           console.error('Connection error:', err);
@@ -1587,16 +1542,21 @@ var RootMoreExtension = /*#__PURE__*/function () {
     }
 
     /**
-     * 接続状態判定
+     * isConnected ブロックの処理:
+     * 接続済みなら true を返す。
+     * @returns {boolean}
      */
   }, {
     key: "isConnected",
     value: function isConnected() {
-      return !!this._scratchLinkDevice;
+      return !!this._device;
     }
 
     /**
-     * デバッグ用：与えられた式を評価
+     * do-it ブロックの処理:
+     * 与えられた JavaScript 式を実行して結果を返す（デバッグ用）。
+     * @param {object} args - ブロック引数
+     * @returns {*} - JavaScript 式の結果
      */
   }, {
     key: "doIt",
@@ -1608,40 +1568,24 @@ var RootMoreExtension = /*#__PURE__*/function () {
     }
   }], [{
     key: "formatMessage",
-    set:
-    /**
-     * Xcratch の多言語対応セットアップ
-     */
-    function set(formatter) {
+    set: function set(formatter) {
       formatMessage = formatter;
       if (formatMessage) setupTranslations();
     }
-
-    /**
-     * 拡張機能の名称
-     */
   }, {
     key: "EXTENSION_NAME",
     get: function get() {
       return formatMessage({
-        id: 'RootMoreExtension.name',
-        default: 'iRobot Root More',
+        id: 'iRobotExtension.name',
+        default: 'iRobotExtension',
         description: 'name of the extension'
       });
     }
-
-    /**
-     * 拡張機能の ID
-     */
   }, {
     key: "EXTENSION_ID",
     get: function get() {
       return EXTENSION_ID;
     }
-
-    /**
-     * 拡張機能の配布URL
-     */
   }, {
     key: "extensionURL",
     get: function get() {
@@ -1653,5 +1597,5 @@ var RootMoreExtension = /*#__PURE__*/function () {
   }]);
 }();
 
-export { RootMoreExtension as blockClass, entry };
+export { ExtensionBlocks as blockClass, entry };
 //# sourceMappingURL=RootSLExtension.mjs.map
