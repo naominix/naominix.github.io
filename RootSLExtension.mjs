@@ -1210,5 +1210,5 @@ if (window && window.vm) {
   window.vm.extensionManager._loadedExtensions.set(extensionInstance.extensionId, serviceName);
 }
 
-export { RootExtension as blockClass, entry };
+export { RootDevice, RootExtension as blockClass, entry };
 //# sourceMappingURL=RootSLExtension.mjs.map
