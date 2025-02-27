@@ -42,7 +42,7 @@ var entry = {
     });
   },
   extensionId: 'RootSLExtension',
-  extensionURL: 'https://nasumixboe.github.io/xcx-rootsl-extension/dist/RootSLExtension.mjs',
+  extensionURL: 'https://naominix.github.io/RootSLExtension.mjs',
   collaborator: 'nasumixboe',
   iconURL: img$1,
   insetIconURL: img,
