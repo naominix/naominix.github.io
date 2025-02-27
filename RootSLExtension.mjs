@@ -1203,12 +1203,5 @@ module.exports = {
   }
 };
 
-// For Xcratch dynamic loading
-if (window && window.vm) {
-  var extensionInstance = new RootExtension(window.vm.runtime);
-  var serviceName = window.vm.extensionManager._registerInternalExtension(extensionInstance);
-  window.vm.extensionManager._loadedExtensions.set(extensionInstance.extensionId, serviceName);
-}
-
 export { RootDevice, RootExtension as blockClass, entry };
 //# sourceMappingURL=RootSLExtension.mjs.map
