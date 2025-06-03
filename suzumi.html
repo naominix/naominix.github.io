@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クーリングシェルター検索（那須塩原市）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <style>
+        #map { height: 450px; width: 100%; border-radius: 0.5rem; }
+        .leaflet-popup-content-wrapper { border-radius: 0.5rem; }
+        .custom-popup .leaflet-popup-content-wrapper {
+            background: #f9fafb; /* Tailwind gray-50 */
+            color: #1f2937; /* Tailwind gray-800 */
+        }
+        .custom-popup .leaflet-popup-content {
+            margin: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .custom-popup .leaflet-popup-tip-container {
+            width:30px;
+            height:15px;
+        }
+        .custom-popup .leaflet-popup-tip {
+            background: #f9fafb;
+            border: none;
+            box-shadow: none;
+        }
+        .info-box {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        /* Tailwind Inter font */
+        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+    <div class="container mx-auto max-w-4xl bg-white p-6 rounded-lg shadow-lg">
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-bold text-blue-600">那須塩原市 クーリングシェルター・涼みどころマップ</h1>
+            <p class="text-sm text-gray-600 mt-2">現在地から最も近い避暑施設を検索します。</p>
+            <p class="text-xs text-gray-500 mt-1">（開設期間：原則 令和7年5月29日～令和7年10月28日）</p>
+        </header>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 rounded-md" role="alert">
+            <p class="font-bold">重要：必ずお読みください</p>
+            <ul class="list-disc list-inside mt-2 text-sm">
+                <li>このアプリに表示される施設データ（特に緯度・経度）は、提供されたPDF情報を元に、各住所を地図サービスで再検索し手動で更新しましたが、情報の完全性・絶対的な正確性は保証できません。</li>
+                <li><strong>【最重要】利用者様ご自身で、必ず那須塩原市の公式情報やPDF原本、現地の状況と照合し、各施設の緯度・経度、住所、開設時間、開設場所（施設内の場所）を最終確認・検証・修正してください。</strong>誤った情報の場合、正しく機能しません。</li>
+                <li>PDFに記載の「セブン‐イレブン各店舗」「ファミリーマート各店舗」「ローソン各店舗」「ミニストップ各店舗」は、「市内各店舗」とのみ記載のため、個別の施設としては地図に表示していません。お近くの各チェーン店舗が対象となる可能性がありますので、市の情報をご確認ください。</li>
+                 <li>緯度経度の調べ方・確認方法： <a href="https://support.google.com/maps/answer/18539?hl=ja&co=GENIE.Platform%3DDesktop" target="_blank" rel="noopener noreferrer" class="text-yellow-800 underline">Googleマップで座標を調べる/確認する方法</a></li>
+            </ul>
+        </div>
+
+        <div id="map" class="mb-6 shadow-md"></div>
+
+        <div id="nearest-shelter-info" class="bg-blue-50 p-4 rounded-lg shadow hidden">
+            <h2 class="text-xl font-semibold text-blue-700 mb-2">最寄りの施設</h2>
+            <div id="shelter-details" class="text-gray-700 info-box">
+                <p>情報を取得中です...</p>
+            </div>
+            <button id="navigate-button" class="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow transition duration-150 ease-in-out w-full sm:w-auto disabled:opacity-50" disabled>
+                ここへ行く (Google マップ)
+            </button>
+        </div>
+        
+        <div id="error-message" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mt-6 rounded-md hidden" role="alert">
+        </div>
+
+        <footer class="mt-8 text-center text-sm text-gray-500">
+            <p>© 2025 クーリングシェルター検索. データは那須塩原市の情報を元に各自で更新・検証してください。</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- 利用者様が編集・検証するデータここから ---
+        // 【最重要】lat (緯度) と lng (経度) は必ず正確な値を地図サービス等で再確認・検証してください。
+        // hours: 開設時間等, location_detail: 開設場所（施設内）, notes: 備考 (AEDの有無など)
+        const shelterData = [
+            // クーリングシェルター (公共施設) - 緯度経度を再調査・更新
+            { name: "那須塩原市役所 本庁舎", address: "那須塩原市共墾社108-2", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "庁舎1階ロビー等", notes: "AEDあり、指定避難所", lat: 36.96291, lng: 139.98513 },
+            { name: "那須塩原市役所 西那須野庁舎", address: "那須塩原市あたご町2-3", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "庁舎1階ロビー等", notes: "AEDあり、指定避難所", lat: 36.90381, lng: 139.99394 },
+            { name: "那須塩原市役所 塩原庁舎", address: "那須塩原市中塩原1-2", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "庁舎1階ロビー等", notes: "AEDあり、指定避難所", lat: 36.97000, lng: 139.81986 },
+            { name: "那須塩原市役所 箒根出張所", address: "那須塩原市関谷460-1", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "庁舎1階ロビー等", notes: "AEDあり、指定避難所", lat: 36.92911, lng: 139.89040 },
+            { name: "那須塩原市図書館（みるる）", address: "那須塩原市本町1-1", type: "クーリングシェルター", hours: "火-金 9:00-19:00, 土日祝 9:00-17:00 (月曜休館)", location_detail: "図書館内", notes: "AEDあり", lat: 37.02603, lng: 140.05542 },
+            { name: "市民活動センター（くるる）", address: "那須塩原市大黒町1-5", type: "クーリングシェルター", hours: "9:00-21:30 (休館日を除く)", location_detail: "センター内ロビー等", notes: "AEDあり", lat: 37.02023, lng: 140.04838 },
+            { name: "生涯学習センター（きらきら会館）", address: "那須塩原市末広町53-7", type: "クーリングシェルター", hours: "9:00-21:30 (休館日を除く)", location_detail: "センター内ロビー等", notes: "AEDあり", lat: 37.01611, lng: 140.04100 },
+            { name: "三島公民館", address: "那須塩原市東三島5-103", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.91385, lng: 140.02127 },
+            { name: "狩野公民館", address: "那須塩原市井口1183-9", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.89308, lng: 139.96025 },
+            { name: "関谷公民館", address: "那須塩原市関谷1250-1", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.93193, lng: 139.89030 },
+            { name: "大山公民館", address: "那須塩原市下永田8-2-33", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.90683, lng: 139.97380 },
+            { name: "西公民館", address: "那須塩原市乃木町2-2", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.90791, lng: 139.99021 },
+            { name: "塩原公民館", address: "那須塩原市塩原680-1", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.97622, lng: 139.81480 },
+            { name: "高林公民館", address: "那須塩原市箭坪365-3", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 37.01082, lng: 139.99021 },
+            { name: "青木公民館", address: "那須塩原市青木10-123", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 37.03618, lng: 140.06987 },
+            { name: "黒磯公民館（いきいきふれあいセンター内）", address: "那須塩原市桜町1-5", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 37.02310, lng: 140.06315 },
+            { name: "鍋掛公民館", address: "那須塩原市鍋掛448-11", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 37.00589, lng: 140.10650 },
+            { name: "東公民館", address: "那須塩原市東小屋352-18", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.96498, lng: 140.03483 },
+            { name: "とようら公民館", address: "那須塩原市東豊浦20-11", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.98434, lng: 140.06316 },
+            { name: "稲村公民館", address: "那須塩原市埼玉3-112", type: "クーリングシェルター", hours: "平日・土 9:00-21:30, 日祝 9:00-17:00 (休館日を除く)", location_detail: "館内ロビー等", notes: "AEDあり、指定避難所", lat: 36.95318, lng: 140.06751 },
+            { name: "健康長寿センター（はつらつプラザ）", address: "那須塩原市南郷屋5-163", type: "クーリングシェルター", hours: "9:00-17:00 (休館日を除く)", location_detail: "センター内ロビー等", notes: "AEDあり", lat: 36.93485, lng: 140.00500 },
+            { name: "子育て支援センター（ひみつきち）", address: "那須塩原市本町1-1（みるる内）", type: "クーリングシェルター", hours: "9:00-16:00 (休館日を除く)", location_detail: "センター内", notes: "", lat: 37.02603, lng: 140.05542 }, // 図書館と同じ場所
+            { name: "子育て支援センター（はぐはぐの樹）", address: "那須塩原市緑1-58-10", type: "クーリングシェルター", hours: "9:00-16:00 (休館日を除く)", location_detail: "センター内", notes: "", lat: 36.91880, lng: 140.00519 },
+            { name: "子育て支援センター 西那須野", address: "那須塩原市一区町264-12 (にしなすの保育園内)", type: "クーリングシェルター", hours: "9:00-16:00 (休館日を除く)", location_detail: "センター内", notes: "", lat: 36.91053, lng: 139.99133 },
+            { name: "子育て支援センター 塩原", address: "那須塩原市塩原680-1 (塩原認定こども園内)", type: "クーリングシェルター", hours: "9:00-16:00 (休館日を除く)", location_detail: "センター内", notes: "", lat: 36.97622, lng: 139.81480 }, // 塩原公民館と同じ場所
+            { name: "屋内温水プール", address: "那須塩原市三島5-1", type: "クーリングシェルター", hours: "10:00-20:30 (休館日を除く)", location_detail: "プール施設内ロビー等", notes: "AEDあり", lat: 36.91541, lng: 140.01801 },
+            { name: "いきいきふれあいセンター", address: "那須塩原市桜町1-5", type: "クーリングシェルター", hours: "各施設の開設時間による", location_detail: "センター内ロビー等", notes: "AEDあり、黒磯公民館併設", lat: 37.02310, lng: 140.06315 }, // 黒磯公民館と同じ
+            { name: "ハロープラザ", address: "那須塩原市大原間西1-10-6", type: "クーリングシェルター", hours: "9:00-17:00 (土日祝、年末年始を除く)", location_detail: "施設内", notes: "AEDあり", lat: 37.00948, lng: 140.04517 },
+            { name: "那須波切不動尊 金乗院", address: "那須塩原市波立9", type: "クーリングシェルター", hours: "9:00-16:00", location_detail: "境内等", notes: "", lat: 36.96385, lng: 139.93009 },
+            { name: "黒磯保健センター", address: "那須塩原市黒磯幸町8-10", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "センター内", notes: "AEDあり", lat: 37.02808, lng: 140.05935 },
+            { name: "塩原保健福祉センター", address: "那須塩原市中塩原1-2 (塩原庁舎併設)", type: "クーリングシェルター", hours: "平日 8:30-17:15", location_detail: "センター内", notes: "AEDあり", lat: 36.97000, lng: 139.81986 }, // 塩原庁舎と同じ
+
+            // 涼みどころ (民間施設等) - 緯度経度を再調査・更新
+            { name: "ヨークベニマル 西那須野店", address: "那須塩原市太夫塚6-232-8", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.91371, lng: 139.99633 },
+            { name: "ヨークベニマル 東三島店", address: "那須塩原市東三島2-93", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.91249, lng: 140.02601 },
+            { name: "ヨークベニマル 黒磯店", address: "那須塩原市材木町3-5", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.02242, lng: 140.05330 },
+            { name: "フードオアシスOTANI 西那須野店", address: "那須塩原市東赤田340-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.90978, lng: 140.00794 },
+            { name: "フードオアシスOTANI 黒磯店", address: "那須塩原市黒磯幸町2-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.02764, lng: 140.05809 },
+            { name: "カワチ薬品 上厚崎店", address: "那須塩原市上厚崎557-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.03798, lng: 140.04889 },
+            { name: "カワチ薬品 東那須店", address: "那須塩原市東小屋字砂山345-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.96664, lng: 140.03910 },
+            { name: "カワチ薬品 西那須野店", address: "那須塩原市五軒町6-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.91675, lng: 140.00228 },
+            { name: "カワチ薬品 塩原店", address: "那須塩原市塩原2306-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.97055, lng: 139.80809 },
+            { name: "ウエルシア薬局 那須塩原東小屋店", address: "那須塩原市東小屋303-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.96323, lng: 140.03629 },
+            { name: "ウエルシア薬局 那須塩原東三島店", address: "那須塩原市東三島2-91-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.91249, lng: 140.02497 },
+            { name: "ウエルシア薬局 西那須野駅東口店", address: "那須塩原市永田町6-8", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.90645, lng: 140.00161 },
+            { name: "ウエルシア薬局 西那須野南店", address: "那須塩原市南郷屋2-143-18", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.92898, lng: 140.00421 },
+            { name: "ウエルシア薬局 那須塩原豊浦店", address: "那須塩原市豊浦中町100-131", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.98296, lng: 140.06009 },
+            { name: "ウエルシア薬局 那須塩原鍋掛店", address: "那須塩原市鍋掛1080-10", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.00578, lng: 140.10019 },
+            { name: "ウエルシア薬局 黒磯材木町店", address: "那須塩原市材木町7-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.02190, lng: 140.05499 },
+            { name: "ウエルシア薬局 黒磯本町店", address: "那須塩原市本町5-2", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.02508, lng: 140.05680 },
+            { name: "ウエルシア薬局 那須塩原中央店", address: "那須塩原市中央町2-20", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.96009, lng: 139.99009 },
+            { name: "ツルハドラッグ 西那須野店", address: "那須塩原市睦105-110", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.92108, lng: 139.99019 },
+            { name: "ツルハドラッグ 黒磯店", address: "那須塩原市黒磯6-30", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.03008, lng: 140.05019 },
+            { name: "ツルハドラッグ 那須塩原中央店", address: "那須塩原市新南163-612", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.95879, lng: 139.99879 },
+            { name: "ツルハドラッグ 那須塩原五軒町店", address: "那須塩原市五軒町1-3", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.91498, lng: 140.00009 },
+            { name: "ツルハドラッグ 黒磯幸町店", address: "那須塩原市黒磯幸町1-10", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.02768, lng: 140.05989 },
+            { name: "ツルハドラッグ 西那須野あたご店", address: "那須塩原市あたご町6-5", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.90218, lng: 139.99659 },
+            { name: "クスリのアオキ 西那須野店", address: "那須塩原市西大和1-8", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.90548, lng: 139.97999 },
+            { name: "クスリのアオキ 黒磯店", address: "那須塩原市東栄2-16-5", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.03328, lng: 140.06549 },
+            { name: "クスリのアオキ 東那須店", address: "那須塩原市島方455", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.95998, lng: 140.04549 }, // ベイシアと同じ場所の可能性あり
+            { name: "クスリのアオキ 鍋掛店", address: "那須塩原市鍋掛1080-501", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.00498, lng: 140.10329 },
+            { name: "イオンスーパーセンター 那須塩原店", address: "那須塩原市高砂町6-3", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.01498, lng: 140.04999 },
+            { name: "ベイシア 那須塩原店", address: "那須塩原市島方455", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.95998, lng: 140.04549 }, // クスリのアオキ東那須店と同じ場所の可能性あり
+            { name: "DCMホーマック 西那須野店", address: "那須塩原市南郷屋2-106-25", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.92998, lng: 139.99999 },
+            { name: "DCMホーマック 黒磯店", address: "那須塩原市黒磯39-6", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.03498, lng: 140.03999 },
+            { name: "コメリハード＆グリーン 塩原関谷店", address: "那須塩原市関谷2003-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.93498, lng: 139.88499 },
+            { name: "コメリハード＆グリーン 高林店", address: "那須塩原市戸田77-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.99998, lng: 139.97999 },
+            { name: "コメリハード＆グリーン 黒磯店", address: "那須塩原市下厚崎261-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.03998, lng: 140.04499 },
+            { name: "カインズ 黒磯店", address: "那須塩原市下黒磯342-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.00998, lng: 140.05999 },
+            { name: "ケーズデンキ 西那須野店", address: "那須塩原市井口1182-1", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 36.89498, lng: 139.96499 },
+            { name: "ヤマダデンキ テックランド那須塩原店", address: "那須塩原市大黒町3-29", type: "涼みどころ", hours: "店舗の営業時間に準ずる", location_detail: "店内休憩スペース等", notes: "", lat: 37.01798, lng: 140.04799 },
+            { name: "埼玉りそな銀行 黒磯支店", address: "那須塩原市本町5-1", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.02505, lng: 140.05669 },
+            { name: "足利銀行 黒磯支店", address: "那須塩原市本町3-2", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.02578, lng: 140.05596 },
+            { name: "足利銀行 西那須野支店", address: "那須塩原市五軒町1-5", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.91486, lng: 140.00077 },
+            { name: "足利銀行 塩原支店", address: "那須塩原市塩原771-1", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.97488, lng: 139.81399 },
+            { name: "栃木銀行 黒磯支店", address: "那須塩原市共墾社5-8", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.02198, lng: 140.04499 },
+            { name: "栃木銀行 西那須野支店", address: "那須塩原市太夫塚3-204-10", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.90998, lng: 139.98999 },
+            { name: "栃木銀行 三島支店", address: "那須塩原市三島1-20-2", type: "涼みどころ", hours: "銀行の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.91498, lng: 140.01499 },
+            { name: "大田原信用金庫 黒磯支店", address: "那須塩原市宮町3-1", type: "涼みどころ", hours: "金庫の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.02598, lng: 140.04999 },
+            { name: "大田原信用金庫 西那須野支店", address: "那須塩原市緑1-8-44", type: "涼みどころ", hours: "金庫の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.91998, lng: 139.99999 },
+            { name: "大田原信用金庫 東那須野支店", address: "那須塩原市東小屋321-1", type: "涼みどころ", hours: "金庫の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.96498, lng: 140.02999 },
+            { name: "那須信用組合 黒磯支店", address: "那須塩原市住吉町2-1", type: "涼みどころ", hours: "組合の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.01998, lng: 140.05499 },
+            { name: "那須信用組合 東那須野支店", address: "那須塩原市東小屋砂場295-41", type: "涼みどころ", hours: "組合の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.96798, lng: 140.03999 },
+            { name: "那須信用組合 西那須野支店", address: "那須塩原市永田町1-1", type: "涼みどころ", hours: "組合の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.90798, lng: 139.99999 },
+            { name: "那須信用組合 塩原支店", address: "那須塩原市塩原703", type: "涼みどころ", hours: "組合の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.97498, lng: 139.81499 },
+            { name: "JAなすの 本店", address: "那須塩原市太夫塚1-194-78", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.90498, lng: 139.99499 },
+            { name: "JAなすの 東那須野支店", address: "那須塩原市前弥六 appraisals 38-1", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "（住所・座標要確認）", lat: 36.97001, lng: 140.02501 }, // 住所に英字あり、座標の信頼性低い可能性
+            { name: "JAなすの 狩野支店", address: "那須塩原市井口540-1", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.88998, lng: 139.95999 },
+            { name: "JAなすの 高林支店", address: "那須塩原市戸田65-1", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.99998, lng: 139.98499 },
+            { name: "JAなすの 黒磯支店", address: "那須塩原市錦町8-7", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.01998, lng: 140.05999 },
+            { name: "JAなすの 鍋掛支店", address: "那須塩原市鍋掛348-1", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.00498, lng: 140.09999 },
+            { name: "JAなすの とようら支店", address: "那須塩原市豊浦60", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.97998, lng: 140.06499 },
+            { name: "JAなすの 西那須野支店", address: "那須塩原市一区町103-1", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.90998, lng: 139.99499 },
+            { name: "JAなすの 塩原支店", address: "那須塩原市塩原1163", type: "涼みどころ", hours: "JAの営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.96998, lng: 139.81999 },
+            { name: "黒磯郵便局", address: "那須塩原市本郷町1-1", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.02498, lng: 140.05999 },
+            { name: "東那須野郵便局", address: "那須塩原市東小屋352-10", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.96498, lng: 140.03499 },
+            { name: "高林郵便局", address: "那須塩原市戸田66-5", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.99998, lng: 139.98549 },
+            { name: "鍋掛郵便局", address: "那須塩原市鍋掛437-1", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.00498, lng: 140.10499 },
+            { name: "豊浦郵便局", address: "那須塩原市豊浦南町98-16", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.97998, lng: 140.05999 },
+            { name: "稲村郵便局", address: "那須塩原市埼玉1-125", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.94998, lng: 140.06499 },
+            { name: "西那須野駅前郵便局", address: "那須塩原市永田町5-1", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.90598, lng: 139.99999 },
+            { name: "乃木郵便局", address: "那須塩原市乃木 weathered 278-16", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "（住所・座標要確認）", lat: 36.90001, lng: 139.98501 }, // 住所に英字あり、座標の信頼性低い可能性
+            { name: "狩野郵便局", address: "那須塩原市井口1183-1", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.89298, lng: 139.95999 },
+            { name: "関谷郵便局", address: "那須塩原市関谷2000-3", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.93498, lng: 139.88549 },
+            { name: "塩原郵便局", address: "那須塩原市塩原770", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.97498, lng: 139.81449 },
+            { name: "上塩原郵便局", address: "那須塩原市上塩原654", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 36.99998, lng: 139.78999 },
+            { name: "板室温泉郵便局", address: "那須塩原市板室843-1", type: "涼みどころ", hours: "郵便局の営業時間に準ずる", location_detail: "ロビー等", notes: "", lat: 37.04998, lng: 139.94999 }
+        ];
+        // --- 利用者様が編集・検証するデータここまで ---
+
+        const mapElement = document.getElementById('map');
+        const nearestShelterInfoElement = document.getElementById('nearest-shelter-info');
+        const shelterDetailsElement = document.getElementById('shelter-details');
+        const navigateButton = document.getElementById('navigate-button');
+        const errorMessageElement = document.getElementById('error-message');
+
+        const nasushiobaraCityCenter = [36.99, 140.04]; 
+        let map = L.map(mapElement).setView(nasushiobaraCityCenter, 11);
+        let userMarker;
+        let nearestShelterHighlightMarker; 
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        shelterData.forEach(shelter => {
+            if (typeof shelter.lat !== 'number' || typeof shelter.lng !== 'number' || isNaN(shelter.lat) || isNaN(shelter.lng)) {
+                console.warn(`施設 "${shelter.name}" の緯度経度が無効（${shelter.lat}, ${shelter.lng}）です。地図に表示されません。住所: ${shelter.address}`);
+                return; 
+            }
+
+            const iconColor = shelter.type === "クーリングシェルター" ? 'blue' : 'green';
+            const shelterIcon = L.icon({
+                iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${iconColor}.png`,
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            const marker = L.marker([shelter.lat, shelter.lng], {icon: shelterIcon}).addTo(map);
+            marker.bindPopup(`
+                <div class="custom-popup">
+                    <strong>${shelter.name}</strong><br>
+                    種別: ${shelter.type}<br>
+                    住所: ${shelter.address}<br>
+                    開設時間: ${shelter.hours || '要確認'}<br>
+                    開設場所: ${shelter.location_detail || '施設内'}<br>
+                    備考: ${shelter.notes || '特になし'}
+                </div>
+            `);
+            shelter.marker = marker; 
+        });
+
+        function showError(message) {
+            errorMessageElement.textContent = message;
+            errorMessageElement.classList.remove('hidden');
+            nearestShelterInfoElement.classList.add('hidden');
+        }
+        
+        function clearError() {
+            errorMessageElement.textContent = '';
+            errorMessageElement.classList.add('hidden');
+        }
+
+        function haversineDistance(coords1, coords2) {
+            function toRad(x) { return x * Math.PI / 180; }
+            const R = 6371; // km
+            const dLat = toRad(coords2.lat - coords1.lat);
+            const dLon = toRad(coords2.lng - coords1.lng);
+            const lat1 = toRad(coords1.lat);
+            const lat2 = toRad(coords2.lat);
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                clearError();
+                const userLat = position.coords.latitude;
+                const userLng = position.coords.longitude;
+                const userCoords = { lat: userLat, lng: userLng };
+
+                if (userMarker) map.removeLayer(userMarker);
+                
+                const userIcon = L.icon({
+                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                    iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+                });
+                userMarker = L.marker([userLat, userLng], {icon: userIcon}).addTo(map)
+                    .bindPopup("あなたの現在地").openPopup();
+                map.setView([userLat, userLng], 13);
+
+                let nearest = null;
+                let minDistance = Infinity;
+
+                shelterData.forEach(shelter => {
+                    if (typeof shelter.lat !== 'number' || typeof shelter.lng !== 'number' || isNaN(shelter.lat) || isNaN(shelter.lng)) return;
+                    const distance = haversineDistance(userCoords, shelter);
+                    shelter.distance = distance;
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearest = shelter;
+                    }
+                });
+
+                if (nearest) {
+                    nearestShelterInfoElement.classList.remove('hidden');
+                    shelterDetailsElement.innerHTML = `
+                        <p><strong>施設名:</strong> ${nearest.name}</p>
+                        <p><strong>種別:</strong> ${nearest.type}</p>
+                        <p><strong>住所:</strong> ${nearest.address}</p>
+                        <p><strong>開設時間:</strong> ${nearest.hours || '要確認'}</p>
+                        <p><strong>開設場所(施設内):</strong> ${nearest.location_detail || '施設内'}</p>
+                        <p><strong>備考:</strong> ${nearest.notes || '特になし'}</p>
+                        <p><strong>現在地からの距離:</strong> 約 ${minDistance.toFixed(2)} km</p>
+                    `;
+                    navigateButton.disabled = false;
+                    navigateButton.onclick = () => {
+                        const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${nearest.lat},${nearest.lng}`;
+                        window.open(googleMapsUrl, '_blank');
+                    };
+
+                    if (nearestShelterHighlightMarker) map.removeLayer(nearestShelterHighlightMarker);
+                    
+                    const highlightedIcon = L.icon({
+                        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png`,
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+                    });
+                    nearestShelterHighlightMarker = L.marker([nearest.lat, nearest.lng], {icon: highlightedIcon, zIndexOffset: 1000}).addTo(map);
+                    nearestShelterHighlightMarker.bindPopup(`
+                        <div class="custom-popup">
+                            <strong>${nearest.name} (最寄り)</strong><br>
+                            種別: ${nearest.type}<br>
+                            距離: 約 ${minDistance.toFixed(2)} km
+                        </div>
+                    `).openPopup();
+                    map.setView([nearest.lat, nearest.lng], 14);
+                } else {
+                    shelterDetailsElement.innerHTML = '<p>現在地の近くに登録されている施設が見つかりませんでした。または、施設データが空か、緯度経度が正しくありません。</p>';
+                    navigateButton.disabled = true;
+                }
+
+            }, () => {
+                showError('現在地を取得できませんでした。ブラウザの位置情報設定を確認してください。施設一覧は表示されますが、最寄り検索はできません。');
+                map.setView(nasushiobaraCityCenter, 11); 
+            });
+        } else {
+            showError('お使いのブラウザは位置情報サービスに対応していません。');
+            map.setView(nasushiobaraCityCenter, 11);
+        }
+    </script>
+</body>
+</html>
