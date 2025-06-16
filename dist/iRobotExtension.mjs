@@ -1049,8 +1049,24 @@ var ExtensionBlocks = /*#__PURE__*/function () {
       }).catch(function (error) {
         log$1.error("LEDコマンド送信エラー: " + error);
       });
+    }, {
+        key: "setMarker",
+        value: function setMarker(args) {
+            if (this.robot) {
+                // BLEプロトコルに基づき、マーカーの状態を設定
+                // デバイス: 0x01 (Motors), コマンド: 0x48 (Set Marker State)
+                // ペイロード[3]: 0x00=Up, 0x01=Down
+                var state = args.STATE === 'down' ? 0x01 : 0x00;
+                var payload = new Uint8Array([0x01, 0x48, 0x00, state]);
+                this.robot.write(payload);
+            }
+            return new Promise(function (resolve) {
+                setTimeout(function () {
+                    resolve();
+                }, 100); // 動作のための短い待機時間
+            });
+        }
     }
-
     // ── 左右両方のモーター駆動（モータースピード調節） ──
   }, {
     key: "int32ToBytes",
@@ -1254,6 +1270,22 @@ var ExtensionBlocks = /*#__PURE__*/function () {
           func: 'disconnectBLE',
           arguments: {}
         },
+          // ===== ここからブロック定義を追加 =====
+          {
+            opcode: 'setMarker',
+            blockType: BlockType.COMMAND,
+            text: formatMessage({
+              id: 'iRobotExtension.setMarker',
+              default: 'Set marker [STATE]'
+            }),
+            arguments: {
+              STATE: {
+                type: ArgumentType.STRING,
+                menu: 'MARKER_STATE_MENU'
+              }
+            }
+          }
+          // ===== ここまで =====
         // LED 制御ブロック
         {
           opcode: 'setLED',
