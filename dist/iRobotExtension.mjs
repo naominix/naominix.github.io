@@ -1470,6 +1470,19 @@ var ExtensionBlocks = /*#__PURE__*/function () {
               default: '右後'
             }),
             value: 'rightRear'
+          }],
+	  MARKER_STATE_MENU: [{
+                text: formatMessage({
+                    id: 'iRobotExtension.markerUp',
+                    default: 'Up'
+                }),
+                value: 'up'
+            }, {
+                text: formatMessage({
+                    id: 'iRobotExtension.markerDown',
+                    default: 'Down'
+                }),
+                value: 'down'
           }]
         }
       };
