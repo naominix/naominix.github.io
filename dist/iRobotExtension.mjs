@@ -1174,28 +1174,6 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         blockIconURI: img,
         showStatusButton: false,
         blocks: [{
-        {
-          opcode: 'markerUp',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.markerUp',
-            default: 'マーカーを上げる',
-            description: 'Send marker up command'
-          }),
-          func: 'markerUp',
-          arguments: {}
-        },
-        {
-          opcode: 'markerDown',
-          blockType: BlockType$1.COMMAND,
-          text: formatMessage({
-            id: 'iRobotExtension.markerDown',
-            default: 'マーカーを下ろす',
-            description: 'Send marker down command'
-          }),
-          func: 'markerDown',
-          arguments: {}
-        },
           opcode: 'connectBLE',
           blockType: BlockType$1.COMMAND,
           text: formatMessage({
@@ -1464,45 +1442,45 @@ var ExtensionBlocks = /*#__PURE__*/function () {
         }
       };
     }
-  }, {
-    key: "buildMarkerPacket",
-    value: function buildMarkerPacket(position) {
-      var packet = [0x02, 0x00, position];
-      while (packet.length < 19) {
-        packet.push(0x00);
+    }, {
+      key: "buildMarkerPacket",
+      value: function buildMarkerPacket(position) {
+        var packet = [0x02, 0x00, position];
+        while (packet.length < 19) {
+          packet.push(0x00);
+        }
+        var crcValue = this.calcCRC(packet.slice(0, 19));
+        packet.push(crcValue);
+        return packet;
       }
-      var crcValue = this.calcCRC(packet.slice(0, 19));
-      packet.push(crcValue);
-      return packet;
-    }
-  }, {
-    key: "markerUp",
-    value: function markerUp(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
+    }, {
+      key: "markerUp",
+      value: function markerUp(args) {
+        if (!this.txCharacteristic) {
+          log$1.error("TX キャラクタリスティックが未取得です。");
+          return;
+        }
+        var packet = this.buildMarkerPacket(0);
+        this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
+          log$1.log("マーカーを上げるコマンド送信");
+        }).catch(function (error) {
+          log$1.error("マーカー上げコマンド送信エラー: " + error);
+        });
       }
-      var packet = this.buildMarkerPacket(0);
-      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("マーカーを上げるコマンド送信");
-      }).catch(function (error) {
-        log$1.error("マーカー上げコマンド送信エラー: " + error);
-      });
-    }
-  }, {
-    key: "markerDown",
-    value: function markerDown(args) {
-      if (!this.txCharacteristic) {
-        log$1.error("TX キャラクタリスティックが未取得です。");
-        return;
+    }, {
+      key: "markerDown",
+      value: function markerDown(args) {
+        if (!this.txCharacteristic) {
+          log$1.error("TX キャラクタリスティックが未取得です。");
+          return;
+        }
+        var packet = this.buildMarkerPacket(1);
+        this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
+          log$1.log("マーカーを下ろすコマンド送信");
+        }).catch(function (error) {
+          log$1.error("マーカー下ろしコマンド送信エラー: " + error);
+        });
       }
-      var packet = this.buildMarkerPacket(1);
-      this.txCharacteristic.writeValue(new Uint8Array(packet)).then(function () {
-        log$1.log("マーカーを下ろすコマンド送信");
-      }).catch(function (error) {
-        log$1.error("マーカー下ろしコマンド送信エラー: " + error);
-      });
-    }
   }], [{
     key: "formatMessage",
     set: function set(formatter) {
