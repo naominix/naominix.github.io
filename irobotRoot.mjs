@@ -1389,7 +1389,7 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
     value: function () {
       var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
         var _this2 = this;
-        var peripheral;
+        var peripheralPromise, peripheral;
         return _regeneratorRuntime.wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -1404,6 +1404,18 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
                 _this2.socket.open();
               });
             case 1:
+              // Install the notification handler before starting discovery. A nearby
+              // Root can be reported before the discover RPC response arrives.
+              peripheralPromise = new Promise(function (resolve, reject) {
+                var timeout = setTimeout(function () {
+                  _this2.discovered = null;
+                  reject(new Error('Rootが見つかりません。Rootを再起動し、iPadの近くへ置いてください'));
+                }, 30000);
+                _this2.discovered = function (peripheral) {
+                  clearTimeout(timeout);
+                  resolve(peripheral);
+                };
+              });
               _context.next = 2;
               return this.rpc('discover', {
                 filters: [{
@@ -1413,12 +1425,7 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
               });
             case 2:
               _context.next = 3;
-              return new Promise(function (resolve, reject) {
-                _this2.discovered = resolve;
-                setTimeout(function () {
-                  return reject(new Error('Rootが見つかりません'));
-                }, 20000);
-              });
+              return peripheralPromise;
             case 3:
               peripheral = _context.sent;
               _context.next = 4;
