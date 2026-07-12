@@ -1420,6 +1420,10 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
               return this.rpc('discover', {
                 filters: [{
                   services: [ROOT_SERVICE]
+                }, {
+                  manufacturerData: {
+                    '1536': {}
+                  }
                 }],
                 optionalServices: [UART_SERVICE]
               });
@@ -1557,27 +1561,39 @@ var RootTransport = /*#__PURE__*/function () {
     _classCallCheck(this, RootTransport);
     this.onData = onData;
     this.connected = false;
+    this.mode = '未接続';
+    this.lastError = '';
   }
   return _createClass(RootTransport, [{
     key: "connect",
     value: function () {
       var _connect3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
-        var SocketClass;
+        var SocketClass, _t;
         return _regeneratorRuntime.wrap(function (_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
               this.disconnect();
-              SocketClass = globalThis.Scratch && globalThis.Scratch.ScratchLinkSafariSocket;
+              this.lastError = '';
+              SocketClass = globalThis.Scratch && globalThis.Scratch.ScratchLinkSafariSocket || globalThis.ScratchLinkSafariSocket;
+              this.mode = SocketClass ? 'Scrub Scratch Link' : navigator.bluetooth ? 'Web Bluetooth' : 'BLE利用不可';
               this.implementation = SocketClass ? new ScratchLinkTransport(this.onData, SocketClass) : new WebBluetoothTransport(this.onData);
-              _context3.next = 1;
+              _context3.prev = 1;
+              _context3.next = 2;
               return this.implementation.connect();
-            case 1:
-              this.connected = true;
             case 2:
+              this.connected = true;
+              _context3.next = 4;
+              break;
+            case 3:
+              _context3.prev = 3;
+              _t = _context3["catch"](1);
+              this.lastError = _t && _t.message ? _t.message : String(_t);
+              throw _t;
+            case 4:
             case "end":
               return _context3.stop();
           }
-        }, _callee3, this);
+        }, _callee3, this, [[1, 3]]);
       }));
       function connect() {
         return _connect3.apply(this, arguments);
@@ -1651,6 +1667,14 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           opcode: 'isConnected',
           blockType: BlockType.BOOLEAN,
           text: 'Rootは接続済み'
+        }, {
+          opcode: 'transportMode',
+          blockType: BlockType.REPORTER,
+          text: 'Rootの通信方式'
+        }, {
+          opcode: 'lastConnectionError',
+          blockType: BlockType.REPORTER,
+          text: '最後の接続エラー'
         }, '---', {
           opcode: 'motors',
           blockType: BlockType.COMMAND,
@@ -1866,6 +1890,16 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     key: "isConnected",
     value: function isConnected() {
       return this.transport.connected;
+    }
+  }, {
+    key: "transportMode",
+    value: function transportMode() {
+      return this.transport.mode;
+    }
+  }, {
+    key: "lastConnectionError",
+    value: function lastConnectionError() {
+      return this.transport.lastError;
     }
   }, {
     key: "motors",
