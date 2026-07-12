@@ -1420,9 +1420,16 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
               return this.rpc('discover', {
                 filters: [{
                   services: [ROOT_SERVICE]
-                }, {
+                },
+                // Scrub's bundled Scratch Link requires dataPrefix even
+                // though the network protocol makes it optional. Empty
+                // prefix/mask means "any payload from manufacturer 0x0600".
+                {
                   manufacturerData: {
-                    '1536': {}
+                    '1536': {
+                      dataPrefix: [],
+                      mask: []
+                    }
                   }
                 }],
                 optionalServices: [UART_SERVICE]
