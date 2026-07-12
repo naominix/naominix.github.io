@@ -1421,14 +1421,13 @@ var ScratchLinkTransport = /*#__PURE__*/function () {
                 filters: [{
                   services: [ROOT_SERVICE]
                 },
-                // Scrub's bundled Scratch Link requires dataPrefix even
-                // though the network protocol makes it optional. Empty
-                // prefix/mask means "any payload from manufacturer 0x0600".
+                // Manufacturer 0x0600 followed by ASCII "RT" matches both
+                // Root rt0 and rt1 while excluding unrelated iRobot devices.
                 {
                   manufacturerData: {
                     '1536': {
-                      dataPrefix: [],
-                      mask: []
+                      dataPrefix: [0x52, 0x54],
+                      mask: [0xFF, 0xFF]
                     }
                   }
                 }],
