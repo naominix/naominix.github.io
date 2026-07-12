@@ -68,52 +68,26 @@ var entry = {
   translationMap: translations$1
 };
 
-function asyncGeneratorStep(n, t, e, r, o, a, c) {
-  try {
-    var i = n[a](c),
-      u = i.value;
-  } catch (n) {
-    return void e(n);
-  }
-  i.done ? t(u) : Promise.resolve(u).then(r, o);
-}
-function _asyncToGenerator(n) {
-  return function () {
-    var t = this,
-      e = arguments;
-    return new Promise(function (r, o) {
-      var a = n.apply(t, e);
-      function _next(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "next", n);
-      }
-      function _throw(n) {
-        asyncGeneratorStep(a, r, o, _next, _throw, "throw", n);
-      }
-      _next(void 0);
-    });
-  };
-}
-
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
 
-function _typeof$1(o) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
     return typeof o;
   } : function (o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof$1(o);
+  }, _typeof(o);
 }
 
 function toPrimitive(t, r) {
-  if ("object" != _typeof$1(t) || !t) return t;
+  if ("object" != _typeof(t) || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
     var i = e.call(t, r);
-    if ("object" != _typeof$1(i)) return i;
+    if ("object" != _typeof(i)) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
   return (String )(t);
@@ -121,7 +95,7 @@ function toPrimitive(t, r) {
 
 function toPropertyKey(t) {
   var i = toPrimitive(t, "string");
-  return "symbol" == _typeof$1(i) ? i : i + "";
+  return "symbol" == _typeof(i) ? i : i + "";
 }
 
 function _defineProperties(e, r) {
@@ -139,430 +113,6 @@ function _createClass(e, r, t) {
 function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
-
-var regeneratorRuntime$1 = {exports: {}};
-
-var OverloadYield = {exports: {}};
-
-var hasRequiredOverloadYield;
-
-function requireOverloadYield () {
-	if (hasRequiredOverloadYield) return OverloadYield.exports;
-	hasRequiredOverloadYield = 1;
-	(function (module) {
-		function _OverloadYield(e, d) {
-		  this.v = e, this.k = d;
-		}
-		module.exports = _OverloadYield, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (OverloadYield));
-	return OverloadYield.exports;
-}
-
-var regenerator$1 = {exports: {}};
-
-var regeneratorDefine = {exports: {}};
-
-var hasRequiredRegeneratorDefine;
-
-function requireRegeneratorDefine () {
-	if (hasRequiredRegeneratorDefine) return regeneratorDefine.exports;
-	hasRequiredRegeneratorDefine = 1;
-	(function (module) {
-		function _regeneratorDefine(e, r, n, t) {
-		  var i = Object.defineProperty;
-		  try {
-		    i({}, "", {});
-		  } catch (e) {
-		    i = 0;
-		  }
-		  module.exports = _regeneratorDefine = function regeneratorDefine(e, r, n, t) {
-		    function o(r, n) {
-		      _regeneratorDefine(e, r, function (e) {
-		        return this._invoke(r, n, e);
-		      });
-		    }
-		    r ? i ? i(e, r, {
-		      value: n,
-		      enumerable: !t,
-		      configurable: !t,
-		      writable: !t
-		    }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2));
-		  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _regeneratorDefine(e, r, n, t);
-		}
-		module.exports = _regeneratorDefine, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorDefine));
-	return regeneratorDefine.exports;
-}
-
-var hasRequiredRegenerator$1;
-
-function requireRegenerator$1 () {
-	if (hasRequiredRegenerator$1) return regenerator$1.exports;
-	hasRequiredRegenerator$1 = 1;
-	(function (module) {
-		var regeneratorDefine = requireRegeneratorDefine();
-		function _regenerator() {
-		  /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
-		  var e,
-		    t,
-		    r = "function" == typeof Symbol ? Symbol : {},
-		    n = r.iterator || "@@iterator",
-		    o = r.toStringTag || "@@toStringTag";
-		  function i(r, n, o, i) {
-		    var c = n && n.prototype instanceof Generator ? n : Generator,
-		      u = Object.create(c.prototype);
-		    return regeneratorDefine(u, "_invoke", function (r, n, o) {
-		      var i,
-		        c,
-		        u,
-		        f = 0,
-		        p = o || [],
-		        y = false,
-		        G = {
-		          p: 0,
-		          n: 0,
-		          v: e,
-		          a: d,
-		          f: d.bind(e, 4),
-		          d: function d(t, r) {
-		            return i = t, c = 0, u = e, G.n = r, a;
-		          }
-		        };
-		      function d(r, n) {
-		        for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) {
-		          var o,
-		            i = p[t],
-		            d = G.p,
-		            l = i[2];
-		          r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0));
-		        }
-		        if (o || r > 1) return a;
-		        throw y = true, n;
-		      }
-		      return function (o, p, l) {
-		        if (f > 1) throw TypeError("Generator is already running");
-		        for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) {
-		          i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u);
-		          try {
-		            if (f = 2, i) {
-		              if (c || (o = "next"), t = i[o]) {
-		                if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object");
-		                if (!t.done) return t;
-		                u = t.value, c < 2 && (c = 0);
-		              } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1);
-		              i = e;
-		            } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break;
-		          } catch (t) {
-		            i = e, c = 1, u = t;
-		          } finally {
-		            f = 1;
-		          }
-		        }
-		        return {
-		          value: t,
-		          done: y
-		        };
-		      };
-		    }(r, o, i), true), u;
-		  }
-		  var a = {};
-		  function Generator() {}
-		  function GeneratorFunction() {}
-		  function GeneratorFunctionPrototype() {}
-		  t = Object.getPrototypeOf;
-		  var c = [][n] ? t(t([][n]())) : (regeneratorDefine(t = {}, n, function () {
-		      return this;
-		    }), t),
-		    u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c);
-		  function f(e) {
-		    return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, regeneratorDefine(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e;
-		  }
-		  return GeneratorFunction.prototype = GeneratorFunctionPrototype, regeneratorDefine(u, "constructor", GeneratorFunctionPrototype), regeneratorDefine(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", regeneratorDefine(GeneratorFunctionPrototype, o, "GeneratorFunction"), regeneratorDefine(u), regeneratorDefine(u, o, "Generator"), regeneratorDefine(u, n, function () {
-		    return this;
-		  }), regeneratorDefine(u, "toString", function () {
-		    return "[object Generator]";
-		  }), (module.exports = _regenerator = function _regenerator() {
-		    return {
-		      w: i,
-		      m: f
-		    };
-		  }, module.exports.__esModule = true, module.exports["default"] = module.exports)();
-		}
-		module.exports = _regenerator, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regenerator$1));
-	return regenerator$1.exports;
-}
-
-var regeneratorAsync = {exports: {}};
-
-var regeneratorAsyncGen = {exports: {}};
-
-var regeneratorAsyncIterator = {exports: {}};
-
-var hasRequiredRegeneratorAsyncIterator;
-
-function requireRegeneratorAsyncIterator () {
-	if (hasRequiredRegeneratorAsyncIterator) return regeneratorAsyncIterator.exports;
-	hasRequiredRegeneratorAsyncIterator = 1;
-	(function (module) {
-		var OverloadYield = requireOverloadYield();
-		var regeneratorDefine = requireRegeneratorDefine();
-		function AsyncIterator(t, e) {
-		  function n(r, o, i, f) {
-		    try {
-		      var c = t[r](o),
-		        u = c.value;
-		      return u instanceof OverloadYield ? e.resolve(u.v).then(function (t) {
-		        n("next", t, i, f);
-		      }, function (t) {
-		        n("throw", t, i, f);
-		      }) : e.resolve(u).then(function (t) {
-		        c.value = t, i(c);
-		      }, function (t) {
-		        return n("throw", t, i, f);
-		      });
-		    } catch (t) {
-		      f(t);
-		    }
-		  }
-		  var r;
-		  this.next || (regeneratorDefine(AsyncIterator.prototype), regeneratorDefine(AsyncIterator.prototype, "function" == typeof Symbol && Symbol.asyncIterator || "@asyncIterator", function () {
-		    return this;
-		  })), regeneratorDefine(this, "_invoke", function (t, o, i) {
-		    function f() {
-		      return new e(function (e, r) {
-		        n(t, i, e, r);
-		      });
-		    }
-		    return r = r ? r.then(f, f) : f();
-		  }, true);
-		}
-		module.exports = AsyncIterator, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorAsyncIterator));
-	return regeneratorAsyncIterator.exports;
-}
-
-var hasRequiredRegeneratorAsyncGen;
-
-function requireRegeneratorAsyncGen () {
-	if (hasRequiredRegeneratorAsyncGen) return regeneratorAsyncGen.exports;
-	hasRequiredRegeneratorAsyncGen = 1;
-	(function (module) {
-		var regenerator = requireRegenerator$1();
-		var regeneratorAsyncIterator = requireRegeneratorAsyncIterator();
-		function _regeneratorAsyncGen(r, e, t, o, n) {
-		  return new regeneratorAsyncIterator(regenerator().w(r, e, t, o), n || Promise);
-		}
-		module.exports = _regeneratorAsyncGen, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorAsyncGen));
-	return regeneratorAsyncGen.exports;
-}
-
-var hasRequiredRegeneratorAsync;
-
-function requireRegeneratorAsync () {
-	if (hasRequiredRegeneratorAsync) return regeneratorAsync.exports;
-	hasRequiredRegeneratorAsync = 1;
-	(function (module) {
-		var regeneratorAsyncGen = requireRegeneratorAsyncGen();
-		function _regeneratorAsync(n, e, r, t, o) {
-		  var a = regeneratorAsyncGen(n, e, r, t, o);
-		  return a.next().then(function (n) {
-		    return n.done ? n.value : a.next();
-		  });
-		}
-		module.exports = _regeneratorAsync, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorAsync));
-	return regeneratorAsync.exports;
-}
-
-var regeneratorKeys = {exports: {}};
-
-var hasRequiredRegeneratorKeys;
-
-function requireRegeneratorKeys () {
-	if (hasRequiredRegeneratorKeys) return regeneratorKeys.exports;
-	hasRequiredRegeneratorKeys = 1;
-	(function (module) {
-		function _regeneratorKeys(e) {
-		  var n = Object(e),
-		    r = [];
-		  for (var t in n) r.unshift(t);
-		  return function e() {
-		    for (; r.length;) if ((t = r.pop()) in n) return e.value = t, e.done = false, e;
-		    return e.done = true, e;
-		  };
-		}
-		module.exports = _regeneratorKeys, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorKeys));
-	return regeneratorKeys.exports;
-}
-
-var regeneratorValues = {exports: {}};
-
-var _typeof = {exports: {}};
-
-var hasRequired_typeof;
-
-function require_typeof () {
-	if (hasRequired_typeof) return _typeof.exports;
-	hasRequired_typeof = 1;
-	(function (module) {
-		function _typeof(o) {
-		  "@babel/helpers - typeof";
-
-		  return module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-		    return typeof o;
-		  } : function (o) {
-		    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-		  }, module.exports.__esModule = true, module.exports["default"] = module.exports, _typeof(o);
-		}
-		module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (_typeof));
-	return _typeof.exports;
-}
-
-var hasRequiredRegeneratorValues;
-
-function requireRegeneratorValues () {
-	if (hasRequiredRegeneratorValues) return regeneratorValues.exports;
-	hasRequiredRegeneratorValues = 1;
-	(function (module) {
-		var _typeof = require_typeof()["default"];
-		function _regeneratorValues(e) {
-		  if (null != e) {
-		    var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"],
-		      r = 0;
-		    if (t) return t.call(e);
-		    if ("function" == typeof e.next) return e;
-		    if (!isNaN(e.length)) return {
-		      next: function next() {
-		        return e && r >= e.length && (e = void 0), {
-		          value: e && e[r++],
-		          done: !e
-		        };
-		      }
-		    };
-		  }
-		  throw new TypeError(_typeof(e) + " is not iterable");
-		}
-		module.exports = _regeneratorValues, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorValues));
-	return regeneratorValues.exports;
-}
-
-var hasRequiredRegeneratorRuntime;
-
-function requireRegeneratorRuntime () {
-	if (hasRequiredRegeneratorRuntime) return regeneratorRuntime$1.exports;
-	hasRequiredRegeneratorRuntime = 1;
-	(function (module) {
-		var OverloadYield = requireOverloadYield();
-		var regenerator = requireRegenerator$1();
-		var regeneratorAsync = requireRegeneratorAsync();
-		var regeneratorAsyncGen = requireRegeneratorAsyncGen();
-		var regeneratorAsyncIterator = requireRegeneratorAsyncIterator();
-		var regeneratorKeys = requireRegeneratorKeys();
-		var regeneratorValues = requireRegeneratorValues();
-		function _regeneratorRuntime() {
-
-		  var r = regenerator(),
-		    e = r.m(_regeneratorRuntime),
-		    t = (Object.getPrototypeOf ? Object.getPrototypeOf(e) : e.__proto__).constructor;
-		  function n(r) {
-		    var e = "function" == typeof r && r.constructor;
-		    return !!e && (e === t || "GeneratorFunction" === (e.displayName || e.name));
-		  }
-		  var o = {
-		    "throw": 1,
-		    "return": 2,
-		    "break": 3,
-		    "continue": 3
-		  };
-		  function a(r) {
-		    var e, t;
-		    return function (n) {
-		      e || (e = {
-		        stop: function stop() {
-		          return t(n.a, 2);
-		        },
-		        "catch": function _catch() {
-		          return n.v;
-		        },
-		        abrupt: function abrupt(r, e) {
-		          return t(n.a, o[r], e);
-		        },
-		        delegateYield: function delegateYield(r, o, a) {
-		          return e.resultName = o, t(n.d, regeneratorValues(r), a);
-		        },
-		        finish: function finish(r) {
-		          return t(n.f, r);
-		        }
-		      }, t = function t(r, _t, o) {
-		        n.p = e.prev, n.n = e.next;
-		        try {
-		          return r(_t, o);
-		        } finally {
-		          e.next = n.n;
-		        }
-		      }), e.resultName && (e[e.resultName] = n.v, e.resultName = void 0), e.sent = n.v, e.next = n.n;
-		      try {
-		        return r.call(this, e);
-		      } finally {
-		        n.p = e.prev, n.n = e.next;
-		      }
-		    };
-		  }
-		  return (module.exports = _regeneratorRuntime = function _regeneratorRuntime() {
-		    return {
-		      wrap: function wrap(e, t, n, o) {
-		        return r.w(a(e), t, n, o && o.reverse());
-		      },
-		      isGeneratorFunction: n,
-		      mark: r.m,
-		      awrap: function awrap(r, e) {
-		        return new OverloadYield(r, e);
-		      },
-		      AsyncIterator: regeneratorAsyncIterator,
-		      async: function async(r, e, t, o, u) {
-		        return (n(e) ? regeneratorAsyncGen : regeneratorAsync)(a(r), e, t, o, u);
-		      },
-		      keys: regeneratorKeys,
-		      values: regeneratorValues
-		    };
-		  }, module.exports.__esModule = true, module.exports["default"] = module.exports)();
-		}
-		module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports; 
-	} (regeneratorRuntime$1));
-	return regeneratorRuntime$1.exports;
-}
-
-var regenerator;
-var hasRequiredRegenerator;
-
-function requireRegenerator () {
-	if (hasRequiredRegenerator) return regenerator;
-	hasRequiredRegenerator = 1;
-	// TODO(Babel 8): Remove this file.
-
-	var runtime = requireRegeneratorRuntime()();
-	regenerator = runtime;
-
-	// Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
-	try {
-	  regeneratorRuntime = runtime;
-	} catch (accidentalStrictMode) {
-	  if (typeof globalThis === "object") {
-	    globalThis.regeneratorRuntime = runtime;
-	  } else {
-	    Function("r", "regeneratorRuntime = r")(runtime);
-	  }
-	}
-	return regenerator;
-}
-
-var regeneratorExports = requireRegenerator();
-var _regeneratorRuntime = /*@__PURE__*/getDefaultExportFromCjs(regeneratorExports);
 
 /**
  * Types of block
@@ -1195,6 +745,4976 @@ var translations = {
 
 var img = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABgWlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kctLQkEUh7+0MHpgUESLFhLWSsMKpDZBRlggEWbQa6PXV6B2ufdGRNugrVAQtem1qL+gtkHrICiKINoFrYvalNzOVUGJPMOZ881v5hxmzoAtklGyer0PsjlDCwcDrvmFRZfjFTsObHTiiSq6OjYzE6KmfT1QZ8U7r1Wr9rl/rTme0BWoaxQeVVTNEJ4UDq0bqsW7wh1KOhoXPhf2aHJB4XtLj5X4zeJUiX8s1iLhcbC1CbtSVRyrYiWtZYXl5bizmTWlfB/rJS2J3NysxB7xbnTCBAngYooJxvEzwIjMfrwM0i8rauT7ivnTrEquIrPKBhorpEhj4BF1TaonJCZFT8jIsGH1/29f9eTQYKl6SwAaXkzzoxccO1DIm+b3sWkWTsD+DFe5Sv7qEQx/ip6vaO5DcG7BxXVFi+3B5TZ0PalRLVqU7OK2ZBLez6B1AdpvoWmp1LPyPqePENmUr7qB/QPok/PO5V8gz2fGkateTgAAAAlwSFlzAAALEwAACxMBAJqcGAAACQxJREFUWIXtmGt0VdURx39zzrkX8oLwSIhY3iAokYURsBBsQCO2aitraavL1mWF2pZVUFFpfdtWHtaqYMUlaGm11epCq/XRWqmIAUHDS40QgzwUECQYSCCQ1z3nTD/sc869NwkBvrD6obPW+bBnz+z579lnZs9s+B8nOdUGVfV04GLgwoB1APgAeFFEEqcaTyowR1XvVVVX26fdqnpta72T8qCq5gNXAP0AF9gHLBWR/cfRiwNvAhdEvMYD4DUh8RyId0kVv0lE/nAyuFDVXFV9UVW9dnaeUNXnVTX3GLqWqj4QCvs1mzWxYoY2vzDOfEtLNLF2rvoNX6eu+d1Q/7geVNUzgDeAIRHTbQSxwO6UKloJXCIiO1N0beAR4BeArXXbSLx9A3gtbexI7mBiFy4CJwNgPTBGRLRDgKrqAOuAkQD+npV4lc+gtZ8BguQOxi78CVbvcaHKF8AoETmgqt2B54FJAHpoB+67N6FNBw2gnD5ITl/8mk3QcggAe+hV2CNvDNcqFpE1VkcAgZ+H4Lyq53DfuwM9WAXqg3po7RbcVbPwPv1rKN8fWKqqhUB5BK5uG+7KWyNwVsFoYhctwTn/QWITH41Owv+qPNX2EIDjAZwKoA3VeBWLI6ZkFSA5faKxV7EIf+eycHgBsBEYDODvfofE2z9DG0wcSe5gnOJ5EMsKxkOQWDYAeuRLs3lDvQGcYyFT1U5AIYC//TVQz+x+0GScUbNAfbzKp/E2LQHAXTePWE5fpPswgBjq4236I17lM8mN5Q7BOf/B8D8zdup3oy2HzXzXQebfNlQNHXuwT7SBRH3EtAdcElizsIdPwer/bTP2WkiU3YIe2g5uI+7qu9LAWX1LiZUuRjLzkxZa6nFXzQLf5GfrtLGp9ldABx4EdgM+YKXu2K9ej91jeDR2Rt9Oon4XeqASWg6ReGc60ikXrd+V3MjZP8U+s1UOVh93zV1o/W4j1qUf9pk/Cmc/FJHPoQMPikgzsB3AGnBZ5HoTxVuSglaMWMl8pNvQwCuHk+CcTJzieW3BtRzGLZuJX73BjONdUo9eMcFJhwADWgwmJVgDLjMcrxn3vTuguS4pFcsmNmEBkjs4ucGs04iVLsI6fXzaglq3jcSyKfjV66MNOsVzkexvhCL3iMjaaJ2O0AWBUgX0x2smsXxa5D3pcRaxCY+Ck5lUaD5EYsV0iOcQK54Hnbqmred/+S5u+f3gNhlGvCtO8Rys/HNCkeeAa0VETwhgALIEWA7Y2rAf9z9T0KZao9xzBLGSR9KiErfB5DWx09bxNv8Zb/OfojQiuUNwxs9Dsk4LRZYBl4tIU6reCRULqjodeAxAa7eQWHEjJI6YBfJGEit5GOzO7St7LbhrZ+PvWh6xrD4X4Jx3V6rOs8ANrcGdDEDBeHEigNZUkFgxA3zXGOxVhFOyoI3XtLnO3CAHqyKePXwKduGU0LQCvwQeTj3WVDpekIQ0LQSH12TyWwAOywmi3G6jJLHsZHQH5Fevj668AOU1wMBjGT6Rf/AmYAEAiSMkVs5CayrMpB3HGXt/m0htTf72V3E3zo8SsmT0xBl3P9JzRChyGLheRF4+KYCqeiXwIoA21eKWzUTrtppJJxNn/ANYvc5NB7N/I5LTH8nonr7WgU24q+80hSqYBD5iGvbQq1OvtwXAr0QkqseOCVBVv4m5bjqTOGJSzKEdZjLehVjJw0j3s9LBff4G7rrfIZ274xTPQXoUpq/ZeAB3zd3JEwCs3sU4592dWlWXA5eJSM0xAarqQEwjk4efwF15a5T1JaMHTskCpGv6b+NteQHvo4WY/x6TgItmYg26vNXiPl7FE3hVz0eyktkLZ9xspEe04feAUhFpbgNQVbsBa4BhoLhrH8D//I2k50oXIzl908F98lRQGLQNRGvQZJyimWClX/v+3tW45bMhqGSwHJzRt2P1/04o8riITE8DGDQ3bwETALzKv+B9sjjySGzCAiRvZDq4jfPxtr4Uje1hP0QTR/G3/yPiSc+zTVBk5KU74+g+3DX3oAcrkzYufALpfiZAA1AQ5YYg1y0BJgP4u97G2/BQaAJnzJ2tolVxy+fg73gtCW7ENOzCqVi9i5HMPPx95ebmaNiP/8W/TXGafXoSeDwbe8AlaFONaSPUR+t3Yg+4FCAGbEnNg3cD14FJxG757KTh4dcn677Qcx89hv/Fm8kNjJqVWi5hDfwesYkLkYyehhEkbe+Tp1KrZnO0594Wede0FF44O9AKvHcR8FswZXdi1e3JIrLfxdiFU9PA+dtextuyNMBm4Yy9D2vQ5HB6B7ABgqOd9DRWwejA6aYKd8tuTk3WYMXAjgeLJ8BrjpxsB63hS0ABLfW4K2ZAY9A/5I0kVjw3NU/hf/V+4F3jBbvoZuyBURtbgfl/Hwd6AqPFycDqNwnERvd/aHAe/QrduQzpnAvxrvifLcX/sszY7HYG9pArw/VeEVWdDLwCpvkJOzTJ6Uus9EmI50TgtG4bieXTTMUC2Gd8H/ucm8Ppj4GJIlIbyateAzwJZIG55rwPfh1VQ+2RM+aOsPZUoI8FFAHgNuJt/buRsjvhfOuhdHCNNaZ/CMBZvYtTe9g9wKWp4ABE5G/AKGAzgNVrFM6kZ7AKxrQLzh56dbIwhrdEZI8DDANMZxUazz8nLdpwG3FXzUq2jt2G4oz9TXj0RwJwe9ozKiJVqjoGc+w/Nol+Pv7+jfg7XjfFazwbe/AVYUcYbngqmKYpaNmSKVGP7DGRJLZpbt6/L3hNAMnMT+0ffOAqEfm4XZckQTYA16tqGTAfyLXyi7Dyi9oT34spXPeCKbdMxGXmRXer1u/GLZuJ9+mzJN66Dn/vaqPqZOKc//tk6oAZIvKvjsC1Avo0pqFfCBxtNV0LzAGGisiGSCd4HKoEbH9fOe7K29LzVEh23FQvBeeFnPkicsuJgmtNqmphnvH6A1uBPe0VrRIIPwLMBPCr1+GuuTd5RxJc5uPnpRafrwJXiIjHqSBVzVHVj6PXOa9F/a8r1Nv+uvoHq1S9ROrb3T9VNeuUAGsFMktVXzjG82xIi4MnuVNGrasZAcYCPwBKA3YLpmFaIiJV/J/S6b82VDQYGIn3DAAAAABJRU5ErkJggg==";
 
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
+}
+
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
+    constructor: {
+      value: t,
+      writable: true,
+      configurable: true
+    }
+  }), Object.defineProperty(t, "prototype", {
+    writable: false
+  }), e && _setPrototypeOf(t, e);
+}
+
+var jsonrpc;
+var hasRequiredJsonrpc;
+function requireJsonrpc() {
+  if (hasRequiredJsonrpc) return jsonrpc;
+  hasRequiredJsonrpc = 1;
+  var JSONRPC = /*#__PURE__*/function () {
+    function JSONRPC() {
+      _classCallCheck(this, JSONRPC);
+      this._requestID = 0;
+      this._openRequests = {};
+    }
+
+    /**
+     * Make an RPC request and retrieve the result.
+     * @param {string} method - the remote method to call.
+     * @param {object} params - the parameters to pass to the remote method.
+     * @returns {Promise} - a promise for the result of the call.
+     */
+    return _createClass(JSONRPC, [{
+      key: "sendRemoteRequest",
+      value: function sendRemoteRequest(method, params) {
+        var _this = this;
+        var requestID = this._requestID++;
+        var promise = new Promise(function (resolve, reject) {
+          _this._openRequests[requestID] = {
+            resolve: resolve,
+            reject: reject
+          };
+        });
+        this._sendRequest(method, params, requestID);
+        return promise;
+      }
+
+      /**
+       * Make an RPC notification with no expectation of a result or callback.
+       * @param {string} method - the remote method to call.
+       * @param {object} params - the parameters to pass to the remote method.
+       */
+    }, {
+      key: "sendRemoteNotification",
+      value: function sendRemoteNotification(method, params) {
+        this._sendRequest(method, params);
+      }
+
+      /**
+       * Handle an RPC request from remote, should return a result or Promise for result, if appropriate.
+       * @param {string} method - the method requested by the remote caller.
+       * @param {object} params - the parameters sent with the remote caller's request.
+       */
+    }, {
+      key: "didReceiveCall",
+      value: function didReceiveCall(/* method , params */
+      ) {
+        throw new Error('Must override didReceiveCall');
+      }
+    }, {
+      key: "_sendMessage",
+      value: function _sendMessage(/* jsonMessageObject */
+      ) {
+        throw new Error('Must override _sendMessage');
+      }
+    }, {
+      key: "_sendRequest",
+      value: function _sendRequest(method, params, id) {
+        var request = {
+          jsonrpc: '2.0',
+          method: method,
+          params: params
+        };
+        if (id !== null) {
+          request.id = id;
+        }
+        this._sendMessage(request);
+      }
+    }, {
+      key: "_handleMessage",
+      value: function _handleMessage(json) {
+        if (json.jsonrpc !== '2.0') {
+          throw new Error("Bad or missing JSON-RPC version in message: ".concat(json));
+        }
+        if (Object.prototype.hasOwnProperty.call(json, 'method')) {
+          this._handleRequest(json);
+        } else {
+          this._handleResponse(json);
+        }
+      }
+    }, {
+      key: "_sendResponse",
+      value: function _sendResponse(id, result, error) {
+        var response = {
+          jsonrpc: '2.0',
+          id: id
+        };
+        if (error) {
+          response.error = error;
+        } else {
+          response.result = result || null;
+        }
+        this._sendMessage(response);
+      }
+    }, {
+      key: "_handleResponse",
+      value: function _handleResponse(json) {
+        var result = json.result,
+          error = json.error,
+          id = json.id;
+        var openRequest = this._openRequests[id];
+        delete this._openRequests[id];
+        if (openRequest) {
+          if (error) {
+            openRequest.reject(error);
+          } else {
+            openRequest.resolve(result);
+          }
+        }
+      }
+    }, {
+      key: "_handleRequest",
+      value: function _handleRequest(json) {
+        var _this2 = this;
+        var method = json.method,
+          params = json.params,
+          id = json.id;
+        var rawResult = this.didReceiveCall(method, params);
+        if (id !== null && typeof id !== 'undefined') {
+          Promise.resolve(rawResult).then(function (result) {
+            _this2._sendResponse(id, result);
+          }, function (error) {
+            _this2._sendResponse(id, null, error);
+          });
+        }
+      }
+    }]);
+  }();
+  jsonrpc = JSONRPC;
+  return jsonrpc;
+}
+
+function _arrayLikeToArray$1(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _arrayWithoutHoles(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray$1(r);
+}
+
+function _iterableToArray(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+}
+
+function _unsupportedIterableToArray$1(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
+  }
+}
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray(r) {
+  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray$1(r) || _nonIterableSpread();
+}
+
+var cjs = {};
+
+var global$1 = (typeof global !== "undefined" ? global :
+  typeof self !== "undefined" ? self :
+  typeof window !== "undefined" ? window : {});
+
+var lookup = [];
+var revLookup = [];
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+var inited = false;
+function init () {
+  inited = true;
+  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  for (var i = 0, len = code.length; i < len; ++i) {
+    lookup[i] = code[i];
+    revLookup[code.charCodeAt(i)] = i;
+  }
+
+  revLookup['-'.charCodeAt(0)] = 62;
+  revLookup['_'.charCodeAt(0)] = 63;
+}
+
+function toByteArray (b64) {
+  if (!inited) {
+    init();
+  }
+  var i, j, l, tmp, placeHolders, arr;
+  var len = b64.length;
+
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4')
+  }
+
+  // the number of equal signs (place holders)
+  // if there are two placeholders, than the two characters before it
+  // represent one byte
+  // if there is only one, then the three characters before it represent 2 bytes
+  // this is just a cheap hack to not do indexOf twice
+  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
+
+  // base64 is 4/3 + up to two characters of the original data
+  arr = new Arr(len * 3 / 4 - placeHolders);
+
+  // if there are placeholders, only get up to the last complete 4 chars
+  l = placeHolders > 0 ? len - 4 : len;
+
+  var L = 0;
+
+  for (i = 0, j = 0; i < l; i += 4, j += 3) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)];
+    arr[L++] = (tmp >> 16) & 0xFF;
+    arr[L++] = (tmp >> 8) & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+
+  if (placeHolders === 2) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4);
+    arr[L++] = tmp & 0xFF;
+  } else if (placeHolders === 1) {
+    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2);
+    arr[L++] = (tmp >> 8) & 0xFF;
+    arr[L++] = tmp & 0xFF;
+  }
+
+  return arr
+}
+
+function tripletToBase64 (num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
+}
+
+function encodeChunk (uint8, start, end) {
+  var tmp;
+  var output = [];
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
+    output.push(tripletToBase64(tmp));
+  }
+  return output.join('')
+}
+
+function fromByteArray (uint8) {
+  if (!inited) {
+    init();
+  }
+  var tmp;
+  var len = uint8.length;
+  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+  var output = '';
+  var parts = [];
+  var maxChunkLength = 16383; // must be multiple of 3
+
+  // go through the array every three bytes, we'll deal with trailing stuff later
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)));
+  }
+
+  // pad the end with zeros, but make sure to not forget the extra bytes
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1];
+    output += lookup[tmp >> 2];
+    output += lookup[(tmp << 4) & 0x3F];
+    output += '==';
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + (uint8[len - 1]);
+    output += lookup[tmp >> 10];
+    output += lookup[(tmp >> 4) & 0x3F];
+    output += lookup[(tmp << 2) & 0x3F];
+    output += '=';
+  }
+
+  parts.push(output);
+
+  return parts.join('')
+}
+
+function read (buffer, offset, isLE, mLen, nBytes) {
+  var e, m;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var nBits = -7;
+  var i = isLE ? (nBytes - 1) : 0;
+  var d = isLE ? -1 : 1;
+  var s = buffer[offset + i];
+
+  i += d;
+
+  e = s & ((1 << (-nBits)) - 1);
+  s >>= (-nBits);
+  nBits += eLen;
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1);
+  e >>= (-nBits);
+  nBits += mLen;
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias;
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen);
+    e = e - eBias;
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
+
+function write (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
+  var i = isLE ? 0 : (nBytes - 1);
+  var d = isLE ? 1 : -1;
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
+
+  value = Math.abs(value);
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0;
+    e = eMax;
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2);
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--;
+      c *= 2;
+    }
+    if (e + eBias >= 1) {
+      value += rt / c;
+    } else {
+      value += rt * Math.pow(2, 1 - eBias);
+    }
+    if (value * c >= 2) {
+      e++;
+      c /= 2;
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0;
+      e = eMax;
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen);
+      e = e + eBias;
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+      e = 0;
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m;
+  eLen += mLen;
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128;
+}
+
+var toString = {}.toString;
+
+var isArray = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
+
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+/* eslint-disable no-proto */
+
+
+var INSPECT_MAX_BYTES = 50;
+
+/**
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
+ *   === true    Use Uint8Array implementation (fastest)
+ *   === false   Use Object implementation (most compatible, even IE6)
+ *
+ * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+ * Opera 11.6+, iOS 4.2+.
+ *
+ * Due to various browser bugs, sometimes the Object implementation will be used even
+ * when the browser supports typed arrays.
+ *
+ * Note:
+ *
+ *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+ *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+ *
+ *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+ *
+ *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+ *     incorrect length in some situations.
+
+ * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+ * get the Object implementation, which is slower but behaves correctly.
+ */
+Buffer.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined
+  ? global$1.TYPED_ARRAY_SUPPORT
+  : true;
+
+/*
+ * Export kMaxLength after typed array support is determined.
+ */
+kMaxLength();
+
+function kMaxLength () {
+  return Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+}
+
+function createBuffer (that, length) {
+  if (kMaxLength() < length) {
+    throw new RangeError('Invalid typed array length')
+  }
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = new Uint8Array(length);
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    if (that === null) {
+      that = new Buffer(length);
+    }
+    that.length = length;
+  }
+
+  return that
+}
+
+/**
+ * The Buffer constructor returns instances of `Uint8Array` that have their
+ * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
+ * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
+ * and the `Uint8Array` methods. Square bracket notation works as expected -- it
+ * returns a single octet.
+ *
+ * The `Uint8Array` prototype remains unmodified.
+ */
+
+function Buffer (arg, encodingOrOffset, length) {
+  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
+    return new Buffer(arg, encodingOrOffset, length)
+  }
+
+  // Common case.
+  if (typeof arg === 'number') {
+    if (typeof encodingOrOffset === 'string') {
+      throw new Error(
+        'If encoding is specified then the first argument must be a string'
+      )
+    }
+    return allocUnsafe(this, arg)
+  }
+  return from(this, arg, encodingOrOffset, length)
+}
+
+Buffer.poolSize = 8192; // not used by this implementation
+
+// TODO: Legacy, not needed anymore. Remove in next major version.
+Buffer._augment = function (arr) {
+  arr.__proto__ = Buffer.prototype;
+  return arr
+};
+
+function from (that, value, encodingOrOffset, length) {
+  if (typeof value === 'number') {
+    throw new TypeError('"value" argument must not be a number')
+  }
+
+  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
+    return fromArrayBuffer(that, value, encodingOrOffset, length)
+  }
+
+  if (typeof value === 'string') {
+    return fromString(that, value, encodingOrOffset)
+  }
+
+  return fromObject(that, value)
+}
+
+/**
+ * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
+ * if value is a number.
+ * Buffer.from(str[, encoding])
+ * Buffer.from(array)
+ * Buffer.from(buffer)
+ * Buffer.from(arrayBuffer[, byteOffset[, length]])
+ **/
+Buffer.from = function (value, encodingOrOffset, length) {
+  return from(null, value, encodingOrOffset, length)
+};
+
+if (Buffer.TYPED_ARRAY_SUPPORT) {
+  Buffer.prototype.__proto__ = Uint8Array.prototype;
+  Buffer.__proto__ = Uint8Array;
+  if (typeof Symbol !== 'undefined' && Symbol.species &&
+      Buffer[Symbol.species] === Buffer) ;
+}
+
+function assertSize (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('"size" argument must be a number')
+  } else if (size < 0) {
+    throw new RangeError('"size" argument must not be negative')
+  }
+}
+
+function alloc (that, size, fill, encoding) {
+  assertSize(size);
+  if (size <= 0) {
+    return createBuffer(that, size)
+  }
+  if (fill !== undefined) {
+    // Only pay attention to encoding if it's a string. This
+    // prevents accidentally sending in a number that would
+    // be interpretted as a start offset.
+    return typeof encoding === 'string'
+      ? createBuffer(that, size).fill(fill, encoding)
+      : createBuffer(that, size).fill(fill)
+  }
+  return createBuffer(that, size)
+}
+
+/**
+ * Creates a new filled Buffer instance.
+ * alloc(size[, fill[, encoding]])
+ **/
+Buffer.alloc = function (size, fill, encoding) {
+  return alloc(null, size, fill, encoding)
+};
+
+function allocUnsafe (that, size) {
+  assertSize(size);
+  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < size; ++i) {
+      that[i] = 0;
+    }
+  }
+  return that
+}
+
+/**
+ * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
+ * */
+Buffer.allocUnsafe = function (size) {
+  return allocUnsafe(null, size)
+};
+/**
+ * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
+ */
+Buffer.allocUnsafeSlow = function (size) {
+  return allocUnsafe(null, size)
+};
+
+function fromString (that, string, encoding) {
+  if (typeof encoding !== 'string' || encoding === '') {
+    encoding = 'utf8';
+  }
+
+  if (!Buffer.isEncoding(encoding)) {
+    throw new TypeError('"encoding" must be a valid string encoding')
+  }
+
+  var length = byteLength(string, encoding) | 0;
+  that = createBuffer(that, length);
+
+  var actual = that.write(string, encoding);
+
+  if (actual !== length) {
+    // Writing a hex string, for example, that contains invalid characters will
+    // cause everything after the first invalid character to be ignored. (e.g.
+    // 'abxxcd' will be treated as 'ab')
+    that = that.slice(0, actual);
+  }
+
+  return that
+}
+
+function fromArrayLike (that, array) {
+  var length = array.length < 0 ? 0 : checked(array.length) | 0;
+  that = createBuffer(that, length);
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255;
+  }
+  return that
+}
+
+function fromArrayBuffer (that, array, byteOffset, length) {
+  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
+
+  if (byteOffset < 0 || array.byteLength < byteOffset) {
+    throw new RangeError('\'offset\' is out of bounds')
+  }
+
+  if (array.byteLength < byteOffset + (length || 0)) {
+    throw new RangeError('\'length\' is out of bounds')
+  }
+
+  if (byteOffset === undefined && length === undefined) {
+    array = new Uint8Array(array);
+  } else if (length === undefined) {
+    array = new Uint8Array(array, byteOffset);
+  } else {
+    array = new Uint8Array(array, byteOffset, length);
+  }
+
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = array;
+    that.__proto__ = Buffer.prototype;
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that = fromArrayLike(that, array);
+  }
+  return that
+}
+
+function fromObject (that, obj) {
+  if (internalIsBuffer(obj)) {
+    var len = checked(obj.length) | 0;
+    that = createBuffer(that, len);
+
+    if (that.length === 0) {
+      return that
+    }
+
+    obj.copy(that, 0, 0, len);
+    return that
+  }
+
+  if (obj) {
+    if ((typeof ArrayBuffer !== 'undefined' &&
+        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
+      if (typeof obj.length !== 'number' || isnan(obj.length)) {
+        return createBuffer(that, 0)
+      }
+      return fromArrayLike(that, obj)
+    }
+
+    if (obj.type === 'Buffer' && isArray(obj.data)) {
+      return fromArrayLike(that, obj.data)
+    }
+  }
+
+  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
+}
+
+function checked (length) {
+  // Note: cannot use `length < kMaxLength()` here because that fails when
+  // length is NaN (which is otherwise coerced to zero.)
+  if (length >= kMaxLength()) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+  }
+  return length | 0
+}
+Buffer.isBuffer = isBuffer;
+function internalIsBuffer (b) {
+  return !!(b != null && b._isBuffer)
+}
+
+Buffer.compare = function compare (a, b) {
+  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
+    throw new TypeError('Arguments must be Buffers')
+  }
+
+  if (a === b) return 0
+
+  var x = a.length;
+  var y = b.length;
+
+  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+    if (a[i] !== b[i]) {
+      x = a[i];
+      y = b[i];
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+};
+
+Buffer.isEncoding = function isEncoding (encoding) {
+  switch (String(encoding).toLowerCase()) {
+    case 'hex':
+    case 'utf8':
+    case 'utf-8':
+    case 'ascii':
+    case 'latin1':
+    case 'binary':
+    case 'base64':
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      return true
+    default:
+      return false
+  }
+};
+
+Buffer.concat = function concat (list, length) {
+  if (!isArray(list)) {
+    throw new TypeError('"list" argument must be an Array of Buffers')
+  }
+
+  if (list.length === 0) {
+    return Buffer.alloc(0)
+  }
+
+  var i;
+  if (length === undefined) {
+    length = 0;
+    for (i = 0; i < list.length; ++i) {
+      length += list[i].length;
+    }
+  }
+
+  var buffer = Buffer.allocUnsafe(length);
+  var pos = 0;
+  for (i = 0; i < list.length; ++i) {
+    var buf = list[i];
+    if (!internalIsBuffer(buf)) {
+      throw new TypeError('"list" argument must be an Array of Buffers')
+    }
+    buf.copy(buffer, pos);
+    pos += buf.length;
+  }
+  return buffer
+};
+
+function byteLength (string, encoding) {
+  if (internalIsBuffer(string)) {
+    return string.length
+  }
+  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
+      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+    return string.byteLength
+  }
+  if (typeof string !== 'string') {
+    string = '' + string;
+  }
+
+  var len = string.length;
+  if (len === 0) return 0
+
+  // Use a for loop to avoid recursion
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'latin1':
+      case 'binary':
+        return len
+      case 'utf8':
+      case 'utf-8':
+      case undefined:
+        return utf8ToBytes(string).length
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2
+      case 'hex':
+        return len >>> 1
+      case 'base64':
+        return base64ToBytes(string).length
+      default:
+        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+Buffer.byteLength = byteLength;
+
+function slowToString (encoding, start, end) {
+  var loweredCase = false;
+
+  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
+  // property of a typed array.
+
+  // This behaves neither like String nor Uint8Array in that we set start/end
+  // to their upper/lower bounds if the value passed is out of range.
+  // undefined is handled specially as per ECMA-262 6th Edition,
+  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
+  if (start === undefined || start < 0) {
+    start = 0;
+  }
+  // Return early if start > this.length. Done here to prevent potential uint32
+  // coercion fail below.
+  if (start > this.length) {
+    return ''
+  }
+
+  if (end === undefined || end > this.length) {
+    end = this.length;
+  }
+
+  if (end <= 0) {
+    return ''
+  }
+
+  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
+  end >>>= 0;
+  start >>>= 0;
+
+  if (end <= start) {
+    return ''
+  }
+
+  if (!encoding) encoding = 'utf8';
+
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end)
+
+      case 'ascii':
+        return asciiSlice(this, start, end)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Slice(this, start, end)
+
+      case 'base64':
+        return base64Slice(this, start, end)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = (encoding + '').toLowerCase();
+        loweredCase = true;
+    }
+  }
+}
+
+// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
+// Buffer instances.
+Buffer.prototype._isBuffer = true;
+
+function swap (b, n, m) {
+  var i = b[n];
+  b[n] = b[m];
+  b[m] = i;
+}
+
+Buffer.prototype.swap16 = function swap16 () {
+  var len = this.length;
+  if (len % 2 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 16-bits')
+  }
+  for (var i = 0; i < len; i += 2) {
+    swap(this, i, i + 1);
+  }
+  return this
+};
+
+Buffer.prototype.swap32 = function swap32 () {
+  var len = this.length;
+  if (len % 4 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 32-bits')
+  }
+  for (var i = 0; i < len; i += 4) {
+    swap(this, i, i + 3);
+    swap(this, i + 1, i + 2);
+  }
+  return this
+};
+
+Buffer.prototype.swap64 = function swap64 () {
+  var len = this.length;
+  if (len % 8 !== 0) {
+    throw new RangeError('Buffer size must be a multiple of 64-bits')
+  }
+  for (var i = 0; i < len; i += 8) {
+    swap(this, i, i + 7);
+    swap(this, i + 1, i + 6);
+    swap(this, i + 2, i + 5);
+    swap(this, i + 3, i + 4);
+  }
+  return this
+};
+
+Buffer.prototype.toString = function toString () {
+  var length = this.length | 0;
+  if (length === 0) return ''
+  if (arguments.length === 0) return utf8Slice(this, 0, length)
+  return slowToString.apply(this, arguments)
+};
+
+Buffer.prototype.equals = function equals (b) {
+  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return true
+  return Buffer.compare(this, b) === 0
+};
+
+Buffer.prototype.inspect = function inspect () {
+  var str = '';
+  var max = INSPECT_MAX_BYTES;
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
+    if (this.length > max) str += ' ... ';
+  }
+  return '<Buffer ' + str + '>'
+};
+
+Buffer.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
+  if (!internalIsBuffer(target)) {
+    throw new TypeError('Argument must be a Buffer')
+  }
+
+  if (start === undefined) {
+    start = 0;
+  }
+  if (end === undefined) {
+    end = target ? target.length : 0;
+  }
+  if (thisStart === undefined) {
+    thisStart = 0;
+  }
+  if (thisEnd === undefined) {
+    thisEnd = this.length;
+  }
+
+  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+    throw new RangeError('out of range index')
+  }
+
+  if (thisStart >= thisEnd && start >= end) {
+    return 0
+  }
+  if (thisStart >= thisEnd) {
+    return -1
+  }
+  if (start >= end) {
+    return 1
+  }
+
+  start >>>= 0;
+  end >>>= 0;
+  thisStart >>>= 0;
+  thisEnd >>>= 0;
+
+  if (this === target) return 0
+
+  var x = thisEnd - thisStart;
+  var y = end - start;
+  var len = Math.min(x, y);
+
+  var thisCopy = this.slice(thisStart, thisEnd);
+  var targetCopy = target.slice(start, end);
+
+  for (var i = 0; i < len; ++i) {
+    if (thisCopy[i] !== targetCopy[i]) {
+      x = thisCopy[i];
+      y = targetCopy[i];
+      break
+    }
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+};
+
+// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
+// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
+//
+// Arguments:
+// - buffer - a Buffer to search
+// - val - a string, Buffer, or number
+// - byteOffset - an index into `buffer`; will be clamped to an int32
+// - encoding - an optional encoding, relevant is val is a string
+// - dir - true for indexOf, false for lastIndexOf
+function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
+  // Empty buffer means no match
+  if (buffer.length === 0) return -1
+
+  // Normalize byteOffset
+  if (typeof byteOffset === 'string') {
+    encoding = byteOffset;
+    byteOffset = 0;
+  } else if (byteOffset > 0x7fffffff) {
+    byteOffset = 0x7fffffff;
+  } else if (byteOffset < -2147483648) {
+    byteOffset = -2147483648;
+  }
+  byteOffset = +byteOffset;  // Coerce to Number.
+  if (isNaN(byteOffset)) {
+    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
+    byteOffset = dir ? 0 : (buffer.length - 1);
+  }
+
+  // Normalize byteOffset: negative offsets start from the end of the buffer
+  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
+  if (byteOffset >= buffer.length) {
+    if (dir) return -1
+    else byteOffset = buffer.length - 1;
+  } else if (byteOffset < 0) {
+    if (dir) byteOffset = 0;
+    else return -1
+  }
+
+  // Normalize val
+  if (typeof val === 'string') {
+    val = Buffer.from(val, encoding);
+  }
+
+  // Finally, search either indexOf (if dir is true) or lastIndexOf
+  if (internalIsBuffer(val)) {
+    // Special case: looking for empty string/buffer always fails
+    if (val.length === 0) {
+      return -1
+    }
+    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
+  } else if (typeof val === 'number') {
+    val = val & 0xFF; // Search for a byte value [0-255]
+    if (Buffer.TYPED_ARRAY_SUPPORT &&
+        typeof Uint8Array.prototype.indexOf === 'function') {
+      if (dir) {
+        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
+      } else {
+        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
+      }
+    }
+    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
+  }
+
+  throw new TypeError('val must be string, number or Buffer')
+}
+
+function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
+  var indexSize = 1;
+  var arrLength = arr.length;
+  var valLength = val.length;
+
+  if (encoding !== undefined) {
+    encoding = String(encoding).toLowerCase();
+    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
+        encoding === 'utf16le' || encoding === 'utf-16le') {
+      if (arr.length < 2 || val.length < 2) {
+        return -1
+      }
+      indexSize = 2;
+      arrLength /= 2;
+      valLength /= 2;
+      byteOffset /= 2;
+    }
+  }
+
+  function read (buf, i) {
+    if (indexSize === 1) {
+      return buf[i]
+    } else {
+      return buf.readUInt16BE(i * indexSize)
+    }
+  }
+
+  var i;
+  if (dir) {
+    var foundIndex = -1;
+    for (i = byteOffset; i < arrLength; i++) {
+      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
+        if (foundIndex === -1) foundIndex = i;
+        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
+      } else {
+        if (foundIndex !== -1) i -= i - foundIndex;
+        foundIndex = -1;
+      }
+    }
+  } else {
+    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
+    for (i = byteOffset; i >= 0; i--) {
+      var found = true;
+      for (var j = 0; j < valLength; j++) {
+        if (read(arr, i + j) !== read(val, j)) {
+          found = false;
+          break
+        }
+      }
+      if (found) return i
+    }
+  }
+
+  return -1
+}
+
+Buffer.prototype.includes = function includes (val, byteOffset, encoding) {
+  return this.indexOf(val, byteOffset, encoding) !== -1
+};
+
+Buffer.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, true)
+};
+
+Buffer.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
+  return bidirectionalIndexOf(this, val, byteOffset, encoding, false)
+};
+
+function hexWrite (buf, string, offset, length) {
+  offset = Number(offset) || 0;
+  var remaining = buf.length - offset;
+  if (!length) {
+    length = remaining;
+  } else {
+    length = Number(length);
+    if (length > remaining) {
+      length = remaining;
+    }
+  }
+
+  // must be an even number of digits
+  var strLen = string.length;
+  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
+
+  if (length > strLen / 2) {
+    length = strLen / 2;
+  }
+  for (var i = 0; i < length; ++i) {
+    var parsed = parseInt(string.substr(i * 2, 2), 16);
+    if (isNaN(parsed)) return i
+    buf[offset + i] = parsed;
+  }
+  return i
+}
+
+function utf8Write (buf, string, offset, length) {
+  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+function asciiWrite (buf, string, offset, length) {
+  return blitBuffer(asciiToBytes(string), buf, offset, length)
+}
+
+function latin1Write (buf, string, offset, length) {
+  return asciiWrite(buf, string, offset, length)
+}
+
+function base64Write (buf, string, offset, length) {
+  return blitBuffer(base64ToBytes(string), buf, offset, length)
+}
+
+function ucs2Write (buf, string, offset, length) {
+  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+Buffer.prototype.write = function write (string, offset, length, encoding) {
+  // Buffer#write(string)
+  if (offset === undefined) {
+    encoding = 'utf8';
+    length = this.length;
+    offset = 0;
+  // Buffer#write(string, encoding)
+  } else if (length === undefined && typeof offset === 'string') {
+    encoding = offset;
+    length = this.length;
+    offset = 0;
+  // Buffer#write(string, offset[, length][, encoding])
+  } else if (isFinite(offset)) {
+    offset = offset | 0;
+    if (isFinite(length)) {
+      length = length | 0;
+      if (encoding === undefined) encoding = 'utf8';
+    } else {
+      encoding = length;
+      length = undefined;
+    }
+  // legacy write(string, encoding, offset, length) - remove in v0.13
+  } else {
+    throw new Error(
+      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
+    )
+  }
+
+  var remaining = this.length - offset;
+  if (length === undefined || length > remaining) length = remaining;
+
+  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+    throw new RangeError('Attempt to write outside buffer bounds')
+  }
+
+  if (!encoding) encoding = 'utf8';
+
+  var loweredCase = false;
+  for (;;) {
+    switch (encoding) {
+      case 'hex':
+        return hexWrite(this, string, offset, length)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Write(this, string, offset, length)
+
+      case 'ascii':
+        return asciiWrite(this, string, offset, length)
+
+      case 'latin1':
+      case 'binary':
+        return latin1Write(this, string, offset, length)
+
+      case 'base64':
+        // Warning: maxLength not taken into account in base64Write
+        return base64Write(this, string, offset, length)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return ucs2Write(this, string, offset, length)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = ('' + encoding).toLowerCase();
+        loweredCase = true;
+    }
+  }
+};
+
+Buffer.prototype.toJSON = function toJSON () {
+  return {
+    type: 'Buffer',
+    data: Array.prototype.slice.call(this._arr || this, 0)
+  }
+};
+
+function base64Slice (buf, start, end) {
+  if (start === 0 && end === buf.length) {
+    return fromByteArray(buf)
+  } else {
+    return fromByteArray(buf.slice(start, end))
+  }
+}
+
+function utf8Slice (buf, start, end) {
+  end = Math.min(buf.length, end);
+  var res = [];
+
+  var i = start;
+  while (i < end) {
+    var firstByte = buf[i];
+    var codePoint = null;
+    var bytesPerSequence = (firstByte > 0xEF) ? 4
+      : (firstByte > 0xDF) ? 3
+      : (firstByte > 0xBF) ? 2
+      : 1;
+
+    if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint;
+
+      switch (bytesPerSequence) {
+        case 1:
+          if (firstByte < 0x80) {
+            codePoint = firstByte;
+          }
+          break
+        case 2:
+          secondByte = buf[i + 1];
+          if ((secondByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
+            if (tempCodePoint > 0x7F) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break
+        case 3:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
+            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+              codePoint = tempCodePoint;
+            }
+          }
+          break
+        case 4:
+          secondByte = buf[i + 1];
+          thirdByte = buf[i + 2];
+          fourthByte = buf[i + 3];
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
+            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+              codePoint = tempCodePoint;
+            }
+          }
+      }
+    }
+
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD;
+      bytesPerSequence = 1;
+    } else if (codePoint > 0xFFFF) {
+      // encode to utf16 (surrogate pair dance)
+      codePoint -= 0x10000;
+      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
+      codePoint = 0xDC00 | codePoint & 0x3FF;
+    }
+
+    res.push(codePoint);
+    i += bytesPerSequence;
+  }
+
+  return decodeCodePointsArray(res)
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000;
+
+function decodeCodePointsArray (codePoints) {
+  var len = codePoints.length;
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = '';
+  var i = 0;
+  while (i < len) {
+    res += String.fromCharCode.apply(
+      String,
+      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+    );
+  }
+  return res
+}
+
+function asciiSlice (buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i] & 0x7F);
+  }
+  return ret
+}
+
+function latin1Slice (buf, start, end) {
+  var ret = '';
+  end = Math.min(buf.length, end);
+
+  for (var i = start; i < end; ++i) {
+    ret += String.fromCharCode(buf[i]);
+  }
+  return ret
+}
+
+function hexSlice (buf, start, end) {
+  var len = buf.length;
+
+  if (!start || start < 0) start = 0;
+  if (!end || end < 0 || end > len) end = len;
+
+  var out = '';
+  for (var i = start; i < end; ++i) {
+    out += toHex(buf[i]);
+  }
+  return out
+}
+
+function utf16leSlice (buf, start, end) {
+  var bytes = buf.slice(start, end);
+  var res = '';
+  for (var i = 0; i < bytes.length; i += 2) {
+    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
+  }
+  return res
+}
+
+Buffer.prototype.slice = function slice (start, end) {
+  var len = this.length;
+  start = ~~start;
+  end = end === undefined ? len : ~~end;
+
+  if (start < 0) {
+    start += len;
+    if (start < 0) start = 0;
+  } else if (start > len) {
+    start = len;
+  }
+
+  if (end < 0) {
+    end += len;
+    if (end < 0) end = 0;
+  } else if (end > len) {
+    end = len;
+  }
+
+  if (end < start) end = start;
+
+  var newBuf;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = this.subarray(start, end);
+    newBuf.__proto__ = Buffer.prototype;
+  } else {
+    var sliceLen = end - start;
+    newBuf = new Buffer(sliceLen, undefined);
+    for (var i = 0; i < sliceLen; ++i) {
+      newBuf[i] = this[i + start];
+    }
+  }
+
+  return newBuf
+};
+
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset (offset, ext, length) {
+  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+}
+
+Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+
+  return val
+};
+
+Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    checkOffset(offset, byteLength, this.length);
+  }
+
+  var val = this[offset + --byteLength];
+  var mul = 1;
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += this[offset + --byteLength] * mul;
+  }
+
+  return val
+};
+
+Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  return this[offset]
+};
+
+Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return this[offset] | (this[offset + 1] << 8)
+};
+
+Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  return (this[offset] << 8) | this[offset + 1]
+};
+
+Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return ((this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16)) +
+      (this[offset + 3] * 0x1000000)
+};
+
+Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset] * 0x1000000) +
+    ((this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    this[offset + 3])
+};
+
+Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var val = this[offset];
+  var mul = 1;
+  var i = 0;
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val
+};
+
+Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) checkOffset(offset, byteLength, this.length);
+
+  var i = byteLength;
+  var mul = 1;
+  var val = this[offset + --i];
+  while (i > 0 && (mul *= 0x100)) {
+    val += this[offset + --i] * mul;
+  }
+  mul *= 0x80;
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
+
+  return val
+};
+
+Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length);
+  if (!(this[offset] & 0x80)) return (this[offset])
+  return ((0xff - this[offset] + 1) * -1)
+};
+
+Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset] | (this[offset + 1] << 8);
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+};
+
+Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length);
+  var val = this[offset + 1] | (this[offset] << 8);
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+};
+
+Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset]) |
+    (this[offset + 1] << 8) |
+    (this[offset + 2] << 16) |
+    (this[offset + 3] << 24)
+};
+
+Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+
+  return (this[offset] << 24) |
+    (this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    (this[offset + 3])
+};
+
+Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, true, 23, 4)
+};
+
+Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length);
+  return read(this, offset, false, 23, 4)
+};
+
+Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, true, 52, 8)
+};
+
+Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length);
+  return read(this, offset, false, 52, 8)
+};
+
+function checkInt (buf, value, offset, ext, max, min) {
+  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
+  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+}
+
+Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+
+  var mul = 1;
+  var i = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  byteLength = byteLength | 0;
+  if (!noAssert) {
+    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
+    checkInt(this, value, offset, byteLength, maxBytes, 0);
+  }
+
+  var i = byteLength - 1;
+  var mul = 1;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  this[offset] = (value & 0xff);
+  return offset + 1
+};
+
+function objectWriteUInt16 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
+    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+      (littleEndian ? i : 1 - i) * 8;
+  }
+}
+
+Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8);
+    this[offset + 1] = (value & 0xff);
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2
+};
+
+function objectWriteUInt32 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1;
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
+  }
+}
+
+Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = (value >>> 24);
+    this[offset + 2] = (value >>> 16);
+    this[offset + 1] = (value >>> 8);
+    this[offset] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24);
+    this[offset + 1] = (value >>> 16);
+    this[offset + 2] = (value >>> 8);
+    this[offset + 3] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+
+  var i = 0;
+  var mul = 1;
+  var sub = 0;
+  this[offset] = value & 0xFF;
+  while (++i < byteLength && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1);
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit);
+  }
+
+  var i = byteLength - 1;
+  var mul = 1;
+  var sub = 0;
+  this[offset + i] = value & 0xFF;
+  while (--i >= 0 && (mul *= 0x100)) {
+    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+      sub = 1;
+    }
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
+  }
+
+  return offset + byteLength
+};
+
+Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -128);
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
+  if (value < 0) value = 0xff + value + 1;
+  this[offset] = (value & 0xff);
+  return offset + 1
+};
+
+Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -32768);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+  } else {
+    objectWriteUInt16(this, value, offset, true);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -32768);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8);
+    this[offset + 1] = (value & 0xff);
+  } else {
+    objectWriteUInt16(this, value, offset, false);
+  }
+  return offset + 2
+};
+
+Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -2147483648);
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value & 0xff);
+    this[offset + 1] = (value >>> 8);
+    this[offset + 2] = (value >>> 16);
+    this[offset + 3] = (value >>> 24);
+  } else {
+    objectWriteUInt32(this, value, offset, true);
+  }
+  return offset + 4
+};
+
+Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+  value = +value;
+  offset = offset | 0;
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -2147483648);
+  if (value < 0) value = 0xffffffff + value + 1;
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24);
+    this[offset + 1] = (value >>> 16);
+    this[offset + 2] = (value >>> 8);
+    this[offset + 3] = (value & 0xff);
+  } else {
+    objectWriteUInt32(this, value, offset, false);
+  }
+  return offset + 4
+};
+
+function checkIEEE754 (buf, value, offset, ext, max, min) {
+  if (offset + ext > buf.length) throw new RangeError('Index out of range')
+  if (offset < 0) throw new RangeError('Index out of range')
+}
+
+function writeFloat (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 4);
+  }
+  write(buf, value, offset, littleEndian, 23, 4);
+  return offset + 4
+}
+
+Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, true, noAssert)
+};
+
+Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, false, noAssert)
+};
+
+function writeDouble (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 8);
+  }
+  write(buf, value, offset, littleEndian, 52, 8);
+  return offset + 8
+}
+
+Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, true, noAssert)
+};
+
+Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, false, noAssert)
+};
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function copy (target, targetStart, start, end) {
+  if (!start) start = 0;
+  if (!end && end !== 0) end = this.length;
+  if (targetStart >= target.length) targetStart = target.length;
+  if (!targetStart) targetStart = 0;
+  if (end > 0 && end < start) end = start;
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0
+  if (target.length === 0 || this.length === 0) return 0
+
+  // Fatal error conditions
+  if (targetStart < 0) {
+    throw new RangeError('targetStart out of bounds')
+  }
+  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+  // Are we oob?
+  if (end > this.length) end = this.length;
+  if (target.length - targetStart < end - start) {
+    end = target.length - targetStart + start;
+  }
+
+  var len = end - start;
+  var i;
+
+  if (this === target && start < targetStart && targetStart < end) {
+    // descending copy from end
+    for (i = len - 1; i >= 0; --i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    // ascending copy from start
+    for (i = 0; i < len; ++i) {
+      target[i + targetStart] = this[i + start];
+    }
+  } else {
+    Uint8Array.prototype.set.call(
+      target,
+      this.subarray(start, start + len),
+      targetStart
+    );
+  }
+
+  return len
+};
+
+// Usage:
+//    buffer.fill(number[, offset[, end]])
+//    buffer.fill(buffer[, offset[, end]])
+//    buffer.fill(string[, offset[, end]][, encoding])
+Buffer.prototype.fill = function fill (val, start, end, encoding) {
+  // Handle string cases:
+  if (typeof val === 'string') {
+    if (typeof start === 'string') {
+      encoding = start;
+      start = 0;
+      end = this.length;
+    } else if (typeof end === 'string') {
+      encoding = end;
+      end = this.length;
+    }
+    if (val.length === 1) {
+      var code = val.charCodeAt(0);
+      if (code < 256) {
+        val = code;
+      }
+    }
+    if (encoding !== undefined && typeof encoding !== 'string') {
+      throw new TypeError('encoding must be a string')
+    }
+    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
+      throw new TypeError('Unknown encoding: ' + encoding)
+    }
+  } else if (typeof val === 'number') {
+    val = val & 255;
+  }
+
+  // Invalid ranges are not set to a default, so can range check early.
+  if (start < 0 || this.length < start || this.length < end) {
+    throw new RangeError('Out of range index')
+  }
+
+  if (end <= start) {
+    return this
+  }
+
+  start = start >>> 0;
+  end = end === undefined ? this.length : end >>> 0;
+
+  if (!val) val = 0;
+
+  var i;
+  if (typeof val === 'number') {
+    for (i = start; i < end; ++i) {
+      this[i] = val;
+    }
+  } else {
+    var bytes = internalIsBuffer(val)
+      ? val
+      : utf8ToBytes(new Buffer(val, encoding).toString());
+    var len = bytes.length;
+    for (i = 0; i < end - start; ++i) {
+      this[i + start] = bytes[i % len];
+    }
+  }
+
+  return this
+};
+
+// HELPER FUNCTIONS
+// ================
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
+
+function base64clean (str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '');
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '=';
+  }
+  return str
+}
+
+function stringtrim (str) {
+  if (str.trim) return str.trim()
+  return str.replace(/^\s+|\s+$/g, '')
+}
+
+function toHex (n) {
+  if (n < 16) return '0' + n.toString(16)
+  return n.toString(16)
+}
+
+function utf8ToBytes (string, units) {
+  units = units || Infinity;
+  var codePoint;
+  var length = string.length;
+  var leadSurrogate = null;
+  var bytes = [];
+
+  for (var i = 0; i < length; ++i) {
+    codePoint = string.charCodeAt(i);
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (!leadSurrogate) {
+        // no lead yet
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+          continue
+        }
+
+        // valid lead
+        leadSurrogate = codePoint;
+
+        continue
+      }
+
+      // 2 leads in a row
+      if (codePoint < 0xDC00) {
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+        leadSurrogate = codePoint;
+        continue
+      }
+
+      // valid surrogate pair
+      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
+    }
+
+    leadSurrogate = null;
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break
+      bytes.push(codePoint);
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break
+      bytes.push(
+        codePoint >> 0x6 | 0xC0,
+        codePoint & 0x3F | 0x80
+      );
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break
+      bytes.push(
+        codePoint >> 0xC | 0xE0,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      );
+    } else if (codePoint < 0x110000) {
+      if ((units -= 4) < 0) break
+      bytes.push(
+        codePoint >> 0x12 | 0xF0,
+        codePoint >> 0xC & 0x3F | 0x80,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      );
+    } else {
+      throw new Error('Invalid code point')
+    }
+  }
+
+  return bytes
+}
+
+function asciiToBytes (str) {
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    // Node's code seems to be doing this and not & 0x7F..
+    byteArray.push(str.charCodeAt(i) & 0xFF);
+  }
+  return byteArray
+}
+
+function utf16leToBytes (str, units) {
+  var c, hi, lo;
+  var byteArray = [];
+  for (var i = 0; i < str.length; ++i) {
+    if ((units -= 2) < 0) break
+
+    c = str.charCodeAt(i);
+    hi = c >> 8;
+    lo = c % 256;
+    byteArray.push(lo);
+    byteArray.push(hi);
+  }
+
+  return byteArray
+}
+
+
+function base64ToBytes (str) {
+  return toByteArray(base64clean(str))
+}
+
+function blitBuffer (src, dst, offset, length) {
+  for (var i = 0; i < length; ++i) {
+    if ((i + offset >= dst.length) || (i >= src.length)) break
+    dst[i + offset] = src[i];
+  }
+  return i
+}
+
+function isnan (val) {
+  return val !== val // eslint-disable-line no-self-compare
+}
+
+
+// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+function isBuffer(obj) {
+  return obj != null && (!!obj._isBuffer || isFastBuffer(obj) || isSlowBuffer(obj))
+}
+
+function isFastBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0))
+}
+
+var BaseLogger = {};
+
+var formatTemplate = {};
+
+var prettyLogStyles = {};
+
+var hasRequiredPrettyLogStyles;
+
+function requirePrettyLogStyles () {
+	if (hasRequiredPrettyLogStyles) return prettyLogStyles;
+	hasRequiredPrettyLogStyles = 1;
+	Object.defineProperty(prettyLogStyles, "__esModule", { value: true });
+	prettyLogStyles.prettyLogStyles = void 0;
+	prettyLogStyles.prettyLogStyles = {
+	    reset: [0, 0],
+	    bold: [1, 22],
+	    dim: [2, 22],
+	    italic: [3, 23],
+	    underline: [4, 24],
+	    overline: [53, 55],
+	    inverse: [7, 27],
+	    hidden: [8, 28],
+	    strikethrough: [9, 29],
+	    black: [30, 39],
+	    red: [31, 39],
+	    green: [32, 39],
+	    yellow: [33, 39],
+	    blue: [34, 39],
+	    magenta: [35, 39],
+	    cyan: [36, 39],
+	    white: [37, 39],
+	    blackBright: [90, 39],
+	    redBright: [91, 39],
+	    greenBright: [92, 39],
+	    yellowBright: [93, 39],
+	    blueBright: [94, 39],
+	    magentaBright: [95, 39],
+	    cyanBright: [96, 39],
+	    whiteBright: [97, 39],
+	    bgBlack: [40, 49],
+	    bgRed: [41, 49],
+	    bgGreen: [42, 49],
+	    bgYellow: [43, 49],
+	    bgBlue: [44, 49],
+	    bgMagenta: [45, 49],
+	    bgCyan: [46, 49],
+	    bgWhite: [47, 49],
+	    bgBlackBright: [100, 49],
+	    bgRedBright: [101, 49],
+	    bgGreenBright: [102, 49],
+	    bgYellowBright: [103, 49],
+	    bgBlueBright: [104, 49],
+	    bgMagentaBright: [105, 49],
+	    bgCyanBright: [106, 49],
+	    bgWhiteBright: [107, 49],
+	};
+	return prettyLogStyles;
+}
+
+var hasRequiredFormatTemplate;
+
+function requireFormatTemplate () {
+	if (hasRequiredFormatTemplate) return formatTemplate;
+	hasRequiredFormatTemplate = 1;
+	Object.defineProperty(formatTemplate, "__esModule", { value: true });
+	formatTemplate.formatTemplate = formatTemplate$1;
+	const prettyLogStyles_js_1 = requirePrettyLogStyles();
+	function formatTemplate$1(settings, template, values, hideUnsetPlaceholder = false) {
+	    const templateString = String(template);
+	    const ansiColorWrap = (placeholderValue, code) => `\u001b[${code[0]}m${placeholderValue}\u001b[${code[1]}m`;
+	    const styleWrap = (value, style) => {
+	        if (style != null && typeof style === "string") {
+	            return ansiColorWrap(value, prettyLogStyles_js_1.prettyLogStyles[style]);
+	        }
+	        else if (style != null && Array.isArray(style)) {
+	            return style.reduce((prevValue, thisStyle) => styleWrap(prevValue, thisStyle), value);
+	        }
+	        else {
+	            if (style != null && style[value.trim()] != null) {
+	                return styleWrap(value, style[value.trim()]);
+	            }
+	            else if (style != null && style["*"] != null) {
+	                return styleWrap(value, style["*"]);
+	            }
+	            else {
+	                return value;
+	            }
+	        }
+	    };
+	    const defaultStyle = null;
+	    return templateString.replace(/{{(.+?)}}/g, (_, placeholder) => {
+	        const value = values[placeholder] != null ? String(values[placeholder]) : hideUnsetPlaceholder ? "" : _;
+	        return settings.stylePrettyLogs
+	            ? styleWrap(value, settings?.prettyLogStyles?.[placeholder] ?? defaultStyle) + ansiColorWrap("", prettyLogStyles_js_1.prettyLogStyles.reset)
+	            : value;
+	    });
+	}
+	return formatTemplate;
+}
+
+var interfaces = {};
+
+var hasRequiredInterfaces;
+
+function requireInterfaces () {
+	if (hasRequiredInterfaces) return interfaces;
+	hasRequiredInterfaces = 1;
+	Object.defineProperty(interfaces, "__esModule", { value: true });
+	interfaces.DefaultLogLevels = void 0;
+	var DefaultLogLevels;
+	(function (DefaultLogLevels) {
+	    DefaultLogLevels[DefaultLogLevels["SILLY"] = 0] = "SILLY";
+	    DefaultLogLevels[DefaultLogLevels["TRACE"] = 1] = "TRACE";
+	    DefaultLogLevels[DefaultLogLevels["DEBUG"] = 2] = "DEBUG";
+	    DefaultLogLevels[DefaultLogLevels["INFO"] = 3] = "INFO";
+	    DefaultLogLevels[DefaultLogLevels["WARN"] = 4] = "WARN";
+	    DefaultLogLevels[DefaultLogLevels["ERROR"] = 5] = "ERROR";
+	    DefaultLogLevels[DefaultLogLevels["FATAL"] = 6] = "FATAL";
+	})(DefaultLogLevels || (interfaces.DefaultLogLevels = DefaultLogLevels = {}));
+	return interfaces;
+}
+
+var environment = {};
+
+var hasRequiredEnvironment;
+
+function requireEnvironment () {
+	if (hasRequiredEnvironment) return environment;
+	hasRequiredEnvironment = 1;
+	Object.defineProperty(environment, "__esModule", { value: true });
+	environment.safeGetCwd = safeGetCwd;
+	environment.isBrowserEnvironment = isBrowserEnvironment;
+	environment.isWorkerEnvironment = isWorkerEnvironment;
+	environment.consoleSupportsCssStyling = consoleSupportsCssStyling;
+	function safeGetCwd() {
+	    try {
+	        const nodeProcess = globalThis?.process;
+	        if (typeof nodeProcess?.cwd === "function") {
+	            return nodeProcess.cwd();
+	        }
+	    }
+	    catch {
+	    }
+	    try {
+	        const deno = globalThis?.Deno;
+	        if (typeof deno?.cwd === "function") {
+	            return deno.cwd();
+	        }
+	    }
+	    catch {
+	    }
+	    return undefined;
+	}
+	function isBrowserEnvironment() {
+	    return typeof window !== "undefined" && typeof document !== "undefined";
+	}
+	function isWorkerEnvironment() {
+	    return typeof globalThis.importScripts === "function";
+	}
+	function consoleSupportsCssStyling() {
+	    if (!isBrowserEnvironment() && !isWorkerEnvironment()) {
+	        return false;
+	    }
+	    const navigatorObj = globalThis?.navigator;
+	    const userAgent = navigatorObj?.userAgent ?? "";
+	    if (/firefox/i.test(userAgent)) {
+	        return true;
+	    }
+	    const windowObj = globalThis;
+	    if (windowObj?.CSS?.supports?.("color", "#000")) {
+	        return true;
+	    }
+	    return /safari/i.test(userAgent) && !/chrome/i.test(userAgent);
+	}
+	return environment;
+}
+
+var errorUtils = {};
+
+var stackTrace = {};
+
+var hasRequiredStackTrace;
+
+function requireStackTrace () {
+	if (hasRequiredStackTrace) return stackTrace;
+	hasRequiredStackTrace = 1;
+	Object.defineProperty(stackTrace, "__esModule", { value: true });
+	stackTrace.splitStackLines = splitStackLines;
+	stackTrace.sanitizeStackLines = sanitizeStackLines;
+	stackTrace.toStackFrames = toStackFrames;
+	stackTrace.findFirstExternalFrameIndex = findFirstExternalFrameIndex;
+	stackTrace.getFrameAt = getFrameAt;
+	stackTrace.getCleanStackLines = getCleanStackLines;
+	stackTrace.buildStackTrace = buildStackTrace;
+	stackTrace.isIgnorableFrame = isIgnorableFrame;
+	stackTrace.clampIndex = clampIndex;
+	stackTrace.pickCallerStackFrame = pickCallerStackFrame;
+	stackTrace.getDefaultIgnorePatterns = getDefaultIgnorePatterns;
+	const DEFAULT_IGNORE_PATTERNS = [
+	    /(?:^|[\\/])node_modules[\\/].*tslog/i,
+	    /(?:^|[\\/])deps[\\/].*tslog/i,
+	    /tslog[\\/]+src[\\/]+internal[\\/]/i,
+	    /tslog[\\/]+src[\\/]BaseLogger/i,
+	    /tslog[\\/]+src[\\/]index/i,
+	];
+	function splitStackLines(error) {
+	    const stack = typeof error?.stack === "string" ? error.stack : undefined;
+	    if (stack == null || stack.length === 0) {
+	        return [];
+	    }
+	    return stack.split("\n").map((line) => line.trimEnd());
+	}
+	function sanitizeStackLines(lines) {
+	    return lines.filter((line) => line.length > 0 && !/^\s*Error\b/.test(line));
+	}
+	function toStackFrames(lines, parseLine) {
+	    const frames = [];
+	    for (const line of lines) {
+	        const frame = parseLine(line);
+	        if (frame != null) {
+	            frames.push(frame);
+	        }
+	    }
+	    return frames;
+	}
+	function findFirstExternalFrameIndex(frames, ignorePatterns = DEFAULT_IGNORE_PATTERNS) {
+	    for (let index = 0; index < frames.length; index += 1) {
+	        const frame = frames[index];
+	        const filePathCandidate = frame.filePath ?? "";
+	        const fullPathCandidate = frame.fullFilePath ?? "";
+	        if (!ignorePatterns.some((pattern) => pattern.test(filePathCandidate) || pattern.test(fullPathCandidate))) {
+	            return index;
+	        }
+	    }
+	    return 0;
+	}
+	function getFrameAt(frames, index) {
+	    if (index < 0 || index >= frames.length) {
+	        return undefined;
+	    }
+	    return frames[index];
+	}
+	function getCleanStackLines(error) {
+	    return sanitizeStackLines(splitStackLines(error));
+	}
+	function buildStackTrace(error, parseLine) {
+	    return toStackFrames(getCleanStackLines(error), parseLine);
+	}
+	function isIgnorableFrame(frame, ignorePatterns) {
+	    const filePathCandidate = frame.filePath ?? "";
+	    const fullPathCandidate = frame.fullFilePath ?? "";
+	    return ignorePatterns.some((pattern) => pattern.test(filePathCandidate) || pattern.test(fullPathCandidate));
+	}
+	function clampIndex(index, maxExclusive) {
+	    if (index < 0) {
+	        return 0;
+	    }
+	    if (index >= maxExclusive) {
+	        return Math.max(0, maxExclusive - 1);
+	    }
+	    return index;
+	}
+	function pickCallerStackFrame(error, parseLine, options = {}) {
+	    const lines = getCleanStackLines(error);
+	    const frames = toStackFrames(lines, parseLine);
+	    if (frames.length === 0) {
+	        return undefined;
+	    }
+	    const ignorePatterns = options.ignorePatterns ?? DEFAULT_IGNORE_PATTERNS;
+	    const autoIndex = findFirstExternalFrameIndex(frames, ignorePatterns);
+	    const resolvedIndex = options.stackDepthLevel != null ? options.stackDepthLevel : autoIndex;
+	    return getFrameAt(frames, clampIndex(resolvedIndex, frames.length));
+	}
+	function getDefaultIgnorePatterns() {
+	    return [...DEFAULT_IGNORE_PATTERNS];
+	}
+	return stackTrace;
+}
+
+var hasRequiredErrorUtils;
+
+function requireErrorUtils () {
+	if (hasRequiredErrorUtils) return errorUtils;
+	hasRequiredErrorUtils = 1;
+	Object.defineProperty(errorUtils, "__esModule", { value: true });
+	errorUtils.collectErrorCauses = collectErrorCauses;
+	errorUtils.toError = toError;
+	errorUtils.toErrorObject = toErrorObject;
+	const stackTrace_js_1 = requireStackTrace();
+	const DEFAULT_CAUSE_DEPTH = 5;
+	function collectErrorCauses(error, options = {}) {
+	    const maxDepth = options.maxDepth ?? DEFAULT_CAUSE_DEPTH;
+	    const causes = [];
+	    const visited = new Set();
+	    let current = error;
+	    let depth = 0;
+	    while (current != null && depth < maxDepth) {
+	        const cause = current?.cause;
+	        if (cause == null || visited.has(cause)) {
+	            break;
+	        }
+	        visited.add(cause);
+	        causes.push(toError(cause));
+	        current = cause;
+	        depth += 1;
+	    }
+	    return causes;
+	}
+	function toError(value) {
+	    if (value instanceof Error) {
+	        return value;
+	    }
+	    const error = new Error(typeof value === "string" ? value : JSON.stringify(value));
+	    if (typeof value === "object" && value != null) {
+	        Object.assign(error, value);
+	    }
+	    return error;
+	}
+	function toErrorObject(error, parseLine) {
+	    return {
+	        nativeError: error,
+	        name: error.name ?? "Error",
+	        message: error.message ?? "",
+	        stack: (0, stackTrace_js_1.buildStackTrace)(error, parseLine),
+	    };
+	}
+	return errorUtils;
+}
+
+var jsonStringifyRecursive = {};
+
+var hasRequiredJsonStringifyRecursive;
+
+function requireJsonStringifyRecursive () {
+	if (hasRequiredJsonStringifyRecursive) return jsonStringifyRecursive;
+	hasRequiredJsonStringifyRecursive = 1;
+	Object.defineProperty(jsonStringifyRecursive, "__esModule", { value: true });
+	jsonStringifyRecursive.jsonStringifyRecursive = jsonStringifyRecursive$1;
+	function jsonStringifyRecursive$1(obj) {
+	    const cache = new Set();
+	    return JSON.stringify(obj, (_key, value) => {
+	        if (typeof value === "object" && value !== null) {
+	            if (cache.has(value)) {
+	                return "[Circular]";
+	            }
+	            cache.add(value);
+	        }
+	        if (typeof value === "bigint") {
+	            return `${value}`;
+	        }
+	        if (typeof value === "undefined") {
+	            return "[undefined]";
+	        }
+	        return value;
+	    });
+	}
+	return jsonStringifyRecursive;
+}
+
+var metaFormatting = {};
+
+var formatNumberAddZeros = {};
+
+var hasRequiredFormatNumberAddZeros;
+
+function requireFormatNumberAddZeros () {
+	if (hasRequiredFormatNumberAddZeros) return formatNumberAddZeros;
+	hasRequiredFormatNumberAddZeros = 1;
+	Object.defineProperty(formatNumberAddZeros, "__esModule", { value: true });
+	formatNumberAddZeros.formatNumberAddZeros = formatNumberAddZeros$1;
+	function formatNumberAddZeros$1(value, digits = 2, addNumber = 0) {
+	    if (value != null && isNaN(value)) {
+	        return "";
+	    }
+	    value = value != null ? value + addNumber : value;
+	    return digits === 2
+	        ? value == null
+	            ? "--"
+	            : value < 10
+	                ? `0${value}`
+	                : value.toString()
+	        : value == null
+	            ? "---"
+	            : value < 10
+	                ? `00${value}`
+	                : value < 100
+	                    ? `0${value}`
+	                    : value.toString();
+	}
+	return formatNumberAddZeros;
+}
+
+var hasRequiredMetaFormatting;
+
+function requireMetaFormatting () {
+	if (hasRequiredMetaFormatting) return metaFormatting;
+	hasRequiredMetaFormatting = 1;
+	Object.defineProperty(metaFormatting, "__esModule", { value: true });
+	metaFormatting.buildPrettyMeta = buildPrettyMeta;
+	const formatNumberAddZeros_js_1 = requireFormatNumberAddZeros();
+	const formatTemplate_js_1 = requireFormatTemplate();
+	function buildPrettyMeta(settings, meta) {
+	    if (meta == null) {
+	        return {
+	            text: "",
+	            template: settings.prettyLogTemplate,
+	            placeholders: {},
+	        };
+	    }
+	    let template = settings.prettyLogTemplate;
+	    const placeholderValues = {};
+	    if (template.includes("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}")) {
+	        template = template.replace("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}", "{{dateIsoStr}}");
+	    }
+	    else {
+	        if (settings.prettyLogTimeZone === "UTC") {
+	            placeholderValues.yyyy = meta.date?.getUTCFullYear() ?? "----";
+	            placeholderValues.mm = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMonth(), 2, 1);
+	            placeholderValues.dd = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCDate(), 2);
+	            placeholderValues.hh = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCHours(), 2);
+	            placeholderValues.MM = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMinutes(), 2);
+	            placeholderValues.ss = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCSeconds(), 2);
+	            placeholderValues.ms = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMilliseconds(), 3);
+	        }
+	        else {
+	            placeholderValues.yyyy = meta.date?.getFullYear() ?? "----";
+	            placeholderValues.mm = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMonth(), 2, 1);
+	            placeholderValues.dd = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getDate(), 2);
+	            placeholderValues.hh = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getHours(), 2);
+	            placeholderValues.MM = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMinutes(), 2);
+	            placeholderValues.ss = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getSeconds(), 2);
+	            placeholderValues.ms = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMilliseconds(), 3);
+	        }
+	    }
+	    const isUtc = settings.prettyLogTimeZone === "UTC";
+	    const dateInSettingsTimeZone = isUtc ? meta.date : meta.date != null ? new Date(meta.date.getTime() - meta.date.getTimezoneOffset() * 60000) : undefined;
+	    placeholderValues.rawIsoStr =
+	        dateInSettingsTimeZone == null ? "" : isUtc ? dateInSettingsTimeZone.toISOString() : localIsoString(dateInSettingsTimeZone, meta.date);
+	    placeholderValues.dateIsoStr = dateInSettingsTimeZone?.toISOString().replace("T", " ").replace("Z", "") ?? "";
+	    placeholderValues.logLevelName = meta.logLevelName;
+	    placeholderValues.fileNameWithLine = meta.path?.fileNameWithLine ?? "";
+	    placeholderValues.filePathWithLine = meta.path?.filePathWithLine ?? "";
+	    placeholderValues.fullFilePath = meta.path?.fullFilePath ?? "";
+	    let parentNamesString = settings.parentNames?.join(settings.prettyErrorParentNamesSeparator);
+	    parentNamesString = parentNamesString != null && meta.name != null ? parentNamesString + settings.prettyErrorParentNamesSeparator : undefined;
+	    const combinedName = meta.name != null || parentNamesString != null ? `${parentNamesString ?? ""}${meta.name ?? ""}` : "";
+	    placeholderValues.name = combinedName;
+	    placeholderValues.nameWithDelimiterPrefix = combinedName.length > 0 ? settings.prettyErrorLoggerNameDelimiter + combinedName : "";
+	    placeholderValues.nameWithDelimiterSuffix = combinedName.length > 0 ? combinedName + settings.prettyErrorLoggerNameDelimiter : "";
+	    if (settings.overwrite?.addPlaceholders != null) {
+	        settings.overwrite.addPlaceholders(meta, placeholderValues);
+	    }
+	    return {
+	        text: (0, formatTemplate_js_1.formatTemplate)(settings, template, placeholderValues),
+	        template,
+	        placeholders: placeholderValues,
+	    };
+	}
+	function localIsoString(shifted, original) {
+	    const base = shifted.toISOString().replace("Z", "");
+	    const offsetMinutes = -original.getTimezoneOffset();
+	    const sign = offsetMinutes >= 0 ? "+" : "-";
+	    const abs = Math.abs(offsetMinutes);
+	    const hh = String(Math.floor(abs / 60)).padStart(2, "0");
+	    const mm = String(abs % 60).padStart(2, "0");
+	    return `${base}${sign}${hh}:${mm}`;
+	}
+	return metaFormatting;
+}
+
+var util_inspect_polyfill = {};
+
+var hasRequiredUtil_inspect_polyfill;
+
+function requireUtil_inspect_polyfill () {
+	if (hasRequiredUtil_inspect_polyfill) return util_inspect_polyfill;
+	hasRequiredUtil_inspect_polyfill = 1;
+	Object.defineProperty(util_inspect_polyfill, "__esModule", { value: true });
+	util_inspect_polyfill.inspect = inspect;
+	util_inspect_polyfill.formatValue = formatValue;
+	util_inspect_polyfill.formatWithOptions = formatWithOptions;
+	const prettyLogStyles_js_1 = requirePrettyLogStyles();
+	const jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
+	function inspect(obj, opts) {
+	    const ctx = {
+	        seen: [],
+	        stylize: stylizeNoColor,
+	    };
+	    if (opts != null) {
+	        _extend(ctx, opts);
+	    }
+	    if (isUndefined(ctx.showHidden))
+	        ctx.showHidden = false;
+	    if (isUndefined(ctx.depth))
+	        ctx.depth = 2;
+	    if (isUndefined(ctx.colors))
+	        ctx.colors = true;
+	    if (isUndefined(ctx.customInspect))
+	        ctx.customInspect = true;
+	    if (ctx.colors)
+	        ctx.stylize = stylizeWithColor;
+	    return formatValue(ctx, obj, ctx.depth);
+	}
+	inspect.colors = prettyLogStyles_js_1.prettyLogStyles;
+	inspect.styles = {
+	    special: "cyan",
+	    number: "yellow",
+	    boolean: "yellow",
+	    undefined: "grey",
+	    null: "bold",
+	    string: "green",
+	    date: "magenta",
+	    regexp: "red",
+	};
+	function isBoolean(arg) {
+	    return typeof arg === "boolean";
+	}
+	function isUndefined(arg) {
+	    return arg === undefined;
+	}
+	function stylizeNoColor(str) {
+	    return str;
+	}
+	function stylizeWithColor(str, styleType) {
+	    const style = inspect.styles[styleType];
+	    if (style != null && inspect?.colors?.[style]?.[0] != null && inspect?.colors?.[style]?.[1] != null) {
+	        return `\u001b[${inspect.colors[style][0]}m${str}\u001b[${inspect.colors[style][1]}m`;
+	    }
+	    else {
+	        return str;
+	    }
+	}
+	function isFunction(arg) {
+	    return typeof arg === "function";
+	}
+	function isString(arg) {
+	    return typeof arg === "string";
+	}
+	function isNumber(arg) {
+	    return typeof arg === "number";
+	}
+	function isNull(arg) {
+	    return arg === null;
+	}
+	function isBigInt(arg) {
+	    return typeof arg === "bigint";
+	}
+	function hasOwn(obj, prop) {
+	    return Object.prototype.hasOwnProperty.call(obj, prop);
+	}
+	function isRegExp(re) {
+	    return isObject(re) && objectToString(re) === "[object RegExp]";
+	}
+	function isObject(arg) {
+	    return typeof arg === "object" && arg !== null;
+	}
+	function isError(e) {
+	    return isObject(e) && (objectToString(e) === "[object Error]" || e instanceof Error);
+	}
+	function isDate(d) {
+	    return isObject(d) && objectToString(d) === "[object Date]";
+	}
+	function objectToString(o) {
+	    return Object.prototype.toString.call(o);
+	}
+	function arrayToHash(array) {
+	    const hash = {};
+	    array.forEach((val) => {
+	        hash[val] = true;
+	    });
+	    return hash;
+	}
+	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+	    const output = [];
+	    for (let i = 0, l = value.length; i < l; ++i) {
+	        if (hasOwn(value, String(i))) {
+	            output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
+	        }
+	        else {
+	            output.push("");
+	        }
+	    }
+	    keys.forEach((key) => {
+	        if (!key.match(/^\d+$/)) {
+	            output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
+	        }
+	    });
+	    return output;
+	}
+	function formatError(value) {
+	    return `[${Error.prototype.toString.call(value)}]`;
+	}
+	function formatDate(value) {
+	    return Number.isNaN(value.valueOf()) ? "Invalid Date" : Date.prototype.toISOString.call(value);
+	}
+	function formatValue(ctx, value, recurseTimes = 0) {
+	    if (ctx.customInspect &&
+	        value != null &&
+	        isFunction(value) &&
+	        value?.inspect !== inspect &&
+	        !(value?.constructor && value?.constructor.prototype === value)) {
+	        if (typeof value.inspect !== "function" && value.toString != null) {
+	            return value.toString();
+	        }
+	        let ret = value?.inspect(recurseTimes, ctx);
+	        if (!isString(ret)) {
+	            ret = formatValue(ctx, ret, recurseTimes);
+	        }
+	        return ret;
+	    }
+	    const primitive = formatPrimitive(ctx, value);
+	    if (primitive) {
+	        return primitive;
+	    }
+	    let keys = Object.keys(value);
+	    const visibleKeys = arrayToHash(keys);
+	    try {
+	        if (ctx.showHidden && Object.getOwnPropertyNames) {
+	            keys = Object.getOwnPropertyNames(value);
+	        }
+	    }
+	    catch {
+	    }
+	    if (isError(value) && (keys.indexOf("message") >= 0 || keys.indexOf("description") >= 0)) {
+	        return formatError(value);
+	    }
+	    if (keys.length === 0) {
+	        if (isFunction(ctx.stylize)) {
+	            if (isFunction(value)) {
+	                const name = value.name ? `: ${value.name}` : "";
+	                return ctx.stylize(`[Function${name}]`, "special");
+	            }
+	            if (isRegExp(value)) {
+	                return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
+	            }
+	            if (isDate(value)) {
+	                return ctx.stylize(formatDate(value), "date");
+	            }
+	            if (isError(value)) {
+	                return formatError(value);
+	            }
+	        }
+	        else {
+	            return value;
+	        }
+	    }
+	    let base = "";
+	    let array = false;
+	    let braces = ["{\n", "\n}"];
+	    if (Array.isArray(value)) {
+	        array = true;
+	        braces = ["[\n", "\n]"];
+	    }
+	    if (isFunction(value)) {
+	        const n = value.name ? `: ${value.name}` : "";
+	        base = ` [Function${n}]`;
+	    }
+	    if (isRegExp(value)) {
+	        base = ` ${RegExp.prototype.toString.call(value)}`;
+	    }
+	    if (isDate(value)) {
+	        base = ` ${Number.isNaN(value.valueOf()) ? "Invalid Date" : Date.prototype.toUTCString.call(value)}`;
+	    }
+	    if (isError(value)) {
+	        base = ` ${formatError(value)}`;
+	    }
+	    if (keys.length === 0 && (!array || value.length === 0)) {
+	        return braces[0] + base + braces[1];
+	    }
+	    if (recurseTimes < 0) {
+	        if (isRegExp(value)) {
+	            return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
+	        }
+	        else {
+	            return ctx.stylize("[Object]", "special");
+	        }
+	    }
+	    ctx.seen.push(value);
+	    let output;
+	    if (array) {
+	        output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+	    }
+	    else {
+	        output = keys.map((key) => {
+	            return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+	        });
+	    }
+	    ctx.seen.pop();
+	    return reduceToSingleString(output, base, braces);
+	}
+	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+	    let name;
+	    let str;
+	    let desc = { value: void 0 };
+	    try {
+	        desc.value = value[key];
+	    }
+	    catch {
+	    }
+	    try {
+	        if (Object.getOwnPropertyDescriptor) {
+	            desc = Object.getOwnPropertyDescriptor(value, key) || desc;
+	        }
+	    }
+	    catch {
+	    }
+	    if (desc.get) {
+	        if (desc.set) {
+	            str = ctx.stylize("[Getter/Setter]", "special");
+	        }
+	        else {
+	            str = ctx.stylize("[Getter]", "special");
+	        }
+	    }
+	    else {
+	        if (desc.set) {
+	            str = ctx.stylize("[Setter]", "special");
+	        }
+	    }
+	    if (!hasOwn(visibleKeys, key)) {
+	        name = `[${key}]`;
+	    }
+	    if (!str) {
+	        if (ctx.seen.indexOf(desc.value) < 0) {
+	            if (isNull(recurseTimes)) {
+	                str = formatValue(ctx, desc.value, undefined);
+	            }
+	            else {
+	                str = formatValue(ctx, desc.value, recurseTimes - 1);
+	            }
+	            if (str.indexOf("\n") > -1) {
+	                if (array) {
+	                    str = str
+	                        .split("\n")
+	                        .map((line) => {
+	                        return `  ${line}`;
+	                    })
+	                        .join("\n")
+	                        .substr(2);
+	                }
+	                else {
+	                    str =
+	                        "\n" +
+	                            str
+	                                .split("\n")
+	                                .map((line) => {
+	                                return `   ${line}`;
+	                            })
+	                                .join("\n");
+	                }
+	            }
+	        }
+	        else {
+	            str = ctx.stylize("[Circular]", "special");
+	        }
+	    }
+	    if (isUndefined(name)) {
+	        if (array && key.match(/^\d+$/)) {
+	            return str;
+	        }
+	        name = JSON.stringify(`${key}`);
+	        if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+	            name = name.substr(1, name.length - 2);
+	            name = ctx.stylize(name, "name");
+	        }
+	        else {
+	            name = name
+	                .replace(/'/g, "\\'")
+	                .replace(/\\"/g, "\\'")
+	                .replace(/(^"|"$)/g, "'");
+	            name = ctx.stylize(name, "string");
+	        }
+	    }
+	    return `${name}: ${str}`;
+	}
+	function formatPrimitive(ctx, value) {
+	    if (isUndefined(value))
+	        return ctx.stylize("undefined", "undefined");
+	    if (isString(value)) {
+	        const simple = `'${JSON.stringify(value).replace(/^"|"$/g, "").replace(/'/g, "\\'").replace(/\\"/g, "\\'")}'`;
+	        return ctx.stylize(simple, "string");
+	    }
+	    if (isNumber(value))
+	        return ctx.stylize(`${value}`, "number");
+	    if (isBigInt(value))
+	        return ctx.stylize(`${value}n`, "number");
+	    if (isBoolean(value))
+	        return ctx.stylize(`${value}`, "boolean");
+	    if (isNull(value))
+	        return ctx.stylize("null", "null");
+	}
+	function reduceToSingleString(output, base, braces) {
+	    return `${braces[0] + (base === "" ? "" : `${base}\n`)}  ${output.join(",\n  ")} ${braces[1]}`;
+	}
+	function _extend(origin, add) {
+	    const typedOrigin = origin;
+	    if (!add || !isObject(add))
+	        return origin;
+	    const clonedAdd = { ...add };
+	    const keys = Object.keys(add);
+	    let i = keys.length;
+	    while (i--) {
+	        typedOrigin[keys[i]] = clonedAdd[keys[i]];
+	    }
+	    return typedOrigin;
+	}
+	function formatWithOptions(inspectOptions, ...args) {
+	    const ctx = {
+	        seen: [],
+	        stylize: stylizeNoColor,
+	    };
+	    if (inspectOptions != null) {
+	        _extend(ctx, inspectOptions);
+	    }
+	    const first = args[0];
+	    let a = 0;
+	    let str = "";
+	    let join = "";
+	    if (typeof first === "string") {
+	        if (args.length === 1) {
+	            return first;
+	        }
+	        let tempStr;
+	        let lastPos = 0;
+	        for (let i = 0; i < first.length - 1; i++) {
+	            if (first.charCodeAt(i) === 37) {
+	                const nextChar = first.charCodeAt(++i);
+	                if (a + 1 !== args.length) {
+	                    switch (nextChar) {
+	                        case 115: {
+	                            const tempArg = args[++a];
+	                            if (typeof tempArg === "number") {
+	                                tempStr = formatPrimitive(ctx, tempArg);
+	                            }
+	                            else if (typeof tempArg === "bigint") {
+	                                tempStr = formatPrimitive(ctx, tempArg);
+	                            }
+	                            else if (typeof tempArg !== "object" || tempArg === null) {
+	                                tempStr = String(tempArg);
+	                            }
+	                            else {
+	                                tempStr = inspect(tempArg, {
+	                                    ...inspectOptions,
+	                                    compact: 3,
+	                                    colors: false,
+	                                    depth: 0,
+	                                });
+	                            }
+	                            break;
+	                        }
+	                        case 106:
+	                            tempStr = (0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(args[++a]);
+	                            break;
+	                        case 100: {
+	                            const tempNum = args[++a];
+	                            if (typeof tempNum === "bigint") {
+	                                tempStr = formatPrimitive(ctx, tempNum);
+	                            }
+	                            else if (typeof tempNum === "symbol") {
+	                                tempStr = "NaN";
+	                            }
+	                            else {
+	                                tempStr = formatPrimitive(ctx, tempNum);
+	                            }
+	                            break;
+	                        }
+	                        case 79:
+	                            tempStr = inspect(args[++a], inspectOptions);
+	                            break;
+	                        case 111:
+	                            tempStr = inspect(args[++a], {
+	                                ...inspectOptions,
+	                                showHidden: true,
+	                                showProxy: true,
+	                                depth: 4,
+	                            });
+	                            break;
+	                        case 105: {
+	                            const tempInteger = args[++a];
+	                            if (typeof tempInteger === "bigint") {
+	                                tempStr = formatPrimitive(ctx, tempInteger);
+	                            }
+	                            else if (typeof tempInteger === "symbol") {
+	                                tempStr = "NaN";
+	                            }
+	                            else {
+	                                tempStr = formatPrimitive(ctx, parseInt(tempStr, 10));
+	                            }
+	                            break;
+	                        }
+	                        case 102: {
+	                            const tempFloat = args[++a];
+	                            if (typeof tempFloat === "symbol") {
+	                                tempStr = "NaN";
+	                            }
+	                            else {
+	                                tempStr = formatPrimitive(ctx, parseInt(tempFloat, 10));
+	                            }
+	                            break;
+	                        }
+	                        case 99:
+	                            a += 1;
+	                            tempStr = "";
+	                            break;
+	                        case 37:
+	                            str += first.slice(lastPos, i);
+	                            lastPos = i + 1;
+	                            continue;
+	                        default:
+	                            continue;
+	                    }
+	                    if (lastPos !== i - 1) {
+	                        str += first.slice(lastPos, i - 1);
+	                    }
+	                    str += tempStr;
+	                    lastPos = i + 1;
+	                }
+	                else if (nextChar === 37) {
+	                    str += first.slice(lastPos, i);
+	                    lastPos = i + 1;
+	                }
+	            }
+	        }
+	        if (lastPos !== 0) {
+	            a++;
+	            join = " ";
+	            if (lastPos < first.length) {
+	                str += first.slice(lastPos);
+	            }
+	        }
+	    }
+	    while (a < args.length) {
+	        const value = args[a];
+	        str += join;
+	        str += typeof value !== "string" ? inspect(value, inspectOptions) : value;
+	        join = " ";
+	        a++;
+	    }
+	    return str;
+	}
+	return util_inspect_polyfill;
+}
+
+var urlToObj = {};
+
+var hasRequiredUrlToObj;
+
+function requireUrlToObj () {
+	if (hasRequiredUrlToObj) return urlToObj;
+	hasRequiredUrlToObj = 1;
+	Object.defineProperty(urlToObj, "__esModule", { value: true });
+	urlToObj.urlToObject = urlToObject;
+	function urlToObject(url) {
+	    return {
+	        href: url.href,
+	        protocol: url.protocol,
+	        username: url.username,
+	        password: url.password,
+	        host: url.host,
+	        hostname: url.hostname,
+	        port: url.port,
+	        pathname: url.pathname,
+	        search: url.search,
+	        searchParams: [...url.searchParams].map(([key, value]) => ({ key, value })),
+	        hash: url.hash,
+	        origin: url.origin,
+	    };
+	}
+	return urlToObj;
+}
+
+var hasRequiredBaseLogger;
+
+function requireBaseLogger () {
+	if (hasRequiredBaseLogger) return BaseLogger;
+	hasRequiredBaseLogger = 1;
+	(function (exports) {
+		var __createBinding = (BaseLogger && BaseLogger.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+		    if (k2 === undefined) k2 = k;
+		    var desc = Object.getOwnPropertyDescriptor(m, k);
+		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+		      desc = { enumerable: true, get: function() { return m[k]; } };
+		    }
+		    Object.defineProperty(o, k2, desc);
+		}) : (function(o, m, k, k2) {
+		    if (k2 === undefined) k2 = k;
+		    o[k2] = m[k];
+		}));
+		var __exportStar = (BaseLogger && BaseLogger.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+		};
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.BaseLogger = exports.loggerEnvironment = void 0;
+		exports.createLoggerEnvironment = createLoggerEnvironment;
+		const formatTemplate_js_1 = requireFormatTemplate();
+		const interfaces_js_1 = requireInterfaces();
+		const environment_js_1 = requireEnvironment();
+		const errorUtils_js_1 = requireErrorUtils();
+		const jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
+		const metaFormatting_js_1 = requireMetaFormatting();
+		const stackTrace_js_1 = requireStackTrace();
+		const util_inspect_polyfill_js_1 = requireUtil_inspect_polyfill();
+		const urlToObj_js_1 = requireUrlToObj();
+		function createLoggerEnvironment() {
+		    const runtimeInfo = detectRuntimeInfo();
+		    const meta = createRuntimeMeta(runtimeInfo);
+		    const usesBrowserStack = runtimeInfo.name === "browser" || runtimeInfo.name === "worker";
+		    const callerIgnorePatterns = usesBrowserStack
+		        ? [...(0, stackTrace_js_1.getDefaultIgnorePatterns)(), /node_modules[\\/].*tslog/i]
+		        : [...(0, stackTrace_js_1.getDefaultIgnorePatterns)(), /node:(?:internal|vm)/i, /\binternal[\\/]/i];
+		    let cachedCwd;
+		    const environment = {
+		        getMeta(logLevelId, logLevelName, stackDepthLevel, hideLogPositionForPerformance, name, parentNames, extraIgnorePatterns) {
+		            return Object.assign({}, meta, {
+		                name,
+		                parentNames,
+		                date: new Date(),
+		                logLevelId,
+		                logLevelName,
+		                path: !hideLogPositionForPerformance ? environment.getCallerStackFrame(stackDepthLevel, new Error(), extraIgnorePatterns) : undefined,
+		            });
+		        },
+		        getCallerStackFrame(stackDepthLevel, error = new Error(), extraIgnorePatterns) {
+		            const frames = (0, stackTrace_js_1.buildStackTrace)(error, (line) => parseStackLine(line));
+		            if (frames.length === 0) {
+		                return {};
+		            }
+		            const ignorePatterns = extraIgnorePatterns != null && extraIgnorePatterns.length > 0 ? [...callerIgnorePatterns, ...extraIgnorePatterns] : callerIgnorePatterns;
+		            const autoIndex = (0, stackTrace_js_1.findFirstExternalFrameIndex)(frames, ignorePatterns);
+		            const useManualIndex = Number.isFinite(stackDepthLevel) && stackDepthLevel >= 0;
+		            const resolvedIndex = useManualIndex ? (0, stackTrace_js_1.clampIndex)(stackDepthLevel, frames.length) : (0, stackTrace_js_1.clampIndex)(autoIndex, frames.length);
+		            return frames[resolvedIndex] ?? {};
+		        },
+		        getErrorTrace(error) {
+		            return (0, stackTrace_js_1.buildStackTrace)(error, (line) => parseStackLine(line));
+		        },
+		        isError(value) {
+		            return isNativeError(value);
+		        },
+		        isBuffer(value) {
+		            return typeof Buffer !== "undefined" && typeof Buffer.isBuffer === "function" ? Buffer.isBuffer(value) : false;
+		        },
+		        prettyFormatLogObj(maskedArgs, settings) {
+		            return maskedArgs.reduce((result, arg) => {
+		                if (environment.isError(arg)) {
+		                    result.errors.push(environment.prettyFormatErrorObj(arg, settings));
+		                }
+		                else {
+		                    result.args.push(arg);
+		                }
+		                return result;
+		            }, { args: [], errors: [] });
+		        },
+		        prettyFormatErrorObj(error, settings) {
+		            const stackLines = formatStackFrames(environment.getErrorTrace(error), settings);
+		            const causeSections = (0, errorUtils_js_1.collectErrorCauses)(error).map((cause, index) => {
+		                const header = `Caused by (${index + 1}): ${cause.name ?? "Error"}${cause.message ? `: ${cause.message}` : ""}`;
+		                const frames = formatStackFrames((0, stackTrace_js_1.buildStackTrace)(cause, (line) => parseStackLine(line)), settings);
+		                return [header, ...frames].join("\n");
+		            });
+		            const placeholderValuesError = {
+		                errorName: ` ${error.name} `,
+		                errorMessage: formatErrorMessage(error),
+		                errorStack: [...stackLines, ...causeSections].join("\n"),
+		            };
+		            return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorTemplate, placeholderValuesError);
+		        },
+		        transportFormatted(logMetaMarkup, logArgs, logErrors, logMeta, settings) {
+		            const prettyLogs = settings.stylePrettyLogs !== false;
+		            const logErrorsStr = (logErrors.length > 0 && logArgs.length > 0 ? "\n" : "") + logErrors.join("\n");
+		            const sanitizedMetaMarkup = stripAnsi(logMetaMarkup);
+		            const metaMarkupForText = prettyLogs ? logMetaMarkup : sanitizedMetaMarkup;
+		            const log = getPrettyLogMethod(logMeta?.logLevelName, settings.prettyLogLevelMethod);
+		            if (shouldUseCss(prettyLogs)) {
+		                settings.prettyInspectOptions.colors = false;
+		                const formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
+		                const cssMeta = logMeta != null ? buildCssMetaOutput(settings, logMeta) : { text: sanitizedMetaMarkup, styles: [] };
+		                const hasCssMeta = cssMeta.text.length > 0 && cssMeta.styles.length > 0;
+		                const metaOutput = hasCssMeta ? cssMeta.text : sanitizedMetaMarkup;
+		                const output = metaOutput + formattedArgs + logErrorsStr;
+		                if (hasCssMeta) {
+		                    log(output, ...cssMeta.styles);
+		                }
+		                else {
+		                    log(output);
+		                }
+		                return;
+		            }
+		            settings.prettyInspectOptions.colors = prettyLogs;
+		            const formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
+		            log(metaMarkupForText + formattedArgs + logErrorsStr);
+		        },
+		        transportJSON(json) {
+		            console.log((0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(json));
+		        },
+		    };
+		    if (getNodeEnv() === "test") {
+		        environment.__resetWorkingDirectoryCacheForTests = () => {
+		            cachedCwd = undefined;
+		        };
+		    }
+		    return environment;
+		    function parseStackLine(line) {
+		        return usesBrowserStack ? parseBrowserStackLine(line) : parseServerStackLine(line);
+		    }
+		    function parseServerStackLine(rawLine) {
+		        if (typeof rawLine !== "string" || rawLine.length === 0) {
+		            return undefined;
+		        }
+		        const trimmedLine = rawLine.trim();
+		        if (!trimmedLine.includes(" at ") && !trimmedLine.startsWith("at ")) {
+		            return undefined;
+		        }
+		        const line = trimmedLine.replace(/^at\s+/, "");
+		        let method;
+		        let location = line;
+		        const methodMatch = line.match(/^(.*?)\s+\((.*)\)$/);
+		        if (methodMatch) {
+		            method = methodMatch[1];
+		            location = methodMatch[2];
+		        }
+		        const sanitizedLocation = location.replace(/^\(/, "").replace(/\)$/, "");
+		        const withoutQuery = sanitizedLocation.replace(/\?.*$/, "");
+		        let fileLine;
+		        let fileColumn;
+		        let filePathCandidate = withoutQuery;
+		        const segments = withoutQuery.split(":");
+		        if (segments.length >= 3 && /^\d+$/.test(segments[segments.length - 1])) {
+		            fileColumn = segments.pop();
+		            fileLine = segments.pop();
+		            filePathCandidate = segments.join(":");
+		        }
+		        else if (segments.length >= 2 && /^\d+$/.test(segments[segments.length - 1])) {
+		            fileLine = segments.pop();
+		            filePathCandidate = segments.join(":");
+		        }
+		        let normalizedPath = filePathCandidate.replace(/^file:\/\//, "");
+		        const cwd = getWorkingDirectory();
+		        if (cwd != null && normalizedPath.startsWith(cwd)) {
+		            normalizedPath = normalizedPath.slice(cwd.length);
+		            normalizedPath = normalizedPath.replace(/^[\\/]/, "");
+		        }
+		        if (normalizedPath.length === 0) {
+		            normalizedPath = filePathCandidate;
+		        }
+		        const normalizedPathWithoutLine = normalizeFilePath(normalizedPath);
+		        const effectivePath = normalizedPathWithoutLine.length > 0 ? normalizedPathWithoutLine : normalizedPath;
+		        const pathSegments = effectivePath.split(/\\|\//);
+		        const fileName = pathSegments[pathSegments.length - 1];
+		        const fileNameWithLine = fileName && fileLine ? `${fileName}:${fileLine}` : undefined;
+		        const filePathWithLine = effectivePath && fileLine ? `${effectivePath}:${fileLine}` : undefined;
+		        return {
+		            fullFilePath: sanitizedLocation,
+		            fileName,
+		            fileNameWithLine,
+		            fileColumn,
+		            fileLine,
+		            filePath: effectivePath,
+		            filePathWithLine,
+		            method,
+		        };
+		    }
+		    function parseBrowserStackLine(line) {
+		        const href = globalThis.location?.origin;
+		        if (line == null) {
+		            return undefined;
+		        }
+		        const match = line.match(BROWSER_PATH_REGEX);
+		        if (!match) {
+		            return undefined;
+		        }
+		        const filePath = match[1]?.replace(/\?.*$/, "");
+		        if (filePath == null) {
+		            return undefined;
+		        }
+		        const pathParts = filePath.split("/");
+		        const fileLine = match[2];
+		        const fileColumn = match[3];
+		        const fileName = pathParts[pathParts.length - 1];
+		        return {
+		            fullFilePath: href ? `${href}${filePath}` : filePath,
+		            fileName,
+		            fileNameWithLine: fileName && fileLine ? `${fileName}:${fileLine}` : undefined,
+		            fileColumn,
+		            fileLine,
+		            filePath,
+		            filePathWithLine: fileLine ? `${filePath}:${fileLine}` : undefined,
+		            method: undefined,
+		        };
+		    }
+		    function formatStackFrames(frames, settings) {
+		        return frames.map((stackFrame) => (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorStackTemplate, { ...stackFrame }, true));
+		    }
+		    function formatErrorMessage(error) {
+		        return Object.getOwnPropertyNames(error)
+		            .filter((key) => key !== "stack" && key !== "cause")
+		            .reduce((result, key) => {
+		            const value = error[key];
+		            if (typeof value === "function") {
+		                return result;
+		            }
+		            result.push(stringifyFallback(value));
+		            return result;
+		        }, [])
+		            .join(", ");
+		    }
+		    function shouldUseCss(prettyLogs) {
+		        return prettyLogs && (runtimeInfo.name === "browser" || runtimeInfo.name === "worker") && (0, environment_js_1.consoleSupportsCssStyling)();
+		    }
+		    function stripAnsi(value) {
+		        return value.replace(ANSI_REGEX, "");
+		    }
+		    function getPrettyLogMethod(logLevelName, prettyLogLevelMethod) {
+		        if (logLevelName && prettyLogLevelMethod?.[logLevelName]) {
+		            return prettyLogLevelMethod[logLevelName];
+		        }
+		        if (prettyLogLevelMethod?.["*"]) {
+		            return prettyLogLevelMethod["*"];
+		        }
+		        return console.log;
+		    }
+		    function buildCssMetaOutput(settings, metaValue) {
+		        if (metaValue == null) {
+		            return { text: "", styles: [] };
+		        }
+		        const { template, placeholders } = (0, metaFormatting_js_1.buildPrettyMeta)(settings, metaValue);
+		        const parts = [];
+		        const styles = [];
+		        let lastIndex = 0;
+		        const placeholderRegex = /{{(.+?)}}/g;
+		        let match;
+		        while ((match = placeholderRegex.exec(template)) != null) {
+		            if (match.index > lastIndex) {
+		                parts.push(template.slice(lastIndex, match.index));
+		            }
+		            const key = match[1];
+		            const rawValue = placeholders[key] != null ? String(placeholders[key]) : "";
+		            const tokens = collectStyleTokens(settings.prettyLogStyles?.[key], rawValue);
+		            const css = tokensToCss(tokens);
+		            if (css.length > 0) {
+		                parts.push(`%c${rawValue}%c`);
+		                styles.push(css, "");
+		            }
+		            else {
+		                parts.push(rawValue);
+		            }
+		            lastIndex = placeholderRegex.lastIndex;
+		        }
+		        if (lastIndex < template.length) {
+		            parts.push(template.slice(lastIndex));
+		        }
+		        return {
+		            text: parts.join(""),
+		            styles,
+		        };
+		    }
+		    function collectStyleTokens(style, value) {
+		        if (style == null) {
+		            return [];
+		        }
+		        if (typeof style === "string") {
+		            return [style];
+		        }
+		        if (Array.isArray(style)) {
+		            return style.flatMap((token) => collectStyleTokens(token, value));
+		        }
+		        if (typeof style === "object") {
+		            const normalizedValue = value.trim();
+		            const nextStyle = style[normalizedValue] ?? style["*"];
+		            if (nextStyle == null) {
+		                return [];
+		            }
+		            return collectStyleTokens(nextStyle, value);
+		        }
+		        return [];
+		    }
+		    function tokensToCss(tokens) {
+		        const seen = new Set();
+		        const cssParts = [];
+		        for (const token of tokens) {
+		            const css = styleTokenToCss(token);
+		            if (css != null && css.length > 0 && !seen.has(css)) {
+		                seen.add(css);
+		                cssParts.push(css);
+		            }
+		        }
+		        return cssParts.join("; ");
+		    }
+		    function styleTokenToCss(token) {
+		        const color = COLOR_TOKENS[token];
+		        if (color != null) {
+		            return `color: ${color}`;
+		        }
+		        const background = BACKGROUND_TOKENS[token];
+		        if (background != null) {
+		            return `background-color: ${background}`;
+		        }
+		        switch (token) {
+		            case "bold":
+		                return "font-weight: bold";
+		            case "dim":
+		                return "opacity: 0.75";
+		            case "italic":
+		                return "font-style: italic";
+		            case "underline":
+		                return "text-decoration: underline";
+		            case "overline":
+		                return "text-decoration: overline";
+		            case "inverse":
+		                return "filter: invert(1)";
+		            case "hidden":
+		                return "visibility: hidden";
+		            case "strikethrough":
+		                return "text-decoration: line-through";
+		            default:
+		                return undefined;
+		        }
+		    }
+		    function getWorkingDirectory() {
+		        if (cachedCwd === undefined) {
+		            cachedCwd = (0, environment_js_1.safeGetCwd)() ?? null;
+		        }
+		        return cachedCwd ?? undefined;
+		    }
+		    function shouldCaptureHostname() {
+		        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
+		    }
+		    function shouldCaptureRuntimeVersion() {
+		        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
+		    }
+		    function createRuntimeMeta(info) {
+		        if (info.name === "browser" || info.name === "worker") {
+		            return {
+		                runtime: info.name,
+		                browser: info.userAgent,
+		            };
+		        }
+		        const metaStatic = {
+		            runtime: info.name,
+		        };
+		        if (shouldCaptureRuntimeVersion()) {
+		            metaStatic.runtimeVersion = info.version ?? "unknown";
+		        }
+		        if (shouldCaptureHostname()) {
+		            metaStatic.hostname = info.hostname ?? "unknown";
+		        }
+		        return metaStatic;
+		    }
+		    function formatWithOptionsSafe(options, args) {
+		        try {
+		            return (0, util_inspect_polyfill_js_1.formatWithOptions)(options, ...args);
+		        }
+		        catch {
+		            return args.map(stringifyFallback).join(" ");
+		        }
+		    }
+		    function stringifyFallback(value) {
+		        if (typeof value === "string") {
+		            return value;
+		        }
+		        try {
+		            return JSON.stringify(value);
+		        }
+		        catch {
+		            return String(value);
+		        }
+		    }
+		    function normalizeFilePath(value) {
+		        if (typeof value !== "string" || value.length === 0) {
+		            return value;
+		        }
+		        const replaced = value.replace(/\\+/g, "\\").replace(/\\/g, "/");
+		        const hasRootDoubleSlash = replaced.startsWith("//");
+		        const hasLeadingSlash = replaced.startsWith("/") && !hasRootDoubleSlash;
+		        const driveMatch = replaced.match(/^[A-Za-z]:/);
+		        const drivePrefix = driveMatch ? driveMatch[0] : "";
+		        const withoutDrive = drivePrefix ? replaced.slice(drivePrefix.length) : replaced;
+		        const segments = withoutDrive.split("/");
+		        const normalizedSegments = [];
+		        for (const segment of segments) {
+		            if (segment === "" || segment === ".") {
+		                continue;
+		            }
+		            if (segment === "..") {
+		                if (normalizedSegments.length > 0) {
+		                    normalizedSegments.pop();
+		                }
+		                continue;
+		            }
+		            normalizedSegments.push(segment);
+		        }
+		        let normalized = normalizedSegments.join("/");
+		        if (hasRootDoubleSlash) {
+		            normalized = `//${normalized}`;
+		        }
+		        else if (hasLeadingSlash) {
+		            normalized = `/${normalized}`;
+		        }
+		        else if (drivePrefix !== "") {
+		            normalized = `${drivePrefix}${normalized.length > 0 ? `/${normalized}` : ""}`;
+		        }
+		        if (normalized.length === 0) {
+		            return value;
+		        }
+		        return normalized;
+		    }
+		    function detectRuntimeInfo() {
+		        if ((0, environment_js_1.isBrowserEnvironment)()) {
+		            const navigatorObj = globalThis.navigator;
+		            return {
+		                name: "browser",
+		                userAgent: navigatorObj?.userAgent,
+		            };
+		        }
+		        const globalScope = globalThis;
+		        if (typeof globalScope.importScripts === "function") {
+		            return {
+		                name: "worker",
+		                userAgent: globalScope.navigator?.userAgent,
+		            };
+		        }
+		        const globalAny = globalThis;
+		        if (globalAny.Bun != null) {
+		            const bunVersion = globalAny.Bun.version;
+		            return {
+		                name: "bun",
+		                version: bunVersion != null ? `bun/${bunVersion}` : undefined,
+		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
+		            };
+		        }
+		        if (globalAny.Deno != null) {
+		            const denoHostname = resolveDenoHostname(globalAny.Deno);
+		            const denoVersion = globalAny.Deno?.version?.deno;
+		            return {
+		                name: "deno",
+		                version: denoVersion != null ? `deno/${denoVersion}` : undefined,
+		                hostname: denoHostname ?? getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
+		            };
+		        }
+		        if (globalAny.process?.versions?.node != null || globalAny.process?.version != null) {
+		            return {
+		                name: "node",
+		                version: globalAny.process?.versions?.node ?? globalAny.process?.version,
+		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
+		            };
+		        }
+		        if (globalAny.process != null) {
+		            return {
+		                name: "node",
+		                version: "unknown",
+		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
+		            };
+		        }
+		        return {
+		            name: "unknown",
+		        };
+		    }
+		    function getEnvironmentHostname(nodeProcess, deno, bun, location) {
+		        const processHostname = nodeProcess?.env?.HOSTNAME ?? nodeProcess?.env?.HOST ?? nodeProcess?.env?.COMPUTERNAME;
+		        if (processHostname != null && processHostname.length > 0) {
+		            return processHostname;
+		        }
+		        const bunHostname = bun?.env?.HOSTNAME ?? bun?.env?.HOST ?? bun?.env?.COMPUTERNAME;
+		        if (bunHostname != null && bunHostname.length > 0) {
+		            return bunHostname;
+		        }
+		        try {
+		            const denoEnvGet = deno?.env?.get;
+		            if (typeof denoEnvGet === "function") {
+		                const value = denoEnvGet("HOSTNAME");
+		                if (value != null && value.length > 0) {
+		                    return value;
+		                }
+		            }
+		        }
+		        catch {
+		        }
+		        if (location?.hostname != null && location.hostname.length > 0) {
+		            return location.hostname;
+		        }
+		        return undefined;
+		    }
+		    function resolveDenoHostname(deno) {
+		        try {
+		            if (typeof deno?.hostname === "function") {
+		                const value = deno.hostname();
+		                if (value != null && value.length > 0) {
+		                    return value;
+		                }
+		            }
+		        }
+		        catch {
+		        }
+		        const locationHostname = globalThis.location?.hostname;
+		        if (locationHostname != null && locationHostname.length > 0) {
+		            return locationHostname;
+		        }
+		        return undefined;
+		    }
+		    function getNodeEnv() {
+		        const globalProcess = globalThis?.process;
+		        return globalProcess?.env?.NODE_ENV;
+		    }
+		    function isNativeError(value) {
+		        if (value instanceof Error) {
+		            return true;
+		        }
+		        if (value != null && typeof value === "object") {
+		            const objectTag = Object.prototype.toString.call(value);
+		            if (/\[object .*Error\]/.test(objectTag)) {
+		                return true;
+		            }
+		            const name = value.name;
+		            if (typeof name === "string" && name.endsWith("Error")) {
+		                return true;
+		            }
+		        }
+		        return false;
+		    }
+		}
+		const ANSI_REGEX = /\u001b\[[0-9;]*m/g;
+		const COLOR_TOKENS = {
+		    black: "#000000",
+		    red: "#ef5350",
+		    green: "#66bb6a",
+		    yellow: "#fdd835",
+		    blue: "#42a5f5",
+		    magenta: "#ab47bc",
+		    cyan: "#26c6da",
+		    white: "#fafafa",
+		    blackBright: "#424242",
+		    redBright: "#ff7043",
+		    greenBright: "#81c784",
+		    yellowBright: "#ffe082",
+		    blueBright: "#64b5f6",
+		    magentaBright: "#ce93d8",
+		    cyanBright: "#4dd0e1",
+		    whiteBright: "#ffffff",
+		};
+		const BACKGROUND_TOKENS = {
+		    bgBlack: "#000000",
+		    bgRed: "#ef5350",
+		    bgGreen: "#66bb6a",
+		    bgYellow: "#fdd835",
+		    bgBlue: "#42a5f5",
+		    bgMagenta: "#ab47bc",
+		    bgCyan: "#26c6da",
+		    bgWhite: "#fafafa",
+		    bgBlackBright: "#424242",
+		    bgRedBright: "#ff7043",
+		    bgGreenBright: "#81c784",
+		    bgYellowBright: "#ffe082",
+		    bgBlueBright: "#64b5f6",
+		    bgMagentaBright: "#ce93d8",
+		    bgCyanBright: "#4dd0e1",
+		    bgWhiteBright: "#ffffff",
+		};
+		const BROWSER_PATH_REGEX = /(?:(?:file|https?|global code|[^@]+)@)?(?:file:)?((?:\/[^:/]+){2,})(?::(\d+))?(?::(\d+))?/;
+		const runtime = createLoggerEnvironment();
+		exports.loggerEnvironment = runtime;
+		__exportStar(requireInterfaces(), exports);
+		function resolveLogLevelId(level) {
+		    if (level == null) {
+		        return undefined;
+		    }
+		    if (typeof level === "number") {
+		        return level;
+		    }
+		    const mapped = interfaces_js_1.DefaultLogLevels[level];
+		    return typeof mapped === "number" ? mapped : undefined;
+		}
+		function devWarningsEnabled() {
+		    const env = globalThis?.process?.env;
+		    if (env?.TSLOG_DISABLE_WARNINGS != null) {
+		        return false;
+		    }
+		    return env?.NODE_ENV !== "production";
+		}
+		function emitConfigWarning(message) {
+		    try {
+		        console.warn(`tslog: ${message}`);
+		    }
+		    catch {
+		    }
+		}
+		const KNOWN_PRETTY_PLACEHOLDERS = new Set([
+		    "yyyy",
+		    "mm",
+		    "dd",
+		    "hh",
+		    "MM",
+		    "ss",
+		    "ms",
+		    "dateIsoStr",
+		    "rawIsoStr",
+		    "logLevelName",
+		    "name",
+		    "nameWithDelimiterPrefix",
+		    "nameWithDelimiterSuffix",
+		    "fullFilePath",
+		    "filePathWithLine",
+		    "fileNameWithLine",
+		    "fileName",
+		    "filePath",
+		    "fileLine",
+		    "fileColumn",
+		]);
+		function validateSettingsParam(settings) {
+		    if (settings == null || !devWarningsEnabled()) {
+		        return;
+		    }
+		    if (settings.minLevel != null) {
+		        const resolved = resolveLogLevelId(settings.minLevel);
+		        if (resolved == null) {
+		            emitConfigWarning(`unknown minLevel ${JSON.stringify(settings.minLevel)}; expected a number 0-6 or a level name like "WARN".`);
+		        }
+		        else if (typeof settings.minLevel === "number" && (resolved < 0 || resolved > 6)) {
+		            emitConfigWarning(`minLevel ${resolved} is outside the default range 0-6; no default log method will be filtered as you might expect.`);
+		        }
+		    }
+		    if (typeof settings.prettyLogTemplate === "string") {
+		        const placeholderRegex = /{{\s*(.+?)\s*}}/g;
+		        let match;
+		        while ((match = placeholderRegex.exec(settings.prettyLogTemplate)) != null) {
+		            const key = match[1];
+		            if (!KNOWN_PRETTY_PLACEHOLDERS.has(key)) {
+		                emitConfigWarning(`prettyLogTemplate references unknown placeholder "{{${key}}}"; check the spelling (e.g. "{{logLevelName}}") or add it via overwrite.addPlaceholders.`);
+		            }
+		        }
+		    }
+		}
+		let BaseLogger$1 = class BaseLogger {
+		    constructor(settings, logObj, stackDepthLevel = Number.NaN) {
+		        this.logObj = logObj;
+		        this.stackDepthLevel = stackDepthLevel;
+		        this.runtime = runtime;
+		        this.maxErrorCauseDepth = 5;
+		        validateSettingsParam(settings);
+		        this.settings = {
+		            type: settings?.type ?? "pretty",
+		            name: settings?.name,
+		            parentNames: settings?.parentNames,
+		            minLevel: resolveLogLevelId(settings?.minLevel) ?? 0,
+		            argumentsArrayName: settings?.argumentsArrayName,
+		            internalFramePatterns: settings?.internalFramePatterns,
+		            hideLogPositionForProduction: settings?.hideLogPositionForProduction ?? false,
+		            prettyLogTemplate: settings?.prettyLogTemplate ??
+		                "{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t{{filePathWithLine}}{{nameWithDelimiterPrefix}}\t",
+		            prettyErrorTemplate: settings?.prettyErrorTemplate ?? "\n{{errorName}} {{errorMessage}}\nerror stack:\n{{errorStack}}",
+		            prettyErrorStackTemplate: settings?.prettyErrorStackTemplate ?? "  • {{fileName}}\t{{method}}\n\t{{filePathWithLine}}",
+		            prettyErrorParentNamesSeparator: settings?.prettyErrorParentNamesSeparator ?? ":",
+		            prettyErrorLoggerNameDelimiter: settings?.prettyErrorLoggerNameDelimiter ?? "\t",
+		            stylePrettyLogs: settings?.stylePrettyLogs ?? true,
+		            prettyLogTimeZone: settings?.prettyLogTimeZone ?? "UTC",
+		            prettyLogStyles: settings?.prettyLogStyles ?? {
+		                logLevelName: {
+		                    "*": ["bold", "black", "bgWhiteBright", "dim"],
+		                    SILLY: ["bold", "white"],
+		                    TRACE: ["bold", "whiteBright"],
+		                    DEBUG: ["bold", "green"],
+		                    INFO: ["bold", "blue"],
+		                    WARN: ["bold", "yellow"],
+		                    ERROR: ["bold", "red"],
+		                    FATAL: ["bold", "redBright"],
+		                },
+		                dateIsoStr: "white",
+		                filePathWithLine: "white",
+		                name: ["white", "bold"],
+		                nameWithDelimiterPrefix: ["white", "bold"],
+		                nameWithDelimiterSuffix: ["white", "bold"],
+		                errorName: ["bold", "bgRedBright", "whiteBright"],
+		                fileName: ["yellow"],
+		                fileNameWithLine: "white",
+		            },
+		            prettyLogLevelMethod: settings?.prettyLogLevelMethod ?? {},
+		            prettyInspectOptions: settings?.prettyInspectOptions ?? {
+		                colors: true,
+		                compact: false,
+		                depth: Infinity,
+		            },
+		            metaProperty: settings?.metaProperty ?? "_meta",
+		            maskPlaceholder: settings?.maskPlaceholder ?? "[***]",
+		            maskValuesOfKeys: settings?.maskValuesOfKeys ?? ["password"],
+		            maskValuesOfKeysCaseInsensitive: settings?.maskValuesOfKeysCaseInsensitive ?? false,
+		            maskValuesRegEx: settings?.maskValuesRegEx,
+		            prefix: [...(settings?.prefix ?? [])],
+		            attachedTransports: [...(settings?.attachedTransports ?? [])],
+		            overwrite: {
+		                mask: settings?.overwrite?.mask,
+		                toLogObj: settings?.overwrite?.toLogObj,
+		                addMeta: settings?.overwrite?.addMeta,
+		                includeDefaultMetaInAddMeta: settings?.overwrite?.includeDefaultMetaInAddMeta ?? false,
+		                addPlaceholders: settings?.overwrite?.addPlaceholders,
+		                formatMeta: settings?.overwrite?.formatMeta,
+		                formatLogObj: settings?.overwrite?.formatLogObj,
+		                transportFormatted: settings?.overwrite?.transportFormatted,
+		                transportJSON: settings?.overwrite?.transportJSON,
+		            },
+		        };
+		        this.captureStackForMeta = this._shouldCaptureStack();
+		    }
+		    log(logLevelId, logLevelName, ...args) {
+		        if (logLevelId < this.settings.minLevel) {
+		            return;
+		        }
+		        const resolvedArgs = this._resolveLogArguments(args);
+		        const logArgs = [...this.settings.prefix, ...resolvedArgs];
+		        const maskedArgs = this.settings.overwrite?.mask != null
+		            ? this.settings.overwrite?.mask(logArgs)
+		            : this.settings.maskValuesOfKeys != null && this.settings.maskValuesOfKeys.length > 0
+		                ? this._mask(logArgs)
+		                : logArgs;
+		        const thisLogObj = this.logObj != null ? this._recursiveCloneAndExecuteFunctions(this.logObj) : undefined;
+		        const logObj = this.settings.overwrite?.toLogObj != null ? this.settings.overwrite?.toLogObj(maskedArgs, thisLogObj) : this._toLogObj(maskedArgs, thisLogObj);
+		        const logObjWithMeta = this.settings.overwrite?.addMeta != null
+		            ? this.settings.overwrite.addMeta(logObj, logLevelId, logLevelName, this.settings.overwrite.includeDefaultMetaInAddMeta
+		                ? this.runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames, this.settings.internalFramePatterns)
+		                : undefined)
+		            : this._addMetaToLogObj(logObj, logLevelId, logLevelName);
+		        const logMeta = logObjWithMeta?.[this.settings.metaProperty];
+		        let logMetaMarkup;
+		        let logArgsAndErrorsMarkup;
+		        if (this.settings.overwrite?.formatMeta != null) {
+		            logMetaMarkup = this.settings.overwrite?.formatMeta(logObjWithMeta?.[this.settings.metaProperty]);
+		        }
+		        if (this.settings.overwrite?.formatLogObj != null) {
+		            logArgsAndErrorsMarkup = this.settings.overwrite?.formatLogObj(maskedArgs, this.settings);
+		        }
+		        if (this.settings.type === "pretty") {
+		            logMetaMarkup = logMetaMarkup ?? this._prettyFormatLogObjMeta(logObjWithMeta?.[this.settings.metaProperty]);
+		            logArgsAndErrorsMarkup = logArgsAndErrorsMarkup ?? runtime.prettyFormatLogObj(maskedArgs, this.settings);
+		        }
+		        if (logMetaMarkup != null && logArgsAndErrorsMarkup != null) {
+		            if (this.settings.overwrite?.transportFormatted != null) {
+		                const transport = this.settings.overwrite.transportFormatted;
+		                const declaredParams = transport.length;
+		                if (declaredParams < 4) {
+		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors);
+		                }
+		                else if (declaredParams === 4) {
+		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta);
+		                }
+		                else {
+		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
+		                }
+		            }
+		            else {
+		                runtime.transportFormatted(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
+		            }
+		        }
+		        else {
+		            if (this.settings.overwrite?.transportJSON != null) {
+		                this.settings.overwrite.transportJSON(logObjWithMeta);
+		            }
+		            else if (this.settings.type !== "hidden") {
+		                runtime.transportJSON(logObjWithMeta);
+		            }
+		        }
+		        if (this.settings.attachedTransports != null && this.settings.attachedTransports.length > 0) {
+		            this.settings.attachedTransports.forEach((transportLogger) => {
+		                try {
+		                    transportLogger(logObjWithMeta);
+		                }
+		                catch (transportError) {
+		                    try {
+		                        console.error("tslog: attached transport threw an error", transportError);
+		                    }
+		                    catch {
+		                    }
+		                }
+		            });
+		        }
+		        return logObjWithMeta;
+		    }
+		    attachTransport(transportLogger) {
+		        this.settings.attachedTransports.push(transportLogger);
+		    }
+		    getSubLogger(settings, logObj) {
+		        const subLoggerSettings = {
+		            ...this.settings,
+		            ...settings,
+		            minLevel: resolveLogLevelId(settings?.minLevel) ?? this.settings.minLevel,
+		            parentNames: this.settings?.parentNames != null && this.settings?.name != null
+		                ? [...this.settings.parentNames, this.settings.name]
+		                : this.settings?.name != null
+		                    ? [this.settings.name]
+		                    : undefined,
+		            prefix: [...this.settings.prefix, ...(settings?.prefix ?? [])],
+		        };
+		        const subLogger = new this.constructor(subLoggerSettings, logObj ?? this.logObj, this.stackDepthLevel);
+		        return subLogger;
+		    }
+		    _mask(args) {
+		        const maskKeys = this._getMaskKeys();
+		        return args?.map((arg) => {
+		            return this._recursiveCloneAndMaskValuesOfKeys(arg, maskKeys);
+		        });
+		    }
+		    _getMaskKeys() {
+		        const maskKeys = this.settings.maskValuesOfKeys ?? [];
+		        const signature = maskKeys.map(String).join("|");
+		        if (this.settings.maskValuesOfKeysCaseInsensitive === true) {
+		            if (this.maskKeysCache?.source === maskKeys && this.maskKeysCache.caseInsensitive === true && this.maskKeysCache.signature === signature) {
+		                return this.maskKeysCache.normalized;
+		            }
+		            const normalized = maskKeys.map((key) => (typeof key === "string" ? key.toLowerCase() : String(key).toLowerCase()));
+		            this.maskKeysCache = {
+		                source: maskKeys,
+		                caseInsensitive: true,
+		                normalized,
+		                signature,
+		            };
+		            return normalized;
+		        }
+		        if (this.maskKeysCache?.source === maskKeys && this.maskKeysCache.caseInsensitive === false && this.maskKeysCache.signature === signature) {
+		            return this.maskKeysCache.normalized;
+		        }
+		        const normalized = maskKeys.map((key) => (typeof key === "string" ? key : String(key)));
+		        this.maskKeysCache = {
+		            source: maskKeys,
+		            caseInsensitive: false,
+		            normalized,
+		            signature,
+		        };
+		        return normalized;
+		    }
+		    _resolveLogArguments(args) {
+		        if (args.length === 1 && typeof args[0] === "function") {
+		            const candidate = args[0];
+		            if (candidate.length === 0) {
+		                const result = candidate();
+		                return Array.isArray(result) ? result : [result];
+		            }
+		        }
+		        return args;
+		    }
+		    _recursiveCloneAndMaskValuesOfKeys(source, keys, seen = []) {
+		        if (seen.includes(source)) {
+		            return { ...source };
+		        }
+		        if (typeof source === "object" && source !== null) {
+		            seen.push(source);
+		        }
+		        if (runtime.isError(source) || runtime.isBuffer(source)) {
+		            return source;
+		        }
+		        else if (source instanceof Map) {
+		            return new Map(source);
+		        }
+		        else if (source instanceof Set) {
+		            return new Set(source);
+		        }
+		        else if (Array.isArray(source)) {
+		            return source.map((item) => this._recursiveCloneAndMaskValuesOfKeys(item, keys, seen));
+		        }
+		        else if (source instanceof Date) {
+		            return new Date(source.getTime());
+		        }
+		        else if (source instanceof URL) {
+		            return (0, urlToObj_js_1.urlToObject)(source);
+		        }
+		        else if (source !== null && typeof source === "object") {
+		            const baseObject = runtime.isError(source) ? this._cloneError(source) : Object.create(Object.getPrototypeOf(source));
+		            return Object.getOwnPropertyNames(source).reduce((o, prop) => {
+		                const lookupKey = this.settings?.maskValuesOfKeysCaseInsensitive !== true
+		                    ? prop
+		                    : typeof prop === "string"
+		                        ? prop.toLowerCase()
+		                        : String(prop).toLowerCase();
+		                o[prop] = keys.includes(lookupKey)
+		                    ? this.settings.maskPlaceholder
+		                    : (() => {
+		                        try {
+		                            return this._recursiveCloneAndMaskValuesOfKeys(source[prop], keys, seen);
+		                        }
+		                        catch {
+		                            return null;
+		                        }
+		                    })();
+		                return o;
+		            }, baseObject);
+		        }
+		        else {
+		            if (typeof source === "string") {
+		                let modifiedSource = source;
+		                const placeholder = (this.settings?.maskPlaceholder || "").replace(/\$/g, "$$$$");
+		                for (const regEx of this.settings?.maskValuesRegEx || []) {
+		                    modifiedSource = modifiedSource.replace(regEx, placeholder);
+		                }
+		                return modifiedSource;
+		            }
+		            return source;
+		        }
+		    }
+		    _recursiveCloneAndExecuteFunctions(source, seen = []) {
+		        if (this.isObjectOrArray(source) && seen.includes(source)) {
+		            return this.shallowCopy(source);
+		        }
+		        if (this.isObjectOrArray(source)) {
+		            seen.push(source);
+		        }
+		        if (Array.isArray(source)) {
+		            return source.map((item) => this._recursiveCloneAndExecuteFunctions(item, seen));
+		        }
+		        else if (source instanceof Date) {
+		            return new Date(source.getTime());
+		        }
+		        else if (this.isObject(source)) {
+		            return Object.getOwnPropertyNames(source).reduce((o, prop) => {
+		                const descriptor = Object.getOwnPropertyDescriptor(source, prop);
+		                if (descriptor) {
+		                    Object.defineProperty(o, prop, descriptor);
+		                    const value = source[prop];
+		                    o[prop] = typeof value === "function" ? value() : this._recursiveCloneAndExecuteFunctions(value, seen);
+		                }
+		                return o;
+		            }, Object.create(Object.getPrototypeOf(source)));
+		        }
+		        else {
+		            return source;
+		        }
+		    }
+		    isObjectOrArray(value) {
+		        return typeof value === "object" && value !== null;
+		    }
+		    isObject(value) {
+		        return typeof value === "object" && !Array.isArray(value) && value !== null;
+		    }
+		    shallowCopy(source) {
+		        if (Array.isArray(source)) {
+		            return [...source];
+		        }
+		        else {
+		            return { ...source };
+		        }
+		    }
+		    _toLogObj(args, clonedLogObj = {}) {
+		        args = args?.map((arg) => (runtime.isError(arg) ? this._toErrorObject(arg) : arg));
+		        if (this.settings.argumentsArrayName == null) {
+		            if (args.length === 1 && !Array.isArray(args[0]) && runtime.isBuffer(args[0]) !== true && !(args[0] instanceof Date)) {
+		                clonedLogObj = typeof args[0] === "object" && args[0] != null ? { ...args[0], ...clonedLogObj } : { 0: args[0], ...clonedLogObj };
+		            }
+		            else {
+		                clonedLogObj = { ...clonedLogObj, ...args };
+		            }
+		        }
+		        else {
+		            clonedLogObj = {
+		                ...clonedLogObj,
+		                [this.settings.argumentsArrayName]: args,
+		            };
+		        }
+		        return clonedLogObj;
+		    }
+		    _cloneError(error) {
+		        const cloned = new error.constructor();
+		        Object.getOwnPropertyNames(error).forEach((key) => {
+		            cloned[key] = error[key];
+		        });
+		        return cloned;
+		    }
+		    _toErrorObject(error, depth = 0, seen = new Set()) {
+		        if (!seen.has(error)) {
+		            seen.add(error);
+		        }
+		        const errorObject = {
+		            nativeError: error,
+		            name: error.name ?? "Error",
+		            message: error.message,
+		            stack: runtime.getErrorTrace(error),
+		        };
+		        if (depth >= this.maxErrorCauseDepth) {
+		            return errorObject;
+		        }
+		        const causeValue = error.cause;
+		        if (causeValue != null) {
+		            const normalizedCause = (0, errorUtils_js_1.toError)(causeValue);
+		            if (!seen.has(normalizedCause)) {
+		                errorObject.cause = this._toErrorObject(normalizedCause, depth + 1, seen);
+		            }
+		        }
+		        return errorObject;
+		    }
+		    _addMetaToLogObj(logObj, logLevelId, logLevelName) {
+		        return {
+		            ...logObj,
+		            [this.settings.metaProperty]: runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames, this.settings.internalFramePatterns),
+		        };
+		    }
+		    _shouldCaptureStack() {
+		        if (this.settings.hideLogPositionForProduction) {
+		            return false;
+		        }
+		        if (this.settings.type === "json") {
+		            return true;
+		        }
+		        const template = this.settings.prettyLogTemplate ?? "";
+		        const stackPlaceholders = /{{\s*(file(Name|Path|Line|PathWithLine|NameWithLine)|fullFilePath)\s*}}/;
+		        if (stackPlaceholders.test(template)) {
+		            return true;
+		        }
+		        return false;
+		    }
+		    _prettyFormatLogObjMeta(logObjMeta) {
+		        return (0, metaFormatting_js_1.buildPrettyMeta)(this.settings, logObjMeta).text;
+		    }
+		};
+		exports.BaseLogger = BaseLogger$1; 
+	} (BaseLogger));
+	return BaseLogger;
+}
+
+var hasRequiredCjs;
+
+function requireCjs () {
+	if (hasRequiredCjs) return cjs;
+	hasRequiredCjs = 1;
+	(function (exports) {
+		var __createBinding = (cjs && cjs.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+		    if (k2 === undefined) k2 = k;
+		    var desc = Object.getOwnPropertyDescriptor(m, k);
+		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+		      desc = { enumerable: true, get: function() { return m[k]; } };
+		    }
+		    Object.defineProperty(o, k2, desc);
+		}) : (function(o, m, k, k2) {
+		    if (k2 === undefined) k2 = k;
+		    o[k2] = m[k];
+		}));
+		var __exportStar = (cjs && cjs.__exportStar) || function(m, exports) {
+		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+		};
+		Object.defineProperty(exports, "__esModule", { value: true });
+		exports.log = exports.Logger = void 0;
+		const BaseLogger_js_1 = requireBaseLogger();
+		const interfaces_js_1 = requireInterfaces();
+		__exportStar(requireBaseLogger(), exports);
+		__exportStar(requireInterfaces(), exports);
+		class Logger extends BaseLogger_js_1.BaseLogger {
+		    constructor(settings, logObj) {
+		        const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+		        const normalizedSettings = { ...(settings ?? {}) };
+		        if (isBrowser) {
+		            normalizedSettings.stylePrettyLogs = settings?.stylePrettyLogs ?? true;
+		        }
+		        super(normalizedSettings, logObj, Number.NaN);
+		    }
+		    log(logLevelId, logLevelName, ...args) {
+		        return super.log(logLevelId, logLevelName, ...args);
+		    }
+		    silly(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.SILLY, "SILLY", ...args);
+		    }
+		    trace(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.TRACE, "TRACE", ...args);
+		    }
+		    debug(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.DEBUG, "DEBUG", ...args);
+		    }
+		    info(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.INFO, "INFO", ...args);
+		    }
+		    warn(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.WARN, "WARN", ...args);
+		    }
+		    error(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.ERROR, "ERROR", ...args);
+		    }
+		    fatal(...args) {
+		        return super.log(interfaces_js_1.DefaultLogLevels.FATAL, "FATAL", ...args);
+		    }
+		    getSubLogger(settings, logObj) {
+		        return super.getSubLogger(settings, logObj);
+		    }
+		}
+		exports.Logger = Logger;
+		exports.log = new Logger(); 
+	} (cjs));
+	return cjs;
+}
+
+var log;
+var hasRequiredLog;
+function requireLog() {
+  if (hasRequiredLog) return log;
+  hasRequiredLog = 1;
+  var _require$$ = /*@__PURE__*/requireCjs(),
+    Logger = _require$$.Logger;
+  log = new Logger({
+    name: 'scratch-vm'
+  });
+  return log;
+}
+
+var bleWeb;
+var hasRequiredBleWeb;
+function requireBleWeb() {
+  if (hasRequiredBleWeb) return bleWeb;
+  hasRequiredBleWeb = 1;
+  var log = requireLog();
+  var uint8ArrayToBase64 = function uint8ArrayToBase64(array) {
+    return window.btoa(String.fromCharCode.apply(String, _toConsumableArray(array)));
+  };
+  var base64ToUint8Array = function base64ToUint8Array(base64) {
+    var raw = window.atob(base64);
+    return Uint8Array.from(Array.prototype.map.call(raw, function (x) {
+      return x.charCodeAt(0);
+    }));
+  };
+  var WebBLE = /*#__PURE__*/function () {
+    /**
+     * A BLE peripheral object.  It handles connecting, over Web Bluetooth API, to
+     * BLE peripherals, and reading and writing data to them.
+     * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
+     * @param {string} extensionId - the id of the extension using this object.
+     * @param {object} peripheralOptions - the list of options for peripheral discovery.
+     * @param {object} connectCallback - a callback for connection.
+     * @param {object} resetCallback - a callback for resetting extension state.
+     */
+    function WebBLE(runtime, extensionId, peripheralOptions, connectCallback) {
+      var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+      _classCallCheck(this, WebBLE);
+      /**
+       * Remote device which have been connected.
+       * @type {BluetoothDevice}
+       */
+      this._device = null;
+
+      /**
+       * Remote GATT server
+       * @type {BluetoothRemoteGATTServer}
+       */
+      this._server = null;
+      this._connectCallback = connectCallback;
+      this._disconnected = true;
+      this._characteristicDidChangeCallback = null;
+      this._resetCallback = resetCallback;
+      this._extensionId = extensionId;
+      this._peripheralOptions = peripheralOptions;
+      this._runtime = runtime;
+      this.requestPeripheral();
+    }
+
+    /**
+     * Request connection to the peripheral.
+     * Request user to choose a device, and then connect it automatically.
+     */
+    return _createClass(WebBLE, [{
+      key: "requestPeripheral",
+      value: function requestPeripheral() {
+        var _this = this;
+        if (this._server) {
+          this.disconnect();
+        }
+        navigator.bluetooth.requestDevice(this._peripheralOptions).then(function (device) {
+          _this._device = device;
+          log.debug("device=".concat(_this._device.name));
+          _this._runtime.connectPeripheral(_this._extensionId, _this._device.id);
+        }).catch(function (e) {
+          _this._handleRequestError(e);
+        });
+      }
+
+      /**
+       * Try connecting to the GATT server of the device, and then call the connect
+       * callback when connection is successful.
+       */
+    }, {
+      key: "connectPeripheral",
+      value: function connectPeripheral(/* id */
+      ) {
+        var _this2 = this;
+        if (!this._device) {
+          throw new Error('device is not chosen');
+        }
+        this._device.gatt.connect().then(function (gattServer) {
+          log.debug("GATTServer is connected");
+          _this2._server = gattServer;
+          _this2._runtime.emit(_this2._runtime.constructor.PERIPHERAL_CONNECTED);
+          _this2._disconnected = false;
+          _this2._connectCallback();
+          _this2._device.addEventListener('gattserverdisconnected', function (event) {
+            _this2.onDisconnected(event);
+          });
+        });
+      }
+
+      /**
+       * Disconnect from the device and clean up.
+       * Then emit the connection state by the runtime.
+       */
+    }, {
+      key: "disconnect",
+      value: function disconnect() {
+        if (!this._server) return;
+        this._server.disconnect();
+        this._disconnected = true;
+        this._server = null;
+        this._device = null;
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
+      }
+
+      /**
+       * @returns {boolean} whether the peripheral is connected.
+       */
+    }, {
+      key: "isConnected",
+      value: function isConnected() {
+        if (!this._server) return false;
+        return this._server.connected;
+      }
+
+      /**
+       * Start receiving notifications from the specified ble service.
+       * @param {number} serviceId - the ble service to read.
+       * @param {number} characteristicId - the ble characteristic to get notifications from.
+       * @param {object} onCharacteristicChanged - callback for characteristic change notifications
+       *  like function(base64message).
+       * @returns {Promise} - a promise from the remote startNotifications request.
+       */
+    }, {
+      key: "startNotifications",
+      value: function startNotifications(serviceId, characteristicId) {
+        var onCharacteristicChanged = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+        return this._server.getPrimaryService(serviceId).then(function (service) {
+          return service.getCharacteristic(characteristicId);
+        }).then(function (characteristic) {
+          characteristic.addEventListener('characteristicvaluechanged', function (event) {
+            var dataView = event.target.value;
+            onCharacteristicChanged(uint8ArrayToBase64(new Uint8Array(dataView.buffer)));
+          });
+          return characteristic.startNotifications();
+        });
+      }
+
+      /**
+       * Read from the specified ble service.
+       * @param {number} serviceId - the ble service to read.
+       * @param {number} characteristicId - the ble characteristic to read.
+       * @param {boolean} optStartNotifications - whether to start receiving characteristic change notifications.
+       * @param {object} onCharacteristicChanged - callback for characteristic change notifications
+       *  like function(base64message).
+       * @returns {Promise} - a promise from the remote read request which resolve {message: base64string}.
+       */
+    }, {
+      key: "read",
+      value: function read(serviceId, characteristicId) {
+        var _this3 = this;
+        var optStartNotifications = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var onCharacteristicChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+        return this._server.getPrimaryService(serviceId).then(function (service) {
+          return service.getCharacteristic(characteristicId);
+        }).then(function (characteristic) {
+          if (optStartNotifications) {
+            return _this3.startNotifications(serviceId, characteristicId, onCharacteristicChanged).then(function () {
+              return characteristic.readValue();
+            });
+          }
+          return characteristic.readValue();
+        }).then(function (dataView) {
+          return {
+            message: uint8ArrayToBase64(new Uint8Array(dataView.buffer))
+          };
+        });
+      }
+
+      /**
+       * Write data to the specified ble service.
+       * @param {number} serviceId - the ble service to write.
+       * @param {number} characteristicId - the ble characteristic to write.
+       * @param {string} message - the message to send.
+       * @param {string} encoding - the message encoding type.
+       * @param {boolean} withResponse - if true, resolve after peripheral's response.
+       * @returns {Promise} - a promise from the remote send request.
+       */
+    }, {
+      key: "write",
+      value: function write(serviceId, characteristicId, message) {
+        var encoding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+        var withResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+        var value = encoding === 'base64' ? base64ToUint8Array(message) : message;
+        return this._server.getPrimaryService(serviceId).then(function (service) {
+          return service.getCharacteristic(characteristicId);
+        }).then(function (characteristic) {
+          if (withResponse && characteristic.writeValueWithResponse) {
+            return characteristic.writeValueWithResponse(value);
+          }
+          if (characteristic.writeValueWithoutResponse) {
+            return characteristic.writeValueWithoutResponse(value);
+          }
+          return characteristic.writeValue(value);
+        });
+      }
+
+      /**
+       * Handle an error resulting from losing connection to a peripheral.
+       *
+       * This could be due to:
+       * - battery depletion
+       * - going out of bluetooth range
+       * - being powered down
+       *
+       * Disconnect the device, and if the extension using this object has a
+       * reset callback, call it. Finally, emit an error to the runtime.
+       */
+    }, {
+      key: "handleDisconnectError",
+      value: function handleDisconnectError(/* e */
+      ) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+        if (this._disconnected) return;
+        this.disconnect();
+        if (this._resetCallback) {
+          this._resetCallback();
+        }
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
+          message: "Scratch lost connection to",
+          extensionId: this._extensionId
+        });
+      }
+    }, {
+      key: "_handleRequestError",
+      value: function _handleRequestError(/* e */
+      ) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
+          message: "Scratch lost connection to",
+          extensionId: this._extensionId
+        });
+      }
+
+      /**
+       * Called when disconnected by the device.
+       */
+    }, {
+      key: "onDisconnected",
+      value: function onDisconnected(/* event */
+      ) {
+        this.handleDisconnectError(new Error('device disconnected'));
+      }
+    }]);
+  }();
+  bleWeb = WebBLE;
+  return bleWeb;
+}
+
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+var ble;
+var hasRequiredBle;
+function requireBle() {
+  if (hasRequiredBle) return ble;
+  hasRequiredBle = 1;
+  var JSONRPC = requireJsonrpc();
+  var WebBLE = requireBleWeb();
+  var BLE = /*#__PURE__*/function (_JSONRPC) {
+    /**
+     * A BLE peripheral socket object.  It handles connecting, over web sockets, to
+     * BLE peripherals, and reading and writing data to them.
+     * @param {Runtime} runtime - the Runtime for sending/receiving GUI update events.
+     * @param {string} extensionId - the id of the extension using this socket.
+     * @param {object} peripheralOptions - the list of options for peripheral discovery.
+     * @param {object} connectCallback - a callback for connection.
+     * @param {object} resetCallback - a callback for resetting extension state.
+     */
+    function BLE(runtime, extensionId, peripheralOptions, connectCallback) {
+      var _this;
+      var resetCallback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+      _classCallCheck(this, BLE);
+      _this = _callSuper(this, BLE);
+      _this._socket = runtime.getScratchLinkSocket('BLE');
+      _this._socket.setOnOpen(_this.requestPeripheral.bind(_this));
+      _this._socket.setOnClose(_this.handleDisconnectError.bind(_this));
+      _this._socket.setOnError(_this._handleRequestError.bind(_this));
+      _this._socket.setHandleMessage(_this._handleMessage.bind(_this));
+      _this._sendMessage = _this._socket.sendMessage.bind(_this._socket);
+      _this._availablePeripherals = {};
+      _this._connectCallback = connectCallback;
+      _this._connected = false;
+      _this._characteristicDidChangeCallback = null;
+      _this._resetCallback = resetCallback;
+      _this._discoverTimeoutID = null;
+      _this._extensionId = extensionId;
+      _this._peripheralOptions = peripheralOptions;
+      _this._runtime = runtime;
+      _this._socket.open();
+      return _this;
+    }
+
+    /**
+     * Request connection to the peripheral.
+     * If the web socket is not yet open, request when the socket promise resolves.
+     */
+    _inherits(BLE, _JSONRPC);
+    return _createClass(BLE, [{
+      key: "requestPeripheral",
+      value: function requestPeripheral() {
+        var _this2 = this;
+        this._availablePeripherals = {};
+        if (this._discoverTimeoutID) {
+          window.clearTimeout(this._discoverTimeoutID);
+        }
+        this._discoverTimeoutID = window.setTimeout(this._handleDiscoverTimeout.bind(this), 15000);
+        this.sendRemoteRequest('discover', this._peripheralOptions).catch(function (e) {
+          _this2._handleRequestError(e);
+        });
+      }
+
+      /**
+       * Try connecting to the input peripheral id, and then call the connect
+       * callback if connection is successful.
+       * @param {number} id - the id of the peripheral to connect to
+       */
+    }, {
+      key: "connectPeripheral",
+      value: function connectPeripheral(id) {
+        var _this3 = this;
+        this.sendRemoteRequest('connect', {
+          peripheralId: id
+        }).then(function () {
+          _this3._connected = true;
+          _this3._runtime.emit(_this3._runtime.constructor.PERIPHERAL_CONNECTED);
+          _this3._connectCallback();
+        }).catch(function (e) {
+          _this3._handleRequestError(e);
+        });
+      }
+
+      /**
+       * Close the websocket.
+       */
+    }, {
+      key: "disconnect",
+      value: function disconnect() {
+        if (this._connected) {
+          this._connected = false;
+        }
+        if (this._socket.isOpen()) {
+          this._socket.close();
+        }
+        if (this._discoverTimeoutID) {
+          window.clearTimeout(this._discoverTimeoutID);
+        }
+
+        // Sets connection status icon to orange
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_DISCONNECTED);
+      }
+
+      /**
+       * @returns {bool} whether the peripheral is connected.
+       */
+    }, {
+      key: "isConnected",
+      value: function isConnected() {
+        return this._connected;
+      }
+
+      /**
+       * Start receiving notifications from the specified ble service.
+       * @param {number} serviceId - the ble service to read.
+       * @param {number} characteristicId - the ble characteristic to get notifications from.
+       * @param {object} onCharacteristicChanged - callback for characteristic change notifications.
+       * @returns {Promise} - a promise from the remote startNotifications request.
+       */
+    }, {
+      key: "startNotifications",
+      value: function startNotifications(serviceId, characteristicId) {
+        var _this4 = this;
+        var onCharacteristicChanged = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+        var params = {
+          serviceId: serviceId,
+          characteristicId: characteristicId
+        };
+        this._characteristicDidChangeCallback = onCharacteristicChanged;
+        return this.sendRemoteRequest('startNotifications', params).catch(function (e) {
+          _this4.handleDisconnectError(e);
+        });
+      }
+
+      /**
+       * Read from the specified ble service.
+       * @param {number} serviceId - the ble service to read.
+       * @param {number} characteristicId - the ble characteristic to read.
+       * @param {boolean} optStartNotifications - whether to start receiving characteristic change notifications.
+       * @param {object} onCharacteristicChanged - callback for characteristic change notifications.
+       * @returns {Promise} - a promise from the remote read request.
+       */
+    }, {
+      key: "read",
+      value: function read(serviceId, characteristicId) {
+        var _this5 = this;
+        var optStartNotifications = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var onCharacteristicChanged = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+        var params = {
+          serviceId: serviceId,
+          characteristicId: characteristicId
+        };
+        if (optStartNotifications) {
+          params.startNotifications = true;
+        }
+        if (onCharacteristicChanged) {
+          this._characteristicDidChangeCallback = onCharacteristicChanged;
+        }
+        return this.sendRemoteRequest('read', params).catch(function (e) {
+          _this5.handleDisconnectError(e);
+        });
+      }
+
+      /**
+       * Write data to the specified ble service.
+       * @param {number} serviceId - the ble service to write.
+       * @param {number} characteristicId - the ble characteristic to write.
+       * @param {string} message - the message to send.
+       * @param {string} encoding - the message encoding type.
+       * @param {boolean} withResponse - if true, resolve after peripheral's response.
+       * @returns {Promise} - a promise from the remote send request.
+       */
+    }, {
+      key: "write",
+      value: function write(serviceId, characteristicId, message) {
+        var _this6 = this;
+        var encoding = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+        var withResponse = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+        var params = {
+          serviceId: serviceId,
+          characteristicId: characteristicId,
+          message: message
+        };
+        if (encoding) {
+          params.encoding = encoding;
+        }
+        if (withResponse !== null) {
+          params.withResponse = withResponse;
+        }
+        return this.sendRemoteRequest('write', params).catch(function (e) {
+          _this6.handleDisconnectError(e);
+        });
+      }
+
+      /**
+       * Handle a received call from the socket.
+       * @param {string} method - a received method label.
+       * @param {object} params - a received list of parameters.
+       * @returns {object} - optional return value.
+       */
+    }, {
+      key: "didReceiveCall",
+      value: function didReceiveCall(method, params) {
+        switch (method) {
+          case 'didDiscoverPeripheral':
+            this._availablePeripherals[params.peripheralId] = params;
+            this._runtime.emit(this._runtime.constructor.PERIPHERAL_LIST_UPDATE, this._availablePeripherals);
+            if (this._discoverTimeoutID) {
+              window.clearTimeout(this._discoverTimeoutID);
+            }
+            break;
+          case 'userDidPickPeripheral':
+            this._availablePeripherals[params.peripheralId] = params;
+            this._runtime.emit(this._runtime.constructor.USER_PICKED_PERIPHERAL, this._availablePeripherals);
+            if (this._discoverTimeoutID) {
+              window.clearTimeout(this._discoverTimeoutID);
+            }
+            break;
+          case 'userDidNotPickPeripheral':
+            this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
+            if (this._discoverTimeoutID) {
+              window.clearTimeout(this._discoverTimeoutID);
+            }
+            break;
+          case 'characteristicDidChange':
+            if (this._characteristicDidChangeCallback) {
+              this._characteristicDidChangeCallback(params.message);
+            }
+            break;
+          case 'ping':
+            return 42;
+        }
+      }
+
+      /**
+       * Handle an error resulting from losing connection to a peripheral.
+       *
+       * This could be due to:
+       * - battery depletion
+       * - going out of bluetooth range
+       * - being powered down
+       *
+       * Disconnect the socket, and if the extension using this socket has a
+       * reset callback, call it. Finally, emit an error to the runtime.
+       */
+    }, {
+      key: "handleDisconnectError",
+      value: function handleDisconnectError(/* e */
+      ) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+        if (!this._connected) return;
+        this.disconnect();
+        if (this._resetCallback) {
+          this._resetCallback();
+        }
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_CONNECTION_LOST_ERROR, {
+          message: "Scratch lost connection to",
+          extensionId: this._extensionId
+        });
+      }
+    }, {
+      key: "_handleRequestError",
+      value: function _handleRequestError(/* e */
+      ) {
+        // log.error(`BLE error: ${JSON.stringify(e)}`);
+
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_REQUEST_ERROR, {
+          message: "Scratch lost connection to",
+          extensionId: this._extensionId
+        });
+      }
+    }, {
+      key: "_handleDiscoverTimeout",
+      value: function _handleDiscoverTimeout() {
+        if (this._discoverTimeoutID) {
+          window.clearTimeout(this._discoverTimeoutID);
+        }
+        this._runtime.emit(this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT);
+      }
+    }]);
+  }(JSONRPC);
+  ble = navigator.bluetooth ? WebBLE : BLE;
+  return ble;
+}
+
+var bleExports = requireBle();
+var BLE = /*@__PURE__*/getDefaultExportFromCjs(bleExports);
+
+var browserAtob = {exports: {}};
+
+var hasRequiredBrowserAtob;
+
+function requireBrowserAtob () {
+	if (hasRequiredBrowserAtob) return browserAtob.exports;
+	hasRequiredBrowserAtob = 1;
+	(function (module) {
+		(function (w) {
+
+		  function findBest(atobNative) {
+		    // normal window
+		    if ('function' === typeof atobNative) { return atobNative; }
+
+
+		    // browserify (web worker)
+		    if ('function' === typeof Buffer) {
+		      return function atobBrowserify(a) {
+		        //!! Deliberately using an API that's deprecated in node.js because
+		        //!! this file is for browsers and we expect them to cope with it.
+		        //!! Discussion: github.com/node-browser-compat/atob/pull/9
+		        return new Buffer(a, 'base64').toString('binary');
+		      };
+		    }
+
+		    // ios web worker with base64js
+		    if ('object' === typeof w.base64js) {
+		      // bufferToBinaryString
+		      // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
+		      return function atobWebWorker_iOS(a) {
+		        var buf = w.base64js.b64ToByteArray(a);
+		        return Array.prototype.map.call(buf, function (ch) {
+		          return String.fromCharCode(ch);
+		        }).join('');
+		      };
+		    }
+
+				return function () {
+					// ios web worker without base64js
+					throw new Error("You're probably in an old browser or an iOS webworker." +
+						" It might help to include beatgammit's base64-js.");
+		    };
+		  }
+
+		  var atobBest = findBest(w.atob);
+		  w.atob = atobBest;
+
+		  if (module && module.exports) {
+		    module.exports = atobBest;
+		  }
+		}(window)); 
+	} (browserAtob));
+	return browserAtob.exports;
+}
+
+var btoa = {exports: {}};
+
+var hasRequiredBtoa;
+
+function requireBtoa () {
+	if (hasRequiredBtoa) return btoa.exports;
+	hasRequiredBtoa = 1;
+	(function () {
+
+	  function btoa$1(str) {
+	    var buffer;
+
+	    if (str instanceof Buffer) {
+	      buffer = str;
+	    } else {
+	      buffer = Buffer.from(str.toString(), 'binary');
+	    }
+
+	    return buffer.toString('base64');
+	  }
+
+	  btoa.exports = btoa$1;
+	}());
+	return btoa.exports;
+}
+
+var base64Util;
+var hasRequiredBase64Util;
+function requireBase64Util() {
+  if (hasRequiredBase64Util) return base64Util;
+  hasRequiredBase64Util = 1;
+  var atob = requireBrowserAtob();
+  var btoa = requireBtoa();
+  var Base64Util = /*#__PURE__*/function () {
+    function Base64Util() {
+      _classCallCheck(this, Base64Util);
+    }
+    return _createClass(Base64Util, null, [{
+      key: "base64ToUint8Array",
+      value:
+      /**
+       * Convert a base64 encoded string to a Uint8Array.
+       * @param {string} base64 - a base64 encoded string.
+       * @returns {Uint8Array} - a decoded Uint8Array.
+       */
+      function base64ToUint8Array(base64) {
+        var binaryString = atob(base64);
+        var len = binaryString.length;
+        var array = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+          array[i] = binaryString.charCodeAt(i);
+        }
+        return array;
+      }
+
+      /**
+       * Convert a Uint8Array to a base64 encoded string.
+       * @param {Uint8Array} array - the array to convert.
+       * @returns {string} - the base64 encoded string.
+       */
+    }, {
+      key: "uint8ArrayToBase64",
+      value: function uint8ArrayToBase64(array) {
+        var base64 = btoa(String.fromCharCode.apply(null, array));
+        return base64;
+      }
+
+      /**
+       * Convert an array buffer to a base64 encoded string.
+       * @param {Array} buffer - an array buffer to convert.
+       * @returns {string} - the base64 encoded string.
+       */
+    }, {
+      key: "arrayBufferToBase64",
+      value: function arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+        return btoa(binary);
+      }
+    }]);
+  }();
+  base64Util = Base64Util;
+  return base64Util;
+}
+
+var base64UtilExports = requireBase64Util();
+var Base64Util = /*@__PURE__*/getDefaultExportFromCjs(base64UtilExports);
+
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
@@ -1277,8 +5797,8 @@ var RootProtocol = /*#__PURE__*/function () {
     }
   }, {
     key: "led",
-    value: function led(red, green, blue) {
-      return this.packet(3, 2, [1, clamp(red, 0, 255), clamp(green, 0, 255), clamp(blue, 0, 255)]);
+    value: function led(state, red, green, blue) {
+      return this.packet(3, 2, [clamp(state, 0, 3), clamp(red, 0, 255), clamp(green, 0, 255), clamp(blue, 0, 255)]);
     }
   }, {
     key: "note",
@@ -1333,290 +5853,72 @@ var RootProtocol = /*#__PURE__*/function () {
     }
   }]);
 }();
-var encodeBase64 = function encodeBase64(bytes) {
-  var binary = '';
-  var _iterator2 = _createForOfIteratorHelper(bytes),
-    _step2;
-  try {
-    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-      var value = _step2.value;
-      binary += String.fromCharCode(value);
-    }
-  } catch (err) {
-    _iterator2.e(err);
-  } finally {
-    _iterator2.f();
-  }
-  return btoa(binary);
-};
-var decodeBase64 = function decodeBase64(text) {
-  return Uint8Array.from(atob(text), function (character) {
-    return character.charCodeAt(0);
-  });
-};
-var ScratchLinkTransport = /*#__PURE__*/function () {
-  function ScratchLinkTransport(onData, SocketClass) {
-    _classCallCheck(this, ScratchLinkTransport);
-    this.onData = onData;
-    this.SocketClass = SocketClass;
-    this.id = 0;
-    this.pending = new Map();
-  }
-  return _createClass(ScratchLinkTransport, [{
-    key: "rpc",
-    value: function rpc(method) {
-      var _this = this;
-      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      return new Promise(function (resolve, reject) {
-        var id = ++_this.id;
-        _this.pending.set(id, {
-          resolve: resolve,
-          reject: reject
-        });
-        _this.socket.sendMessage({
-          jsonrpc: '2.0',
-          id: id,
-          method: method,
-          params: params
-        });
-        setTimeout(function () {
-          if (_this.pending.delete(id)) reject(new Error("".concat(method, " timeout")));
-        }, 15000);
-      });
-    }
-  }, {
-    key: "connect",
-    value: function () {
-      var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
-        var _this2 = this;
-        var peripheralPromise, peripheral;
-        return _regeneratorRuntime.wrap(function (_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              this.socket = new this.SocketClass('BLE');
-              this.socket.setHandleMessage(function (message) {
-                return _this2.message(message);
-              });
-              _context.next = 1;
-              return new Promise(function (resolve, reject) {
-                _this2.socket.setOnOpen(resolve);
-                _this2.socket.setOnError(reject);
-                _this2.socket.open();
-              });
-            case 1:
-              // Install the notification handler before starting discovery. A nearby
-              // Root can be reported before the discover RPC response arrives.
-              peripheralPromise = new Promise(function (resolve, reject) {
-                var timeout = setTimeout(function () {
-                  _this2.discovered = null;
-                  reject(new Error('Rootが見つかりません。Rootを再起動し、iPadの近くへ置いてください'));
-                }, 30000);
-                _this2.discovered = function (peripheral) {
-                  clearTimeout(timeout);
-                  resolve(peripheral);
-                };
-              });
-              _context.next = 2;
-              return this.rpc('discover', {
-                filters: [{
-                  services: [ROOT_SERVICE]
-                },
-                // Manufacturer 0x0600 followed by ASCII "RT" matches both
-                // Root rt0 and rt1 while excluding unrelated iRobot devices.
-                {
-                  manufacturerData: {
-                    '1536': {
-                      dataPrefix: [0x52, 0x54],
-                      mask: [0xFF, 0xFF]
-                    }
-                  }
-                }],
-                optionalServices: [UART_SERVICE]
-              });
-            case 2:
-              _context.next = 3;
-              return peripheralPromise;
-            case 3:
-              peripheral = _context.sent;
-              _context.next = 4;
-              return this.rpc('connect', {
-                peripheralId: peripheral.peripheralId
-              });
-            case 4:
-              _context.next = 5;
-              return this.rpc('startNotifications', {
-                serviceId: UART_SERVICE,
-                characteristicId: TX,
-                encoding: 'base64'
-              });
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, this);
-      }));
-      function connect() {
-        return _connect.apply(this, arguments);
-      }
-      return connect;
-    }()
-  }, {
-    key: "message",
-    value: function message(_message) {
-      if (_message.id && this.pending.has(_message.id)) {
-        var pending = this.pending.get(_message.id);
-        this.pending.delete(_message.id);
-        if (_message.error) pending.reject(new Error(_message.error.message || 'BLE error'));else pending.resolve(_message.result);
-      } else if (_message.method === 'didDiscoverPeripheral' && this.discovered) {
-        var discovered = this.discovered;
-        this.discovered = null;
-        discovered(_message.params);
-      } else if (_message.method === 'characteristicDidChange') {
-        this.onData(decodeBase64(_message.params.message));
-      }
-    }
-  }, {
-    key: "write",
-    value: function write(bytes) {
-      return this.rpc('write', {
-        serviceId: UART_SERVICE,
-        characteristicId: RX,
-        message: encodeBase64(bytes),
-        encoding: 'base64',
-        withResponse: true
-      });
-    }
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (this.socket) this.socket.close();
-    }
-  }]);
-}();
-var WebBluetoothTransport = /*#__PURE__*/function () {
-  function WebBluetoothTransport(onData) {
-    _classCallCheck(this, WebBluetoothTransport);
-    this.onData = onData;
-  }
-  return _createClass(WebBluetoothTransport, [{
-    key: "connect",
-    value: function () {
-      var _connect2 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee2() {
-        var _this3 = this;
-        var server, service;
-        return _regeneratorRuntime.wrap(function (_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 1;
-              return navigator.bluetooth.requestDevice({
-                filters: [{
-                  services: [ROOT_SERVICE]
-                }],
-                optionalServices: [UART_SERVICE]
-              });
-            case 1:
-              this.device = _context2.sent;
-              _context2.next = 2;
-              return this.device.gatt.connect();
-            case 2:
-              server = _context2.sent;
-              _context2.next = 3;
-              return server.getPrimaryService(UART_SERVICE);
-            case 3:
-              service = _context2.sent;
-              _context2.next = 4;
-              return service.getCharacteristic(RX);
-            case 4:
-              this.rx = _context2.sent;
-              _context2.next = 5;
-              return service.getCharacteristic(TX);
-            case 5:
-              this.tx = _context2.sent;
-              _context2.next = 6;
-              return this.tx.startNotifications();
-            case 6:
-              this.tx.addEventListener('characteristicvaluechanged', function (event) {
-                var value = event.target.value;
-                _this3.onData(new Uint8Array(value.buffer, value.byteOffset, value.byteLength));
-              });
-            case 7:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, this);
-      }));
-      function connect() {
-        return _connect2.apply(this, arguments);
-      }
-      return connect;
-    }()
-  }, {
-    key: "write",
-    value: function write(bytes) {
-      return this.rx.writeValueWithResponse(bytes);
-    }
-  }, {
-    key: "disconnect",
-    value: function disconnect() {
-      if (this.device && this.device.gatt) this.device.gatt.disconnect();
-    }
-  }]);
-}();
 var RootTransport = /*#__PURE__*/function () {
-  function RootTransport(onData) {
+  function RootTransport(runtime, extensionId, onData) {
     _classCallCheck(this, RootTransport);
+    this.runtime = runtime;
+    this.extensionId = extensionId;
     this.onData = onData;
-    this.connected = false;
-    this.mode = '未接続';
+    this.ble = null;
+    this.mode = navigator.bluetooth ? 'Web Bluetooth' : 'Scrub Scratch Link';
     this.lastError = '';
+    this.runtime.registerPeripheralExtension(extensionId, this);
+    this.onConnect = this.onConnect.bind(this);
+    this.reset = this.reset.bind(this);
   }
   return _createClass(RootTransport, [{
-    key: "connect",
-    value: function () {
-      var _connect3 = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee3() {
-        var SocketClass, _t;
-        return _regeneratorRuntime.wrap(function (_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              this.disconnect();
-              this.lastError = '';
-              SocketClass = globalThis.Scratch && globalThis.Scratch.ScratchLinkSafariSocket || globalThis.ScratchLinkSafariSocket;
-              this.mode = SocketClass ? 'Scrub Scratch Link' : navigator.bluetooth ? 'Web Bluetooth' : 'BLE利用不可';
-              this.implementation = SocketClass ? new ScratchLinkTransport(this.onData, SocketClass) : new WebBluetoothTransport(this.onData);
-              _context3.prev = 1;
-              _context3.next = 2;
-              return this.implementation.connect();
-            case 2:
-              this.connected = true;
-              _context3.next = 4;
-              break;
-            case 3:
-              _context3.prev = 3;
-              _t = _context3["catch"](1);
-              this.lastError = _t && _t.message ? _t.message : String(_t);
-              throw _t;
-            case 4:
-            case "end":
-              return _context3.stop();
+    key: "scan",
+    value: function scan() {
+      if (this.ble) this.ble.disconnect();
+      this.lastError = '';
+      this.ble = new BLE(this.runtime, this.extensionId, {
+        filters: [{
+          services: [ROOT_SERVICE]
+        }, {
+          manufacturerData: {
+            '1536': {
+              dataPrefix: [0x52, 0x54],
+              mask: [0xFF, 0xFF]
+            }
           }
-        }, _callee3, this, [[1, 3]]);
-      }));
-      function connect() {
-        return _connect3.apply(this, arguments);
-      }
-      return connect;
-    }()
+        }],
+        optionalServices: [UART_SERVICE]
+      }, this.onConnect, this.reset);
+    }
+  }, {
+    key: "connect",
+    value: function connect(peripheralId) {
+      if (this.ble) this.ble.connectPeripheral(peripheralId);
+    }
+  }, {
+    key: "onConnect",
+    value: function onConnect() {
+      var _this = this;
+      this.ble.startNotifications(UART_SERVICE, TX, function (message) {
+        _this.onData(Base64Util.base64ToUint8Array(message));
+      });
+    }
   }, {
     key: "write",
     value: function write(bytes) {
-      if (!this.connected) return Promise.reject(new Error('Rootに接続してください'));
-      return this.implementation.write(bytes);
+      if (!this.isConnected()) return Promise.reject(new Error('Rootに接続してください'));
+      return this.ble.write(UART_SERVICE, RX, Base64Util.uint8ArrayToBase64(bytes), 'base64', true);
     }
   }, {
     key: "disconnect",
     value: function disconnect() {
-      if (this.implementation) this.implementation.disconnect();
-      this.connected = false;
+      if (this.ble) this.ble.disconnect();
+      this.reset();
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.lastError = '';
+    }
+  }, {
+    key: "isConnected",
+    value: function isConnected() {
+      return Boolean(this.ble && this.ble.isConnected());
     }
   }]);
 }();
@@ -1639,7 +5941,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     this.runtime = runtime;
     if (runtime.formatMessage) formatMessage = runtime.formatMessage;
     this.protocol = new RootProtocol();
-    this.transport = new RootTransport(function (packet) {
+    this.transport = new RootTransport(runtime, EXTENSION_ID, function (packet) {
       return _this._receive(packet);
     });
     this.last = {};
@@ -1762,6 +6064,28 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
             }
           }
         }, {
+          opcode: 'ledAnimation',
+          blockType: BlockType.COMMAND,
+          text: 'LEDを [EFFECT] 赤 [RED] 緑 [GREEN] 青 [BLUE]',
+          arguments: {
+            EFFECT: {
+              type: ArgumentType.STRING,
+              menu: 'ledEffectMenu'
+            },
+            RED: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 0
+            },
+            GREEN: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 128
+            },
+            BLUE: {
+              type: ArgumentType.NUMBER,
+              defaultValue: 255
+            }
+          }
+        }, {
           opcode: 'note',
           blockType: BlockType.COMMAND,
           text: '[HZ] Hzを [MS] ミリ秒鳴らす',
@@ -1855,6 +6179,22 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
               value: 'accel'
             }]
           },
+          ledEffectMenu: {
+            acceptReporters: true,
+            items: [{
+              text: '消す',
+              value: '0'
+            }, {
+              text: '点灯',
+              value: '1'
+            }, {
+              text: '点滅',
+              value: '2'
+            }, {
+              text: '回転',
+              value: '3'
+            }]
+          },
           valueMenu: {
             acceptReporters: true,
             items: ['batteryPercent', 'batteryMv', 'lightLeft', 'lightRight', 'accelX', 'accelY', 'accelZ', 'leftBumper', 'rightBumper', 'touchMask', 'cliff']
@@ -1867,26 +6207,9 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     }
   }, {
     key: "connect",
-    value: function () {
-      var _connect = _asyncToGenerator(/*#__PURE__*/_regeneratorRuntime.mark(function _callee() {
-        return _regeneratorRuntime.wrap(function (_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 1;
-              return this.transport.connect();
-            case 1:
-              if (this.runtime && this.runtime.requestToolboxExtensionsUpdate) this.runtime.requestToolboxExtensionsUpdate();
-            case 2:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, this);
-      }));
-      function connect() {
-        return _connect.apply(this, arguments);
-      }
-      return connect;
-    }()
+    value: function connect() {
+      this.transport.scan();
+    }
   }, {
     key: "disconnect",
     value: function disconnect() {
@@ -1895,7 +6218,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "isConnected",
     value: function isConnected() {
-      return this.transport.connected;
+      return this.transport.isConnected();
     }
   }, {
     key: "transportMode",
@@ -1940,7 +6263,12 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "led",
     value: function led(args) {
-      return this._send(this.protocol.led(Cast.toNumber(args.RED), Cast.toNumber(args.GREEN), Cast.toNumber(args.BLUE)));
+      return this._send(this.protocol.led(1, Cast.toNumber(args.RED), Cast.toNumber(args.GREEN), Cast.toNumber(args.BLUE)));
+    }
+  }, {
+    key: "ledAnimation",
+    value: function ledAnimation(args) {
+      return this._send(this.protocol.led(Cast.toNumber(args.EFFECT), Cast.toNumber(args.RED), Cast.toNumber(args.GREEN), Cast.toNumber(args.BLUE)));
     }
   }, {
     key: "note",
