@@ -5983,8 +5983,6 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     });
     this.last = {};
     this.currentEvent = null;
-    this.currentBumperEvent = null;
-    this.currentTouchEvent = null;
     this.bumperState = 0;
     this.touchState = 0;
   }
@@ -6167,9 +6165,8 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           }
         }, {
           opcode: 'whenBumper',
-          blockType: BlockType.HAT,
+          blockType: BlockType.EVENT,
           text: '[BUMPER] バンパーが [ACTION] されたとき',
-          isEdgeActivated: false,
           arguments: {
             BUMPER: {
               type: ArgumentType.STRING,
@@ -6182,9 +6179,8 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           }
         }, {
           opcode: 'whenTouchSensor',
-          blockType: BlockType.HAT,
+          blockType: BlockType.EVENT,
           text: '[SENSOR] タッチセンサーが [ACTION] されたとき',
-          isEdgeActivated: false,
           arguments: {
             SENSOR: {
               type: ArgumentType.STRING,
@@ -6282,22 +6278,22 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           bumperMenu: {
             items: [{
               text: '左',
-              value: 'left'
+              value: 'LEFT'
             }, {
               text: '右',
-              value: 'right'
+              value: 'RIGHT'
             }, {
               text: '左右同時',
-              value: 'both'
+              value: 'BOTH'
             }]
           },
           bumperActionMenu: {
             items: [{
               text: 'Push',
-              value: 'push'
+              value: 'PUSH'
             }, {
               text: 'Release',
-              value: 'release'
+              value: 'RELEASE'
             }]
           },
           touchSensorMenu: {
@@ -6318,10 +6314,10 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           touchActionMenu: {
             items: [{
               text: 'タッチ',
-              value: 'touch'
+              value: 'TOUCH'
             }, {
               text: 'リリース',
-              value: 'release'
+              value: 'RELEASE'
             }]
           }
         }
@@ -6419,16 +6415,6 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return String(args.EVENT).toUpperCase() === this.currentEvent;
     }
   }, {
-    key: "whenBumper",
-    value: function whenBumper(args) {
-      return "".concat(String(args.BUMPER).toUpperCase(), "_").concat(String(args.ACTION).toUpperCase()) === this.currentBumperEvent;
-    }
-  }, {
-    key: "whenTouchSensor",
-    value: function whenTouchSensor(args) {
-      return "".concat(String(args.SENSOR).toUpperCase(), "_").concat(String(args.ACTION).toUpperCase()) === this.currentTouchEvent;
-    }
-  }, {
     key: "raw",
     value: function raw(args) {
       return this._send(this.protocol.packet(Cast.toNumber(args.DEVICE), Cast.toNumber(args.COMMAND), RootProtocol.hexToBytes(args.PAYLOAD)));
@@ -6454,24 +6440,48 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "_startBumperHat",
+    value: function _startBumperHat(event) {
+      var _event$split = event.split('_'),
+        _event$split2 = _slicedToArray(_event$split, 2),
+        bumper = _event$split2[0],
+        action = _event$split2[1];
+      this.runtime.startHats("".concat(EXTENSION_ID, "_whenBumper"), {
+        BUMPER: bumper,
+        ACTION: action
+      });
+    }
+  }, {
+    key: "_startTouchHat",
+    value: function _startTouchHat(event) {
+      var _event$split3 = event.split('_'),
+        _event$split4 = _slicedToArray(_event$split3, 2),
+        sensor = _event$split4[0],
+        action = _event$split4[1];
+      this.runtime.startHats("".concat(EXTENSION_ID, "_whenTouchSensor"), {
+        SENSOR: sensor,
+        ACTION: action
+      });
+    }
+  }, {
     key: "_receiveBumperEvent",
     value: function _receiveBumperEvent(decoded) {
       var previous = this.bumperState;
       var next = (decoded.leftBumper ? 0x80 : 0) | (decoded.rightBumper ? 0x40 : 0);
       this.bumperState = next;
       if (previous === 0 && next === 0xC0) {
-        this._startEventHat('whenBumper', 'currentBumperEvent', 'BOTH_PUSH');
+        this._startBumperHat('BOTH_PUSH');
         return;
       }
       if (previous === 0xC0 && next === 0) {
-        this._startEventHat('whenBumper', 'currentBumperEvent', 'BOTH_RELEASE');
+        this._startBumperHat('BOTH_RELEASE');
         return;
       }
       if ((previous ^ next) & 0x80) {
-        this._startEventHat('whenBumper', 'currentBumperEvent', next & 0x80 ? 'LEFT_PUSH' : 'LEFT_RELEASE');
+        this._startBumperHat(next & 0x80 ? 'LEFT_PUSH' : 'LEFT_RELEASE');
       }
       if ((previous ^ next) & 0x40) {
-        this._startEventHat('whenBumper', 'currentBumperEvent', next & 0x40 ? 'RIGHT_PUSH' : 'RIGHT_RELEASE');
+        this._startBumperHat(next & 0x40 ? 'RIGHT_PUSH' : 'RIGHT_RELEASE');
       }
     }
   }, {
@@ -6486,7 +6496,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           sensor = _sensors$_i[0],
           mask = _sensors$_i[1];
         if ((previous ^ next) & mask) {
-          this._startEventHat('whenTouchSensor', 'currentTouchEvent', "".concat(sensor, "_").concat(next & mask ? 'TOUCH' : 'RELEASE'));
+          this._startTouchHat("".concat(sensor, "_").concat(next & mask ? 'TOUCH' : 'RELEASE'));
         }
       }
     }
