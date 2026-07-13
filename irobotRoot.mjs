@@ -68,6 +68,57 @@ var entry = {
   translationMap: translations$1
 };
 
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = true,
+      o = false;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = true, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+function _arrayLikeToArray$1(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _unsupportedIterableToArray$1(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
+  }
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray$1(r, e) || _nonIterableRest();
+}
+
 function _classCallCheck(a, n) {
   if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
 }
@@ -919,26 +970,12 @@ function requireJsonrpc() {
   return jsonrpc;
 }
 
-function _arrayLikeToArray$1(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
 function _arrayWithoutHoles(r) {
   if (Array.isArray(r)) return _arrayLikeToArray$1(r);
 }
 
 function _iterableToArray(r) {
   if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-
-function _unsupportedIterableToArray$1(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
-  }
 }
 
 function _nonIterableSpread() {
@@ -5946,6 +5983,10 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     });
     this.last = {};
     this.currentEvent = null;
+    this.currentBumperEvent = null;
+    this.currentTouchEvent = null;
+    this.bumperState = 0;
+    this.touchState = 0;
   }
   return _createClass(IrobotRootBlocks, [{
     key: "getInfo",
@@ -6124,6 +6165,36 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
               menu: 'eventMenu'
             }
           }
+        }, {
+          opcode: 'whenBumper',
+          blockType: BlockType.HAT,
+          text: '[BUMPER] バンパーが [ACTION] されたとき',
+          isEdgeActivated: false,
+          arguments: {
+            BUMPER: {
+              type: ArgumentType.STRING,
+              menu: 'bumperMenu'
+            },
+            ACTION: {
+              type: ArgumentType.STRING,
+              menu: 'bumperActionMenu'
+            }
+          }
+        }, {
+          opcode: 'whenTouchSensor',
+          blockType: BlockType.HAT,
+          text: '[SENSOR] タッチセンサーが [ACTION] されたとき',
+          isEdgeActivated: false,
+          arguments: {
+            SENSOR: {
+              type: ArgumentType.STRING,
+              menu: 'touchSensorMenu'
+            },
+            ACTION: {
+              type: ArgumentType.STRING,
+              menu: 'touchActionMenu'
+            }
+          }
         }, '---', {
           opcode: 'raw',
           blockType: BlockType.COMMAND,
@@ -6206,6 +6277,51 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
             }, {
               text: 'バッテリー',
               value: 'battery'
+            }]
+          },
+          bumperMenu: {
+            items: [{
+              text: '左',
+              value: 'left'
+            }, {
+              text: '右',
+              value: 'right'
+            }, {
+              text: '左右同時',
+              value: 'both'
+            }]
+          },
+          bumperActionMenu: {
+            items: [{
+              text: 'Push',
+              value: 'push'
+            }, {
+              text: 'Release',
+              value: 'release'
+            }]
+          },
+          touchSensorMenu: {
+            items: [{
+              text: 'FL',
+              value: 'FL'
+            }, {
+              text: 'FR',
+              value: 'FR'
+            }, {
+              text: 'RL',
+              value: 'RL'
+            }, {
+              text: 'RR',
+              value: 'RR'
+            }]
+          },
+          touchActionMenu: {
+            items: [{
+              text: 'タッチ',
+              value: 'touch'
+            }, {
+              text: 'リリース',
+              value: 'release'
             }]
           }
         }
@@ -6303,6 +6419,16 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return String(args.EVENT).toUpperCase() === this.currentEvent;
     }
   }, {
+    key: "whenBumper",
+    value: function whenBumper(args) {
+      return "".concat(String(args.BUMPER).toUpperCase(), "_").concat(String(args.ACTION).toUpperCase()) === this.currentBumperEvent;
+    }
+  }, {
+    key: "whenTouchSensor",
+    value: function whenTouchSensor(args) {
+      return "".concat(String(args.SENSOR).toUpperCase(), "_").concat(String(args.ACTION).toUpperCase()) === this.currentTouchEvent;
+    }
+  }, {
     key: "raw",
     value: function raw(args) {
       return this._send(this.protocol.packet(Cast.toNumber(args.DEVICE), Cast.toNumber(args.COMMAND), RootProtocol.hexToBytes(args.PAYLOAD)));
@@ -6318,12 +6444,61 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return this.transport.write(packet);
     }
   }, {
+    key: "_startEventHat",
+    value: function _startEventHat(opcode, property, event) {
+      this[property] = event;
+      try {
+        this.runtime.startHats("".concat(EXTENSION_ID, "_").concat(opcode));
+      } finally {
+        this[property] = null;
+      }
+    }
+  }, {
+    key: "_receiveBumperEvent",
+    value: function _receiveBumperEvent(decoded) {
+      var previous = this.bumperState;
+      var next = (decoded.leftBumper ? 0x80 : 0) | (decoded.rightBumper ? 0x40 : 0);
+      this.bumperState = next;
+      if (previous === 0 && next === 0xC0) {
+        this._startEventHat('whenBumper', 'currentBumperEvent', 'BOTH_PUSH');
+        return;
+      }
+      if (previous === 0xC0 && next === 0) {
+        this._startEventHat('whenBumper', 'currentBumperEvent', 'BOTH_RELEASE');
+        return;
+      }
+      if ((previous ^ next) & 0x80) {
+        this._startEventHat('whenBumper', 'currentBumperEvent', next & 0x80 ? 'LEFT_PUSH' : 'LEFT_RELEASE');
+      }
+      if ((previous ^ next) & 0x40) {
+        this._startEventHat('whenBumper', 'currentBumperEvent', next & 0x40 ? 'RIGHT_PUSH' : 'RIGHT_RELEASE');
+      }
+    }
+  }, {
+    key: "_receiveTouchEvent",
+    value: function _receiveTouchEvent(decoded) {
+      var previous = this.touchState;
+      var next = decoded.touchMask;
+      this.touchState = next;
+      var sensors = [['FL', 0x8], ['FR', 0x4], ['RR', 0x2], ['RL', 0x1]];
+      for (var _i = 0, _sensors = sensors; _i < _sensors.length; _i++) {
+        var _sensors$_i = _slicedToArray(_sensors[_i], 2),
+          sensor = _sensors$_i[0],
+          mask = _sensors$_i[1];
+        if ((previous ^ next) & mask) {
+          this._startEventHat('whenTouchSensor', 'currentTouchEvent', "".concat(sensor, "_").concat(next & mask ? 'TOUCH' : 'RELEASE'));
+        }
+      }
+    }
+  }, {
     key: "_receive",
     value: function _receive(packet) {
       var decoded = this.protocol.decode(packet);
       if (!decoded) return;
       this.last = Object.assign({}, this.last, decoded);
       if (decoded.command !== 0) return;
+      if (decoded.device === 12) this._receiveBumperEvent(decoded);
+      if (decoded.device === 17) this._receiveTouchEvent(decoded);
       var names = {
         12: 'BUMPER',
         17: 'TOUCH',
@@ -6331,14 +6506,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         14: 'BATTERY'
       };
       var name = names[decoded.device];
-      if (name) {
-        this.currentEvent = name;
-        try {
-          this.runtime.startHats("".concat(EXTENSION_ID, "_whenEvent"));
-        } finally {
-          this.currentEvent = null;
-        }
-      }
+      if (name) this._startEventHat('whenEvent', 'currentEvent', name);
     }
   }], [{
     key: "formatMessage",
