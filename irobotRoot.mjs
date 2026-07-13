@@ -6165,8 +6165,9 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           }
         }, {
           opcode: 'whenBumper',
-          blockType: BlockType.EVENT,
+          blockType: BlockType.HAT,
           text: '[BUMPER] バンパーが [ACTION] されたとき',
+          isEdgeActivated: false,
           arguments: {
             BUMPER: {
               type: ArgumentType.STRING,
@@ -6179,8 +6180,9 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           }
         }, {
           opcode: 'whenTouchSensor',
-          blockType: BlockType.EVENT,
+          blockType: BlockType.HAT,
           text: '[SENSOR] タッチセンサーが [ACTION] されたとき',
+          isEdgeActivated: false,
           arguments: {
             SENSOR: {
               type: ArgumentType.STRING,
@@ -6413,6 +6415,19 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     key: "whenEvent",
     value: function whenEvent(args) {
       return String(args.EVENT).toUpperCase() === this.currentEvent;
+    }
+
+    // These hats are selected by runtime.startHats match fields before their
+    // primitives run, so the primitive itself must allow the selected thread.
+  }, {
+    key: "whenBumper",
+    value: function whenBumper() {
+      return true;
+    }
+  }, {
+    key: "whenTouchSensor",
+    value: function whenTouchSensor() {
+      return true;
     }
   }, {
     key: "raw",
