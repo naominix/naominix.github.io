@@ -5982,6 +5982,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return _this._receive(packet);
     });
     this.last = {};
+    this.lastDetailedEvent = '';
     this.currentEvent = null;
     this.bumperState = 0;
     this.touchState = 0;
@@ -6215,6 +6216,10 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           opcode: 'lastPacket',
           blockType: BlockType.REPORTER,
           text: '最後の受信パケット'
+        }, {
+          opcode: 'detailedEvent',
+          blockType: BlockType.REPORTER,
+          text: '最後の詳細イベント'
         }],
         menus: {
           markerMenu: {
@@ -6440,6 +6445,11 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return this.last.raw || '';
     }
   }, {
+    key: "detailedEvent",
+    value: function detailedEvent() {
+      return this.lastDetailedEvent;
+    }
+  }, {
     key: "_send",
     value: function _send(packet) {
       return this.transport.write(packet);
@@ -6457,6 +6467,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "_startBumperHat",
     value: function _startBumperHat(event) {
+      this.lastDetailedEvent = event;
       var _event$split = event.split('_'),
         _event$split2 = _slicedToArray(_event$split, 2),
         bumper = _event$split2[0],
@@ -6469,6 +6480,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "_startTouchHat",
     value: function _startTouchHat(event) {
+      this.lastDetailedEvent = event;
       var _event$split3 = event.split('_'),
         _event$split4 = _slicedToArray(_event$split3, 2),
         sensor = _event$split4[0],
