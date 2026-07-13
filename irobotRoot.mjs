@@ -5945,13 +5945,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return _this._receive(packet);
     });
     this.last = {};
-    this.eventCounters = {
-      bumper: 0,
-      touch: 0,
-      cliff: 0,
-      battery: 0
-    };
-    this.seenCounters = {};
+    this.currentEvent = null;
   }
   return _createClass(IrobotRootBlocks, [{
     key: "getInfo",
@@ -6200,7 +6194,19 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
             items: ['batteryPercent', 'batteryMv', 'lightLeft', 'lightRight', 'accelX', 'accelY', 'accelZ', 'leftBumper', 'rightBumper', 'touchMask', 'cliff']
           },
           eventMenu: {
-            items: ['bumper', 'touch', 'cliff', 'battery']
+            items: [{
+              text: 'バンパー',
+              value: 'bumper'
+            }, {
+              text: 'タッチ',
+              value: 'touch'
+            }, {
+              text: '落下防止センサー',
+              value: 'cliff'
+            }, {
+              text: 'バッテリー',
+              value: 'battery'
+            }]
           }
         }
       };
@@ -6294,13 +6300,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "whenEvent",
     value: function whenEvent(args) {
-      var name = args.EVENT;
-      var current = this.eventCounters[name] || 0;
-      if (this.seenCounters[name] !== current) {
-        this.seenCounters[name] = current;
-        return current > 0;
-      }
-      return false;
+      return String(args.EVENT).toUpperCase() === this.currentEvent;
     }
   }, {
     key: "raw",
@@ -6323,14 +6323,22 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       var decoded = this.protocol.decode(packet);
       if (!decoded) return;
       this.last = Object.assign({}, this.last, decoded);
+      if (decoded.command !== 0) return;
       var names = {
-        12: 'bumper',
-        17: 'touch',
-        20: 'cliff',
-        14: 'battery'
+        12: 'BUMPER',
+        17: 'TOUCH',
+        20: 'CLIFF',
+        14: 'BATTERY'
       };
       var name = names[decoded.device];
-      if (name) this.eventCounters[name] += 1;
+      if (name) {
+        this.currentEvent = name;
+        try {
+          this.runtime.startHats("".concat(EXTENSION_ID, "_whenEvent"));
+        } finally {
+          this.currentEvent = null;
+        }
+      }
     }
   }], [{
     key: "formatMessage",
