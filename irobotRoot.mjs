@@ -854,6 +854,15 @@ var translations = {
 
 var img = "data:image/png;base64,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";
 
+function _defineProperty$1(e, r, t) {
+  return (r = toPropertyKey$1(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r] = t, e;
+}
+
 function _assertThisInitialized(e) {
   if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   return e;
@@ -1570,8 +1579,8 @@ function requireJsonStringifyRecursive() {
   return jsonStringifyRecursive;
 }
 
-function ownKeys$2(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$2(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ownKeys$3(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$3(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$3(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$3(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var hasRequiredUtil_inspect_polyfill;
 function requireUtil_inspect_polyfill() {
   if (hasRequiredUtil_inspect_polyfill) return util_inspect_polyfill;
@@ -1849,9 +1858,9 @@ function requireUtil_inspect_polyfill() {
     return braces[0] + (base === "" ? "" : base + "\n") + "  " + output.join(",\n  ") + " " + braces[1];
   }
   function _extend(origin, add) {
-    var typedOrigin = _objectSpread$2({}, origin);
+    var typedOrigin = _objectSpread$3({}, origin);
     if (!add || !isObject(add)) return origin;
-    var clonedAdd = _objectSpread$2({}, add);
+    var clonedAdd = _objectSpread$3({}, add);
     var keys = Object.keys(add);
     var i = keys.length;
     while (i--) {
@@ -1895,7 +1904,7 @@ function requireUtil_inspect_polyfill() {
                   } else if (_typeof(tempArg) !== "object" || tempArg === null) {
                     tempStr = String(tempArg);
                   } else {
-                    tempStr = inspect(tempArg, _objectSpread$2(_objectSpread$2({}, inspectOptions), {}, {
+                    tempStr = inspect(tempArg, _objectSpread$3(_objectSpread$3({}, inspectOptions), {}, {
                       compact: 3,
                       colors: false,
                       depth: 0
@@ -1922,7 +1931,7 @@ function requireUtil_inspect_polyfill() {
                 tempStr = inspect(args[++a], inspectOptions);
                 break;
               case 111:
-                tempStr = inspect(args[++a], _objectSpread$2(_objectSpread$2({}, inspectOptions), {}, {
+                tempStr = inspect(args[++a], _objectSpread$3(_objectSpread$3({}, inspectOptions), {}, {
                   showHidden: true,
                   showProxy: true,
                   depth: 4
@@ -2056,8 +2065,8 @@ function requireInterfaces() {
 function _createForOfIteratorHelper$1(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$1(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray$1(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$1(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0; } }
 function _arrayLikeToArray$1(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
-function ownKeys$1(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ownKeys$2(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$2(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var hasRequiredBaseLogger;
 function requireBaseLogger() {
   if (hasRequiredBaseLogger) return BaseLogger;
@@ -2296,7 +2305,7 @@ function requireBaseLogger() {
       }
       function formatStackFrames(frames, settings) {
         return frames.map(function (stackFrame) {
-          return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorStackTemplate, _objectSpread$1({}, stackFrame), true);
+          return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorStackTemplate, _objectSpread$2({}, stackFrame), true);
         });
       }
       function formatErrorMessage(error) {
@@ -2824,7 +2833,7 @@ function requireBaseLogger() {
         key: "getSubLogger",
         value: function getSubLogger(settings, logObj) {
           var _this$settings, _this$settings2, _this$settings3, _settings$prefix2;
-          var subLoggerSettings = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, this.settings), settings), {}, {
+          var subLoggerSettings = _objectSpread$2(_objectSpread$2(_objectSpread$2({}, this.settings), settings), {}, {
             parentNames: ((_this$settings = this.settings) === null || _this$settings === void 0 ? void 0 : _this$settings.parentNames) != null && ((_this$settings2 = this.settings) === null || _this$settings2 === void 0 ? void 0 : _this$settings2.name) != null ? [].concat(_toConsumableArray(this.settings.parentNames), [this.settings.name]) : ((_this$settings3 = this.settings) === null || _this$settings3 === void 0 ? void 0 : _this$settings3.name) != null ? [this.settings.name] : undefined,
             prefix: [].concat(_toConsumableArray(this.settings.prefix), _toConsumableArray((_settings$prefix2 = settings === null || settings === void 0 ? void 0 : settings.prefix) !== null && _settings$prefix2 !== void 0 ? _settings$prefix2 : []))
           });
@@ -2888,7 +2897,7 @@ function requireBaseLogger() {
           var _this2 = this;
           var seen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
           if (seen.includes(source)) {
-            return _objectSpread$1({}, source);
+            return _objectSpread$2({}, source);
           }
           if (_typeof(source) === "object" && source !== null) {
             seen.push(source);
@@ -2990,7 +2999,7 @@ function requireBaseLogger() {
           if (Array.isArray(source)) {
             return _toConsumableArray(source);
           } else {
-            return _objectSpread$1({}, source);
+            return _objectSpread$2({}, source);
           }
         }
       }, {
@@ -3004,14 +3013,14 @@ function requireBaseLogger() {
           });
           if (this.settings.argumentsArrayName == null) {
             if (args.length === 1 && !Array.isArray(args[0]) && runtime.isBuffer(args[0]) !== true && !(args[0] instanceof Date)) {
-              clonedLogObj = _typeof(args[0]) === "object" && args[0] != null ? _objectSpread$1(_objectSpread$1({}, args[0]), clonedLogObj) : _objectSpread$1({
+              clonedLogObj = _typeof(args[0]) === "object" && args[0] != null ? _objectSpread$2(_objectSpread$2({}, args[0]), clonedLogObj) : _objectSpread$2({
                 0: args[0]
               }, clonedLogObj);
             } else {
-              clonedLogObj = _objectSpread$1(_objectSpread$1({}, clonedLogObj), args);
+              clonedLogObj = _objectSpread$2(_objectSpread$2({}, clonedLogObj), args);
             }
           } else {
-            clonedLogObj = _objectSpread$1(_objectSpread$1({}, clonedLogObj), {}, _defineProperty({}, this.settings.argumentsArrayName, args));
+            clonedLogObj = _objectSpread$2(_objectSpread$2({}, clonedLogObj), {}, _defineProperty({}, this.settings.argumentsArrayName, args));
           }
           return clonedLogObj;
         }
@@ -3054,7 +3063,7 @@ function requireBaseLogger() {
       }, {
         key: "_addMetaToLogObj",
         value: function _addMetaToLogObj(logObj, logLevelId, logLevelName) {
-          return _objectSpread$1(_objectSpread$1({}, logObj), {}, _defineProperty({}, this.settings.metaProperty, runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames)));
+          return _objectSpread$2(_objectSpread$2({}, logObj), {}, _defineProperty({}, this.settings.metaProperty, runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames)));
         }
       }, {
         key: "_shouldCaptureStack",
@@ -3085,8 +3094,8 @@ function requireBaseLogger() {
   return BaseLogger;
 }
 
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function ownKeys$1(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
 function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(t.prototype ), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
@@ -3126,7 +3135,7 @@ function requireCjs() {
       function Logger(settings, logObj) {
         _classCallCheck(this, Logger);
         var isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
-        var normalizedSettings = _objectSpread({}, settings !== null && settings !== void 0 ? settings : {});
+        var normalizedSettings = _objectSpread$1({}, settings !== null && settings !== void 0 ? settings : {});
         if (isBrowser) {
           var _settings$stylePretty;
           normalizedSettings.stylePrettyLogs = (_settings$stylePretty = settings === null || settings === void 0 ? void 0 : settings.stylePrettyLogs) !== null && _settings$stylePretty !== void 0 ? _settings$stylePretty : true;
@@ -3907,6 +3916,8 @@ function requireBase64Util() {
 var base64UtilExports = requireBase64Util();
 var Base64Util = /*@__PURE__*/getDefaultExportFromCjs(base64UtilExports);
 
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty$1(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
@@ -3914,6 +3925,12 @@ var ROOT_SERVICE = '48c5d828-ac2a-442d-97a3-0c9822b04979';
 var UART_SERVICE = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
 var RX = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
 var TX = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
+var ROOT_DISCOVERY_OPTIONS = {
+  filters: [{
+    services: [ROOT_SERVICE]
+  }],
+  optionalServices: [UART_SERVICE]
+};
 var clamp = function clamp(value, min, max) {
   return Math.max(min, Math.min(max, Number(value)));
 };
@@ -4064,6 +4081,7 @@ var RootTransport = /*#__PURE__*/function () {
     this.runtime.registerPeripheralExtension(extensionId, this);
     this.onConnect = this.onConnect.bind(this);
     this.reset = this.reset.bind(this);
+    this._registerRuntimeDiagnostics();
   }
   return _createClass$1(RootTransport, [{
     key: "scan",
@@ -4071,19 +4089,12 @@ var RootTransport = /*#__PURE__*/function () {
       if (this.ble) this.ble.disconnect();
       this.lastError = '';
       var BLEAdapter = selectBLEAdapter();
-      this.ble = new BLEAdapter(this.runtime, this.extensionId, {
-        filters: [{
-          services: [ROOT_SERVICE]
-        }, {
-          manufacturerData: {
-            '1536': {
-              dataPrefix: [0x52, 0x54],
-              mask: [0xFF, 0xFF]
-            }
-          }
-        }],
-        optionalServices: [UART_SERVICE]
-      }, this.onConnect, this.reset);
+      try {
+        this.ble = new BLEAdapter(this.runtime, this.extensionId, _objectSpread({}, ROOT_DISCOVERY_OPTIONS), this.onConnect, this.reset);
+      } catch (error) {
+        this.setError(error);
+        throw error;
+      }
     }
   }, {
     key: "connect",
@@ -4101,8 +4112,12 @@ var RootTransport = /*#__PURE__*/function () {
   }, {
     key: "write",
     value: function write(bytes) {
+      var _this2 = this;
       if (!this.isConnected()) return Promise.reject(new Error('Rootに接続してください'));
-      return this.ble.write(UART_SERVICE, RX, Base64Util.uint8ArrayToBase64(bytes), 'base64', true);
+      return this.ble.write(UART_SERVICE, RX, Base64Util.uint8ArrayToBase64(bytes), 'base64', false).catch(function (error) {
+        _this2.setError(error);
+        throw error;
+      });
     }
   }, {
     key: "disconnect",
@@ -4114,6 +4129,34 @@ var RootTransport = /*#__PURE__*/function () {
     key: "reset",
     value: function reset() {
       this.lastError = '';
+    }
+  }, {
+    key: "setError",
+    value: function setError(error) {
+      this.lastError = error && error.message ? error.message : String(error || 'BLE通信エラー');
+    }
+  }, {
+    key: "_registerRuntimeDiagnostics",
+    value: function _registerRuntimeDiagnostics() {
+      var _this3 = this;
+      if (!this.runtime.on) return;
+      var RuntimeClass = this.runtime.constructor;
+      this.runtime.on(RuntimeClass.PERIPHERAL_CONNECTED, function () {
+        _this3.lastError = '';
+      });
+      this.runtime.on(RuntimeClass.PERIPHERAL_REQUEST_ERROR, function (details) {
+        if (!details || !details.extensionId || details.extensionId === _this3.extensionId) {
+          _this3.lastError = "".concat(_this3.mode, ": BLE\u63A5\u7D9A\u8981\u6C42\u306B\u5931\u6557\u3057\u307E\u3057\u305F");
+        }
+      });
+      this.runtime.on(RuntimeClass.PERIPHERAL_SCAN_TIMEOUT, function () {
+        _this3.lastError = "".concat(_this3.mode, ": Root\u304C\u898B\u3064\u304B\u308A\u307E\u305B\u3093\u3067\u3057\u305F");
+      });
+      this.runtime.on(RuntimeClass.PERIPHERAL_CONNECTION_LOST_ERROR, function (details) {
+        if (!details || !details.extensionId || details.extensionId === _this3.extensionId) {
+          _this3.lastError = "".concat(_this3.mode, ": Root\u3068\u306E\u63A5\u7D9A\u304C\u5931\u308F\u308C\u307E\u3057\u305F");
+        }
+      });
     }
   }, {
     key: "isConnected",
@@ -4648,7 +4691,21 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
   }, {
     key: "_send",
     value: function _send(packet) {
-      return this.transport.write(packet);
+      var _this2 = this;
+      // Hardware writes are fire-and-forget from Scratch's point of view.
+      // Scratch Link/Scrub may leave the JSON-RPC write promise pending even
+      // after CoreBluetooth accepted the bytes; returning that promise would
+      // leave the command block and the rest of its stack permanently waiting.
+      try {
+        var pendingWrite = this.transport.write(packet);
+        if (pendingWrite && typeof pendingWrite.catch === 'function') {
+          pendingWrite.catch(function (error) {
+            return _this2.transport.setError(error);
+          });
+        }
+      } catch (error) {
+        this.transport.setError(error);
+      }
     }
   }, {
     key: "_startEventHat",
@@ -4664,29 +4721,39 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     key: "_startBumperHat",
     value: function _startBumperHat(event) {
       this.lastDetailedEvent = event;
+      this._startFixedEventHat(event);
       var _event$split = event.split('_'),
         _event$split2 = _slicedToArray$1(_event$split, 2),
         bumper = _event$split2[0],
         action = _event$split2[1];
-      this.runtime.startHats("".concat(EXTENSION_ID, "_whenBumper"), {
-        BUMPER: bumper,
-        ACTION: action
-      });
-      this._startFixedEventHat(event);
+      try {
+        this.runtime.startHats("".concat(EXTENSION_ID, "_whenBumper"), {
+          BUMPER: bumper,
+          ACTION: action
+        });
+      } catch (error) {
+        // A parameterized hat saved by an older extension version can have
+        // stale/missing fields. It must not prevent fixed hats or BLE I/O.
+        this.transport.setError(error);
+      }
     }
   }, {
     key: "_startTouchHat",
     value: function _startTouchHat(event) {
       this.lastDetailedEvent = event;
+      this._startFixedEventHat(event);
       var _event$split3 = event.split('_'),
         _event$split4 = _slicedToArray$1(_event$split3, 2),
         sensor = _event$split4[0],
         action = _event$split4[1];
-      this.runtime.startHats("".concat(EXTENSION_ID, "_whenTouchSensor"), {
-        SENSOR: sensor,
-        ACTION: action
-      });
-      this._startFixedEventHat(event);
+      try {
+        this.runtime.startHats("".concat(EXTENSION_ID, "_whenTouchSensor"), {
+          SENSOR: sensor,
+          ACTION: action
+        });
+      } catch (error) {
+        this.transport.setError(error);
+      }
     }
   }, {
     key: "_startFixedEventHat",
