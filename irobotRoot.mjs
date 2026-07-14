@@ -3777,145 +3777,6 @@ var ScratchLinkBLE = /*@__PURE__*/getDefaultExportFromCjs(bleExports);
 var bleWebExports = requireBleWeb();
 var WebBLE = /*@__PURE__*/getDefaultExportFromCjs(bleWebExports);
 
-var browserAtob = {exports: {}};
-
-var hasRequiredBrowserAtob;
-function requireBrowserAtob() {
-  if (hasRequiredBrowserAtob) return browserAtob.exports;
-  hasRequiredBrowserAtob = 1;
-  (function (module) {
-    (function (w) {
-
-      function findBest(atobNative) {
-        // normal window
-        if ('function' === typeof atobNative) {
-          return atobNative;
-        }
-
-        // browserify (web worker)
-        if ('function' === typeof Buffer) {
-          return function atobBrowserify(a) {
-            //!! Deliberately using an API that's deprecated in node.js because
-            //!! this file is for browsers and we expect them to cope with it.
-            //!! Discussion: github.com/node-browser-compat/atob/pull/9
-            return new Buffer(a, 'base64').toString('binary');
-          };
-        }
-
-        // ios web worker with base64js
-        if ('object' === _typeof(w.base64js)) {
-          // bufferToBinaryString
-          // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
-          return function atobWebWorker_iOS(a) {
-            var buf = w.base64js.b64ToByteArray(a);
-            return Array.prototype.map.call(buf, function (ch) {
-              return String.fromCharCode(ch);
-            }).join('');
-          };
-        }
-        return function () {
-          // ios web worker without base64js
-          throw new Error("You're probably in an old browser or an iOS webworker." + " It might help to include beatgammit's base64-js.");
-        };
-      }
-      var atobBest = findBest(w.atob);
-      w.atob = atobBest;
-      if (module && module.exports) {
-        module.exports = atobBest;
-      }
-    })(window);
-  })(browserAtob);
-  return browserAtob.exports;
-}
-
-var btoa = {exports: {}};
-
-var hasRequiredBtoa;
-function requireBtoa() {
-  if (hasRequiredBtoa) return btoa.exports;
-  hasRequiredBtoa = 1;
-  (function () {
-
-    function btoa$1(str) {
-      var buffer;
-      if (str instanceof Buffer) {
-        buffer = str;
-      } else {
-        buffer = Buffer.from(str.toString(), 'binary');
-      }
-      return buffer.toString('base64');
-    }
-    btoa.exports = btoa$1;
-  })();
-  return btoa.exports;
-}
-
-var base64Util;
-var hasRequiredBase64Util;
-function requireBase64Util() {
-  if (hasRequiredBase64Util) return base64Util;
-  hasRequiredBase64Util = 1;
-  var atob = requireBrowserAtob();
-  var btoa = requireBtoa();
-  var Base64Util = /*#__PURE__*/function () {
-    function Base64Util() {
-      _classCallCheck(this, Base64Util);
-    }
-    return _createClass(Base64Util, null, [{
-      key: "base64ToUint8Array",
-      value:
-      /**
-       * Convert a base64 encoded string to a Uint8Array.
-       * @param {string} base64 - a base64 encoded string.
-       * @returns {Uint8Array} - a decoded Uint8Array.
-       */
-      function base64ToUint8Array(base64) {
-        var binaryString = atob(base64);
-        var len = binaryString.length;
-        var array = new Uint8Array(len);
-        for (var i = 0; i < len; i++) {
-          array[i] = binaryString.charCodeAt(i);
-        }
-        return array;
-      }
-
-      /**
-       * Convert a Uint8Array to a base64 encoded string.
-       * @param {Uint8Array} array - the array to convert.
-       * @returns {string} - the base64 encoded string.
-       */
-    }, {
-      key: "uint8ArrayToBase64",
-      value: function uint8ArrayToBase64(array) {
-        var base64 = btoa(String.fromCharCode.apply(null, array));
-        return base64;
-      }
-
-      /**
-       * Convert an array buffer to a base64 encoded string.
-       * @param {Array} buffer - an array buffer to convert.
-       * @returns {string} - the base64 encoded string.
-       */
-    }, {
-      key: "arrayBufferToBase64",
-      value: function arrayBufferToBase64(buffer) {
-        var binary = '';
-        var bytes = new Uint8Array(buffer);
-        var len = bytes.byteLength;
-        for (var i = 0; i < len; i++) {
-          binary += String.fromCharCode(bytes[i]);
-        }
-        return btoa(binary);
-      }
-    }]);
-  }();
-  base64Util = Base64Util;
-  return base64Util;
-}
-
-var base64UtilExports = requireBase64Util();
-var Base64Util = /*@__PURE__*/getDefaultExportFromCjs(base64UtilExports);
-
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty$1(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
@@ -3955,6 +3816,33 @@ var bytesToHex = function bytesToHex(bytes) {
   return Array.from(bytes, function (value) {
     return value.toString(16).padStart(2, '0');
   }).join(' ');
+};
+
+// Scratch VM's Base64Util imports the npm `btoa` package, whose browser build
+// performs an unguarded Node Buffer check. Buffer is not present in Edge, Safari, or
+// WKWebView. Use the browser-native functions directly so command writes work
+// in both Web Bluetooth and Scrub.
+var bytesToBase64 = function bytesToBase64(bytes) {
+  var binary = '';
+  var _iterator2 = _createForOfIteratorHelper(bytes),
+    _step2;
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var value = _step2.value;
+      binary += String.fromCharCode(value);
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+  return btoa(binary);
+};
+var base64ToBytes = function base64ToBytes(base64) {
+  var binary = atob(base64);
+  return Uint8Array.from(binary, function (value) {
+    return value.charCodeAt(0);
+  });
 };
 var supportsWebBluetooth = function supportsWebBluetooth() {
   var navigatorObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : typeof navigator === 'undefined' ? null : navigator;
@@ -4106,7 +3994,7 @@ var RootTransport = /*#__PURE__*/function () {
     value: function onConnect() {
       var _this = this;
       this.ble.startNotifications(UART_SERVICE, TX, function (message) {
-        _this.onData(Base64Util.base64ToUint8Array(message));
+        _this.onData(base64ToBytes(message));
       });
     }
   }, {
@@ -4114,7 +4002,7 @@ var RootTransport = /*#__PURE__*/function () {
     value: function write(bytes) {
       var _this2 = this;
       if (!this.isConnected()) return Promise.reject(new Error('Rootに接続してください'));
-      return this.ble.write(UART_SERVICE, RX, Base64Util.uint8ArrayToBase64(bytes), 'base64', false).catch(function (error) {
+      return this.ble.write(UART_SERVICE, RX, bytesToBase64(bytes), 'base64', false).catch(function (error) {
         _this2.setError(error);
         throw error;
       });
