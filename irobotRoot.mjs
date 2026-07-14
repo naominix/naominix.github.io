@@ -68,11 +68,83 @@ var entry = {
   translationMap: translations$1
 };
 
-function _arrayWithHoles(r) {
+function _arrayLikeToArray$4(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
+function _arrayWithoutHoles$1(r) {
+  if (Array.isArray(r)) return _arrayLikeToArray$4(r);
+}
+
+function _iterableToArray$1(r) {
+  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+}
+
+function _unsupportedIterableToArray$4(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray$4(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$4(r, a) : void 0;
+  }
+}
+
+function _nonIterableSpread$1() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _toConsumableArray$1(r) {
+  return _arrayWithoutHoles$1(r) || _iterableToArray$1(r) || _unsupportedIterableToArray$4(r) || _nonIterableSpread$1();
+}
+
+function _classCallCheck$1(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function _typeof$1(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof$1 = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof$1(o);
+}
+
+function toPrimitive$1(t, r) {
+  if ("object" != _typeof$1(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != _typeof$1(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (String )(t);
+}
+
+function toPropertyKey$1(t) {
+  var i = toPrimitive$1(t, "string");
+  return "symbol" == _typeof$1(i) ? i : i + "";
+}
+
+function _defineProperties$1(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey$1(o.key), o);
+  }
+}
+function _createClass$1(e, r, t) {
+  return r && _defineProperties$1(e.prototype, r), t && _defineProperties$1(e, t), Object.defineProperty(e, "prototype", {
+    writable: false
+  }), e;
+}
+
+function _arrayWithHoles$1(r) {
   if (Array.isArray(r)) return r;
 }
 
-function _iterableToArrayLimit(r, l) {
+function _iterableToArrayLimit$1(r, l) {
   var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
   if (null != t) {
     var e,
@@ -97,68 +169,12 @@ function _iterableToArrayLimit(r, l) {
   }
 }
 
-function _arrayLikeToArray$1(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-
-function _unsupportedIterableToArray$1(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray$1(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0;
-  }
-}
-
-function _nonIterableRest() {
+function _nonIterableRest$1() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
-function _slicedToArray(r, e) {
-  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray$1(r, e) || _nonIterableRest();
-}
-
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
-}
-
-function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r);
-    if ("object" != _typeof(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return (String )(t);
-}
-
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
-}
-
-function _defineProperties(e, r) {
-  for (var t = 0; t < r.length; t++) {
-    var o = r[t];
-    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
-  }
-}
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
-    writable: false
-  }), e;
+function _slicedToArray$1(r, e) {
+  return _arrayWithHoles$1(r) || _iterableToArrayLimit$1(r, e) || _unsupportedIterableToArray$4(r, e) || _nonIterableRest$1();
 }
 
 function getDefaultExportFromCjs (x) {
@@ -267,6 +283,48 @@ function requireArgumentType() {
 
 var argumentTypeExports = requireArgumentType();
 var ArgumentType = /*@__PURE__*/getDefaultExportFromCjs(argumentTypeExports);
+
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (String )(t);
+}
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: false
+  }), e;
+}
 
 var color;
 var hasRequiredColor;
@@ -970,12 +1028,26 @@ function requireJsonrpc() {
   return jsonrpc;
 }
 
+function _arrayLikeToArray$3(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+
 function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return _arrayLikeToArray$1(r);
+  if (Array.isArray(r)) return _arrayLikeToArray$3(r);
 }
 
 function _iterableToArray(r) {
   if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
+}
+
+function _unsupportedIterableToArray$3(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray$3(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$3(r, a) : void 0;
+  }
 }
 
 function _nonIterableSpread() {
@@ -983,4071 +1055,2159 @@ function _nonIterableSpread() {
 }
 
 function _toConsumableArray(r) {
-  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray$1(r) || _nonIterableSpread();
+  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray$3(r) || _nonIterableSpread();
+}
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r] = t, e;
+}
+
+function _superPropBase(t, o) {
+  for (; !{}.hasOwnProperty.call(t, o) && null !== (t = _getPrototypeOf(t)););
+  return t;
+}
+
+function _get() {
+  return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) {
+    var p = _superPropBase(e, t);
+    if (p) {
+      var n = Object.getOwnPropertyDescriptor(p, t);
+      return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value;
+    }
+  }, _get.apply(null, arguments);
 }
 
 var cjs = {};
 
-var global$1 = (typeof global !== "undefined" ? global :
-  typeof self !== "undefined" ? self :
-  typeof window !== "undefined" ? window : {});
-
-var lookup = [];
-var revLookup = [];
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
-var inited = false;
-function init () {
-  inited = true;
-  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-  for (var i = 0, len = code.length; i < len; ++i) {
-    lookup[i] = code[i];
-    revLookup[code.charCodeAt(i)] = i;
-  }
-
-  revLookup['-'.charCodeAt(0)] = 62;
-  revLookup['_'.charCodeAt(0)] = 63;
-}
-
-function toByteArray (b64) {
-  if (!inited) {
-    init();
-  }
-  var i, j, l, tmp, placeHolders, arr;
-  var len = b64.length;
-
-  if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4')
-  }
-
-  // the number of equal signs (place holders)
-  // if there are two placeholders, than the two characters before it
-  // represent one byte
-  // if there is only one, then the three characters before it represent 2 bytes
-  // this is just a cheap hack to not do indexOf twice
-  placeHolders = b64[len - 2] === '=' ? 2 : b64[len - 1] === '=' ? 1 : 0;
-
-  // base64 is 4/3 + up to two characters of the original data
-  arr = new Arr(len * 3 / 4 - placeHolders);
-
-  // if there are placeholders, only get up to the last complete 4 chars
-  l = placeHolders > 0 ? len - 4 : len;
-
-  var L = 0;
-
-  for (i = 0, j = 0; i < l; i += 4, j += 3) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 18) | (revLookup[b64.charCodeAt(i + 1)] << 12) | (revLookup[b64.charCodeAt(i + 2)] << 6) | revLookup[b64.charCodeAt(i + 3)];
-    arr[L++] = (tmp >> 16) & 0xFF;
-    arr[L++] = (tmp >> 8) & 0xFF;
-    arr[L++] = tmp & 0xFF;
-  }
-
-  if (placeHolders === 2) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 2) | (revLookup[b64.charCodeAt(i + 1)] >> 4);
-    arr[L++] = tmp & 0xFF;
-  } else if (placeHolders === 1) {
-    tmp = (revLookup[b64.charCodeAt(i)] << 10) | (revLookup[b64.charCodeAt(i + 1)] << 4) | (revLookup[b64.charCodeAt(i + 2)] >> 2);
-    arr[L++] = (tmp >> 8) & 0xFF;
-    arr[L++] = tmp & 0xFF;
-  }
-
-  return arr
-}
-
-function tripletToBase64 (num) {
-  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F]
-}
-
-function encodeChunk (uint8, start, end) {
-  var tmp;
-  var output = [];
-  for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2]);
-    output.push(tripletToBase64(tmp));
-  }
-  return output.join('')
-}
-
-function fromByteArray (uint8) {
-  if (!inited) {
-    init();
-  }
-  var tmp;
-  var len = uint8.length;
-  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
-  var output = '';
-  var parts = [];
-  var maxChunkLength = 16383; // must be multiple of 3
-
-  // go through the array every three bytes, we'll deal with trailing stuff later
-  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)));
-  }
-
-  // pad the end with zeros, but make sure to not forget the extra bytes
-  if (extraBytes === 1) {
-    tmp = uint8[len - 1];
-    output += lookup[tmp >> 2];
-    output += lookup[(tmp << 4) & 0x3F];
-    output += '==';
-  } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + (uint8[len - 1]);
-    output += lookup[tmp >> 10];
-    output += lookup[(tmp >> 4) & 0x3F];
-    output += lookup[(tmp << 2) & 0x3F];
-    output += '=';
-  }
-
-  parts.push(output);
-
-  return parts.join('')
-}
-
-function read (buffer, offset, isLE, mLen, nBytes) {
-  var e, m;
-  var eLen = nBytes * 8 - mLen - 1;
-  var eMax = (1 << eLen) - 1;
-  var eBias = eMax >> 1;
-  var nBits = -7;
-  var i = isLE ? (nBytes - 1) : 0;
-  var d = isLE ? -1 : 1;
-  var s = buffer[offset + i];
-
-  i += d;
-
-  e = s & ((1 << (-nBits)) - 1);
-  s >>= (-nBits);
-  nBits += eLen;
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  m = e & ((1 << (-nBits)) - 1);
-  e >>= (-nBits);
-  nBits += mLen;
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  if (e === 0) {
-    e = 1 - eBias;
-  } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity)
-  } else {
-    m = m + Math.pow(2, mLen);
-    e = e - eBias;
-  }
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
-}
-
-function write (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c;
-  var eLen = nBytes * 8 - mLen - 1;
-  var eMax = (1 << eLen) - 1;
-  var eBias = eMax >> 1;
-  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0);
-  var i = isLE ? 0 : (nBytes - 1);
-  var d = isLE ? 1 : -1;
-  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
-
-  value = Math.abs(value);
-
-  if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0;
-    e = eMax;
-  } else {
-    e = Math.floor(Math.log(value) / Math.LN2);
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--;
-      c *= 2;
-    }
-    if (e + eBias >= 1) {
-      value += rt / c;
-    } else {
-      value += rt * Math.pow(2, 1 - eBias);
-    }
-    if (value * c >= 2) {
-      e++;
-      c /= 2;
-    }
-
-    if (e + eBias >= eMax) {
-      m = 0;
-      e = eMax;
-    } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen);
-      e = e + eBias;
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-      e = 0;
-    }
-  }
-
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-  e = (e << mLen) | m;
-  eLen += mLen;
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-  buffer[offset + i - d] |= s * 128;
-}
-
-var toString = {}.toString;
-
-var isArray = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-/* eslint-disable no-proto */
-
-
-var INSPECT_MAX_BYTES = 50;
-
-/**
- * If `Buffer.TYPED_ARRAY_SUPPORT`:
- *   === true    Use Uint8Array implementation (fastest)
- *   === false   Use Object implementation (most compatible, even IE6)
- *
- * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
- * Opera 11.6+, iOS 4.2+.
- *
- * Due to various browser bugs, sometimes the Object implementation will be used even
- * when the browser supports typed arrays.
- *
- * Note:
- *
- *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
- *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
- *
- *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
- *
- *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
- *     incorrect length in some situations.
-
- * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
- * get the Object implementation, which is slower but behaves correctly.
- */
-Buffer.TYPED_ARRAY_SUPPORT = global$1.TYPED_ARRAY_SUPPORT !== undefined
-  ? global$1.TYPED_ARRAY_SUPPORT
-  : true;
-
-/*
- * Export kMaxLength after typed array support is determined.
- */
-kMaxLength();
-
-function kMaxLength () {
-  return Buffer.TYPED_ARRAY_SUPPORT
-    ? 0x7fffffff
-    : 0x3fffffff
-}
-
-function createBuffer (that, length) {
-  if (kMaxLength() < length) {
-    throw new RangeError('Invalid typed array length')
-  }
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = new Uint8Array(length);
-    that.__proto__ = Buffer.prototype;
-  } else {
-    // Fallback: Return an object instance of the Buffer class
-    if (that === null) {
-      that = new Buffer(length);
-    }
-    that.length = length;
-  }
-
-  return that
-}
-
-/**
- * The Buffer constructor returns instances of `Uint8Array` that have their
- * prototype changed to `Buffer.prototype`. Furthermore, `Buffer` is a subclass of
- * `Uint8Array`, so the returned instances will have all the node `Buffer` methods
- * and the `Uint8Array` methods. Square bracket notation works as expected -- it
- * returns a single octet.
- *
- * The `Uint8Array` prototype remains unmodified.
- */
-
-function Buffer (arg, encodingOrOffset, length) {
-  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
-    return new Buffer(arg, encodingOrOffset, length)
-  }
-
-  // Common case.
-  if (typeof arg === 'number') {
-    if (typeof encodingOrOffset === 'string') {
-      throw new Error(
-        'If encoding is specified then the first argument must be a string'
-      )
-    }
-    return allocUnsafe(this, arg)
-  }
-  return from(this, arg, encodingOrOffset, length)
-}
-
-Buffer.poolSize = 8192; // not used by this implementation
-
-// TODO: Legacy, not needed anymore. Remove in next major version.
-Buffer._augment = function (arr) {
-  arr.__proto__ = Buffer.prototype;
-  return arr
-};
-
-function from (that, value, encodingOrOffset, length) {
-  if (typeof value === 'number') {
-    throw new TypeError('"value" argument must not be a number')
-  }
-
-  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    return fromArrayBuffer(that, value, encodingOrOffset, length)
-  }
-
-  if (typeof value === 'string') {
-    return fromString(that, value, encodingOrOffset)
-  }
-
-  return fromObject(that, value)
-}
-
-/**
- * Functionally equivalent to Buffer(arg, encoding) but throws a TypeError
- * if value is a number.
- * Buffer.from(str[, encoding])
- * Buffer.from(array)
- * Buffer.from(buffer)
- * Buffer.from(arrayBuffer[, byteOffset[, length]])
- **/
-Buffer.from = function (value, encodingOrOffset, length) {
-  return from(null, value, encodingOrOffset, length)
-};
-
-if (Buffer.TYPED_ARRAY_SUPPORT) {
-  Buffer.prototype.__proto__ = Uint8Array.prototype;
-  Buffer.__proto__ = Uint8Array;
-  if (typeof Symbol !== 'undefined' && Symbol.species &&
-      Buffer[Symbol.species] === Buffer) ;
-}
-
-function assertSize (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('"size" argument must be a number')
-  } else if (size < 0) {
-    throw new RangeError('"size" argument must not be negative')
-  }
-}
-
-function alloc (that, size, fill, encoding) {
-  assertSize(size);
-  if (size <= 0) {
-    return createBuffer(that, size)
-  }
-  if (fill !== undefined) {
-    // Only pay attention to encoding if it's a string. This
-    // prevents accidentally sending in a number that would
-    // be interpretted as a start offset.
-    return typeof encoding === 'string'
-      ? createBuffer(that, size).fill(fill, encoding)
-      : createBuffer(that, size).fill(fill)
-  }
-  return createBuffer(that, size)
-}
-
-/**
- * Creates a new filled Buffer instance.
- * alloc(size[, fill[, encoding]])
- **/
-Buffer.alloc = function (size, fill, encoding) {
-  return alloc(null, size, fill, encoding)
-};
-
-function allocUnsafe (that, size) {
-  assertSize(size);
-  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0);
-  if (!Buffer.TYPED_ARRAY_SUPPORT) {
-    for (var i = 0; i < size; ++i) {
-      that[i] = 0;
-    }
-  }
-  return that
-}
-
-/**
- * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
- * */
-Buffer.allocUnsafe = function (size) {
-  return allocUnsafe(null, size)
-};
-/**
- * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
- */
-Buffer.allocUnsafeSlow = function (size) {
-  return allocUnsafe(null, size)
-};
-
-function fromString (that, string, encoding) {
-  if (typeof encoding !== 'string' || encoding === '') {
-    encoding = 'utf8';
-  }
-
-  if (!Buffer.isEncoding(encoding)) {
-    throw new TypeError('"encoding" must be a valid string encoding')
-  }
-
-  var length = byteLength(string, encoding) | 0;
-  that = createBuffer(that, length);
-
-  var actual = that.write(string, encoding);
-
-  if (actual !== length) {
-    // Writing a hex string, for example, that contains invalid characters will
-    // cause everything after the first invalid character to be ignored. (e.g.
-    // 'abxxcd' will be treated as 'ab')
-    that = that.slice(0, actual);
-  }
-
-  return that
-}
-
-function fromArrayLike (that, array) {
-  var length = array.length < 0 ? 0 : checked(array.length) | 0;
-  that = createBuffer(that, length);
-  for (var i = 0; i < length; i += 1) {
-    that[i] = array[i] & 255;
-  }
-  return that
-}
-
-function fromArrayBuffer (that, array, byteOffset, length) {
-  array.byteLength; // this throws if `array` is not a valid ArrayBuffer
-
-  if (byteOffset < 0 || array.byteLength < byteOffset) {
-    throw new RangeError('\'offset\' is out of bounds')
-  }
-
-  if (array.byteLength < byteOffset + (length || 0)) {
-    throw new RangeError('\'length\' is out of bounds')
-  }
-
-  if (byteOffset === undefined && length === undefined) {
-    array = new Uint8Array(array);
-  } else if (length === undefined) {
-    array = new Uint8Array(array, byteOffset);
-  } else {
-    array = new Uint8Array(array, byteOffset, length);
-  }
-
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = array;
-    that.__proto__ = Buffer.prototype;
-  } else {
-    // Fallback: Return an object instance of the Buffer class
-    that = fromArrayLike(that, array);
-  }
-  return that
-}
-
-function fromObject (that, obj) {
-  if (internalIsBuffer(obj)) {
-    var len = checked(obj.length) | 0;
-    that = createBuffer(that, len);
-
-    if (that.length === 0) {
-      return that
-    }
-
-    obj.copy(that, 0, 0, len);
-    return that
-  }
-
-  if (obj) {
-    if ((typeof ArrayBuffer !== 'undefined' &&
-        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
-      if (typeof obj.length !== 'number' || isnan(obj.length)) {
-        return createBuffer(that, 0)
-      }
-      return fromArrayLike(that, obj)
-    }
-
-    if (obj.type === 'Buffer' && isArray(obj.data)) {
-      return fromArrayLike(that, obj.data)
-    }
-  }
-
-  throw new TypeError('First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.')
-}
-
-function checked (length) {
-  // Note: cannot use `length < kMaxLength()` here because that fails when
-  // length is NaN (which is otherwise coerced to zero.)
-  if (length >= kMaxLength()) {
-    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
-                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
-  }
-  return length | 0
-}
-Buffer.isBuffer = isBuffer;
-function internalIsBuffer (b) {
-  return !!(b != null && b._isBuffer)
-}
-
-Buffer.compare = function compare (a, b) {
-  if (!internalIsBuffer(a) || !internalIsBuffer(b)) {
-    throw new TypeError('Arguments must be Buffers')
-  }
-
-  if (a === b) return 0
-
-  var x = a.length;
-  var y = b.length;
-
-  for (var i = 0, len = Math.min(x, y); i < len; ++i) {
-    if (a[i] !== b[i]) {
-      x = a[i];
-      y = b[i];
-      break
-    }
-  }
-
-  if (x < y) return -1
-  if (y < x) return 1
-  return 0
-};
-
-Buffer.isEncoding = function isEncoding (encoding) {
-  switch (String(encoding).toLowerCase()) {
-    case 'hex':
-    case 'utf8':
-    case 'utf-8':
-    case 'ascii':
-    case 'latin1':
-    case 'binary':
-    case 'base64':
-    case 'ucs2':
-    case 'ucs-2':
-    case 'utf16le':
-    case 'utf-16le':
-      return true
-    default:
-      return false
-  }
-};
-
-Buffer.concat = function concat (list, length) {
-  if (!isArray(list)) {
-    throw new TypeError('"list" argument must be an Array of Buffers')
-  }
-
-  if (list.length === 0) {
-    return Buffer.alloc(0)
-  }
-
-  var i;
-  if (length === undefined) {
-    length = 0;
-    for (i = 0; i < list.length; ++i) {
-      length += list[i].length;
-    }
-  }
-
-  var buffer = Buffer.allocUnsafe(length);
-  var pos = 0;
-  for (i = 0; i < list.length; ++i) {
-    var buf = list[i];
-    if (!internalIsBuffer(buf)) {
-      throw new TypeError('"list" argument must be an Array of Buffers')
-    }
-    buf.copy(buffer, pos);
-    pos += buf.length;
-  }
-  return buffer
-};
-
-function byteLength (string, encoding) {
-  if (internalIsBuffer(string)) {
-    return string.length
-  }
-  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
-      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
-    return string.byteLength
-  }
-  if (typeof string !== 'string') {
-    string = '' + string;
-  }
-
-  var len = string.length;
-  if (len === 0) return 0
-
-  // Use a for loop to avoid recursion
-  var loweredCase = false;
-  for (;;) {
-    switch (encoding) {
-      case 'ascii':
-      case 'latin1':
-      case 'binary':
-        return len
-      case 'utf8':
-      case 'utf-8':
-      case undefined:
-        return utf8ToBytes(string).length
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return len * 2
-      case 'hex':
-        return len >>> 1
-      case 'base64':
-        return base64ToBytes(string).length
-      default:
-        if (loweredCase) return utf8ToBytes(string).length // assume utf8
-        encoding = ('' + encoding).toLowerCase();
-        loweredCase = true;
-    }
-  }
-}
-Buffer.byteLength = byteLength;
-
-function slowToString (encoding, start, end) {
-  var loweredCase = false;
-
-  // No need to verify that "this.length <= MAX_UINT32" since it's a read-only
-  // property of a typed array.
-
-  // This behaves neither like String nor Uint8Array in that we set start/end
-  // to their upper/lower bounds if the value passed is out of range.
-  // undefined is handled specially as per ECMA-262 6th Edition,
-  // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
-  if (start === undefined || start < 0) {
-    start = 0;
-  }
-  // Return early if start > this.length. Done here to prevent potential uint32
-  // coercion fail below.
-  if (start > this.length) {
-    return ''
-  }
-
-  if (end === undefined || end > this.length) {
-    end = this.length;
-  }
-
-  if (end <= 0) {
-    return ''
-  }
-
-  // Force coersion to uint32. This will also coerce falsey/NaN values to 0.
-  end >>>= 0;
-  start >>>= 0;
-
-  if (end <= start) {
-    return ''
-  }
-
-  if (!encoding) encoding = 'utf8';
-
-  while (true) {
-    switch (encoding) {
-      case 'hex':
-        return hexSlice(this, start, end)
-
-      case 'utf8':
-      case 'utf-8':
-        return utf8Slice(this, start, end)
-
-      case 'ascii':
-        return asciiSlice(this, start, end)
-
-      case 'latin1':
-      case 'binary':
-        return latin1Slice(this, start, end)
-
-      case 'base64':
-        return base64Slice(this, start, end)
-
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return utf16leSlice(this, start, end)
-
-      default:
-        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-        encoding = (encoding + '').toLowerCase();
-        loweredCase = true;
-    }
-  }
-}
-
-// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
-// Buffer instances.
-Buffer.prototype._isBuffer = true;
-
-function swap (b, n, m) {
-  var i = b[n];
-  b[n] = b[m];
-  b[m] = i;
-}
-
-Buffer.prototype.swap16 = function swap16 () {
-  var len = this.length;
-  if (len % 2 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 16-bits')
-  }
-  for (var i = 0; i < len; i += 2) {
-    swap(this, i, i + 1);
-  }
-  return this
-};
-
-Buffer.prototype.swap32 = function swap32 () {
-  var len = this.length;
-  if (len % 4 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 32-bits')
-  }
-  for (var i = 0; i < len; i += 4) {
-    swap(this, i, i + 3);
-    swap(this, i + 1, i + 2);
-  }
-  return this
-};
-
-Buffer.prototype.swap64 = function swap64 () {
-  var len = this.length;
-  if (len % 8 !== 0) {
-    throw new RangeError('Buffer size must be a multiple of 64-bits')
-  }
-  for (var i = 0; i < len; i += 8) {
-    swap(this, i, i + 7);
-    swap(this, i + 1, i + 6);
-    swap(this, i + 2, i + 5);
-    swap(this, i + 3, i + 4);
-  }
-  return this
-};
-
-Buffer.prototype.toString = function toString () {
-  var length = this.length | 0;
-  if (length === 0) return ''
-  if (arguments.length === 0) return utf8Slice(this, 0, length)
-  return slowToString.apply(this, arguments)
-};
-
-Buffer.prototype.equals = function equals (b) {
-  if (!internalIsBuffer(b)) throw new TypeError('Argument must be a Buffer')
-  if (this === b) return true
-  return Buffer.compare(this, b) === 0
-};
-
-Buffer.prototype.inspect = function inspect () {
-  var str = '';
-  var max = INSPECT_MAX_BYTES;
-  if (this.length > 0) {
-    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ');
-    if (this.length > max) str += ' ... ';
-  }
-  return '<Buffer ' + str + '>'
-};
-
-Buffer.prototype.compare = function compare (target, start, end, thisStart, thisEnd) {
-  if (!internalIsBuffer(target)) {
-    throw new TypeError('Argument must be a Buffer')
-  }
-
-  if (start === undefined) {
-    start = 0;
-  }
-  if (end === undefined) {
-    end = target ? target.length : 0;
-  }
-  if (thisStart === undefined) {
-    thisStart = 0;
-  }
-  if (thisEnd === undefined) {
-    thisEnd = this.length;
-  }
-
-  if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
-    throw new RangeError('out of range index')
-  }
-
-  if (thisStart >= thisEnd && start >= end) {
-    return 0
-  }
-  if (thisStart >= thisEnd) {
-    return -1
-  }
-  if (start >= end) {
-    return 1
-  }
-
-  start >>>= 0;
-  end >>>= 0;
-  thisStart >>>= 0;
-  thisEnd >>>= 0;
-
-  if (this === target) return 0
-
-  var x = thisEnd - thisStart;
-  var y = end - start;
-  var len = Math.min(x, y);
-
-  var thisCopy = this.slice(thisStart, thisEnd);
-  var targetCopy = target.slice(start, end);
-
-  for (var i = 0; i < len; ++i) {
-    if (thisCopy[i] !== targetCopy[i]) {
-      x = thisCopy[i];
-      y = targetCopy[i];
-      break
-    }
-  }
-
-  if (x < y) return -1
-  if (y < x) return 1
-  return 0
-};
-
-// Finds either the first index of `val` in `buffer` at offset >= `byteOffset`,
-// OR the last index of `val` in `buffer` at offset <= `byteOffset`.
-//
-// Arguments:
-// - buffer - a Buffer to search
-// - val - a string, Buffer, or number
-// - byteOffset - an index into `buffer`; will be clamped to an int32
-// - encoding - an optional encoding, relevant is val is a string
-// - dir - true for indexOf, false for lastIndexOf
-function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
-  // Empty buffer means no match
-  if (buffer.length === 0) return -1
-
-  // Normalize byteOffset
-  if (typeof byteOffset === 'string') {
-    encoding = byteOffset;
-    byteOffset = 0;
-  } else if (byteOffset > 0x7fffffff) {
-    byteOffset = 0x7fffffff;
-  } else if (byteOffset < -2147483648) {
-    byteOffset = -2147483648;
-  }
-  byteOffset = +byteOffset;  // Coerce to Number.
-  if (isNaN(byteOffset)) {
-    // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
-    byteOffset = dir ? 0 : (buffer.length - 1);
-  }
-
-  // Normalize byteOffset: negative offsets start from the end of the buffer
-  if (byteOffset < 0) byteOffset = buffer.length + byteOffset;
-  if (byteOffset >= buffer.length) {
-    if (dir) return -1
-    else byteOffset = buffer.length - 1;
-  } else if (byteOffset < 0) {
-    if (dir) byteOffset = 0;
-    else return -1
-  }
-
-  // Normalize val
-  if (typeof val === 'string') {
-    val = Buffer.from(val, encoding);
-  }
-
-  // Finally, search either indexOf (if dir is true) or lastIndexOf
-  if (internalIsBuffer(val)) {
-    // Special case: looking for empty string/buffer always fails
-    if (val.length === 0) {
-      return -1
-    }
-    return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
-  } else if (typeof val === 'number') {
-    val = val & 0xFF; // Search for a byte value [0-255]
-    if (Buffer.TYPED_ARRAY_SUPPORT &&
-        typeof Uint8Array.prototype.indexOf === 'function') {
-      if (dir) {
-        return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
-      } else {
-        return Uint8Array.prototype.lastIndexOf.call(buffer, val, byteOffset)
-      }
-    }
-    return arrayIndexOf(buffer, [ val ], byteOffset, encoding, dir)
-  }
-
-  throw new TypeError('val must be string, number or Buffer')
-}
-
-function arrayIndexOf (arr, val, byteOffset, encoding, dir) {
-  var indexSize = 1;
-  var arrLength = arr.length;
-  var valLength = val.length;
-
-  if (encoding !== undefined) {
-    encoding = String(encoding).toLowerCase();
-    if (encoding === 'ucs2' || encoding === 'ucs-2' ||
-        encoding === 'utf16le' || encoding === 'utf-16le') {
-      if (arr.length < 2 || val.length < 2) {
-        return -1
-      }
-      indexSize = 2;
-      arrLength /= 2;
-      valLength /= 2;
-      byteOffset /= 2;
-    }
-  }
-
-  function read (buf, i) {
-    if (indexSize === 1) {
-      return buf[i]
-    } else {
-      return buf.readUInt16BE(i * indexSize)
-    }
-  }
-
-  var i;
-  if (dir) {
-    var foundIndex = -1;
-    for (i = byteOffset; i < arrLength; i++) {
-      if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
-        if (foundIndex === -1) foundIndex = i;
-        if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
-      } else {
-        if (foundIndex !== -1) i -= i - foundIndex;
-        foundIndex = -1;
-      }
-    }
-  } else {
-    if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength;
-    for (i = byteOffset; i >= 0; i--) {
-      var found = true;
-      for (var j = 0; j < valLength; j++) {
-        if (read(arr, i + j) !== read(val, j)) {
-          found = false;
-          break
-        }
-      }
-      if (found) return i
-    }
-  }
-
-  return -1
-}
-
-Buffer.prototype.includes = function includes (val, byteOffset, encoding) {
-  return this.indexOf(val, byteOffset, encoding) !== -1
-};
-
-Buffer.prototype.indexOf = function indexOf (val, byteOffset, encoding) {
-  return bidirectionalIndexOf(this, val, byteOffset, encoding, true)
-};
-
-Buffer.prototype.lastIndexOf = function lastIndexOf (val, byteOffset, encoding) {
-  return bidirectionalIndexOf(this, val, byteOffset, encoding, false)
-};
-
-function hexWrite (buf, string, offset, length) {
-  offset = Number(offset) || 0;
-  var remaining = buf.length - offset;
-  if (!length) {
-    length = remaining;
-  } else {
-    length = Number(length);
-    if (length > remaining) {
-      length = remaining;
-    }
-  }
-
-  // must be an even number of digits
-  var strLen = string.length;
-  if (strLen % 2 !== 0) throw new TypeError('Invalid hex string')
-
-  if (length > strLen / 2) {
-    length = strLen / 2;
-  }
-  for (var i = 0; i < length; ++i) {
-    var parsed = parseInt(string.substr(i * 2, 2), 16);
-    if (isNaN(parsed)) return i
-    buf[offset + i] = parsed;
-  }
-  return i
-}
-
-function utf8Write (buf, string, offset, length) {
-  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
-}
-
-function asciiWrite (buf, string, offset, length) {
-  return blitBuffer(asciiToBytes(string), buf, offset, length)
-}
-
-function latin1Write (buf, string, offset, length) {
-  return asciiWrite(buf, string, offset, length)
-}
-
-function base64Write (buf, string, offset, length) {
-  return blitBuffer(base64ToBytes(string), buf, offset, length)
-}
-
-function ucs2Write (buf, string, offset, length) {
-  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
-}
-
-Buffer.prototype.write = function write (string, offset, length, encoding) {
-  // Buffer#write(string)
-  if (offset === undefined) {
-    encoding = 'utf8';
-    length = this.length;
-    offset = 0;
-  // Buffer#write(string, encoding)
-  } else if (length === undefined && typeof offset === 'string') {
-    encoding = offset;
-    length = this.length;
-    offset = 0;
-  // Buffer#write(string, offset[, length][, encoding])
-  } else if (isFinite(offset)) {
-    offset = offset | 0;
-    if (isFinite(length)) {
-      length = length | 0;
-      if (encoding === undefined) encoding = 'utf8';
-    } else {
-      encoding = length;
-      length = undefined;
-    }
-  // legacy write(string, encoding, offset, length) - remove in v0.13
-  } else {
-    throw new Error(
-      'Buffer.write(string, encoding, offset[, length]) is no longer supported'
-    )
-  }
-
-  var remaining = this.length - offset;
-  if (length === undefined || length > remaining) length = remaining;
-
-  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
-    throw new RangeError('Attempt to write outside buffer bounds')
-  }
-
-  if (!encoding) encoding = 'utf8';
-
-  var loweredCase = false;
-  for (;;) {
-    switch (encoding) {
-      case 'hex':
-        return hexWrite(this, string, offset, length)
-
-      case 'utf8':
-      case 'utf-8':
-        return utf8Write(this, string, offset, length)
-
-      case 'ascii':
-        return asciiWrite(this, string, offset, length)
-
-      case 'latin1':
-      case 'binary':
-        return latin1Write(this, string, offset, length)
-
-      case 'base64':
-        // Warning: maxLength not taken into account in base64Write
-        return base64Write(this, string, offset, length)
-
-      case 'ucs2':
-      case 'ucs-2':
-      case 'utf16le':
-      case 'utf-16le':
-        return ucs2Write(this, string, offset, length)
-
-      default:
-        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
-        encoding = ('' + encoding).toLowerCase();
-        loweredCase = true;
-    }
-  }
-};
-
-Buffer.prototype.toJSON = function toJSON () {
-  return {
-    type: 'Buffer',
-    data: Array.prototype.slice.call(this._arr || this, 0)
-  }
-};
-
-function base64Slice (buf, start, end) {
-  if (start === 0 && end === buf.length) {
-    return fromByteArray(buf)
-  } else {
-    return fromByteArray(buf.slice(start, end))
-  }
-}
-
-function utf8Slice (buf, start, end) {
-  end = Math.min(buf.length, end);
-  var res = [];
-
-  var i = start;
-  while (i < end) {
-    var firstByte = buf[i];
-    var codePoint = null;
-    var bytesPerSequence = (firstByte > 0xEF) ? 4
-      : (firstByte > 0xDF) ? 3
-      : (firstByte > 0xBF) ? 2
-      : 1;
-
-    if (i + bytesPerSequence <= end) {
-      var secondByte, thirdByte, fourthByte, tempCodePoint;
-
-      switch (bytesPerSequence) {
-        case 1:
-          if (firstByte < 0x80) {
-            codePoint = firstByte;
-          }
-          break
-        case 2:
-          secondByte = buf[i + 1];
-          if ((secondByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F);
-            if (tempCodePoint > 0x7F) {
-              codePoint = tempCodePoint;
-            }
-          }
-          break
-        case 3:
-          secondByte = buf[i + 1];
-          thirdByte = buf[i + 2];
-          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F);
-            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
-              codePoint = tempCodePoint;
-            }
-          }
-          break
-        case 4:
-          secondByte = buf[i + 1];
-          thirdByte = buf[i + 2];
-          fourthByte = buf[i + 3];
-          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F);
-            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
-              codePoint = tempCodePoint;
-            }
-          }
-      }
-    }
-
-    if (codePoint === null) {
-      // we did not generate a valid codePoint so insert a
-      // replacement char (U+FFFD) and advance only 1 byte
-      codePoint = 0xFFFD;
-      bytesPerSequence = 1;
-    } else if (codePoint > 0xFFFF) {
-      // encode to utf16 (surrogate pair dance)
-      codePoint -= 0x10000;
-      res.push(codePoint >>> 10 & 0x3FF | 0xD800);
-      codePoint = 0xDC00 | codePoint & 0x3FF;
-    }
-
-    res.push(codePoint);
-    i += bytesPerSequence;
-  }
-
-  return decodeCodePointsArray(res)
-}
-
-// Based on http://stackoverflow.com/a/22747272/680742, the browser with
-// the lowest limit is Chrome, with 0x10000 args.
-// We go 1 magnitude less, for safety
-var MAX_ARGUMENTS_LENGTH = 0x1000;
-
-function decodeCodePointsArray (codePoints) {
-  var len = codePoints.length;
-  if (len <= MAX_ARGUMENTS_LENGTH) {
-    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
-  }
-
-  // Decode in chunks to avoid "call stack size exceeded".
-  var res = '';
-  var i = 0;
-  while (i < len) {
-    res += String.fromCharCode.apply(
-      String,
-      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
-    );
-  }
-  return res
-}
-
-function asciiSlice (buf, start, end) {
-  var ret = '';
-  end = Math.min(buf.length, end);
-
-  for (var i = start; i < end; ++i) {
-    ret += String.fromCharCode(buf[i] & 0x7F);
-  }
-  return ret
-}
-
-function latin1Slice (buf, start, end) {
-  var ret = '';
-  end = Math.min(buf.length, end);
-
-  for (var i = start; i < end; ++i) {
-    ret += String.fromCharCode(buf[i]);
-  }
-  return ret
-}
-
-function hexSlice (buf, start, end) {
-  var len = buf.length;
-
-  if (!start || start < 0) start = 0;
-  if (!end || end < 0 || end > len) end = len;
-
-  var out = '';
-  for (var i = start; i < end; ++i) {
-    out += toHex(buf[i]);
-  }
-  return out
-}
-
-function utf16leSlice (buf, start, end) {
-  var bytes = buf.slice(start, end);
-  var res = '';
-  for (var i = 0; i < bytes.length; i += 2) {
-    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256);
-  }
-  return res
-}
-
-Buffer.prototype.slice = function slice (start, end) {
-  var len = this.length;
-  start = ~~start;
-  end = end === undefined ? len : ~~end;
-
-  if (start < 0) {
-    start += len;
-    if (start < 0) start = 0;
-  } else if (start > len) {
-    start = len;
-  }
-
-  if (end < 0) {
-    end += len;
-    if (end < 0) end = 0;
-  } else if (end > len) {
-    end = len;
-  }
-
-  if (end < start) end = start;
-
-  var newBuf;
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    newBuf = this.subarray(start, end);
-    newBuf.__proto__ = Buffer.prototype;
-  } else {
-    var sliceLen = end - start;
-    newBuf = new Buffer(sliceLen, undefined);
-    for (var i = 0; i < sliceLen; ++i) {
-      newBuf[i] = this[i + start];
-    }
-  }
-
-  return newBuf
-};
-
-/*
- * Need to make sure that buffer isn't trying to write out of bounds.
- */
-function checkOffset (offset, ext, length) {
-  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
-  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
-}
-
-Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-  var val = this[offset];
-  var mul = 1;
-  var i = 0;
-  while (++i < byteLength && (mul *= 0x100)) {
-    val += this[offset + i] * mul;
-  }
-
-  return val
-};
-
-Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) {
-    checkOffset(offset, byteLength, this.length);
-  }
-
-  var val = this[offset + --byteLength];
-  var mul = 1;
-  while (byteLength > 0 && (mul *= 0x100)) {
-    val += this[offset + --byteLength] * mul;
-  }
-
-  return val
-};
-
-Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 1, this.length);
-  return this[offset]
-};
-
-Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 2, this.length);
-  return this[offset] | (this[offset + 1] << 8)
-};
-
-Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 2, this.length);
-  return (this[offset] << 8) | this[offset + 1]
-};
-
-Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-
-  return ((this[offset]) |
-      (this[offset + 1] << 8) |
-      (this[offset + 2] << 16)) +
-      (this[offset + 3] * 0x1000000)
-};
-
-Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-
-  return (this[offset] * 0x1000000) +
-    ((this[offset + 1] << 16) |
-    (this[offset + 2] << 8) |
-    this[offset + 3])
-};
-
-Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-  var val = this[offset];
-  var mul = 1;
-  var i = 0;
-  while (++i < byteLength && (mul *= 0x100)) {
-    val += this[offset + i] * mul;
-  }
-  mul *= 0x80;
-
-  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-  return val
-};
-
-Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) checkOffset(offset, byteLength, this.length);
-
-  var i = byteLength;
-  var mul = 1;
-  var val = this[offset + --i];
-  while (i > 0 && (mul *= 0x100)) {
-    val += this[offset + --i] * mul;
-  }
-  mul *= 0x80;
-
-  if (val >= mul) val -= Math.pow(2, 8 * byteLength);
-
-  return val
-};
-
-Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 1, this.length);
-  if (!(this[offset] & 0x80)) return (this[offset])
-  return ((0xff - this[offset] + 1) * -1)
-};
-
-Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 2, this.length);
-  var val = this[offset] | (this[offset + 1] << 8);
-  return (val & 0x8000) ? val | 0xFFFF0000 : val
-};
-
-Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 2, this.length);
-  var val = this[offset + 1] | (this[offset] << 8);
-  return (val & 0x8000) ? val | 0xFFFF0000 : val
-};
-
-Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-
-  return (this[offset]) |
-    (this[offset + 1] << 8) |
-    (this[offset + 2] << 16) |
-    (this[offset + 3] << 24)
-};
-
-Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-
-  return (this[offset] << 24) |
-    (this[offset + 1] << 16) |
-    (this[offset + 2] << 8) |
-    (this[offset + 3])
-};
-
-Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-  return read(this, offset, true, 23, 4)
-};
-
-Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 4, this.length);
-  return read(this, offset, false, 23, 4)
-};
-
-Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 8, this.length);
-  return read(this, offset, true, 52, 8)
-};
-
-Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
-  if (!noAssert) checkOffset(offset, 8, this.length);
-  return read(this, offset, false, 52, 8)
-};
-
-function checkInt (buf, value, offset, ext, max, min) {
-  if (!internalIsBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
-  if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
-  if (offset + ext > buf.length) throw new RangeError('Index out of range')
-}
-
-Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) {
-    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-    checkInt(this, value, offset, byteLength, maxBytes, 0);
-  }
-
-  var mul = 1;
-  var i = 0;
-  this[offset] = value & 0xFF;
-  while (++i < byteLength && (mul *= 0x100)) {
-    this[offset + i] = (value / mul) & 0xFF;
-  }
-
-  return offset + byteLength
-};
-
-Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  byteLength = byteLength | 0;
-  if (!noAssert) {
-    var maxBytes = Math.pow(2, 8 * byteLength) - 1;
-    checkInt(this, value, offset, byteLength, maxBytes, 0);
-  }
-
-  var i = byteLength - 1;
-  var mul = 1;
-  this[offset + i] = value & 0xFF;
-  while (--i >= 0 && (mul *= 0x100)) {
-    this[offset + i] = (value / mul) & 0xFF;
-  }
-
-  return offset + byteLength
-};
-
-Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0);
-  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-  this[offset] = (value & 0xff);
-  return offset + 1
-};
-
-function objectWriteUInt16 (buf, value, offset, littleEndian) {
-  if (value < 0) value = 0xffff + value + 1;
-  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-      (littleEndian ? i : 1 - i) * 8;
-  }
-}
-
-Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff);
-    this[offset + 1] = (value >>> 8);
-  } else {
-    objectWriteUInt16(this, value, offset, true);
-  }
-  return offset + 2
-};
-
-Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8);
-    this[offset + 1] = (value & 0xff);
-  } else {
-    objectWriteUInt16(this, value, offset, false);
-  }
-  return offset + 2
-};
-
-function objectWriteUInt32 (buf, value, offset, littleEndian) {
-  if (value < 0) value = 0xffffffff + value + 1;
-  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
-    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff;
-  }
-}
-
-Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset + 3] = (value >>> 24);
-    this[offset + 2] = (value >>> 16);
-    this[offset + 1] = (value >>> 8);
-    this[offset] = (value & 0xff);
-  } else {
-    objectWriteUInt32(this, value, offset, true);
-  }
-  return offset + 4
-};
-
-Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24);
-    this[offset + 1] = (value >>> 16);
-    this[offset + 2] = (value >>> 8);
-    this[offset + 3] = (value & 0xff);
-  } else {
-    objectWriteUInt32(this, value, offset, false);
-  }
-  return offset + 4
-};
-
-Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1);
-
-    checkInt(this, value, offset, byteLength, limit - 1, -limit);
-  }
-
-  var i = 0;
-  var mul = 1;
-  var sub = 0;
-  this[offset] = value & 0xFF;
-  while (++i < byteLength && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
-      sub = 1;
-    }
-    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-  }
-
-  return offset + byteLength
-};
-
-Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1);
-
-    checkInt(this, value, offset, byteLength, limit - 1, -limit);
-  }
-
-  var i = byteLength - 1;
-  var mul = 1;
-  var sub = 0;
-  this[offset + i] = value & 0xFF;
-  while (--i >= 0 && (mul *= 0x100)) {
-    if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
-      sub = 1;
-    }
-    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF;
-  }
-
-  return offset + byteLength
-};
-
-Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -128);
-  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value);
-  if (value < 0) value = 0xff + value + 1;
-  this[offset] = (value & 0xff);
-  return offset + 1
-};
-
-Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -32768);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff);
-    this[offset + 1] = (value >>> 8);
-  } else {
-    objectWriteUInt16(this, value, offset, true);
-  }
-  return offset + 2
-};
-
-Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -32768);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8);
-    this[offset + 1] = (value & 0xff);
-  } else {
-    objectWriteUInt16(this, value, offset, false);
-  }
-  return offset + 2
-};
-
-Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -2147483648);
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff);
-    this[offset + 1] = (value >>> 8);
-    this[offset + 2] = (value >>> 16);
-    this[offset + 3] = (value >>> 24);
-  } else {
-    objectWriteUInt32(this, value, offset, true);
-  }
-  return offset + 4
-};
-
-Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
-  value = +value;
-  offset = offset | 0;
-  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -2147483648);
-  if (value < 0) value = 0xffffffff + value + 1;
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24);
-    this[offset + 1] = (value >>> 16);
-    this[offset + 2] = (value >>> 8);
-    this[offset + 3] = (value & 0xff);
-  } else {
-    objectWriteUInt32(this, value, offset, false);
-  }
-  return offset + 4
-};
-
-function checkIEEE754 (buf, value, offset, ext, max, min) {
-  if (offset + ext > buf.length) throw new RangeError('Index out of range')
-  if (offset < 0) throw new RangeError('Index out of range')
-}
-
-function writeFloat (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    checkIEEE754(buf, value, offset, 4);
-  }
-  write(buf, value, offset, littleEndian, 23, 4);
-  return offset + 4
-}
-
-Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
-  return writeFloat(this, value, offset, true, noAssert)
-};
-
-Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
-  return writeFloat(this, value, offset, false, noAssert)
-};
-
-function writeDouble (buf, value, offset, littleEndian, noAssert) {
-  if (!noAssert) {
-    checkIEEE754(buf, value, offset, 8);
-  }
-  write(buf, value, offset, littleEndian, 52, 8);
-  return offset + 8
-}
-
-Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
-  return writeDouble(this, value, offset, true, noAssert)
-};
-
-Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
-  return writeDouble(this, value, offset, false, noAssert)
-};
-
-// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
-Buffer.prototype.copy = function copy (target, targetStart, start, end) {
-  if (!start) start = 0;
-  if (!end && end !== 0) end = this.length;
-  if (targetStart >= target.length) targetStart = target.length;
-  if (!targetStart) targetStart = 0;
-  if (end > 0 && end < start) end = start;
-
-  // Copy 0 bytes; we're done
-  if (end === start) return 0
-  if (target.length === 0 || this.length === 0) return 0
-
-  // Fatal error conditions
-  if (targetStart < 0) {
-    throw new RangeError('targetStart out of bounds')
-  }
-  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
-  if (end < 0) throw new RangeError('sourceEnd out of bounds')
-
-  // Are we oob?
-  if (end > this.length) end = this.length;
-  if (target.length - targetStart < end - start) {
-    end = target.length - targetStart + start;
-  }
-
-  var len = end - start;
-  var i;
-
-  if (this === target && start < targetStart && targetStart < end) {
-    // descending copy from end
-    for (i = len - 1; i >= 0; --i) {
-      target[i + targetStart] = this[i + start];
-    }
-  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
-    // ascending copy from start
-    for (i = 0; i < len; ++i) {
-      target[i + targetStart] = this[i + start];
-    }
-  } else {
-    Uint8Array.prototype.set.call(
-      target,
-      this.subarray(start, start + len),
-      targetStart
-    );
-  }
-
-  return len
-};
-
-// Usage:
-//    buffer.fill(number[, offset[, end]])
-//    buffer.fill(buffer[, offset[, end]])
-//    buffer.fill(string[, offset[, end]][, encoding])
-Buffer.prototype.fill = function fill (val, start, end, encoding) {
-  // Handle string cases:
-  if (typeof val === 'string') {
-    if (typeof start === 'string') {
-      encoding = start;
-      start = 0;
-      end = this.length;
-    } else if (typeof end === 'string') {
-      encoding = end;
-      end = this.length;
-    }
-    if (val.length === 1) {
-      var code = val.charCodeAt(0);
-      if (code < 256) {
-        val = code;
-      }
-    }
-    if (encoding !== undefined && typeof encoding !== 'string') {
-      throw new TypeError('encoding must be a string')
-    }
-    if (typeof encoding === 'string' && !Buffer.isEncoding(encoding)) {
-      throw new TypeError('Unknown encoding: ' + encoding)
-    }
-  } else if (typeof val === 'number') {
-    val = val & 255;
-  }
-
-  // Invalid ranges are not set to a default, so can range check early.
-  if (start < 0 || this.length < start || this.length < end) {
-    throw new RangeError('Out of range index')
-  }
-
-  if (end <= start) {
-    return this
-  }
-
-  start = start >>> 0;
-  end = end === undefined ? this.length : end >>> 0;
-
-  if (!val) val = 0;
-
-  var i;
-  if (typeof val === 'number') {
-    for (i = start; i < end; ++i) {
-      this[i] = val;
-    }
-  } else {
-    var bytes = internalIsBuffer(val)
-      ? val
-      : utf8ToBytes(new Buffer(val, encoding).toString());
-    var len = bytes.length;
-    for (i = 0; i < end - start; ++i) {
-      this[i + start] = bytes[i % len];
-    }
-  }
-
-  return this
-};
-
-// HELPER FUNCTIONS
-// ================
-
-var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g;
-
-function base64clean (str) {
-  // Node strips out invalid characters like \n and \t from the string, base64-js does not
-  str = stringtrim(str).replace(INVALID_BASE64_RE, '');
-  // Node converts strings with length < 2 to ''
-  if (str.length < 2) return ''
-  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
-  while (str.length % 4 !== 0) {
-    str = str + '=';
-  }
-  return str
-}
-
-function stringtrim (str) {
-  if (str.trim) return str.trim()
-  return str.replace(/^\s+|\s+$/g, '')
-}
-
-function toHex (n) {
-  if (n < 16) return '0' + n.toString(16)
-  return n.toString(16)
-}
-
-function utf8ToBytes (string, units) {
-  units = units || Infinity;
-  var codePoint;
-  var length = string.length;
-  var leadSurrogate = null;
-  var bytes = [];
-
-  for (var i = 0; i < length; ++i) {
-    codePoint = string.charCodeAt(i);
-
-    // is surrogate component
-    if (codePoint > 0xD7FF && codePoint < 0xE000) {
-      // last char was a lead
-      if (!leadSurrogate) {
-        // no lead yet
-        if (codePoint > 0xDBFF) {
-          // unexpected trail
-          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-          continue
-        } else if (i + 1 === length) {
-          // unpaired lead
-          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-          continue
-        }
-
-        // valid lead
-        leadSurrogate = codePoint;
-
-        continue
-      }
-
-      // 2 leads in a row
-      if (codePoint < 0xDC00) {
-        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-        leadSurrogate = codePoint;
-        continue
-      }
-
-      // valid surrogate pair
-      codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000;
-    } else if (leadSurrogate) {
-      // valid bmp char, but last char was a lead
-      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD);
-    }
-
-    leadSurrogate = null;
-
-    // encode utf8
-    if (codePoint < 0x80) {
-      if ((units -= 1) < 0) break
-      bytes.push(codePoint);
-    } else if (codePoint < 0x800) {
-      if ((units -= 2) < 0) break
-      bytes.push(
-        codePoint >> 0x6 | 0xC0,
-        codePoint & 0x3F | 0x80
-      );
-    } else if (codePoint < 0x10000) {
-      if ((units -= 3) < 0) break
-      bytes.push(
-        codePoint >> 0xC | 0xE0,
-        codePoint >> 0x6 & 0x3F | 0x80,
-        codePoint & 0x3F | 0x80
-      );
-    } else if (codePoint < 0x110000) {
-      if ((units -= 4) < 0) break
-      bytes.push(
-        codePoint >> 0x12 | 0xF0,
-        codePoint >> 0xC & 0x3F | 0x80,
-        codePoint >> 0x6 & 0x3F | 0x80,
-        codePoint & 0x3F | 0x80
-      );
-    } else {
-      throw new Error('Invalid code point')
-    }
-  }
-
-  return bytes
-}
-
-function asciiToBytes (str) {
-  var byteArray = [];
-  for (var i = 0; i < str.length; ++i) {
-    // Node's code seems to be doing this and not & 0x7F..
-    byteArray.push(str.charCodeAt(i) & 0xFF);
-  }
-  return byteArray
-}
-
-function utf16leToBytes (str, units) {
-  var c, hi, lo;
-  var byteArray = [];
-  for (var i = 0; i < str.length; ++i) {
-    if ((units -= 2) < 0) break
-
-    c = str.charCodeAt(i);
-    hi = c >> 8;
-    lo = c % 256;
-    byteArray.push(lo);
-    byteArray.push(hi);
-  }
-
-  return byteArray
-}
-
-
-function base64ToBytes (str) {
-  return toByteArray(base64clean(str))
-}
-
-function blitBuffer (src, dst, offset, length) {
-  for (var i = 0; i < length; ++i) {
-    if ((i + offset >= dst.length) || (i >= src.length)) break
-    dst[i + offset] = src[i];
-  }
-  return i
-}
-
-function isnan (val) {
-  return val !== val // eslint-disable-line no-self-compare
-}
-
-
-// the following is from is-buffer, also by Feross Aboukhadijeh and with same lisence
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-function isBuffer(obj) {
-  return obj != null && (!!obj._isBuffer || isFastBuffer(obj) || isSlowBuffer(obj))
-}
-
-function isFastBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isFastBuffer(obj.slice(0, 0))
-}
-
 var BaseLogger = {};
+
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = true,
+      o = false;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = true, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray$3(r, e) || _nonIterableRest();
+}
+
+var urlToObj = {};
+
+var hasRequiredUrlToObj;
+function requireUrlToObj() {
+  if (hasRequiredUrlToObj) return urlToObj;
+  hasRequiredUrlToObj = 1;
+  Object.defineProperty(urlToObj, "__esModule", {
+    value: true
+  });
+  urlToObj.urlToObject = urlToObject;
+  function urlToObject(url) {
+    return {
+      href: url.href,
+      protocol: url.protocol,
+      username: url.username,
+      password: url.password,
+      host: url.host,
+      hostname: url.hostname,
+      port: url.port,
+      pathname: url.pathname,
+      search: url.search,
+      searchParams: _toConsumableArray(url.searchParams).map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          key = _ref2[0],
+          value = _ref2[1];
+        return {
+          key: key,
+          value: value
+        };
+      }),
+      hash: url.hash,
+      origin: url.origin
+    };
+  }
+  return urlToObj;
+}
+
+var metaFormatting = {};
 
 var formatTemplate = {};
 
 var prettyLogStyles = {};
 
 var hasRequiredPrettyLogStyles;
-
-function requirePrettyLogStyles () {
-	if (hasRequiredPrettyLogStyles) return prettyLogStyles;
-	hasRequiredPrettyLogStyles = 1;
-	Object.defineProperty(prettyLogStyles, "__esModule", { value: true });
-	prettyLogStyles.prettyLogStyles = void 0;
-	prettyLogStyles.prettyLogStyles = {
-	    reset: [0, 0],
-	    bold: [1, 22],
-	    dim: [2, 22],
-	    italic: [3, 23],
-	    underline: [4, 24],
-	    overline: [53, 55],
-	    inverse: [7, 27],
-	    hidden: [8, 28],
-	    strikethrough: [9, 29],
-	    black: [30, 39],
-	    red: [31, 39],
-	    green: [32, 39],
-	    yellow: [33, 39],
-	    blue: [34, 39],
-	    magenta: [35, 39],
-	    cyan: [36, 39],
-	    white: [37, 39],
-	    blackBright: [90, 39],
-	    redBright: [91, 39],
-	    greenBright: [92, 39],
-	    yellowBright: [93, 39],
-	    blueBright: [94, 39],
-	    magentaBright: [95, 39],
-	    cyanBright: [96, 39],
-	    whiteBright: [97, 39],
-	    bgBlack: [40, 49],
-	    bgRed: [41, 49],
-	    bgGreen: [42, 49],
-	    bgYellow: [43, 49],
-	    bgBlue: [44, 49],
-	    bgMagenta: [45, 49],
-	    bgCyan: [46, 49],
-	    bgWhite: [47, 49],
-	    bgBlackBright: [100, 49],
-	    bgRedBright: [101, 49],
-	    bgGreenBright: [102, 49],
-	    bgYellowBright: [103, 49],
-	    bgBlueBright: [104, 49],
-	    bgMagentaBright: [105, 49],
-	    bgCyanBright: [106, 49],
-	    bgWhiteBright: [107, 49],
-	};
-	return prettyLogStyles;
+function requirePrettyLogStyles() {
+  if (hasRequiredPrettyLogStyles) return prettyLogStyles;
+  hasRequiredPrettyLogStyles = 1;
+  Object.defineProperty(prettyLogStyles, "__esModule", {
+    value: true
+  });
+  prettyLogStyles.prettyLogStyles = void 0;
+  prettyLogStyles.prettyLogStyles = {
+    reset: [0, 0],
+    bold: [1, 22],
+    dim: [2, 22],
+    italic: [3, 23],
+    underline: [4, 24],
+    overline: [53, 55],
+    inverse: [7, 27],
+    hidden: [8, 28],
+    strikethrough: [9, 29],
+    black: [30, 39],
+    red: [31, 39],
+    green: [32, 39],
+    yellow: [33, 39],
+    blue: [34, 39],
+    magenta: [35, 39],
+    cyan: [36, 39],
+    white: [37, 39],
+    blackBright: [90, 39],
+    redBright: [91, 39],
+    greenBright: [92, 39],
+    yellowBright: [93, 39],
+    blueBright: [94, 39],
+    magentaBright: [95, 39],
+    cyanBright: [96, 39],
+    whiteBright: [97, 39],
+    bgBlack: [40, 49],
+    bgRed: [41, 49],
+    bgGreen: [42, 49],
+    bgYellow: [43, 49],
+    bgBlue: [44, 49],
+    bgMagenta: [45, 49],
+    bgCyan: [46, 49],
+    bgWhite: [47, 49],
+    bgBlackBright: [100, 49],
+    bgRedBright: [101, 49],
+    bgGreenBright: [102, 49],
+    bgYellowBright: [103, 49],
+    bgBlueBright: [104, 49],
+    bgMagentaBright: [105, 49],
+    bgCyanBright: [106, 49],
+    bgWhiteBright: [107, 49]
+  };
+  return prettyLogStyles;
 }
 
 var hasRequiredFormatTemplate;
-
-function requireFormatTemplate () {
-	if (hasRequiredFormatTemplate) return formatTemplate;
-	hasRequiredFormatTemplate = 1;
-	Object.defineProperty(formatTemplate, "__esModule", { value: true });
-	formatTemplate.formatTemplate = formatTemplate$1;
-	const prettyLogStyles_js_1 = requirePrettyLogStyles();
-	function formatTemplate$1(settings, template, values, hideUnsetPlaceholder = false) {
-	    const templateString = String(template);
-	    const ansiColorWrap = (placeholderValue, code) => `\u001b[${code[0]}m${placeholderValue}\u001b[${code[1]}m`;
-	    const styleWrap = (value, style) => {
-	        if (style != null && typeof style === "string") {
-	            return ansiColorWrap(value, prettyLogStyles_js_1.prettyLogStyles[style]);
-	        }
-	        else if (style != null && Array.isArray(style)) {
-	            return style.reduce((prevValue, thisStyle) => styleWrap(prevValue, thisStyle), value);
-	        }
-	        else {
-	            if (style != null && style[value.trim()] != null) {
-	                return styleWrap(value, style[value.trim()]);
-	            }
-	            else if (style != null && style["*"] != null) {
-	                return styleWrap(value, style["*"]);
-	            }
-	            else {
-	                return value;
-	            }
-	        }
-	    };
-	    const defaultStyle = null;
-	    return templateString.replace(/{{(.+?)}}/g, (_, placeholder) => {
-	        const value = values[placeholder] != null ? String(values[placeholder]) : hideUnsetPlaceholder ? "" : _;
-	        return settings.stylePrettyLogs
-	            ? styleWrap(value, settings?.prettyLogStyles?.[placeholder] ?? defaultStyle) + ansiColorWrap("", prettyLogStyles_js_1.prettyLogStyles.reset)
-	            : value;
-	    });
-	}
-	return formatTemplate;
+function requireFormatTemplate() {
+  if (hasRequiredFormatTemplate) return formatTemplate;
+  hasRequiredFormatTemplate = 1;
+  Object.defineProperty(formatTemplate, "__esModule", {
+    value: true
+  });
+  formatTemplate.formatTemplate = formatTemplate$1;
+  var prettyLogStyles_js_1 = requirePrettyLogStyles();
+  function formatTemplate$1(settings, template, values) {
+    var hideUnsetPlaceholder = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    var templateString = String(template);
+    var ansiColorWrap = function ansiColorWrap(placeholderValue, code) {
+      return "\x1B[".concat(code[0], "m").concat(placeholderValue, "\x1B[").concat(code[1], "m");
+    };
+    var _styleWrap = function styleWrap(value, style) {
+      if (style != null && typeof style === "string") {
+        return ansiColorWrap(value, prettyLogStyles_js_1.prettyLogStyles[style]);
+      } else if (style != null && Array.isArray(style)) {
+        return style.reduce(function (prevValue, thisStyle) {
+          return _styleWrap(prevValue, thisStyle);
+        }, value);
+      } else {
+        if (style != null && style[value.trim()] != null) {
+          return _styleWrap(value, style[value.trim()]);
+        } else if (style != null && style["*"] != null) {
+          return _styleWrap(value, style["*"]);
+        } else {
+          return value;
+        }
+      }
+    };
+    var defaultStyle = null;
+    return templateString.replace(/{{(.+?)}}/g, function (_, placeholder) {
+      var _settings$prettyLogSt, _settings$prettyLogSt2;
+      var value = values[placeholder] != null ? String(values[placeholder]) : hideUnsetPlaceholder ? "" : _;
+      return settings.stylePrettyLogs ? _styleWrap(value, (_settings$prettyLogSt = settings === null || settings === void 0 || (_settings$prettyLogSt2 = settings.prettyLogStyles) === null || _settings$prettyLogSt2 === void 0 ? void 0 : _settings$prettyLogSt2[placeholder]) !== null && _settings$prettyLogSt !== void 0 ? _settings$prettyLogSt : defaultStyle) + ansiColorWrap("", prettyLogStyles_js_1.prettyLogStyles.reset) : value;
+    });
+  }
+  return formatTemplate;
 }
 
-var interfaces = {};
+var formatNumberAddZeros = {};
 
-var hasRequiredInterfaces;
-
-function requireInterfaces () {
-	if (hasRequiredInterfaces) return interfaces;
-	hasRequiredInterfaces = 1;
-	Object.defineProperty(interfaces, "__esModule", { value: true });
-	interfaces.DefaultLogLevels = void 0;
-	var DefaultLogLevels;
-	(function (DefaultLogLevels) {
-	    DefaultLogLevels[DefaultLogLevels["SILLY"] = 0] = "SILLY";
-	    DefaultLogLevels[DefaultLogLevels["TRACE"] = 1] = "TRACE";
-	    DefaultLogLevels[DefaultLogLevels["DEBUG"] = 2] = "DEBUG";
-	    DefaultLogLevels[DefaultLogLevels["INFO"] = 3] = "INFO";
-	    DefaultLogLevels[DefaultLogLevels["WARN"] = 4] = "WARN";
-	    DefaultLogLevels[DefaultLogLevels["ERROR"] = 5] = "ERROR";
-	    DefaultLogLevels[DefaultLogLevels["FATAL"] = 6] = "FATAL";
-	})(DefaultLogLevels || (interfaces.DefaultLogLevels = DefaultLogLevels = {}));
-	return interfaces;
+var hasRequiredFormatNumberAddZeros;
+function requireFormatNumberAddZeros() {
+  if (hasRequiredFormatNumberAddZeros) return formatNumberAddZeros;
+  hasRequiredFormatNumberAddZeros = 1;
+  Object.defineProperty(formatNumberAddZeros, "__esModule", {
+    value: true
+  });
+  formatNumberAddZeros.formatNumberAddZeros = formatNumberAddZeros$1;
+  function formatNumberAddZeros$1(value) {
+    var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
+    var addNumber = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    if (value != null && isNaN(value)) {
+      return "";
+    }
+    value = value != null ? value + addNumber : value;
+    return digits === 2 ? value == null ? "--" : value < 10 ? "0" + value : value.toString() : value == null ? "---" : value < 10 ? "00" + value : value < 100 ? "0" + value : value.toString();
+  }
+  return formatNumberAddZeros;
 }
 
-var environment = {};
-
-var hasRequiredEnvironment;
-
-function requireEnvironment () {
-	if (hasRequiredEnvironment) return environment;
-	hasRequiredEnvironment = 1;
-	Object.defineProperty(environment, "__esModule", { value: true });
-	environment.safeGetCwd = safeGetCwd;
-	environment.isBrowserEnvironment = isBrowserEnvironment;
-	environment.isWorkerEnvironment = isWorkerEnvironment;
-	environment.consoleSupportsCssStyling = consoleSupportsCssStyling;
-	function safeGetCwd() {
-	    try {
-	        const nodeProcess = globalThis?.process;
-	        if (typeof nodeProcess?.cwd === "function") {
-	            return nodeProcess.cwd();
-	        }
-	    }
-	    catch {
-	    }
-	    try {
-	        const deno = globalThis?.Deno;
-	        if (typeof deno?.cwd === "function") {
-	            return deno.cwd();
-	        }
-	    }
-	    catch {
-	    }
-	    return undefined;
-	}
-	function isBrowserEnvironment() {
-	    return typeof window !== "undefined" && typeof document !== "undefined";
-	}
-	function isWorkerEnvironment() {
-	    return typeof globalThis.importScripts === "function";
-	}
-	function consoleSupportsCssStyling() {
-	    if (!isBrowserEnvironment() && !isWorkerEnvironment()) {
-	        return false;
-	    }
-	    const navigatorObj = globalThis?.navigator;
-	    const userAgent = navigatorObj?.userAgent ?? "";
-	    if (/firefox/i.test(userAgent)) {
-	        return true;
-	    }
-	    const windowObj = globalThis;
-	    if (windowObj?.CSS?.supports?.("color", "#000")) {
-	        return true;
-	    }
-	    return /safari/i.test(userAgent) && !/chrome/i.test(userAgent);
-	}
-	return environment;
+var hasRequiredMetaFormatting;
+function requireMetaFormatting() {
+  if (hasRequiredMetaFormatting) return metaFormatting;
+  hasRequiredMetaFormatting = 1;
+  Object.defineProperty(metaFormatting, "__esModule", {
+    value: true
+  });
+  metaFormatting.buildPrettyMeta = buildPrettyMeta;
+  var formatTemplate_js_1 = requireFormatTemplate();
+  var formatNumberAddZeros_js_1 = requireFormatNumberAddZeros();
+  function buildPrettyMeta(settings, meta) {
+    var _dateInSettingsTimeZo, _dateInSettingsTimeZo2, _meta$path$fileNameWi, _meta$path, _meta$path$filePathWi, _meta$path2, _meta$path$fullFilePa, _meta$path3, _settings$parentNames, _meta$name, _settings$overwrite;
+    if (meta == null) {
+      return {
+        text: "",
+        template: settings.prettyLogTemplate,
+        placeholders: {}
+      };
+    }
+    var template = settings.prettyLogTemplate;
+    var placeholderValues = {};
+    if (template.includes("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}")) {
+      template = template.replace("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}", "{{dateIsoStr}}");
+    } else {
+      if (settings.prettyLogTimeZone === "UTC") {
+        var _meta$date$getUTCFull, _meta$date, _meta$date2, _meta$date3, _meta$date4, _meta$date5, _meta$date6, _meta$date7;
+        placeholderValues["yyyy"] = (_meta$date$getUTCFull = (_meta$date = meta.date) === null || _meta$date === void 0 ? void 0 : _meta$date.getUTCFullYear()) !== null && _meta$date$getUTCFull !== void 0 ? _meta$date$getUTCFull : "----";
+        placeholderValues["mm"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date2 = meta.date) === null || _meta$date2 === void 0 ? void 0 : _meta$date2.getUTCMonth(), 2, 1);
+        placeholderValues["dd"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date3 = meta.date) === null || _meta$date3 === void 0 ? void 0 : _meta$date3.getUTCDate(), 2);
+        placeholderValues["hh"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date4 = meta.date) === null || _meta$date4 === void 0 ? void 0 : _meta$date4.getUTCHours(), 2);
+        placeholderValues["MM"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date5 = meta.date) === null || _meta$date5 === void 0 ? void 0 : _meta$date5.getUTCMinutes(), 2);
+        placeholderValues["ss"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date6 = meta.date) === null || _meta$date6 === void 0 ? void 0 : _meta$date6.getUTCSeconds(), 2);
+        placeholderValues["ms"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date7 = meta.date) === null || _meta$date7 === void 0 ? void 0 : _meta$date7.getUTCMilliseconds(), 3);
+      } else {
+        var _meta$date$getFullYea, _meta$date8, _meta$date9, _meta$date0, _meta$date1, _meta$date10, _meta$date11, _meta$date12;
+        placeholderValues["yyyy"] = (_meta$date$getFullYea = (_meta$date8 = meta.date) === null || _meta$date8 === void 0 ? void 0 : _meta$date8.getFullYear()) !== null && _meta$date$getFullYea !== void 0 ? _meta$date$getFullYea : "----";
+        placeholderValues["mm"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date9 = meta.date) === null || _meta$date9 === void 0 ? void 0 : _meta$date9.getMonth(), 2, 1);
+        placeholderValues["dd"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date0 = meta.date) === null || _meta$date0 === void 0 ? void 0 : _meta$date0.getDate(), 2);
+        placeholderValues["hh"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date1 = meta.date) === null || _meta$date1 === void 0 ? void 0 : _meta$date1.getHours(), 2);
+        placeholderValues["MM"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date10 = meta.date) === null || _meta$date10 === void 0 ? void 0 : _meta$date10.getMinutes(), 2);
+        placeholderValues["ss"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date11 = meta.date) === null || _meta$date11 === void 0 ? void 0 : _meta$date11.getSeconds(), 2);
+        placeholderValues["ms"] = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)((_meta$date12 = meta.date) === null || _meta$date12 === void 0 ? void 0 : _meta$date12.getMilliseconds(), 3);
+      }
+    }
+    var dateInSettingsTimeZone = settings.prettyLogTimeZone === "UTC" ? meta.date : meta.date != null ? new Date(meta.date.getTime() - meta.date.getTimezoneOffset() * 60000) : undefined;
+    placeholderValues["rawIsoStr"] = (_dateInSettingsTimeZo = dateInSettingsTimeZone === null || dateInSettingsTimeZone === void 0 ? void 0 : dateInSettingsTimeZone.toISOString()) !== null && _dateInSettingsTimeZo !== void 0 ? _dateInSettingsTimeZo : "";
+    placeholderValues["dateIsoStr"] = (_dateInSettingsTimeZo2 = dateInSettingsTimeZone === null || dateInSettingsTimeZone === void 0 ? void 0 : dateInSettingsTimeZone.toISOString().replace("T", " ").replace("Z", "")) !== null && _dateInSettingsTimeZo2 !== void 0 ? _dateInSettingsTimeZo2 : "";
+    placeholderValues["logLevelName"] = meta.logLevelName;
+    placeholderValues["fileNameWithLine"] = (_meta$path$fileNameWi = (_meta$path = meta.path) === null || _meta$path === void 0 ? void 0 : _meta$path.fileNameWithLine) !== null && _meta$path$fileNameWi !== void 0 ? _meta$path$fileNameWi : "";
+    placeholderValues["filePathWithLine"] = (_meta$path$filePathWi = (_meta$path2 = meta.path) === null || _meta$path2 === void 0 ? void 0 : _meta$path2.filePathWithLine) !== null && _meta$path$filePathWi !== void 0 ? _meta$path$filePathWi : "";
+    placeholderValues["fullFilePath"] = (_meta$path$fullFilePa = (_meta$path3 = meta.path) === null || _meta$path3 === void 0 ? void 0 : _meta$path3.fullFilePath) !== null && _meta$path$fullFilePa !== void 0 ? _meta$path$fullFilePa : "";
+    var parentNamesString = (_settings$parentNames = settings.parentNames) === null || _settings$parentNames === void 0 ? void 0 : _settings$parentNames.join(settings.prettyErrorParentNamesSeparator);
+    parentNamesString = parentNamesString != null && meta.name != null ? parentNamesString + settings.prettyErrorParentNamesSeparator : undefined;
+    var combinedName = meta.name != null || parentNamesString != null ? "".concat(parentNamesString !== null && parentNamesString !== void 0 ? parentNamesString : "").concat((_meta$name = meta.name) !== null && _meta$name !== void 0 ? _meta$name : "") : "";
+    placeholderValues["name"] = combinedName;
+    placeholderValues["nameWithDelimiterPrefix"] = combinedName.length > 0 ? settings.prettyErrorLoggerNameDelimiter + combinedName : "";
+    placeholderValues["nameWithDelimiterSuffix"] = combinedName.length > 0 ? combinedName + settings.prettyErrorLoggerNameDelimiter : "";
+    if (((_settings$overwrite = settings.overwrite) === null || _settings$overwrite === void 0 ? void 0 : _settings$overwrite.addPlaceholders) != null) {
+      settings.overwrite.addPlaceholders(meta, placeholderValues);
+    }
+    return {
+      text: (0, formatTemplate_js_1.formatTemplate)(settings, template, placeholderValues),
+      template: template,
+      placeholders: placeholderValues
+    };
+  }
+  return metaFormatting;
 }
 
 var errorUtils = {};
 
 var stackTrace = {};
 
+function _createForOfIteratorHelper$2(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$2(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray$2(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$2(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$2(r, a) : void 0; } }
+function _arrayLikeToArray$2(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 var hasRequiredStackTrace;
-
-function requireStackTrace () {
-	if (hasRequiredStackTrace) return stackTrace;
-	hasRequiredStackTrace = 1;
-	Object.defineProperty(stackTrace, "__esModule", { value: true });
-	stackTrace.splitStackLines = splitStackLines;
-	stackTrace.sanitizeStackLines = sanitizeStackLines;
-	stackTrace.toStackFrames = toStackFrames;
-	stackTrace.findFirstExternalFrameIndex = findFirstExternalFrameIndex;
-	stackTrace.getFrameAt = getFrameAt;
-	stackTrace.getCleanStackLines = getCleanStackLines;
-	stackTrace.buildStackTrace = buildStackTrace;
-	stackTrace.isIgnorableFrame = isIgnorableFrame;
-	stackTrace.clampIndex = clampIndex;
-	stackTrace.pickCallerStackFrame = pickCallerStackFrame;
-	stackTrace.getDefaultIgnorePatterns = getDefaultIgnorePatterns;
-	const DEFAULT_IGNORE_PATTERNS = [
-	    /(?:^|[\\/])node_modules[\\/].*tslog/i,
-	    /(?:^|[\\/])deps[\\/].*tslog/i,
-	    /tslog[\\/]+src[\\/]+internal[\\/]/i,
-	    /tslog[\\/]+src[\\/]BaseLogger/i,
-	    /tslog[\\/]+src[\\/]index/i,
-	];
-	function splitStackLines(error) {
-	    const stack = typeof error?.stack === "string" ? error.stack : undefined;
-	    if (stack == null || stack.length === 0) {
-	        return [];
-	    }
-	    return stack.split("\n").map((line) => line.trimEnd());
-	}
-	function sanitizeStackLines(lines) {
-	    return lines.filter((line) => line.length > 0 && !/^\s*Error\b/.test(line));
-	}
-	function toStackFrames(lines, parseLine) {
-	    const frames = [];
-	    for (const line of lines) {
-	        const frame = parseLine(line);
-	        if (frame != null) {
-	            frames.push(frame);
-	        }
-	    }
-	    return frames;
-	}
-	function findFirstExternalFrameIndex(frames, ignorePatterns = DEFAULT_IGNORE_PATTERNS) {
-	    for (let index = 0; index < frames.length; index += 1) {
-	        const frame = frames[index];
-	        const filePathCandidate = frame.filePath ?? "";
-	        const fullPathCandidate = frame.fullFilePath ?? "";
-	        if (!ignorePatterns.some((pattern) => pattern.test(filePathCandidate) || pattern.test(fullPathCandidate))) {
-	            return index;
-	        }
-	    }
-	    return 0;
-	}
-	function getFrameAt(frames, index) {
-	    if (index < 0 || index >= frames.length) {
-	        return undefined;
-	    }
-	    return frames[index];
-	}
-	function getCleanStackLines(error) {
-	    return sanitizeStackLines(splitStackLines(error));
-	}
-	function buildStackTrace(error, parseLine) {
-	    return toStackFrames(getCleanStackLines(error), parseLine);
-	}
-	function isIgnorableFrame(frame, ignorePatterns) {
-	    const filePathCandidate = frame.filePath ?? "";
-	    const fullPathCandidate = frame.fullFilePath ?? "";
-	    return ignorePatterns.some((pattern) => pattern.test(filePathCandidate) || pattern.test(fullPathCandidate));
-	}
-	function clampIndex(index, maxExclusive) {
-	    if (index < 0) {
-	        return 0;
-	    }
-	    if (index >= maxExclusive) {
-	        return Math.max(0, maxExclusive - 1);
-	    }
-	    return index;
-	}
-	function pickCallerStackFrame(error, parseLine, options = {}) {
-	    const lines = getCleanStackLines(error);
-	    const frames = toStackFrames(lines, parseLine);
-	    if (frames.length === 0) {
-	        return undefined;
-	    }
-	    const ignorePatterns = options.ignorePatterns ?? DEFAULT_IGNORE_PATTERNS;
-	    const autoIndex = findFirstExternalFrameIndex(frames, ignorePatterns);
-	    const resolvedIndex = options.stackDepthLevel != null ? options.stackDepthLevel : autoIndex;
-	    return getFrameAt(frames, clampIndex(resolvedIndex, frames.length));
-	}
-	function getDefaultIgnorePatterns() {
-	    return [...DEFAULT_IGNORE_PATTERNS];
-	}
-	return stackTrace;
+function requireStackTrace() {
+  if (hasRequiredStackTrace) return stackTrace;
+  hasRequiredStackTrace = 1;
+  Object.defineProperty(stackTrace, "__esModule", {
+    value: true
+  });
+  stackTrace.splitStackLines = splitStackLines;
+  stackTrace.sanitizeStackLines = sanitizeStackLines;
+  stackTrace.toStackFrames = toStackFrames;
+  stackTrace.findFirstExternalFrameIndex = findFirstExternalFrameIndex;
+  stackTrace.getFrameAt = getFrameAt;
+  stackTrace.getCleanStackLines = getCleanStackLines;
+  stackTrace.buildStackTrace = buildStackTrace;
+  stackTrace.isIgnorableFrame = isIgnorableFrame;
+  stackTrace.clampIndex = clampIndex;
+  stackTrace.pickCallerStackFrame = pickCallerStackFrame;
+  stackTrace.getDefaultIgnorePatterns = getDefaultIgnorePatterns;
+  var DEFAULT_IGNORE_PATTERNS = [/(?:^|[\\/])node_modules[\\/].*tslog/i, /(?:^|[\\/])deps[\\/].*tslog/i, /tslog[\\/]+src[\\/]+internal[\\/]/i, /tslog[\\/]+src[\\/]BaseLogger/i, /tslog[\\/]+src[\\/]index/i];
+  function splitStackLines(error) {
+    var stack = typeof (error === null || error === void 0 ? void 0 : error.stack) === "string" ? error.stack : undefined;
+    if (stack == null || stack.length === 0) {
+      return [];
+    }
+    return stack.split("\n").map(function (line) {
+      return line.trimEnd();
+    });
+  }
+  function sanitizeStackLines(lines) {
+    return lines.filter(function (line) {
+      return line.length > 0 && !/^\s*Error\b/.test(line);
+    });
+  }
+  function toStackFrames(lines, parseLine) {
+    var frames = [];
+    var _iterator = _createForOfIteratorHelper$2(lines),
+      _step;
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var line = _step.value;
+        var frame = parseLine(line);
+        if (frame != null) {
+          frames.push(frame);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+    return frames;
+  }
+  function findFirstExternalFrameIndex(frames) {
+    var ignorePatterns = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_IGNORE_PATTERNS;
+    var _loop = function _loop() {
+        var _frame$filePath, _frame$fullFilePath;
+        var frame = frames[index];
+        var filePathCandidate = (_frame$filePath = frame.filePath) !== null && _frame$filePath !== void 0 ? _frame$filePath : "";
+        var fullPathCandidate = (_frame$fullFilePath = frame.fullFilePath) !== null && _frame$fullFilePath !== void 0 ? _frame$fullFilePath : "";
+        if (!ignorePatterns.some(function (pattern) {
+          return pattern.test(filePathCandidate) || pattern.test(fullPathCandidate);
+        })) {
+          return {
+            v: index
+          };
+        }
+      },
+      _ret;
+    for (var index = 0; index < frames.length; index += 1) {
+      _ret = _loop();
+      if (_ret) return _ret.v;
+    }
+    return 0;
+  }
+  function getFrameAt(frames, index) {
+    if (index < 0 || index >= frames.length) {
+      return undefined;
+    }
+    return frames[index];
+  }
+  function getCleanStackLines(error) {
+    return sanitizeStackLines(splitStackLines(error));
+  }
+  function buildStackTrace(error, parseLine) {
+    return toStackFrames(getCleanStackLines(error), parseLine);
+  }
+  function isIgnorableFrame(frame, ignorePatterns) {
+    var _frame$filePath2, _frame$fullFilePath2;
+    var filePathCandidate = (_frame$filePath2 = frame.filePath) !== null && _frame$filePath2 !== void 0 ? _frame$filePath2 : "";
+    var fullPathCandidate = (_frame$fullFilePath2 = frame.fullFilePath) !== null && _frame$fullFilePath2 !== void 0 ? _frame$fullFilePath2 : "";
+    return ignorePatterns.some(function (pattern) {
+      return pattern.test(filePathCandidate) || pattern.test(fullPathCandidate);
+    });
+  }
+  function clampIndex(index, maxExclusive) {
+    if (index < 0) {
+      return 0;
+    }
+    if (index >= maxExclusive) {
+      return Math.max(0, maxExclusive - 1);
+    }
+    return index;
+  }
+  function pickCallerStackFrame(error, parseLine) {
+    var _options$ignorePatter;
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var lines = getCleanStackLines(error);
+    var frames = toStackFrames(lines, parseLine);
+    if (frames.length === 0) {
+      return undefined;
+    }
+    var ignorePatterns = (_options$ignorePatter = options.ignorePatterns) !== null && _options$ignorePatter !== void 0 ? _options$ignorePatter : DEFAULT_IGNORE_PATTERNS;
+    var autoIndex = findFirstExternalFrameIndex(frames, ignorePatterns);
+    var resolvedIndex = options.stackDepthLevel != null ? options.stackDepthLevel : autoIndex;
+    return getFrameAt(frames, clampIndex(resolvedIndex, frames.length));
+  }
+  function getDefaultIgnorePatterns() {
+    return [].concat(DEFAULT_IGNORE_PATTERNS);
+  }
+  return stackTrace;
 }
 
 var hasRequiredErrorUtils;
-
-function requireErrorUtils () {
-	if (hasRequiredErrorUtils) return errorUtils;
-	hasRequiredErrorUtils = 1;
-	Object.defineProperty(errorUtils, "__esModule", { value: true });
-	errorUtils.collectErrorCauses = collectErrorCauses;
-	errorUtils.toError = toError;
-	errorUtils.toErrorObject = toErrorObject;
-	const stackTrace_js_1 = requireStackTrace();
-	const DEFAULT_CAUSE_DEPTH = 5;
-	function collectErrorCauses(error, options = {}) {
-	    const maxDepth = options.maxDepth ?? DEFAULT_CAUSE_DEPTH;
-	    const causes = [];
-	    const visited = new Set();
-	    let current = error;
-	    let depth = 0;
-	    while (current != null && depth < maxDepth) {
-	        const cause = current?.cause;
-	        if (cause == null || visited.has(cause)) {
-	            break;
-	        }
-	        visited.add(cause);
-	        causes.push(toError(cause));
-	        current = cause;
-	        depth += 1;
-	    }
-	    return causes;
-	}
-	function toError(value) {
-	    if (value instanceof Error) {
-	        return value;
-	    }
-	    const error = new Error(typeof value === "string" ? value : JSON.stringify(value));
-	    if (typeof value === "object" && value != null) {
-	        Object.assign(error, value);
-	    }
-	    return error;
-	}
-	function toErrorObject(error, parseLine) {
-	    return {
-	        nativeError: error,
-	        name: error.name ?? "Error",
-	        message: error.message ?? "",
-	        stack: (0, stackTrace_js_1.buildStackTrace)(error, parseLine),
-	    };
-	}
-	return errorUtils;
-}
-
-var jsonStringifyRecursive = {};
-
-var hasRequiredJsonStringifyRecursive;
-
-function requireJsonStringifyRecursive () {
-	if (hasRequiredJsonStringifyRecursive) return jsonStringifyRecursive;
-	hasRequiredJsonStringifyRecursive = 1;
-	Object.defineProperty(jsonStringifyRecursive, "__esModule", { value: true });
-	jsonStringifyRecursive.jsonStringifyRecursive = jsonStringifyRecursive$1;
-	function jsonStringifyRecursive$1(obj) {
-	    const cache = new Set();
-	    return JSON.stringify(obj, (_key, value) => {
-	        if (typeof value === "object" && value !== null) {
-	            if (cache.has(value)) {
-	                return "[Circular]";
-	            }
-	            cache.add(value);
-	        }
-	        if (typeof value === "bigint") {
-	            return `${value}`;
-	        }
-	        if (typeof value === "undefined") {
-	            return "[undefined]";
-	        }
-	        return value;
-	    });
-	}
-	return jsonStringifyRecursive;
-}
-
-var metaFormatting = {};
-
-var formatNumberAddZeros = {};
-
-var hasRequiredFormatNumberAddZeros;
-
-function requireFormatNumberAddZeros () {
-	if (hasRequiredFormatNumberAddZeros) return formatNumberAddZeros;
-	hasRequiredFormatNumberAddZeros = 1;
-	Object.defineProperty(formatNumberAddZeros, "__esModule", { value: true });
-	formatNumberAddZeros.formatNumberAddZeros = formatNumberAddZeros$1;
-	function formatNumberAddZeros$1(value, digits = 2, addNumber = 0) {
-	    if (value != null && isNaN(value)) {
-	        return "";
-	    }
-	    value = value != null ? value + addNumber : value;
-	    return digits === 2
-	        ? value == null
-	            ? "--"
-	            : value < 10
-	                ? `0${value}`
-	                : value.toString()
-	        : value == null
-	            ? "---"
-	            : value < 10
-	                ? `00${value}`
-	                : value < 100
-	                    ? `0${value}`
-	                    : value.toString();
-	}
-	return formatNumberAddZeros;
-}
-
-var hasRequiredMetaFormatting;
-
-function requireMetaFormatting () {
-	if (hasRequiredMetaFormatting) return metaFormatting;
-	hasRequiredMetaFormatting = 1;
-	Object.defineProperty(metaFormatting, "__esModule", { value: true });
-	metaFormatting.buildPrettyMeta = buildPrettyMeta;
-	const formatNumberAddZeros_js_1 = requireFormatNumberAddZeros();
-	const formatTemplate_js_1 = requireFormatTemplate();
-	function buildPrettyMeta(settings, meta) {
-	    if (meta == null) {
-	        return {
-	            text: "",
-	            template: settings.prettyLogTemplate,
-	            placeholders: {},
-	        };
-	    }
-	    let template = settings.prettyLogTemplate;
-	    const placeholderValues = {};
-	    if (template.includes("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}")) {
-	        template = template.replace("{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}", "{{dateIsoStr}}");
-	    }
-	    else {
-	        if (settings.prettyLogTimeZone === "UTC") {
-	            placeholderValues.yyyy = meta.date?.getUTCFullYear() ?? "----";
-	            placeholderValues.mm = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMonth(), 2, 1);
-	            placeholderValues.dd = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCDate(), 2);
-	            placeholderValues.hh = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCHours(), 2);
-	            placeholderValues.MM = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMinutes(), 2);
-	            placeholderValues.ss = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCSeconds(), 2);
-	            placeholderValues.ms = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getUTCMilliseconds(), 3);
-	        }
-	        else {
-	            placeholderValues.yyyy = meta.date?.getFullYear() ?? "----";
-	            placeholderValues.mm = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMonth(), 2, 1);
-	            placeholderValues.dd = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getDate(), 2);
-	            placeholderValues.hh = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getHours(), 2);
-	            placeholderValues.MM = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMinutes(), 2);
-	            placeholderValues.ss = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getSeconds(), 2);
-	            placeholderValues.ms = (0, formatNumberAddZeros_js_1.formatNumberAddZeros)(meta.date?.getMilliseconds(), 3);
-	        }
-	    }
-	    const isUtc = settings.prettyLogTimeZone === "UTC";
-	    const dateInSettingsTimeZone = isUtc ? meta.date : meta.date != null ? new Date(meta.date.getTime() - meta.date.getTimezoneOffset() * 60000) : undefined;
-	    placeholderValues.rawIsoStr =
-	        dateInSettingsTimeZone == null ? "" : isUtc ? dateInSettingsTimeZone.toISOString() : localIsoString(dateInSettingsTimeZone, meta.date);
-	    placeholderValues.dateIsoStr = dateInSettingsTimeZone?.toISOString().replace("T", " ").replace("Z", "") ?? "";
-	    placeholderValues.logLevelName = meta.logLevelName;
-	    placeholderValues.fileNameWithLine = meta.path?.fileNameWithLine ?? "";
-	    placeholderValues.filePathWithLine = meta.path?.filePathWithLine ?? "";
-	    placeholderValues.fullFilePath = meta.path?.fullFilePath ?? "";
-	    let parentNamesString = settings.parentNames?.join(settings.prettyErrorParentNamesSeparator);
-	    parentNamesString = parentNamesString != null && meta.name != null ? parentNamesString + settings.prettyErrorParentNamesSeparator : undefined;
-	    const combinedName = meta.name != null || parentNamesString != null ? `${parentNamesString ?? ""}${meta.name ?? ""}` : "";
-	    placeholderValues.name = combinedName;
-	    placeholderValues.nameWithDelimiterPrefix = combinedName.length > 0 ? settings.prettyErrorLoggerNameDelimiter + combinedName : "";
-	    placeholderValues.nameWithDelimiterSuffix = combinedName.length > 0 ? combinedName + settings.prettyErrorLoggerNameDelimiter : "";
-	    if (settings.overwrite?.addPlaceholders != null) {
-	        settings.overwrite.addPlaceholders(meta, placeholderValues);
-	    }
-	    return {
-	        text: (0, formatTemplate_js_1.formatTemplate)(settings, template, placeholderValues),
-	        template,
-	        placeholders: placeholderValues,
-	    };
-	}
-	function localIsoString(shifted, original) {
-	    const base = shifted.toISOString().replace("Z", "");
-	    const offsetMinutes = -original.getTimezoneOffset();
-	    const sign = offsetMinutes >= 0 ? "+" : "-";
-	    const abs = Math.abs(offsetMinutes);
-	    const hh = String(Math.floor(abs / 60)).padStart(2, "0");
-	    const mm = String(abs % 60).padStart(2, "0");
-	    return `${base}${sign}${hh}:${mm}`;
-	}
-	return metaFormatting;
+function requireErrorUtils() {
+  if (hasRequiredErrorUtils) return errorUtils;
+  hasRequiredErrorUtils = 1;
+  Object.defineProperty(errorUtils, "__esModule", {
+    value: true
+  });
+  errorUtils.collectErrorCauses = collectErrorCauses;
+  errorUtils.toError = toError;
+  errorUtils.toErrorObject = toErrorObject;
+  var stackTrace_js_1 = requireStackTrace();
+  var DEFAULT_CAUSE_DEPTH = 5;
+  function collectErrorCauses(error) {
+    var _options$maxDepth;
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var maxDepth = (_options$maxDepth = options.maxDepth) !== null && _options$maxDepth !== void 0 ? _options$maxDepth : DEFAULT_CAUSE_DEPTH;
+    var causes = [];
+    var visited = new Set();
+    var current = error;
+    var depth = 0;
+    while (current != null && depth < maxDepth) {
+      var _current;
+      var cause = (_current = current) === null || _current === void 0 ? void 0 : _current.cause;
+      if (cause == null || visited.has(cause)) {
+        break;
+      }
+      visited.add(cause);
+      causes.push(toError(cause));
+      current = cause;
+      depth += 1;
+    }
+    return causes;
+  }
+  function toError(value) {
+    if (value instanceof Error) {
+      return value;
+    }
+    var error = new Error(typeof value === "string" ? value : JSON.stringify(value));
+    if (_typeof(value) === "object" && value != null) {
+      Object.assign(error, value);
+    }
+    return error;
+  }
+  function toErrorObject(error, parseLine) {
+    var _error$name, _error$message;
+    return {
+      nativeError: error,
+      name: (_error$name = error.name) !== null && _error$name !== void 0 ? _error$name : "Error",
+      message: (_error$message = error.message) !== null && _error$message !== void 0 ? _error$message : "",
+      stack: (0, stackTrace_js_1.buildStackTrace)(error, parseLine)
+    };
+  }
+  return errorUtils;
 }
 
 var util_inspect_polyfill = {};
 
+var jsonStringifyRecursive = {};
+
+var hasRequiredJsonStringifyRecursive;
+function requireJsonStringifyRecursive() {
+  if (hasRequiredJsonStringifyRecursive) return jsonStringifyRecursive;
+  hasRequiredJsonStringifyRecursive = 1;
+  Object.defineProperty(jsonStringifyRecursive, "__esModule", {
+    value: true
+  });
+  jsonStringifyRecursive.jsonStringifyRecursive = jsonStringifyRecursive$1;
+  function jsonStringifyRecursive$1(obj) {
+    var cache = new Set();
+    return JSON.stringify(obj, function (key, value) {
+      if (_typeof(value) === "object" && value !== null) {
+        if (cache.has(value)) {
+          return "[Circular]";
+        }
+        cache.add(value);
+      }
+      if (typeof value === "bigint") {
+        return "".concat(value);
+      }
+      if (typeof value === "undefined") {
+        return "[undefined]";
+      }
+      return value;
+    });
+  }
+  return jsonStringifyRecursive;
+}
+
+function ownKeys$2(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$2(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$2(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$2(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var hasRequiredUtil_inspect_polyfill;
-
-function requireUtil_inspect_polyfill () {
-	if (hasRequiredUtil_inspect_polyfill) return util_inspect_polyfill;
-	hasRequiredUtil_inspect_polyfill = 1;
-	Object.defineProperty(util_inspect_polyfill, "__esModule", { value: true });
-	util_inspect_polyfill.inspect = inspect;
-	util_inspect_polyfill.formatValue = formatValue;
-	util_inspect_polyfill.formatWithOptions = formatWithOptions;
-	const prettyLogStyles_js_1 = requirePrettyLogStyles();
-	const jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
-	function inspect(obj, opts) {
-	    const ctx = {
-	        seen: [],
-	        stylize: stylizeNoColor,
-	    };
-	    if (opts != null) {
-	        _extend(ctx, opts);
-	    }
-	    if (isUndefined(ctx.showHidden))
-	        ctx.showHidden = false;
-	    if (isUndefined(ctx.depth))
-	        ctx.depth = 2;
-	    if (isUndefined(ctx.colors))
-	        ctx.colors = true;
-	    if (isUndefined(ctx.customInspect))
-	        ctx.customInspect = true;
-	    if (ctx.colors)
-	        ctx.stylize = stylizeWithColor;
-	    return formatValue(ctx, obj, ctx.depth);
-	}
-	inspect.colors = prettyLogStyles_js_1.prettyLogStyles;
-	inspect.styles = {
-	    special: "cyan",
-	    number: "yellow",
-	    boolean: "yellow",
-	    undefined: "grey",
-	    null: "bold",
-	    string: "green",
-	    date: "magenta",
-	    regexp: "red",
-	};
-	function isBoolean(arg) {
-	    return typeof arg === "boolean";
-	}
-	function isUndefined(arg) {
-	    return arg === undefined;
-	}
-	function stylizeNoColor(str) {
-	    return str;
-	}
-	function stylizeWithColor(str, styleType) {
-	    const style = inspect.styles[styleType];
-	    if (style != null && inspect?.colors?.[style]?.[0] != null && inspect?.colors?.[style]?.[1] != null) {
-	        return `\u001b[${inspect.colors[style][0]}m${str}\u001b[${inspect.colors[style][1]}m`;
-	    }
-	    else {
-	        return str;
-	    }
-	}
-	function isFunction(arg) {
-	    return typeof arg === "function";
-	}
-	function isString(arg) {
-	    return typeof arg === "string";
-	}
-	function isNumber(arg) {
-	    return typeof arg === "number";
-	}
-	function isNull(arg) {
-	    return arg === null;
-	}
-	function isBigInt(arg) {
-	    return typeof arg === "bigint";
-	}
-	function hasOwn(obj, prop) {
-	    return Object.prototype.hasOwnProperty.call(obj, prop);
-	}
-	function isRegExp(re) {
-	    return isObject(re) && objectToString(re) === "[object RegExp]";
-	}
-	function isObject(arg) {
-	    return typeof arg === "object" && arg !== null;
-	}
-	function isError(e) {
-	    return isObject(e) && (objectToString(e) === "[object Error]" || e instanceof Error);
-	}
-	function isDate(d) {
-	    return isObject(d) && objectToString(d) === "[object Date]";
-	}
-	function objectToString(o) {
-	    return Object.prototype.toString.call(o);
-	}
-	function arrayToHash(array) {
-	    const hash = {};
-	    array.forEach((val) => {
-	        hash[val] = true;
-	    });
-	    return hash;
-	}
-	function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
-	    const output = [];
-	    for (let i = 0, l = value.length; i < l; ++i) {
-	        if (hasOwn(value, String(i))) {
-	            output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
-	        }
-	        else {
-	            output.push("");
-	        }
-	    }
-	    keys.forEach((key) => {
-	        if (!key.match(/^\d+$/)) {
-	            output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
-	        }
-	    });
-	    return output;
-	}
-	function formatError(value) {
-	    return `[${Error.prototype.toString.call(value)}]`;
-	}
-	function formatDate(value) {
-	    return Number.isNaN(value.valueOf()) ? "Invalid Date" : Date.prototype.toISOString.call(value);
-	}
-	function formatValue(ctx, value, recurseTimes = 0) {
-	    if (ctx.customInspect &&
-	        value != null &&
-	        isFunction(value) &&
-	        value?.inspect !== inspect &&
-	        !(value?.constructor && value?.constructor.prototype === value)) {
-	        if (typeof value.inspect !== "function" && value.toString != null) {
-	            return value.toString();
-	        }
-	        let ret = value?.inspect(recurseTimes, ctx);
-	        if (!isString(ret)) {
-	            ret = formatValue(ctx, ret, recurseTimes);
-	        }
-	        return ret;
-	    }
-	    const primitive = formatPrimitive(ctx, value);
-	    if (primitive) {
-	        return primitive;
-	    }
-	    let keys = Object.keys(value);
-	    const visibleKeys = arrayToHash(keys);
-	    try {
-	        if (ctx.showHidden && Object.getOwnPropertyNames) {
-	            keys = Object.getOwnPropertyNames(value);
-	        }
-	    }
-	    catch {
-	    }
-	    if (isError(value) && (keys.indexOf("message") >= 0 || keys.indexOf("description") >= 0)) {
-	        return formatError(value);
-	    }
-	    if (keys.length === 0) {
-	        if (isFunction(ctx.stylize)) {
-	            if (isFunction(value)) {
-	                const name = value.name ? `: ${value.name}` : "";
-	                return ctx.stylize(`[Function${name}]`, "special");
-	            }
-	            if (isRegExp(value)) {
-	                return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
-	            }
-	            if (isDate(value)) {
-	                return ctx.stylize(formatDate(value), "date");
-	            }
-	            if (isError(value)) {
-	                return formatError(value);
-	            }
-	        }
-	        else {
-	            return value;
-	        }
-	    }
-	    let base = "";
-	    let array = false;
-	    let braces = ["{\n", "\n}"];
-	    if (Array.isArray(value)) {
-	        array = true;
-	        braces = ["[\n", "\n]"];
-	    }
-	    if (isFunction(value)) {
-	        const n = value.name ? `: ${value.name}` : "";
-	        base = ` [Function${n}]`;
-	    }
-	    if (isRegExp(value)) {
-	        base = ` ${RegExp.prototype.toString.call(value)}`;
-	    }
-	    if (isDate(value)) {
-	        base = ` ${Number.isNaN(value.valueOf()) ? "Invalid Date" : Date.prototype.toUTCString.call(value)}`;
-	    }
-	    if (isError(value)) {
-	        base = ` ${formatError(value)}`;
-	    }
-	    if (keys.length === 0 && (!array || value.length === 0)) {
-	        return braces[0] + base + braces[1];
-	    }
-	    if (recurseTimes < 0) {
-	        if (isRegExp(value)) {
-	            return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
-	        }
-	        else {
-	            return ctx.stylize("[Object]", "special");
-	        }
-	    }
-	    ctx.seen.push(value);
-	    let output;
-	    if (array) {
-	        output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
-	    }
-	    else {
-	        output = keys.map((key) => {
-	            return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
-	        });
-	    }
-	    ctx.seen.pop();
-	    return reduceToSingleString(output, base, braces);
-	}
-	function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
-	    let name;
-	    let str;
-	    let desc = { value: void 0 };
-	    try {
-	        desc.value = value[key];
-	    }
-	    catch {
-	    }
-	    try {
-	        if (Object.getOwnPropertyDescriptor) {
-	            desc = Object.getOwnPropertyDescriptor(value, key) || desc;
-	        }
-	    }
-	    catch {
-	    }
-	    if (desc.get) {
-	        if (desc.set) {
-	            str = ctx.stylize("[Getter/Setter]", "special");
-	        }
-	        else {
-	            str = ctx.stylize("[Getter]", "special");
-	        }
-	    }
-	    else {
-	        if (desc.set) {
-	            str = ctx.stylize("[Setter]", "special");
-	        }
-	    }
-	    if (!hasOwn(visibleKeys, key)) {
-	        name = `[${key}]`;
-	    }
-	    if (!str) {
-	        if (ctx.seen.indexOf(desc.value) < 0) {
-	            if (isNull(recurseTimes)) {
-	                str = formatValue(ctx, desc.value, undefined);
-	            }
-	            else {
-	                str = formatValue(ctx, desc.value, recurseTimes - 1);
-	            }
-	            if (str.indexOf("\n") > -1) {
-	                if (array) {
-	                    str = str
-	                        .split("\n")
-	                        .map((line) => {
-	                        return `  ${line}`;
-	                    })
-	                        .join("\n")
-	                        .substr(2);
-	                }
-	                else {
-	                    str =
-	                        "\n" +
-	                            str
-	                                .split("\n")
-	                                .map((line) => {
-	                                return `   ${line}`;
-	                            })
-	                                .join("\n");
-	                }
-	            }
-	        }
-	        else {
-	            str = ctx.stylize("[Circular]", "special");
-	        }
-	    }
-	    if (isUndefined(name)) {
-	        if (array && key.match(/^\d+$/)) {
-	            return str;
-	        }
-	        name = JSON.stringify(`${key}`);
-	        if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
-	            name = name.substr(1, name.length - 2);
-	            name = ctx.stylize(name, "name");
-	        }
-	        else {
-	            name = name
-	                .replace(/'/g, "\\'")
-	                .replace(/\\"/g, "\\'")
-	                .replace(/(^"|"$)/g, "'");
-	            name = ctx.stylize(name, "string");
-	        }
-	    }
-	    return `${name}: ${str}`;
-	}
-	function formatPrimitive(ctx, value) {
-	    if (isUndefined(value))
-	        return ctx.stylize("undefined", "undefined");
-	    if (isString(value)) {
-	        const simple = `'${JSON.stringify(value).replace(/^"|"$/g, "").replace(/'/g, "\\'").replace(/\\"/g, "\\'")}'`;
-	        return ctx.stylize(simple, "string");
-	    }
-	    if (isNumber(value))
-	        return ctx.stylize(`${value}`, "number");
-	    if (isBigInt(value))
-	        return ctx.stylize(`${value}n`, "number");
-	    if (isBoolean(value))
-	        return ctx.stylize(`${value}`, "boolean");
-	    if (isNull(value))
-	        return ctx.stylize("null", "null");
-	}
-	function reduceToSingleString(output, base, braces) {
-	    return `${braces[0] + (base === "" ? "" : `${base}\n`)}  ${output.join(",\n  ")} ${braces[1]}`;
-	}
-	function _extend(origin, add) {
-	    const typedOrigin = origin;
-	    if (!add || !isObject(add))
-	        return origin;
-	    const clonedAdd = { ...add };
-	    const keys = Object.keys(add);
-	    let i = keys.length;
-	    while (i--) {
-	        typedOrigin[keys[i]] = clonedAdd[keys[i]];
-	    }
-	    return typedOrigin;
-	}
-	function formatWithOptions(inspectOptions, ...args) {
-	    const ctx = {
-	        seen: [],
-	        stylize: stylizeNoColor,
-	    };
-	    if (inspectOptions != null) {
-	        _extend(ctx, inspectOptions);
-	    }
-	    const first = args[0];
-	    let a = 0;
-	    let str = "";
-	    let join = "";
-	    if (typeof first === "string") {
-	        if (args.length === 1) {
-	            return first;
-	        }
-	        let tempStr;
-	        let lastPos = 0;
-	        for (let i = 0; i < first.length - 1; i++) {
-	            if (first.charCodeAt(i) === 37) {
-	                const nextChar = first.charCodeAt(++i);
-	                if (a + 1 !== args.length) {
-	                    switch (nextChar) {
-	                        case 115: {
-	                            const tempArg = args[++a];
-	                            if (typeof tempArg === "number") {
-	                                tempStr = formatPrimitive(ctx, tempArg);
-	                            }
-	                            else if (typeof tempArg === "bigint") {
-	                                tempStr = formatPrimitive(ctx, tempArg);
-	                            }
-	                            else if (typeof tempArg !== "object" || tempArg === null) {
-	                                tempStr = String(tempArg);
-	                            }
-	                            else {
-	                                tempStr = inspect(tempArg, {
-	                                    ...inspectOptions,
-	                                    compact: 3,
-	                                    colors: false,
-	                                    depth: 0,
-	                                });
-	                            }
-	                            break;
-	                        }
-	                        case 106:
-	                            tempStr = (0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(args[++a]);
-	                            break;
-	                        case 100: {
-	                            const tempNum = args[++a];
-	                            if (typeof tempNum === "bigint") {
-	                                tempStr = formatPrimitive(ctx, tempNum);
-	                            }
-	                            else if (typeof tempNum === "symbol") {
-	                                tempStr = "NaN";
-	                            }
-	                            else {
-	                                tempStr = formatPrimitive(ctx, tempNum);
-	                            }
-	                            break;
-	                        }
-	                        case 79:
-	                            tempStr = inspect(args[++a], inspectOptions);
-	                            break;
-	                        case 111:
-	                            tempStr = inspect(args[++a], {
-	                                ...inspectOptions,
-	                                showHidden: true,
-	                                showProxy: true,
-	                                depth: 4,
-	                            });
-	                            break;
-	                        case 105: {
-	                            const tempInteger = args[++a];
-	                            if (typeof tempInteger === "bigint") {
-	                                tempStr = formatPrimitive(ctx, tempInteger);
-	                            }
-	                            else if (typeof tempInteger === "symbol") {
-	                                tempStr = "NaN";
-	                            }
-	                            else {
-	                                tempStr = formatPrimitive(ctx, parseInt(tempStr, 10));
-	                            }
-	                            break;
-	                        }
-	                        case 102: {
-	                            const tempFloat = args[++a];
-	                            if (typeof tempFloat === "symbol") {
-	                                tempStr = "NaN";
-	                            }
-	                            else {
-	                                tempStr = formatPrimitive(ctx, parseInt(tempFloat, 10));
-	                            }
-	                            break;
-	                        }
-	                        case 99:
-	                            a += 1;
-	                            tempStr = "";
-	                            break;
-	                        case 37:
-	                            str += first.slice(lastPos, i);
-	                            lastPos = i + 1;
-	                            continue;
-	                        default:
-	                            continue;
-	                    }
-	                    if (lastPos !== i - 1) {
-	                        str += first.slice(lastPos, i - 1);
-	                    }
-	                    str += tempStr;
-	                    lastPos = i + 1;
-	                }
-	                else if (nextChar === 37) {
-	                    str += first.slice(lastPos, i);
-	                    lastPos = i + 1;
-	                }
-	            }
-	        }
-	        if (lastPos !== 0) {
-	            a++;
-	            join = " ";
-	            if (lastPos < first.length) {
-	                str += first.slice(lastPos);
-	            }
-	        }
-	    }
-	    while (a < args.length) {
-	        const value = args[a];
-	        str += join;
-	        str += typeof value !== "string" ? inspect(value, inspectOptions) : value;
-	        join = " ";
-	        a++;
-	    }
-	    return str;
-	}
-	return util_inspect_polyfill;
+function requireUtil_inspect_polyfill() {
+  if (hasRequiredUtil_inspect_polyfill) return util_inspect_polyfill;
+  hasRequiredUtil_inspect_polyfill = 1;
+  Object.defineProperty(util_inspect_polyfill, "__esModule", {
+    value: true
+  });
+  util_inspect_polyfill.inspect = inspect;
+  util_inspect_polyfill.formatValue = formatValue;
+  util_inspect_polyfill.formatWithOptions = formatWithOptions;
+  var prettyLogStyles_js_1 = requirePrettyLogStyles();
+  var jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
+  function inspect(obj, opts) {
+    var ctx = {
+      seen: [],
+      stylize: stylizeNoColor
+    };
+    if (opts != null) {
+      _extend(ctx, opts);
+    }
+    if (isUndefined(ctx.showHidden)) ctx.showHidden = false;
+    if (isUndefined(ctx.depth)) ctx.depth = 2;
+    if (isUndefined(ctx.colors)) ctx.colors = true;
+    if (isUndefined(ctx.customInspect)) ctx.customInspect = true;
+    if (ctx.colors) ctx.stylize = stylizeWithColor;
+    return formatValue(ctx, obj, ctx.depth);
+  }
+  inspect.colors = prettyLogStyles_js_1.prettyLogStyles;
+  inspect.styles = {
+    special: "cyan",
+    number: "yellow",
+    boolean: "yellow",
+    undefined: "grey",
+    null: "bold",
+    string: "green",
+    date: "magenta",
+    regexp: "red"
+  };
+  function isBoolean(arg) {
+    return typeof arg === "boolean";
+  }
+  function isUndefined(arg) {
+    return arg === undefined;
+  }
+  function stylizeNoColor(str) {
+    return str;
+  }
+  function stylizeWithColor(str, styleType) {
+    var _inspect$colors, _inspect$colors2;
+    var style = inspect.styles[styleType];
+    if (style != null && (inspect === null || inspect === void 0 || (_inspect$colors = inspect.colors) === null || _inspect$colors === void 0 || (_inspect$colors = _inspect$colors[style]) === null || _inspect$colors === void 0 ? void 0 : _inspect$colors[0]) != null && (inspect === null || inspect === void 0 || (_inspect$colors2 = inspect.colors) === null || _inspect$colors2 === void 0 || (_inspect$colors2 = _inspect$colors2[style]) === null || _inspect$colors2 === void 0 ? void 0 : _inspect$colors2[1]) != null) {
+      return "\x1B[" + inspect.colors[style][0] + "m" + str + "\x1B[" + inspect.colors[style][1] + "m";
+    } else {
+      return str;
+    }
+  }
+  function isFunction(arg) {
+    return typeof arg === "function";
+  }
+  function isString(arg) {
+    return typeof arg === "string";
+  }
+  function isNumber(arg) {
+    return typeof arg === "number";
+  }
+  function isNull(arg) {
+    return arg === null;
+  }
+  function hasOwn(obj, prop) {
+    return Object.prototype.hasOwnProperty.call(obj, prop);
+  }
+  function isRegExp(re) {
+    return isObject(re) && objectToString(re) === "[object RegExp]";
+  }
+  function isObject(arg) {
+    return _typeof(arg) === "object" && arg !== null;
+  }
+  function isError(e) {
+    return isObject(e) && (objectToString(e) === "[object Error]" || e instanceof Error);
+  }
+  function isDate(d) {
+    return isObject(d) && objectToString(d) === "[object Date]";
+  }
+  function objectToString(o) {
+    return Object.prototype.toString.call(o);
+  }
+  function arrayToHash(array) {
+    var hash = {};
+    array.forEach(function (val) {
+      hash[val] = true;
+    });
+    return hash;
+  }
+  function formatArray(ctx, value, recurseTimes, visibleKeys, keys) {
+    var output = [];
+    for (var i = 0, l = value.length; i < l; ++i) {
+      if (hasOwn(value, String(i))) {
+        output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, String(i), true));
+      } else {
+        output.push("");
+      }
+    }
+    keys.forEach(function (key) {
+      if (!key.match(/^\d+$/)) {
+        output.push(formatProperty(ctx, value, recurseTimes, visibleKeys, key, true));
+      }
+    });
+    return output;
+  }
+  function formatError(value) {
+    return "[" + Error.prototype.toString.call(value) + "]";
+  }
+  function formatValue(ctx, value) {
+    var recurseTimes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    if (ctx.customInspect && value != null && isFunction(value) && (value === null || value === void 0 ? void 0 : value.inspect) !== inspect && !(value !== null && value !== void 0 && value.constructor && (value === null || value === void 0 ? void 0 : value.constructor.prototype) === value)) {
+      if (typeof value.inspect !== "function" && value.toString != null) {
+        return value.toString();
+      }
+      var ret = value === null || value === void 0 ? void 0 : value.inspect(recurseTimes, ctx);
+      if (!isString(ret)) {
+        ret = formatValue(ctx, ret, recurseTimes);
+      }
+      return ret;
+    }
+    var primitive = formatPrimitive(ctx, value);
+    if (primitive) {
+      return primitive;
+    }
+    var keys = Object.keys(value);
+    var visibleKeys = arrayToHash(keys);
+    try {
+      if (ctx.showHidden && Object.getOwnPropertyNames) {
+        keys = Object.getOwnPropertyNames(value);
+      }
+    } catch (_unused) {}
+    if (isError(value) && (keys.indexOf("message") >= 0 || keys.indexOf("description") >= 0)) {
+      return formatError(value);
+    }
+    if (keys.length === 0) {
+      if (isFunction(ctx.stylize)) {
+        if (isFunction(value)) {
+          var name = value.name ? ": " + value.name : "";
+          return ctx.stylize("[Function" + name + "]", "special");
+        }
+        if (isRegExp(value)) {
+          return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
+        }
+        if (isDate(value)) {
+          return ctx.stylize(Date.prototype.toISOString.call(value), "date");
+        }
+        if (isError(value)) {
+          return formatError(value);
+        }
+      } else {
+        return value;
+      }
+    }
+    var base = "";
+    var array = false;
+    var braces = ["{\n", "\n}"];
+    if (Array.isArray(value)) {
+      array = true;
+      braces = ["[\n", "\n]"];
+    }
+    if (isFunction(value)) {
+      var n = value.name ? ": " + value.name : "";
+      base = " [Function" + n + "]";
+    }
+    if (isRegExp(value)) {
+      base = " " + RegExp.prototype.toString.call(value);
+    }
+    if (isDate(value)) {
+      base = " " + Date.prototype.toUTCString.call(value);
+    }
+    if (isError(value)) {
+      base = " " + formatError(value);
+    }
+    if (keys.length === 0 && (!array || value.length == 0)) {
+      return braces[0] + base + braces[1];
+    }
+    if (recurseTimes < 0) {
+      if (isRegExp(value)) {
+        return ctx.stylize(RegExp.prototype.toString.call(value), "regexp");
+      } else {
+        return ctx.stylize("[Object]", "special");
+      }
+    }
+    ctx.seen.push(value);
+    var output;
+    if (array) {
+      output = formatArray(ctx, value, recurseTimes, visibleKeys, keys);
+    } else {
+      output = keys.map(function (key) {
+        return formatProperty(ctx, value, recurseTimes, visibleKeys, key, array);
+      });
+    }
+    ctx.seen.pop();
+    return reduceToSingleString(output, base, braces);
+  }
+  function formatProperty(ctx, value, recurseTimes, visibleKeys, key, array) {
+    var name, str;
+    var desc = {
+      value: void 0
+    };
+    try {
+      desc.value = value[key];
+    } catch (_unused2) {}
+    try {
+      if (Object.getOwnPropertyDescriptor) {
+        desc = Object.getOwnPropertyDescriptor(value, key) || desc;
+      }
+    } catch (_unused3) {}
+    if (desc.get) {
+      if (desc.set) {
+        str = ctx.stylize("[Getter/Setter]", "special");
+      } else {
+        str = ctx.stylize("[Getter]", "special");
+      }
+    } else {
+      if (desc.set) {
+        str = ctx.stylize("[Setter]", "special");
+      }
+    }
+    if (!hasOwn(visibleKeys, key)) {
+      name = "[" + key + "]";
+    }
+    if (!str) {
+      if (ctx.seen.indexOf(desc.value) < 0) {
+        if (isNull(recurseTimes)) {
+          str = formatValue(ctx, desc.value, undefined);
+        } else {
+          str = formatValue(ctx, desc.value, recurseTimes - 1);
+        }
+        if (str.indexOf("\n") > -1) {
+          if (array) {
+            str = str.split("\n").map(function (line) {
+              return "  " + line;
+            }).join("\n").substr(2);
+          } else {
+            str = "\n" + str.split("\n").map(function (line) {
+              return "   " + line;
+            }).join("\n");
+          }
+        }
+      } else {
+        str = ctx.stylize("[Circular]", "special");
+      }
+    }
+    if (isUndefined(name)) {
+      if (array && key.match(/^\d+$/)) {
+        return str;
+      }
+      name = JSON.stringify("" + key);
+      if (name.match(/^"([a-zA-Z_][a-zA-Z_0-9]*)"$/)) {
+        name = name.substr(1, name.length - 2);
+        name = ctx.stylize(name, "name");
+      } else {
+        name = name.replace(/'/g, "\\'").replace(/\\"/g, "\\'").replace(/(^"|"$)/g, "'");
+        name = ctx.stylize(name, "string");
+      }
+    }
+    return name + ": " + str;
+  }
+  function formatPrimitive(ctx, value) {
+    if (isUndefined(value)) return ctx.stylize("undefined", "undefined");
+    if (isString(value)) {
+      var simple = "'" + JSON.stringify(value).replace(/^"|"$/g, "").replace(/'/g, "\\'").replace(/\\"/g, "\\'") + "'";
+      return ctx.stylize(simple, "string");
+    }
+    if (isNumber(value)) return ctx.stylize("" + value, "number");
+    if (isBoolean(value)) return ctx.stylize("" + value, "boolean");
+    if (isNull(value)) return ctx.stylize("null", "null");
+  }
+  function reduceToSingleString(output, base, braces) {
+    return braces[0] + (base === "" ? "" : base + "\n") + "  " + output.join(",\n  ") + " " + braces[1];
+  }
+  function _extend(origin, add) {
+    var typedOrigin = _objectSpread$2({}, origin);
+    if (!add || !isObject(add)) return origin;
+    var clonedAdd = _objectSpread$2({}, add);
+    var keys = Object.keys(add);
+    var i = keys.length;
+    while (i--) {
+      typedOrigin[keys[i]] = clonedAdd[keys[i]];
+    }
+    return typedOrigin;
+  }
+  function formatWithOptions(inspectOptions) {
+    var ctx = {
+      seen: [],
+      stylize: stylizeNoColor
+    };
+    if (inspectOptions != null) {
+      _extend(ctx, inspectOptions);
+    }
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+    var first = args[0];
+    var a = 0;
+    var str = "";
+    var join = "";
+    if (typeof first === "string") {
+      if (args.length === 1) {
+        return first;
+      }
+      var tempStr;
+      var lastPos = 0;
+      for (var i = 0; i < first.length - 1; i++) {
+        if (first.charCodeAt(i) === 37) {
+          var nextChar = first.charCodeAt(++i);
+          if (a + 1 !== args.length) {
+            switch (nextChar) {
+              case 115:
+                {
+                  var tempArg = args[++a];
+                  if (typeof tempArg === "number") {
+                    tempStr = formatPrimitive(ctx, tempArg);
+                  } else if (typeof tempArg === "bigint") {
+                    tempStr = formatPrimitive(ctx, tempArg);
+                  } else if (_typeof(tempArg) !== "object" || tempArg === null) {
+                    tempStr = String(tempArg);
+                  } else {
+                    tempStr = inspect(tempArg, _objectSpread$2(_objectSpread$2({}, inspectOptions), {}, {
+                      compact: 3,
+                      colors: false,
+                      depth: 0
+                    }));
+                  }
+                  break;
+                }
+              case 106:
+                tempStr = (0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(args[++a]);
+                break;
+              case 100:
+                {
+                  var tempNum = args[++a];
+                  if (typeof tempNum === "bigint") {
+                    tempStr = formatPrimitive(ctx, tempNum);
+                  } else if (_typeof(tempNum) === "symbol") {
+                    tempStr = "NaN";
+                  } else {
+                    tempStr = formatPrimitive(ctx, tempNum);
+                  }
+                  break;
+                }
+              case 79:
+                tempStr = inspect(args[++a], inspectOptions);
+                break;
+              case 111:
+                tempStr = inspect(args[++a], _objectSpread$2(_objectSpread$2({}, inspectOptions), {}, {
+                  showHidden: true,
+                  showProxy: true,
+                  depth: 4
+                }));
+                break;
+              case 105:
+                {
+                  var tempInteger = args[++a];
+                  if (typeof tempInteger === "bigint") {
+                    tempStr = formatPrimitive(ctx, tempInteger);
+                  } else if (_typeof(tempInteger) === "symbol") {
+                    tempStr = "NaN";
+                  } else {
+                    tempStr = formatPrimitive(ctx, parseInt(tempStr));
+                  }
+                  break;
+                }
+              case 102:
+                {
+                  var tempFloat = args[++a];
+                  if (_typeof(tempFloat) === "symbol") {
+                    tempStr = "NaN";
+                  } else {
+                    tempStr = formatPrimitive(ctx, parseInt(tempFloat));
+                  }
+                  break;
+                }
+              case 99:
+                a += 1;
+                tempStr = "";
+                break;
+              case 37:
+                str += first.slice(lastPos, i);
+                lastPos = i + 1;
+                continue;
+              default:
+                continue;
+            }
+            if (lastPos !== i - 1) {
+              str += first.slice(lastPos, i - 1);
+            }
+            str += tempStr;
+            lastPos = i + 1;
+          } else if (nextChar === 37) {
+            str += first.slice(lastPos, i);
+            lastPos = i + 1;
+          }
+        }
+      }
+      if (lastPos !== 0) {
+        a++;
+        join = " ";
+        if (lastPos < first.length) {
+          str += first.slice(lastPos);
+        }
+      }
+    }
+    while (a < args.length) {
+      var value = args[a];
+      str += join;
+      str += typeof value !== "string" ? inspect(value, inspectOptions) : value;
+      join = " ";
+      a++;
+    }
+    return str;
+  }
+  return util_inspect_polyfill;
 }
 
-var urlToObj = {};
+var environment = {};
 
-var hasRequiredUrlToObj;
-
-function requireUrlToObj () {
-	if (hasRequiredUrlToObj) return urlToObj;
-	hasRequiredUrlToObj = 1;
-	Object.defineProperty(urlToObj, "__esModule", { value: true });
-	urlToObj.urlToObject = urlToObject;
-	function urlToObject(url) {
-	    return {
-	        href: url.href,
-	        protocol: url.protocol,
-	        username: url.username,
-	        password: url.password,
-	        host: url.host,
-	        hostname: url.hostname,
-	        port: url.port,
-	        pathname: url.pathname,
-	        search: url.search,
-	        searchParams: [...url.searchParams].map(([key, value]) => ({ key, value })),
-	        hash: url.hash,
-	        origin: url.origin,
-	    };
-	}
-	return urlToObj;
+var hasRequiredEnvironment;
+function requireEnvironment() {
+  if (hasRequiredEnvironment) return environment;
+  hasRequiredEnvironment = 1;
+  Object.defineProperty(environment, "__esModule", {
+    value: true
+  });
+  environment.safeGetCwd = safeGetCwd;
+  environment.isBrowserEnvironment = isBrowserEnvironment;
+  environment.consoleSupportsCssStyling = consoleSupportsCssStyling;
+  function safeGetCwd() {
+    try {
+      var nodeProcess = globalThis === null || globalThis === void 0 ? void 0 : globalThis.process;
+      if (typeof (nodeProcess === null || nodeProcess === void 0 ? void 0 : nodeProcess.cwd) === "function") {
+        return nodeProcess.cwd();
+      }
+    } catch (_unused) {}
+    try {
+      var deno = globalThis === null || globalThis === void 0 ? void 0 : globalThis["Deno"];
+      if (typeof (deno === null || deno === void 0 ? void 0 : deno.cwd) === "function") {
+        return deno.cwd();
+      }
+    } catch (_unused2) {}
+    return undefined;
+  }
+  function isBrowserEnvironment() {
+    return typeof window !== "undefined" && typeof document !== "undefined";
+  }
+  function consoleSupportsCssStyling() {
+    var _navigatorObj$userAge, _windowObj$CSS, _windowObj$CSS$suppor;
+    if (!isBrowserEnvironment()) {
+      return false;
+    }
+    var navigatorObj = globalThis === null || globalThis === void 0 ? void 0 : globalThis.navigator;
+    var userAgent = (_navigatorObj$userAge = navigatorObj === null || navigatorObj === void 0 ? void 0 : navigatorObj.userAgent) !== null && _navigatorObj$userAge !== void 0 ? _navigatorObj$userAge : "";
+    if (/firefox/i.test(userAgent)) {
+      return true;
+    }
+    var windowObj = globalThis;
+    if (windowObj !== null && windowObj !== void 0 && (_windowObj$CSS = windowObj.CSS) !== null && _windowObj$CSS !== void 0 && (_windowObj$CSS$suppor = _windowObj$CSS.supports) !== null && _windowObj$CSS$suppor !== void 0 && _windowObj$CSS$suppor.call(_windowObj$CSS, "color", "#000")) {
+      return true;
+    }
+    return /safari/i.test(userAgent) && !/chrome/i.test(userAgent);
+  }
+  return environment;
 }
 
+var interfaces = {};
+
+var hasRequiredInterfaces;
+function requireInterfaces() {
+  if (hasRequiredInterfaces) return interfaces;
+  hasRequiredInterfaces = 1;
+  Object.defineProperty(interfaces, "__esModule", {
+    value: true
+  });
+  return interfaces;
+}
+
+function _createForOfIteratorHelper$1(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray$1(r)) || e) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: true } : { done: false, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = true, u = false; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = true, o = r; }, f: function f() { try { a || null == t.return || t.return(); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray$1(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray$1(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray$1(r, a) : void 0; } }
+function _arrayLikeToArray$1(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function ownKeys$1(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread$1(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys$1(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys$1(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 var hasRequiredBaseLogger;
+function requireBaseLogger() {
+  if (hasRequiredBaseLogger) return BaseLogger;
+  hasRequiredBaseLogger = 1;
+  (function (exports) {
 
-function requireBaseLogger () {
-	if (hasRequiredBaseLogger) return BaseLogger;
-	hasRequiredBaseLogger = 1;
-	(function (exports) {
-		var __createBinding = (BaseLogger && BaseLogger.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    var desc = Object.getOwnPropertyDescriptor(m, k);
-		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-		      desc = { enumerable: true, get: function() { return m[k]; } };
-		    }
-		    Object.defineProperty(o, k2, desc);
-		}) : (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    o[k2] = m[k];
-		}));
-		var __exportStar = (BaseLogger && BaseLogger.__exportStar) || function(m, exports) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-		};
-		Object.defineProperty(exports, "__esModule", { value: true });
-		exports.BaseLogger = exports.loggerEnvironment = void 0;
-		exports.createLoggerEnvironment = createLoggerEnvironment;
-		const formatTemplate_js_1 = requireFormatTemplate();
-		const interfaces_js_1 = requireInterfaces();
-		const environment_js_1 = requireEnvironment();
-		const errorUtils_js_1 = requireErrorUtils();
-		const jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
-		const metaFormatting_js_1 = requireMetaFormatting();
-		const stackTrace_js_1 = requireStackTrace();
-		const util_inspect_polyfill_js_1 = requireUtil_inspect_polyfill();
-		const urlToObj_js_1 = requireUrlToObj();
-		function createLoggerEnvironment() {
-		    const runtimeInfo = detectRuntimeInfo();
-		    const meta = createRuntimeMeta(runtimeInfo);
-		    const usesBrowserStack = runtimeInfo.name === "browser" || runtimeInfo.name === "worker";
-		    const callerIgnorePatterns = usesBrowserStack
-		        ? [...(0, stackTrace_js_1.getDefaultIgnorePatterns)(), /node_modules[\\/].*tslog/i]
-		        : [...(0, stackTrace_js_1.getDefaultIgnorePatterns)(), /node:(?:internal|vm)/i, /\binternal[\\/]/i];
-		    let cachedCwd;
-		    const environment = {
-		        getMeta(logLevelId, logLevelName, stackDepthLevel, hideLogPositionForPerformance, name, parentNames, extraIgnorePatterns) {
-		            return Object.assign({}, meta, {
-		                name,
-		                parentNames,
-		                date: new Date(),
-		                logLevelId,
-		                logLevelName,
-		                path: !hideLogPositionForPerformance ? environment.getCallerStackFrame(stackDepthLevel, new Error(), extraIgnorePatterns) : undefined,
-		            });
-		        },
-		        getCallerStackFrame(stackDepthLevel, error = new Error(), extraIgnorePatterns) {
-		            const frames = (0, stackTrace_js_1.buildStackTrace)(error, (line) => parseStackLine(line));
-		            if (frames.length === 0) {
-		                return {};
-		            }
-		            const ignorePatterns = extraIgnorePatterns != null && extraIgnorePatterns.length > 0 ? [...callerIgnorePatterns, ...extraIgnorePatterns] : callerIgnorePatterns;
-		            const autoIndex = (0, stackTrace_js_1.findFirstExternalFrameIndex)(frames, ignorePatterns);
-		            const useManualIndex = Number.isFinite(stackDepthLevel) && stackDepthLevel >= 0;
-		            const resolvedIndex = useManualIndex ? (0, stackTrace_js_1.clampIndex)(stackDepthLevel, frames.length) : (0, stackTrace_js_1.clampIndex)(autoIndex, frames.length);
-		            return frames[resolvedIndex] ?? {};
-		        },
-		        getErrorTrace(error) {
-		            return (0, stackTrace_js_1.buildStackTrace)(error, (line) => parseStackLine(line));
-		        },
-		        isError(value) {
-		            return isNativeError(value);
-		        },
-		        isBuffer(value) {
-		            return typeof Buffer !== "undefined" && typeof Buffer.isBuffer === "function" ? Buffer.isBuffer(value) : false;
-		        },
-		        prettyFormatLogObj(maskedArgs, settings) {
-		            return maskedArgs.reduce((result, arg) => {
-		                if (environment.isError(arg)) {
-		                    result.errors.push(environment.prettyFormatErrorObj(arg, settings));
-		                }
-		                else {
-		                    result.args.push(arg);
-		                }
-		                return result;
-		            }, { args: [], errors: [] });
-		        },
-		        prettyFormatErrorObj(error, settings) {
-		            const stackLines = formatStackFrames(environment.getErrorTrace(error), settings);
-		            const causeSections = (0, errorUtils_js_1.collectErrorCauses)(error).map((cause, index) => {
-		                const header = `Caused by (${index + 1}): ${cause.name ?? "Error"}${cause.message ? `: ${cause.message}` : ""}`;
-		                const frames = formatStackFrames((0, stackTrace_js_1.buildStackTrace)(cause, (line) => parseStackLine(line)), settings);
-		                return [header, ...frames].join("\n");
-		            });
-		            const placeholderValuesError = {
-		                errorName: ` ${error.name} `,
-		                errorMessage: formatErrorMessage(error),
-		                errorStack: [...stackLines, ...causeSections].join("\n"),
-		            };
-		            return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorTemplate, placeholderValuesError);
-		        },
-		        transportFormatted(logMetaMarkup, logArgs, logErrors, logMeta, settings) {
-		            const prettyLogs = settings.stylePrettyLogs !== false;
-		            const logErrorsStr = (logErrors.length > 0 && logArgs.length > 0 ? "\n" : "") + logErrors.join("\n");
-		            const sanitizedMetaMarkup = stripAnsi(logMetaMarkup);
-		            const metaMarkupForText = prettyLogs ? logMetaMarkup : sanitizedMetaMarkup;
-		            const log = getPrettyLogMethod(logMeta?.logLevelName, settings.prettyLogLevelMethod);
-		            if (shouldUseCss(prettyLogs)) {
-		                settings.prettyInspectOptions.colors = false;
-		                const formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
-		                const cssMeta = logMeta != null ? buildCssMetaOutput(settings, logMeta) : { text: sanitizedMetaMarkup, styles: [] };
-		                const hasCssMeta = cssMeta.text.length > 0 && cssMeta.styles.length > 0;
-		                const metaOutput = hasCssMeta ? cssMeta.text : sanitizedMetaMarkup;
-		                const output = metaOutput + formattedArgs + logErrorsStr;
-		                if (hasCssMeta) {
-		                    log(output, ...cssMeta.styles);
-		                }
-		                else {
-		                    log(output);
-		                }
-		                return;
-		            }
-		            settings.prettyInspectOptions.colors = prettyLogs;
-		            const formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
-		            log(metaMarkupForText + formattedArgs + logErrorsStr);
-		        },
-		        transportJSON(json) {
-		            console.log((0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(json));
-		        },
-		    };
-		    if (getNodeEnv() === "test") {
-		        environment.__resetWorkingDirectoryCacheForTests = () => {
-		            cachedCwd = undefined;
-		        };
-		    }
-		    return environment;
-		    function parseStackLine(line) {
-		        return usesBrowserStack ? parseBrowserStackLine(line) : parseServerStackLine(line);
-		    }
-		    function parseServerStackLine(rawLine) {
-		        if (typeof rawLine !== "string" || rawLine.length === 0) {
-		            return undefined;
-		        }
-		        const trimmedLine = rawLine.trim();
-		        if (!trimmedLine.includes(" at ") && !trimmedLine.startsWith("at ")) {
-		            return undefined;
-		        }
-		        const line = trimmedLine.replace(/^at\s+/, "");
-		        let method;
-		        let location = line;
-		        const methodMatch = line.match(/^(.*?)\s+\((.*)\)$/);
-		        if (methodMatch) {
-		            method = methodMatch[1];
-		            location = methodMatch[2];
-		        }
-		        const sanitizedLocation = location.replace(/^\(/, "").replace(/\)$/, "");
-		        const withoutQuery = sanitizedLocation.replace(/\?.*$/, "");
-		        let fileLine;
-		        let fileColumn;
-		        let filePathCandidate = withoutQuery;
-		        const segments = withoutQuery.split(":");
-		        if (segments.length >= 3 && /^\d+$/.test(segments[segments.length - 1])) {
-		            fileColumn = segments.pop();
-		            fileLine = segments.pop();
-		            filePathCandidate = segments.join(":");
-		        }
-		        else if (segments.length >= 2 && /^\d+$/.test(segments[segments.length - 1])) {
-		            fileLine = segments.pop();
-		            filePathCandidate = segments.join(":");
-		        }
-		        let normalizedPath = filePathCandidate.replace(/^file:\/\//, "");
-		        const cwd = getWorkingDirectory();
-		        if (cwd != null && normalizedPath.startsWith(cwd)) {
-		            normalizedPath = normalizedPath.slice(cwd.length);
-		            normalizedPath = normalizedPath.replace(/^[\\/]/, "");
-		        }
-		        if (normalizedPath.length === 0) {
-		            normalizedPath = filePathCandidate;
-		        }
-		        const normalizedPathWithoutLine = normalizeFilePath(normalizedPath);
-		        const effectivePath = normalizedPathWithoutLine.length > 0 ? normalizedPathWithoutLine : normalizedPath;
-		        const pathSegments = effectivePath.split(/\\|\//);
-		        const fileName = pathSegments[pathSegments.length - 1];
-		        const fileNameWithLine = fileName && fileLine ? `${fileName}:${fileLine}` : undefined;
-		        const filePathWithLine = effectivePath && fileLine ? `${effectivePath}:${fileLine}` : undefined;
-		        return {
-		            fullFilePath: sanitizedLocation,
-		            fileName,
-		            fileNameWithLine,
-		            fileColumn,
-		            fileLine,
-		            filePath: effectivePath,
-		            filePathWithLine,
-		            method,
-		        };
-		    }
-		    function parseBrowserStackLine(line) {
-		        const href = globalThis.location?.origin;
-		        if (line == null) {
-		            return undefined;
-		        }
-		        const match = line.match(BROWSER_PATH_REGEX);
-		        if (!match) {
-		            return undefined;
-		        }
-		        const filePath = match[1]?.replace(/\?.*$/, "");
-		        if (filePath == null) {
-		            return undefined;
-		        }
-		        const pathParts = filePath.split("/");
-		        const fileLine = match[2];
-		        const fileColumn = match[3];
-		        const fileName = pathParts[pathParts.length - 1];
-		        return {
-		            fullFilePath: href ? `${href}${filePath}` : filePath,
-		            fileName,
-		            fileNameWithLine: fileName && fileLine ? `${fileName}:${fileLine}` : undefined,
-		            fileColumn,
-		            fileLine,
-		            filePath,
-		            filePathWithLine: fileLine ? `${filePath}:${fileLine}` : undefined,
-		            method: undefined,
-		        };
-		    }
-		    function formatStackFrames(frames, settings) {
-		        return frames.map((stackFrame) => (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorStackTemplate, { ...stackFrame }, true));
-		    }
-		    function formatErrorMessage(error) {
-		        return Object.getOwnPropertyNames(error)
-		            .filter((key) => key !== "stack" && key !== "cause")
-		            .reduce((result, key) => {
-		            const value = error[key];
-		            if (typeof value === "function") {
-		                return result;
-		            }
-		            result.push(stringifyFallback(value));
-		            return result;
-		        }, [])
-		            .join(", ");
-		    }
-		    function shouldUseCss(prettyLogs) {
-		        return prettyLogs && (runtimeInfo.name === "browser" || runtimeInfo.name === "worker") && (0, environment_js_1.consoleSupportsCssStyling)();
-		    }
-		    function stripAnsi(value) {
-		        return value.replace(ANSI_REGEX, "");
-		    }
-		    function getPrettyLogMethod(logLevelName, prettyLogLevelMethod) {
-		        if (logLevelName && prettyLogLevelMethod?.[logLevelName]) {
-		            return prettyLogLevelMethod[logLevelName];
-		        }
-		        if (prettyLogLevelMethod?.["*"]) {
-		            return prettyLogLevelMethod["*"];
-		        }
-		        return console.log;
-		    }
-		    function buildCssMetaOutput(settings, metaValue) {
-		        if (metaValue == null) {
-		            return { text: "", styles: [] };
-		        }
-		        const { template, placeholders } = (0, metaFormatting_js_1.buildPrettyMeta)(settings, metaValue);
-		        const parts = [];
-		        const styles = [];
-		        let lastIndex = 0;
-		        const placeholderRegex = /{{(.+?)}}/g;
-		        let match;
-		        while ((match = placeholderRegex.exec(template)) != null) {
-		            if (match.index > lastIndex) {
-		                parts.push(template.slice(lastIndex, match.index));
-		            }
-		            const key = match[1];
-		            const rawValue = placeholders[key] != null ? String(placeholders[key]) : "";
-		            const tokens = collectStyleTokens(settings.prettyLogStyles?.[key], rawValue);
-		            const css = tokensToCss(tokens);
-		            if (css.length > 0) {
-		                parts.push(`%c${rawValue}%c`);
-		                styles.push(css, "");
-		            }
-		            else {
-		                parts.push(rawValue);
-		            }
-		            lastIndex = placeholderRegex.lastIndex;
-		        }
-		        if (lastIndex < template.length) {
-		            parts.push(template.slice(lastIndex));
-		        }
-		        return {
-		            text: parts.join(""),
-		            styles,
-		        };
-		    }
-		    function collectStyleTokens(style, value) {
-		        if (style == null) {
-		            return [];
-		        }
-		        if (typeof style === "string") {
-		            return [style];
-		        }
-		        if (Array.isArray(style)) {
-		            return style.flatMap((token) => collectStyleTokens(token, value));
-		        }
-		        if (typeof style === "object") {
-		            const normalizedValue = value.trim();
-		            const nextStyle = style[normalizedValue] ?? style["*"];
-		            if (nextStyle == null) {
-		                return [];
-		            }
-		            return collectStyleTokens(nextStyle, value);
-		        }
-		        return [];
-		    }
-		    function tokensToCss(tokens) {
-		        const seen = new Set();
-		        const cssParts = [];
-		        for (const token of tokens) {
-		            const css = styleTokenToCss(token);
-		            if (css != null && css.length > 0 && !seen.has(css)) {
-		                seen.add(css);
-		                cssParts.push(css);
-		            }
-		        }
-		        return cssParts.join("; ");
-		    }
-		    function styleTokenToCss(token) {
-		        const color = COLOR_TOKENS[token];
-		        if (color != null) {
-		            return `color: ${color}`;
-		        }
-		        const background = BACKGROUND_TOKENS[token];
-		        if (background != null) {
-		            return `background-color: ${background}`;
-		        }
-		        switch (token) {
-		            case "bold":
-		                return "font-weight: bold";
-		            case "dim":
-		                return "opacity: 0.75";
-		            case "italic":
-		                return "font-style: italic";
-		            case "underline":
-		                return "text-decoration: underline";
-		            case "overline":
-		                return "text-decoration: overline";
-		            case "inverse":
-		                return "filter: invert(1)";
-		            case "hidden":
-		                return "visibility: hidden";
-		            case "strikethrough":
-		                return "text-decoration: line-through";
-		            default:
-		                return undefined;
-		        }
-		    }
-		    function getWorkingDirectory() {
-		        if (cachedCwd === undefined) {
-		            cachedCwd = (0, environment_js_1.safeGetCwd)() ?? null;
-		        }
-		        return cachedCwd ?? undefined;
-		    }
-		    function shouldCaptureHostname() {
-		        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
-		    }
-		    function shouldCaptureRuntimeVersion() {
-		        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
-		    }
-		    function createRuntimeMeta(info) {
-		        if (info.name === "browser" || info.name === "worker") {
-		            return {
-		                runtime: info.name,
-		                browser: info.userAgent,
-		            };
-		        }
-		        const metaStatic = {
-		            runtime: info.name,
-		        };
-		        if (shouldCaptureRuntimeVersion()) {
-		            metaStatic.runtimeVersion = info.version ?? "unknown";
-		        }
-		        if (shouldCaptureHostname()) {
-		            metaStatic.hostname = info.hostname ?? "unknown";
-		        }
-		        return metaStatic;
-		    }
-		    function formatWithOptionsSafe(options, args) {
-		        try {
-		            return (0, util_inspect_polyfill_js_1.formatWithOptions)(options, ...args);
-		        }
-		        catch {
-		            return args.map(stringifyFallback).join(" ");
-		        }
-		    }
-		    function stringifyFallback(value) {
-		        if (typeof value === "string") {
-		            return value;
-		        }
-		        try {
-		            return JSON.stringify(value);
-		        }
-		        catch {
-		            return String(value);
-		        }
-		    }
-		    function normalizeFilePath(value) {
-		        if (typeof value !== "string" || value.length === 0) {
-		            return value;
-		        }
-		        const replaced = value.replace(/\\+/g, "\\").replace(/\\/g, "/");
-		        const hasRootDoubleSlash = replaced.startsWith("//");
-		        const hasLeadingSlash = replaced.startsWith("/") && !hasRootDoubleSlash;
-		        const driveMatch = replaced.match(/^[A-Za-z]:/);
-		        const drivePrefix = driveMatch ? driveMatch[0] : "";
-		        const withoutDrive = drivePrefix ? replaced.slice(drivePrefix.length) : replaced;
-		        const segments = withoutDrive.split("/");
-		        const normalizedSegments = [];
-		        for (const segment of segments) {
-		            if (segment === "" || segment === ".") {
-		                continue;
-		            }
-		            if (segment === "..") {
-		                if (normalizedSegments.length > 0) {
-		                    normalizedSegments.pop();
-		                }
-		                continue;
-		            }
-		            normalizedSegments.push(segment);
-		        }
-		        let normalized = normalizedSegments.join("/");
-		        if (hasRootDoubleSlash) {
-		            normalized = `//${normalized}`;
-		        }
-		        else if (hasLeadingSlash) {
-		            normalized = `/${normalized}`;
-		        }
-		        else if (drivePrefix !== "") {
-		            normalized = `${drivePrefix}${normalized.length > 0 ? `/${normalized}` : ""}`;
-		        }
-		        if (normalized.length === 0) {
-		            return value;
-		        }
-		        return normalized;
-		    }
-		    function detectRuntimeInfo() {
-		        if ((0, environment_js_1.isBrowserEnvironment)()) {
-		            const navigatorObj = globalThis.navigator;
-		            return {
-		                name: "browser",
-		                userAgent: navigatorObj?.userAgent,
-		            };
-		        }
-		        const globalScope = globalThis;
-		        if (typeof globalScope.importScripts === "function") {
-		            return {
-		                name: "worker",
-		                userAgent: globalScope.navigator?.userAgent,
-		            };
-		        }
-		        const globalAny = globalThis;
-		        if (globalAny.Bun != null) {
-		            const bunVersion = globalAny.Bun.version;
-		            return {
-		                name: "bun",
-		                version: bunVersion != null ? `bun/${bunVersion}` : undefined,
-		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
-		            };
-		        }
-		        if (globalAny.Deno != null) {
-		            const denoHostname = resolveDenoHostname(globalAny.Deno);
-		            const denoVersion = globalAny.Deno?.version?.deno;
-		            return {
-		                name: "deno",
-		                version: denoVersion != null ? `deno/${denoVersion}` : undefined,
-		                hostname: denoHostname ?? getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
-		            };
-		        }
-		        if (globalAny.process?.versions?.node != null || globalAny.process?.version != null) {
-		            return {
-		                name: "node",
-		                version: globalAny.process?.versions?.node ?? globalAny.process?.version,
-		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
-		            };
-		        }
-		        if (globalAny.process != null) {
-		            return {
-		                name: "node",
-		                version: "unknown",
-		                hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location),
-		            };
-		        }
-		        return {
-		            name: "unknown",
-		        };
-		    }
-		    function getEnvironmentHostname(nodeProcess, deno, bun, location) {
-		        const processHostname = nodeProcess?.env?.HOSTNAME ?? nodeProcess?.env?.HOST ?? nodeProcess?.env?.COMPUTERNAME;
-		        if (processHostname != null && processHostname.length > 0) {
-		            return processHostname;
-		        }
-		        const bunHostname = bun?.env?.HOSTNAME ?? bun?.env?.HOST ?? bun?.env?.COMPUTERNAME;
-		        if (bunHostname != null && bunHostname.length > 0) {
-		            return bunHostname;
-		        }
-		        try {
-		            const denoEnvGet = deno?.env?.get;
-		            if (typeof denoEnvGet === "function") {
-		                const value = denoEnvGet("HOSTNAME");
-		                if (value != null && value.length > 0) {
-		                    return value;
-		                }
-		            }
-		        }
-		        catch {
-		        }
-		        if (location?.hostname != null && location.hostname.length > 0) {
-		            return location.hostname;
-		        }
-		        return undefined;
-		    }
-		    function resolveDenoHostname(deno) {
-		        try {
-		            if (typeof deno?.hostname === "function") {
-		                const value = deno.hostname();
-		                if (value != null && value.length > 0) {
-		                    return value;
-		                }
-		            }
-		        }
-		        catch {
-		        }
-		        const locationHostname = globalThis.location?.hostname;
-		        if (locationHostname != null && locationHostname.length > 0) {
-		            return locationHostname;
-		        }
-		        return undefined;
-		    }
-		    function getNodeEnv() {
-		        const globalProcess = globalThis?.process;
-		        return globalProcess?.env?.NODE_ENV;
-		    }
-		    function isNativeError(value) {
-		        if (value instanceof Error) {
-		            return true;
-		        }
-		        if (value != null && typeof value === "object") {
-		            const objectTag = Object.prototype.toString.call(value);
-		            if (/\[object .*Error\]/.test(objectTag)) {
-		                return true;
-		            }
-		            const name = value.name;
-		            if (typeof name === "string" && name.endsWith("Error")) {
-		                return true;
-		            }
-		        }
-		        return false;
-		    }
-		}
-		const ANSI_REGEX = /\u001b\[[0-9;]*m/g;
-		const COLOR_TOKENS = {
-		    black: "#000000",
-		    red: "#ef5350",
-		    green: "#66bb6a",
-		    yellow: "#fdd835",
-		    blue: "#42a5f5",
-		    magenta: "#ab47bc",
-		    cyan: "#26c6da",
-		    white: "#fafafa",
-		    blackBright: "#424242",
-		    redBright: "#ff7043",
-		    greenBright: "#81c784",
-		    yellowBright: "#ffe082",
-		    blueBright: "#64b5f6",
-		    magentaBright: "#ce93d8",
-		    cyanBright: "#4dd0e1",
-		    whiteBright: "#ffffff",
-		};
-		const BACKGROUND_TOKENS = {
-		    bgBlack: "#000000",
-		    bgRed: "#ef5350",
-		    bgGreen: "#66bb6a",
-		    bgYellow: "#fdd835",
-		    bgBlue: "#42a5f5",
-		    bgMagenta: "#ab47bc",
-		    bgCyan: "#26c6da",
-		    bgWhite: "#fafafa",
-		    bgBlackBright: "#424242",
-		    bgRedBright: "#ff7043",
-		    bgGreenBright: "#81c784",
-		    bgYellowBright: "#ffe082",
-		    bgBlueBright: "#64b5f6",
-		    bgMagentaBright: "#ce93d8",
-		    bgCyanBright: "#4dd0e1",
-		    bgWhiteBright: "#ffffff",
-		};
-		const BROWSER_PATH_REGEX = /(?:(?:file|https?|global code|[^@]+)@)?(?:file:)?((?:\/[^:/]+){2,})(?::(\d+))?(?::(\d+))?/;
-		const runtime = createLoggerEnvironment();
-		exports.loggerEnvironment = runtime;
-		__exportStar(requireInterfaces(), exports);
-		function resolveLogLevelId(level) {
-		    if (level == null) {
-		        return undefined;
-		    }
-		    if (typeof level === "number") {
-		        return level;
-		    }
-		    const mapped = interfaces_js_1.DefaultLogLevels[level];
-		    return typeof mapped === "number" ? mapped : undefined;
-		}
-		function devWarningsEnabled() {
-		    const env = globalThis?.process?.env;
-		    if (env?.TSLOG_DISABLE_WARNINGS != null) {
-		        return false;
-		    }
-		    return env?.NODE_ENV !== "production";
-		}
-		function emitConfigWarning(message) {
-		    try {
-		        console.warn(`tslog: ${message}`);
-		    }
-		    catch {
-		    }
-		}
-		const KNOWN_PRETTY_PLACEHOLDERS = new Set([
-		    "yyyy",
-		    "mm",
-		    "dd",
-		    "hh",
-		    "MM",
-		    "ss",
-		    "ms",
-		    "dateIsoStr",
-		    "rawIsoStr",
-		    "logLevelName",
-		    "name",
-		    "nameWithDelimiterPrefix",
-		    "nameWithDelimiterSuffix",
-		    "fullFilePath",
-		    "filePathWithLine",
-		    "fileNameWithLine",
-		    "fileName",
-		    "filePath",
-		    "fileLine",
-		    "fileColumn",
-		]);
-		function validateSettingsParam(settings) {
-		    if (settings == null || !devWarningsEnabled()) {
-		        return;
-		    }
-		    if (settings.minLevel != null) {
-		        const resolved = resolveLogLevelId(settings.minLevel);
-		        if (resolved == null) {
-		            emitConfigWarning(`unknown minLevel ${JSON.stringify(settings.minLevel)}; expected a number 0-6 or a level name like "WARN".`);
-		        }
-		        else if (typeof settings.minLevel === "number" && (resolved < 0 || resolved > 6)) {
-		            emitConfigWarning(`minLevel ${resolved} is outside the default range 0-6; no default log method will be filtered as you might expect.`);
-		        }
-		    }
-		    if (typeof settings.prettyLogTemplate === "string") {
-		        const placeholderRegex = /{{\s*(.+?)\s*}}/g;
-		        let match;
-		        while ((match = placeholderRegex.exec(settings.prettyLogTemplate)) != null) {
-		            const key = match[1];
-		            if (!KNOWN_PRETTY_PLACEHOLDERS.has(key)) {
-		                emitConfigWarning(`prettyLogTemplate references unknown placeholder "{{${key}}}"; check the spelling (e.g. "{{logLevelName}}") or add it via overwrite.addPlaceholders.`);
-		            }
-		        }
-		    }
-		}
-		let BaseLogger$1 = class BaseLogger {
-		    constructor(settings, logObj, stackDepthLevel = Number.NaN) {
-		        this.logObj = logObj;
-		        this.stackDepthLevel = stackDepthLevel;
-		        this.runtime = runtime;
-		        this.maxErrorCauseDepth = 5;
-		        validateSettingsParam(settings);
-		        this.settings = {
-		            type: settings?.type ?? "pretty",
-		            name: settings?.name,
-		            parentNames: settings?.parentNames,
-		            minLevel: resolveLogLevelId(settings?.minLevel) ?? 0,
-		            argumentsArrayName: settings?.argumentsArrayName,
-		            internalFramePatterns: settings?.internalFramePatterns,
-		            hideLogPositionForProduction: settings?.hideLogPositionForProduction ?? false,
-		            prettyLogTemplate: settings?.prettyLogTemplate ??
-		                "{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t{{filePathWithLine}}{{nameWithDelimiterPrefix}}\t",
-		            prettyErrorTemplate: settings?.prettyErrorTemplate ?? "\n{{errorName}} {{errorMessage}}\nerror stack:\n{{errorStack}}",
-		            prettyErrorStackTemplate: settings?.prettyErrorStackTemplate ?? "  • {{fileName}}\t{{method}}\n\t{{filePathWithLine}}",
-		            prettyErrorParentNamesSeparator: settings?.prettyErrorParentNamesSeparator ?? ":",
-		            prettyErrorLoggerNameDelimiter: settings?.prettyErrorLoggerNameDelimiter ?? "\t",
-		            stylePrettyLogs: settings?.stylePrettyLogs ?? true,
-		            prettyLogTimeZone: settings?.prettyLogTimeZone ?? "UTC",
-		            prettyLogStyles: settings?.prettyLogStyles ?? {
-		                logLevelName: {
-		                    "*": ["bold", "black", "bgWhiteBright", "dim"],
-		                    SILLY: ["bold", "white"],
-		                    TRACE: ["bold", "whiteBright"],
-		                    DEBUG: ["bold", "green"],
-		                    INFO: ["bold", "blue"],
-		                    WARN: ["bold", "yellow"],
-		                    ERROR: ["bold", "red"],
-		                    FATAL: ["bold", "redBright"],
-		                },
-		                dateIsoStr: "white",
-		                filePathWithLine: "white",
-		                name: ["white", "bold"],
-		                nameWithDelimiterPrefix: ["white", "bold"],
-		                nameWithDelimiterSuffix: ["white", "bold"],
-		                errorName: ["bold", "bgRedBright", "whiteBright"],
-		                fileName: ["yellow"],
-		                fileNameWithLine: "white",
-		            },
-		            prettyLogLevelMethod: settings?.prettyLogLevelMethod ?? {},
-		            prettyInspectOptions: settings?.prettyInspectOptions ?? {
-		                colors: true,
-		                compact: false,
-		                depth: Infinity,
-		            },
-		            metaProperty: settings?.metaProperty ?? "_meta",
-		            maskPlaceholder: settings?.maskPlaceholder ?? "[***]",
-		            maskValuesOfKeys: settings?.maskValuesOfKeys ?? ["password"],
-		            maskValuesOfKeysCaseInsensitive: settings?.maskValuesOfKeysCaseInsensitive ?? false,
-		            maskValuesRegEx: settings?.maskValuesRegEx,
-		            prefix: [...(settings?.prefix ?? [])],
-		            attachedTransports: [...(settings?.attachedTransports ?? [])],
-		            overwrite: {
-		                mask: settings?.overwrite?.mask,
-		                toLogObj: settings?.overwrite?.toLogObj,
-		                addMeta: settings?.overwrite?.addMeta,
-		                includeDefaultMetaInAddMeta: settings?.overwrite?.includeDefaultMetaInAddMeta ?? false,
-		                addPlaceholders: settings?.overwrite?.addPlaceholders,
-		                formatMeta: settings?.overwrite?.formatMeta,
-		                formatLogObj: settings?.overwrite?.formatLogObj,
-		                transportFormatted: settings?.overwrite?.transportFormatted,
-		                transportJSON: settings?.overwrite?.transportJSON,
-		            },
-		        };
-		        this.captureStackForMeta = this._shouldCaptureStack();
-		    }
-		    log(logLevelId, logLevelName, ...args) {
-		        if (logLevelId < this.settings.minLevel) {
-		            return;
-		        }
-		        const resolvedArgs = this._resolveLogArguments(args);
-		        const logArgs = [...this.settings.prefix, ...resolvedArgs];
-		        const maskedArgs = this.settings.overwrite?.mask != null
-		            ? this.settings.overwrite?.mask(logArgs)
-		            : this.settings.maskValuesOfKeys != null && this.settings.maskValuesOfKeys.length > 0
-		                ? this._mask(logArgs)
-		                : logArgs;
-		        const thisLogObj = this.logObj != null ? this._recursiveCloneAndExecuteFunctions(this.logObj) : undefined;
-		        const logObj = this.settings.overwrite?.toLogObj != null ? this.settings.overwrite?.toLogObj(maskedArgs, thisLogObj) : this._toLogObj(maskedArgs, thisLogObj);
-		        const logObjWithMeta = this.settings.overwrite?.addMeta != null
-		            ? this.settings.overwrite.addMeta(logObj, logLevelId, logLevelName, this.settings.overwrite.includeDefaultMetaInAddMeta
-		                ? this.runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames, this.settings.internalFramePatterns)
-		                : undefined)
-		            : this._addMetaToLogObj(logObj, logLevelId, logLevelName);
-		        const logMeta = logObjWithMeta?.[this.settings.metaProperty];
-		        let logMetaMarkup;
-		        let logArgsAndErrorsMarkup;
-		        if (this.settings.overwrite?.formatMeta != null) {
-		            logMetaMarkup = this.settings.overwrite?.formatMeta(logObjWithMeta?.[this.settings.metaProperty]);
-		        }
-		        if (this.settings.overwrite?.formatLogObj != null) {
-		            logArgsAndErrorsMarkup = this.settings.overwrite?.formatLogObj(maskedArgs, this.settings);
-		        }
-		        if (this.settings.type === "pretty") {
-		            logMetaMarkup = logMetaMarkup ?? this._prettyFormatLogObjMeta(logObjWithMeta?.[this.settings.metaProperty]);
-		            logArgsAndErrorsMarkup = logArgsAndErrorsMarkup ?? runtime.prettyFormatLogObj(maskedArgs, this.settings);
-		        }
-		        if (logMetaMarkup != null && logArgsAndErrorsMarkup != null) {
-		            if (this.settings.overwrite?.transportFormatted != null) {
-		                const transport = this.settings.overwrite.transportFormatted;
-		                const declaredParams = transport.length;
-		                if (declaredParams < 4) {
-		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors);
-		                }
-		                else if (declaredParams === 4) {
-		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta);
-		                }
-		                else {
-		                    transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
-		                }
-		            }
-		            else {
-		                runtime.transportFormatted(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
-		            }
-		        }
-		        else {
-		            if (this.settings.overwrite?.transportJSON != null) {
-		                this.settings.overwrite.transportJSON(logObjWithMeta);
-		            }
-		            else if (this.settings.type !== "hidden") {
-		                runtime.transportJSON(logObjWithMeta);
-		            }
-		        }
-		        if (this.settings.attachedTransports != null && this.settings.attachedTransports.length > 0) {
-		            this.settings.attachedTransports.forEach((transportLogger) => {
-		                try {
-		                    transportLogger(logObjWithMeta);
-		                }
-		                catch (transportError) {
-		                    try {
-		                        console.error("tslog: attached transport threw an error", transportError);
-		                    }
-		                    catch {
-		                    }
-		                }
-		            });
-		        }
-		        return logObjWithMeta;
-		    }
-		    attachTransport(transportLogger) {
-		        this.settings.attachedTransports.push(transportLogger);
-		    }
-		    getSubLogger(settings, logObj) {
-		        const subLoggerSettings = {
-		            ...this.settings,
-		            ...settings,
-		            minLevel: resolveLogLevelId(settings?.minLevel) ?? this.settings.minLevel,
-		            parentNames: this.settings?.parentNames != null && this.settings?.name != null
-		                ? [...this.settings.parentNames, this.settings.name]
-		                : this.settings?.name != null
-		                    ? [this.settings.name]
-		                    : undefined,
-		            prefix: [...this.settings.prefix, ...(settings?.prefix ?? [])],
-		        };
-		        const subLogger = new this.constructor(subLoggerSettings, logObj ?? this.logObj, this.stackDepthLevel);
-		        return subLogger;
-		    }
-		    _mask(args) {
-		        const maskKeys = this._getMaskKeys();
-		        return args?.map((arg) => {
-		            return this._recursiveCloneAndMaskValuesOfKeys(arg, maskKeys);
-		        });
-		    }
-		    _getMaskKeys() {
-		        const maskKeys = this.settings.maskValuesOfKeys ?? [];
-		        const signature = maskKeys.map(String).join("|");
-		        if (this.settings.maskValuesOfKeysCaseInsensitive === true) {
-		            if (this.maskKeysCache?.source === maskKeys && this.maskKeysCache.caseInsensitive === true && this.maskKeysCache.signature === signature) {
-		                return this.maskKeysCache.normalized;
-		            }
-		            const normalized = maskKeys.map((key) => (typeof key === "string" ? key.toLowerCase() : String(key).toLowerCase()));
-		            this.maskKeysCache = {
-		                source: maskKeys,
-		                caseInsensitive: true,
-		                normalized,
-		                signature,
-		            };
-		            return normalized;
-		        }
-		        if (this.maskKeysCache?.source === maskKeys && this.maskKeysCache.caseInsensitive === false && this.maskKeysCache.signature === signature) {
-		            return this.maskKeysCache.normalized;
-		        }
-		        const normalized = maskKeys.map((key) => (typeof key === "string" ? key : String(key)));
-		        this.maskKeysCache = {
-		            source: maskKeys,
-		            caseInsensitive: false,
-		            normalized,
-		            signature,
-		        };
-		        return normalized;
-		    }
-		    _resolveLogArguments(args) {
-		        if (args.length === 1 && typeof args[0] === "function") {
-		            const candidate = args[0];
-		            if (candidate.length === 0) {
-		                const result = candidate();
-		                return Array.isArray(result) ? result : [result];
-		            }
-		        }
-		        return args;
-		    }
-		    _recursiveCloneAndMaskValuesOfKeys(source, keys, seen = []) {
-		        if (seen.includes(source)) {
-		            return { ...source };
-		        }
-		        if (typeof source === "object" && source !== null) {
-		            seen.push(source);
-		        }
-		        if (runtime.isError(source) || runtime.isBuffer(source)) {
-		            return source;
-		        }
-		        else if (source instanceof Map) {
-		            return new Map(source);
-		        }
-		        else if (source instanceof Set) {
-		            return new Set(source);
-		        }
-		        else if (Array.isArray(source)) {
-		            return source.map((item) => this._recursiveCloneAndMaskValuesOfKeys(item, keys, seen));
-		        }
-		        else if (source instanceof Date) {
-		            return new Date(source.getTime());
-		        }
-		        else if (source instanceof URL) {
-		            return (0, urlToObj_js_1.urlToObject)(source);
-		        }
-		        else if (source !== null && typeof source === "object") {
-		            const baseObject = runtime.isError(source) ? this._cloneError(source) : Object.create(Object.getPrototypeOf(source));
-		            return Object.getOwnPropertyNames(source).reduce((o, prop) => {
-		                const lookupKey = this.settings?.maskValuesOfKeysCaseInsensitive !== true
-		                    ? prop
-		                    : typeof prop === "string"
-		                        ? prop.toLowerCase()
-		                        : String(prop).toLowerCase();
-		                o[prop] = keys.includes(lookupKey)
-		                    ? this.settings.maskPlaceholder
-		                    : (() => {
-		                        try {
-		                            return this._recursiveCloneAndMaskValuesOfKeys(source[prop], keys, seen);
-		                        }
-		                        catch {
-		                            return null;
-		                        }
-		                    })();
-		                return o;
-		            }, baseObject);
-		        }
-		        else {
-		            if (typeof source === "string") {
-		                let modifiedSource = source;
-		                const placeholder = (this.settings?.maskPlaceholder || "").replace(/\$/g, "$$$$");
-		                for (const regEx of this.settings?.maskValuesRegEx || []) {
-		                    modifiedSource = modifiedSource.replace(regEx, placeholder);
-		                }
-		                return modifiedSource;
-		            }
-		            return source;
-		        }
-		    }
-		    _recursiveCloneAndExecuteFunctions(source, seen = []) {
-		        if (this.isObjectOrArray(source) && seen.includes(source)) {
-		            return this.shallowCopy(source);
-		        }
-		        if (this.isObjectOrArray(source)) {
-		            seen.push(source);
-		        }
-		        if (Array.isArray(source)) {
-		            return source.map((item) => this._recursiveCloneAndExecuteFunctions(item, seen));
-		        }
-		        else if (source instanceof Date) {
-		            return new Date(source.getTime());
-		        }
-		        else if (this.isObject(source)) {
-		            return Object.getOwnPropertyNames(source).reduce((o, prop) => {
-		                const descriptor = Object.getOwnPropertyDescriptor(source, prop);
-		                if (descriptor) {
-		                    Object.defineProperty(o, prop, descriptor);
-		                    const value = source[prop];
-		                    o[prop] = typeof value === "function" ? value() : this._recursiveCloneAndExecuteFunctions(value, seen);
-		                }
-		                return o;
-		            }, Object.create(Object.getPrototypeOf(source)));
-		        }
-		        else {
-		            return source;
-		        }
-		    }
-		    isObjectOrArray(value) {
-		        return typeof value === "object" && value !== null;
-		    }
-		    isObject(value) {
-		        return typeof value === "object" && !Array.isArray(value) && value !== null;
-		    }
-		    shallowCopy(source) {
-		        if (Array.isArray(source)) {
-		            return [...source];
-		        }
-		        else {
-		            return { ...source };
-		        }
-		    }
-		    _toLogObj(args, clonedLogObj = {}) {
-		        args = args?.map((arg) => (runtime.isError(arg) ? this._toErrorObject(arg) : arg));
-		        if (this.settings.argumentsArrayName == null) {
-		            if (args.length === 1 && !Array.isArray(args[0]) && runtime.isBuffer(args[0]) !== true && !(args[0] instanceof Date)) {
-		                clonedLogObj = typeof args[0] === "object" && args[0] != null ? { ...args[0], ...clonedLogObj } : { 0: args[0], ...clonedLogObj };
-		            }
-		            else {
-		                clonedLogObj = { ...clonedLogObj, ...args };
-		            }
-		        }
-		        else {
-		            clonedLogObj = {
-		                ...clonedLogObj,
-		                [this.settings.argumentsArrayName]: args,
-		            };
-		        }
-		        return clonedLogObj;
-		    }
-		    _cloneError(error) {
-		        const cloned = new error.constructor();
-		        Object.getOwnPropertyNames(error).forEach((key) => {
-		            cloned[key] = error[key];
-		        });
-		        return cloned;
-		    }
-		    _toErrorObject(error, depth = 0, seen = new Set()) {
-		        if (!seen.has(error)) {
-		            seen.add(error);
-		        }
-		        const errorObject = {
-		            nativeError: error,
-		            name: error.name ?? "Error",
-		            message: error.message,
-		            stack: runtime.getErrorTrace(error),
-		        };
-		        if (depth >= this.maxErrorCauseDepth) {
-		            return errorObject;
-		        }
-		        const causeValue = error.cause;
-		        if (causeValue != null) {
-		            const normalizedCause = (0, errorUtils_js_1.toError)(causeValue);
-		            if (!seen.has(normalizedCause)) {
-		                errorObject.cause = this._toErrorObject(normalizedCause, depth + 1, seen);
-		            }
-		        }
-		        return errorObject;
-		    }
-		    _addMetaToLogObj(logObj, logLevelId, logLevelName) {
-		        return {
-		            ...logObj,
-		            [this.settings.metaProperty]: runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames, this.settings.internalFramePatterns),
-		        };
-		    }
-		    _shouldCaptureStack() {
-		        if (this.settings.hideLogPositionForProduction) {
-		            return false;
-		        }
-		        if (this.settings.type === "json") {
-		            return true;
-		        }
-		        const template = this.settings.prettyLogTemplate ?? "";
-		        const stackPlaceholders = /{{\s*(file(Name|Path|Line|PathWithLine|NameWithLine)|fullFilePath)\s*}}/;
-		        if (stackPlaceholders.test(template)) {
-		            return true;
-		        }
-		        return false;
-		    }
-		    _prettyFormatLogObjMeta(logObjMeta) {
-		        return (0, metaFormatting_js_1.buildPrettyMeta)(this.settings, logObjMeta).text;
-		    }
-		};
-		exports.BaseLogger = BaseLogger$1; 
-	} (BaseLogger));
-	return BaseLogger;
+    var __createBinding = BaseLogger && BaseLogger.__createBinding || (Object.create ? function (o, m, k, k2) {
+      if (k2 === undefined) k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = {
+          enumerable: true,
+          get: function get() {
+            return m[k];
+          }
+        };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function (o, m, k, k2) {
+      if (k2 === undefined) k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = BaseLogger && BaseLogger.__exportStar || function (m, exports) {
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.BaseLogger = exports.loggerEnvironment = void 0;
+    exports.createLoggerEnvironment = createLoggerEnvironment;
+    var urlToObj_js_1 = requireUrlToObj();
+    var metaFormatting_js_1 = requireMetaFormatting();
+    var errorUtils_js_1 = requireErrorUtils();
+    var formatTemplate_js_1 = requireFormatTemplate();
+    var util_inspect_polyfill_js_1 = requireUtil_inspect_polyfill();
+    var stackTrace_js_1 = requireStackTrace();
+    var environment_js_1 = requireEnvironment();
+    var jsonStringifyRecursive_js_1 = requireJsonStringifyRecursive();
+    function createLoggerEnvironment() {
+      var runtimeInfo = detectRuntimeInfo();
+      var meta = createRuntimeMeta(runtimeInfo);
+      var usesBrowserStack = runtimeInfo.name === "browser" || runtimeInfo.name === "worker";
+      var callerIgnorePatterns = usesBrowserStack ? [].concat(_toConsumableArray((0, stackTrace_js_1.getDefaultIgnorePatterns)()), [/node_modules[\\/].*tslog/i]) : [].concat(_toConsumableArray((0, stackTrace_js_1.getDefaultIgnorePatterns)()), [/node:(?:internal|vm)/i, /\binternal[\\/]/i]);
+      var cachedCwd;
+      var environment = {
+        getMeta: function getMeta(logLevelId, logLevelName, stackDepthLevel, hideLogPositionForPerformance, name, parentNames) {
+          return Object.assign({}, meta, {
+            name: name,
+            parentNames: parentNames,
+            date: new Date(),
+            logLevelId: logLevelId,
+            logLevelName: logLevelName,
+            path: !hideLogPositionForPerformance ? environment.getCallerStackFrame(stackDepthLevel) : undefined
+          });
+        },
+        getCallerStackFrame: function getCallerStackFrame(stackDepthLevel) {
+          var _frames$resolvedIndex;
+          var error = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Error();
+          var frames = (0, stackTrace_js_1.buildStackTrace)(error, function (line) {
+            return parseStackLine(line);
+          });
+          if (frames.length === 0) {
+            return {};
+          }
+          var autoIndex = (0, stackTrace_js_1.findFirstExternalFrameIndex)(frames, callerIgnorePatterns);
+          var useManualIndex = Number.isFinite(stackDepthLevel) && stackDepthLevel >= 0;
+          var resolvedIndex = useManualIndex ? (0, stackTrace_js_1.clampIndex)(stackDepthLevel, frames.length) : (0, stackTrace_js_1.clampIndex)(autoIndex, frames.length);
+          return (_frames$resolvedIndex = frames[resolvedIndex]) !== null && _frames$resolvedIndex !== void 0 ? _frames$resolvedIndex : {};
+        },
+        getErrorTrace: function getErrorTrace(error) {
+          return (0, stackTrace_js_1.buildStackTrace)(error, function (line) {
+            return parseStackLine(line);
+          });
+        },
+        isError: function isError(value) {
+          return isNativeError(value);
+        },
+        isBuffer: function isBuffer(value) {
+          return typeof Buffer !== "undefined" && typeof Buffer.isBuffer === "function" ? Buffer.isBuffer(value) : false;
+        },
+        prettyFormatLogObj: function prettyFormatLogObj(maskedArgs, settings) {
+          return maskedArgs.reduce(function (result, arg) {
+            if (environment.isError(arg)) {
+              result.errors.push(environment.prettyFormatErrorObj(arg, settings));
+            } else {
+              result.args.push(arg);
+            }
+            return result;
+          }, {
+            args: [],
+            errors: []
+          });
+        },
+        prettyFormatErrorObj: function prettyFormatErrorObj(error, settings) {
+          var stackLines = formatStackFrames(environment.getErrorTrace(error), settings);
+          var causeSections = (0, errorUtils_js_1.collectErrorCauses)(error).map(function (cause, index) {
+            var _cause$name;
+            var header = "Caused by (".concat(index + 1, "): ").concat((_cause$name = cause.name) !== null && _cause$name !== void 0 ? _cause$name : "Error").concat(cause.message ? ": ".concat(cause.message) : "");
+            var frames = formatStackFrames((0, stackTrace_js_1.buildStackTrace)(cause, function (line) {
+              return parseStackLine(line);
+            }), settings);
+            return [header].concat(_toConsumableArray(frames)).join("\n");
+          });
+          var placeholderValuesError = {
+            errorName: " ".concat(error.name, " "),
+            errorMessage: formatErrorMessage(error),
+            errorStack: [].concat(_toConsumableArray(stackLines), _toConsumableArray(causeSections)).join("\n")
+          };
+          return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorTemplate, placeholderValuesError);
+        },
+        transportFormatted: function transportFormatted(logMetaMarkup, logArgs, logErrors, logMeta, settings) {
+          var prettyLogs = settings.stylePrettyLogs !== false;
+          var logErrorsStr = (logErrors.length > 0 && logArgs.length > 0 ? "\n" : "") + logErrors.join("\n");
+          var sanitizedMetaMarkup = stripAnsi(logMetaMarkup);
+          var metaMarkupForText = prettyLogs ? logMetaMarkup : sanitizedMetaMarkup;
+          if (shouldUseCss(prettyLogs)) {
+            settings.prettyInspectOptions.colors = false;
+            var _formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
+            var cssMeta = logMeta != null ? buildCssMetaOutput(settings, logMeta) : {
+              text: sanitizedMetaMarkup,
+              styles: []
+            };
+            var hasCssMeta = cssMeta.text.length > 0 && cssMeta.styles.length > 0;
+            var metaOutput = hasCssMeta ? cssMeta.text : sanitizedMetaMarkup;
+            var output = metaOutput + _formattedArgs + logErrorsStr;
+            if (hasCssMeta) {
+              var _console;
+              (_console = console).log.apply(_console, [output].concat(_toConsumableArray(cssMeta.styles)));
+            } else {
+              console.log(output);
+            }
+            return;
+          }
+          settings.prettyInspectOptions.colors = prettyLogs;
+          var formattedArgs = formatWithOptionsSafe(settings.prettyInspectOptions, logArgs);
+          console.log(metaMarkupForText + formattedArgs + logErrorsStr);
+        },
+        transportJSON: function transportJSON(json) {
+          console.log((0, jsonStringifyRecursive_js_1.jsonStringifyRecursive)(json));
+        }
+      };
+      if (getNodeEnv() === "test") {
+        environment.__resetWorkingDirectoryCacheForTests = function () {
+          cachedCwd = undefined;
+        };
+      }
+      return environment;
+      function parseStackLine(line) {
+        return usesBrowserStack ? parseBrowserStackLine(line) : parseServerStackLine(line);
+      }
+      function parseServerStackLine(rawLine) {
+        var _segments, _segments2;
+        if (typeof rawLine !== "string" || rawLine.length === 0) {
+          return undefined;
+        }
+        var trimmedLine = rawLine.trim();
+        if (!trimmedLine.includes(" at ") && !trimmedLine.startsWith("at ")) {
+          return undefined;
+        }
+        var line = trimmedLine.replace(/^at\s+/, "");
+        var method;
+        var location = line;
+        var methodMatch = line.match(/^(.*?)\s+\((.*)\)$/);
+        if (methodMatch) {
+          method = methodMatch[1];
+          location = methodMatch[2];
+        }
+        var sanitizedLocation = location.replace(/^\(/, "").replace(/\)$/, "");
+        var withoutQuery = sanitizedLocation.replace(/\?.*$/, "");
+        var fileLine;
+        var fileColumn;
+        var filePathCandidate = withoutQuery;
+        var segments = withoutQuery.split(":");
+        if (segments.length >= 3 && /^\d+$/.test((_segments = segments[segments.length - 1]) !== null && _segments !== void 0 ? _segments : "")) {
+          fileColumn = segments.pop();
+          fileLine = segments.pop();
+          filePathCandidate = segments.join(":");
+        } else if (segments.length >= 2 && /^\d+$/.test((_segments2 = segments[segments.length - 1]) !== null && _segments2 !== void 0 ? _segments2 : "")) {
+          fileLine = segments.pop();
+          filePathCandidate = segments.join(":");
+        }
+        var normalizedPath = filePathCandidate.replace(/^file:\/\//, "");
+        var cwd = getWorkingDirectory();
+        if (cwd != null && normalizedPath.startsWith(cwd)) {
+          normalizedPath = normalizedPath.slice(cwd.length);
+          normalizedPath = normalizedPath.replace(/^[\\/]/, "");
+        }
+        if (normalizedPath.length === 0) {
+          normalizedPath = filePathCandidate;
+        }
+        var normalizedPathWithoutLine = normalizeFilePath(normalizedPath);
+        var effectivePath = normalizedPathWithoutLine.length > 0 ? normalizedPathWithoutLine : normalizedPath;
+        var pathSegments = effectivePath.split(/\\|\//);
+        var fileName = pathSegments[pathSegments.length - 1];
+        var fileNameWithLine = fileName && fileLine ? "".concat(fileName, ":").concat(fileLine) : undefined;
+        var filePathWithLine = effectivePath && fileLine ? "".concat(effectivePath, ":").concat(fileLine) : undefined;
+        return {
+          fullFilePath: sanitizedLocation,
+          fileName: fileName,
+          fileNameWithLine: fileNameWithLine,
+          fileColumn: fileColumn,
+          fileLine: fileLine,
+          filePath: effectivePath,
+          filePathWithLine: filePathWithLine,
+          method: method
+        };
+      }
+      function parseBrowserStackLine(line) {
+        var _globalThis$location, _match$;
+        var href = (_globalThis$location = globalThis.location) === null || _globalThis$location === void 0 ? void 0 : _globalThis$location.origin;
+        if (line == null) {
+          return undefined;
+        }
+        var match = line.match(BROWSER_PATH_REGEX);
+        if (!match) {
+          return undefined;
+        }
+        var filePath = (_match$ = match[1]) === null || _match$ === void 0 ? void 0 : _match$.replace(/\?.*$/, "");
+        if (filePath == null) {
+          return undefined;
+        }
+        var pathParts = filePath.split("/");
+        var fileLine = match[2];
+        var fileColumn = match[3];
+        var fileName = pathParts[pathParts.length - 1];
+        return {
+          fullFilePath: href ? "".concat(href).concat(filePath) : filePath,
+          fileName: fileName,
+          fileNameWithLine: fileName && fileLine ? "".concat(fileName, ":").concat(fileLine) : undefined,
+          fileColumn: fileColumn,
+          fileLine: fileLine,
+          filePath: filePath,
+          filePathWithLine: fileLine ? "".concat(filePath, ":").concat(fileLine) : undefined,
+          method: undefined
+        };
+      }
+      function formatStackFrames(frames, settings) {
+        return frames.map(function (stackFrame) {
+          return (0, formatTemplate_js_1.formatTemplate)(settings, settings.prettyErrorStackTemplate, _objectSpread$1({}, stackFrame), true);
+        });
+      }
+      function formatErrorMessage(error) {
+        return Object.getOwnPropertyNames(error).filter(function (key) {
+          return key !== "stack" && key !== "cause";
+        }).reduce(function (result, key) {
+          var value = error[key];
+          if (typeof value === "function") {
+            return result;
+          }
+          result.push(String(value));
+          return result;
+        }, []).join(", ");
+      }
+      function shouldUseCss(prettyLogs) {
+        return prettyLogs && (runtimeInfo.name === "browser" || runtimeInfo.name === "worker") && (0, environment_js_1.consoleSupportsCssStyling)();
+      }
+      function stripAnsi(value) {
+        return value.replace(ANSI_REGEX, "");
+      }
+      function buildCssMetaOutput(settings, metaValue) {
+        if (metaValue == null) {
+          return {
+            text: "",
+            styles: []
+          };
+        }
+        var _ref = (0, metaFormatting_js_1.buildPrettyMeta)(settings, metaValue),
+          template = _ref.template,
+          placeholders = _ref.placeholders;
+        var parts = [];
+        var styles = [];
+        var lastIndex = 0;
+        var placeholderRegex = /{{(.+?)}}/g;
+        var match;
+        while ((match = placeholderRegex.exec(template)) != null) {
+          var _settings$prettyLogSt;
+          if (match.index > lastIndex) {
+            parts.push(template.slice(lastIndex, match.index));
+          }
+          var key = match[1];
+          var rawValue = placeholders[key] != null ? String(placeholders[key]) : "";
+          var tokens = collectStyleTokens((_settings$prettyLogSt = settings.prettyLogStyles) === null || _settings$prettyLogSt === void 0 ? void 0 : _settings$prettyLogSt[key], rawValue);
+          var css = tokensToCss(tokens);
+          if (css.length > 0) {
+            parts.push("%c".concat(rawValue, "%c"));
+            styles.push(css, "");
+          } else {
+            parts.push(rawValue);
+          }
+          lastIndex = placeholderRegex.lastIndex;
+        }
+        if (lastIndex < template.length) {
+          parts.push(template.slice(lastIndex));
+        }
+        return {
+          text: parts.join(""),
+          styles: styles
+        };
+      }
+      function collectStyleTokens(style, value) {
+        if (style == null) {
+          return [];
+        }
+        if (typeof style === "string") {
+          return [style];
+        }
+        if (Array.isArray(style)) {
+          return style.flatMap(function (token) {
+            return collectStyleTokens(token, value);
+          });
+        }
+        if (_typeof(style) === "object") {
+          var _style$normalizedValu;
+          var normalizedValue = value.trim();
+          var nextStyle = (_style$normalizedValu = style[normalizedValue]) !== null && _style$normalizedValu !== void 0 ? _style$normalizedValu : style["*"];
+          if (nextStyle == null) {
+            return [];
+          }
+          return collectStyleTokens(nextStyle, value);
+        }
+        return [];
+      }
+      function tokensToCss(tokens) {
+        var seen = new Set();
+        var cssParts = [];
+        var _iterator = _createForOfIteratorHelper$1(tokens),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var token = _step.value;
+            var css = styleTokenToCss(token);
+            if (css != null && css.length > 0 && !seen.has(css)) {
+              seen.add(css);
+              cssParts.push(css);
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        return cssParts.join("; ");
+      }
+      function styleTokenToCss(token) {
+        var color = COLOR_TOKENS[token];
+        if (color != null) {
+          return "color: ".concat(color);
+        }
+        var background = BACKGROUND_TOKENS[token];
+        if (background != null) {
+          return "background-color: ".concat(background);
+        }
+        switch (token) {
+          case "bold":
+            return "font-weight: bold";
+          case "dim":
+            return "opacity: 0.75";
+          case "italic":
+            return "font-style: italic";
+          case "underline":
+            return "text-decoration: underline";
+          case "overline":
+            return "text-decoration: overline";
+          case "inverse":
+            return "filter: invert(1)";
+          case "hidden":
+            return "visibility: hidden";
+          case "strikethrough":
+            return "text-decoration: line-through";
+          default:
+            return undefined;
+        }
+      }
+      function getWorkingDirectory() {
+        if (cachedCwd === undefined) {
+          var _ref2;
+          cachedCwd = (_ref2 = (0, environment_js_1.safeGetCwd)()) !== null && _ref2 !== void 0 ? _ref2 : null;
+        }
+        return cachedCwd !== null && cachedCwd !== void 0 ? cachedCwd : undefined;
+      }
+      function shouldCaptureHostname() {
+        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
+      }
+      function shouldCaptureRuntimeVersion() {
+        return runtimeInfo.name === "node" || runtimeInfo.name === "deno" || runtimeInfo.name === "bun";
+      }
+      function createRuntimeMeta(info) {
+        if (info.name === "browser" || info.name === "worker") {
+          return {
+            runtime: info.name,
+            browser: info.userAgent
+          };
+        }
+        var metaStatic = {
+          runtime: info.name
+        };
+        if (shouldCaptureRuntimeVersion()) {
+          var _info$version;
+          metaStatic.runtimeVersion = (_info$version = info.version) !== null && _info$version !== void 0 ? _info$version : "unknown";
+        }
+        if (shouldCaptureHostname()) {
+          var _info$hostname;
+          metaStatic.hostname = (_info$hostname = info.hostname) !== null && _info$hostname !== void 0 ? _info$hostname : "unknown";
+        }
+        return metaStatic;
+      }
+      function formatWithOptionsSafe(options, args) {
+        try {
+          return (0, util_inspect_polyfill_js_1.formatWithOptions).apply(void 0, [options].concat(_toConsumableArray(args)));
+        } catch (_unused) {
+          return args.map(stringifyFallback).join(" ");
+        }
+      }
+      function stringifyFallback(value) {
+        if (typeof value === "string") {
+          return value;
+        }
+        try {
+          return JSON.stringify(value);
+        } catch (_unused2) {
+          return String(value);
+        }
+      }
+      function normalizeFilePath(value) {
+        if (typeof value !== "string" || value.length === 0) {
+          return value;
+        }
+        var replaced = value.replace(/\\+/g, "\\").replace(/\\/g, "/");
+        var hasRootDoubleSlash = replaced.startsWith("//");
+        var hasLeadingSlash = replaced.startsWith("/") && !hasRootDoubleSlash;
+        var driveMatch = replaced.match(/^[A-Za-z]:/);
+        var drivePrefix = driveMatch ? driveMatch[0] : "";
+        var withoutDrive = drivePrefix ? replaced.slice(drivePrefix.length) : replaced;
+        var segments = withoutDrive.split("/");
+        var normalizedSegments = [];
+        var _iterator2 = _createForOfIteratorHelper$1(segments),
+          _step2;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var segment = _step2.value;
+            if (segment === "" || segment === ".") {
+              continue;
+            }
+            if (segment === "..") {
+              if (normalizedSegments.length > 0) {
+                normalizedSegments.pop();
+              }
+              continue;
+            }
+            normalizedSegments.push(segment);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+        var normalized = normalizedSegments.join("/");
+        if (hasRootDoubleSlash) {
+          normalized = "//".concat(normalized);
+        } else if (hasLeadingSlash) {
+          normalized = "/".concat(normalized);
+        } else if (drivePrefix !== "") {
+          normalized = "".concat(drivePrefix).concat(normalized.length > 0 ? "/".concat(normalized) : "");
+        }
+        if (normalized.length === 0) {
+          return value;
+        }
+        return normalized;
+      }
+      function detectRuntimeInfo() {
+        var _globalAny$process, _globalAny$process2;
+        if ((0, environment_js_1.isBrowserEnvironment)()) {
+          var navigatorObj = globalThis.navigator;
+          return {
+            name: "browser",
+            userAgent: navigatorObj === null || navigatorObj === void 0 ? void 0 : navigatorObj.userAgent
+          };
+        }
+        var globalScope = globalThis;
+        if (typeof globalScope.importScripts === "function") {
+          var _globalScope$navigato;
+          return {
+            name: "worker",
+            userAgent: (_globalScope$navigato = globalScope.navigator) === null || _globalScope$navigato === void 0 ? void 0 : _globalScope$navigato.userAgent
+          };
+        }
+        var globalAny = globalThis;
+        if (globalAny.Bun != null) {
+          var bunVersion = globalAny.Bun.version;
+          return {
+            name: "bun",
+            version: bunVersion != null ? "bun/".concat(bunVersion) : undefined,
+            hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location)
+          };
+        }
+        if (globalAny.Deno != null) {
+          var _globalAny$Deno;
+          var denoHostname = resolveDenoHostname(globalAny.Deno);
+          var denoVersion = (_globalAny$Deno = globalAny.Deno) === null || _globalAny$Deno === void 0 || (_globalAny$Deno = _globalAny$Deno.version) === null || _globalAny$Deno === void 0 ? void 0 : _globalAny$Deno.deno;
+          return {
+            name: "deno",
+            version: denoVersion != null ? "deno/".concat(denoVersion) : undefined,
+            hostname: denoHostname !== null && denoHostname !== void 0 ? denoHostname : getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location)
+          };
+        }
+        if (((_globalAny$process = globalAny.process) === null || _globalAny$process === void 0 || (_globalAny$process = _globalAny$process.versions) === null || _globalAny$process === void 0 ? void 0 : _globalAny$process.node) != null || ((_globalAny$process2 = globalAny.process) === null || _globalAny$process2 === void 0 ? void 0 : _globalAny$process2.version) != null) {
+          var _globalAny$process$ve, _globalAny$process3, _globalAny$process4;
+          return {
+            name: "node",
+            version: (_globalAny$process$ve = (_globalAny$process3 = globalAny.process) === null || _globalAny$process3 === void 0 || (_globalAny$process3 = _globalAny$process3.versions) === null || _globalAny$process3 === void 0 ? void 0 : _globalAny$process3.node) !== null && _globalAny$process$ve !== void 0 ? _globalAny$process$ve : (_globalAny$process4 = globalAny.process) === null || _globalAny$process4 === void 0 ? void 0 : _globalAny$process4.version,
+            hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location)
+          };
+        }
+        if (globalAny.process != null) {
+          return {
+            name: "node",
+            version: "unknown",
+            hostname: getEnvironmentHostname(globalAny.process, globalAny.Deno, globalAny.Bun, globalAny.location)
+          };
+        }
+        return {
+          name: "unknown"
+        };
+      }
+      function getEnvironmentHostname(nodeProcess, deno, bun, location) {
+        var _ref3, _nodeProcess$env$HOST, _nodeProcess$env, _nodeProcess$env2, _nodeProcess$env3, _ref4, _bun$env$HOSTNAME, _bun$env, _bun$env2, _bun$env3;
+        var processHostname = (_ref3 = (_nodeProcess$env$HOST = nodeProcess === null || nodeProcess === void 0 || (_nodeProcess$env = nodeProcess.env) === null || _nodeProcess$env === void 0 ? void 0 : _nodeProcess$env.HOSTNAME) !== null && _nodeProcess$env$HOST !== void 0 ? _nodeProcess$env$HOST : nodeProcess === null || nodeProcess === void 0 || (_nodeProcess$env2 = nodeProcess.env) === null || _nodeProcess$env2 === void 0 ? void 0 : _nodeProcess$env2.HOST) !== null && _ref3 !== void 0 ? _ref3 : nodeProcess === null || nodeProcess === void 0 || (_nodeProcess$env3 = nodeProcess.env) === null || _nodeProcess$env3 === void 0 ? void 0 : _nodeProcess$env3.COMPUTERNAME;
+        if (processHostname != null && processHostname.length > 0) {
+          return processHostname;
+        }
+        var bunHostname = (_ref4 = (_bun$env$HOSTNAME = bun === null || bun === void 0 || (_bun$env = bun.env) === null || _bun$env === void 0 ? void 0 : _bun$env.HOSTNAME) !== null && _bun$env$HOSTNAME !== void 0 ? _bun$env$HOSTNAME : bun === null || bun === void 0 || (_bun$env2 = bun.env) === null || _bun$env2 === void 0 ? void 0 : _bun$env2.HOST) !== null && _ref4 !== void 0 ? _ref4 : bun === null || bun === void 0 || (_bun$env3 = bun.env) === null || _bun$env3 === void 0 ? void 0 : _bun$env3.COMPUTERNAME;
+        if (bunHostname != null && bunHostname.length > 0) {
+          return bunHostname;
+        }
+        try {
+          var _deno$env;
+          var denoEnvGet = deno === null || deno === void 0 || (_deno$env = deno.env) === null || _deno$env === void 0 ? void 0 : _deno$env.get;
+          if (typeof denoEnvGet === "function") {
+            var value = denoEnvGet("HOSTNAME");
+            if (value != null && value.length > 0) {
+              return value;
+            }
+          }
+        } catch (_unused3) {}
+        if ((location === null || location === void 0 ? void 0 : location.hostname) != null && location.hostname.length > 0) {
+          return location.hostname;
+        }
+        return undefined;
+      }
+      function resolveDenoHostname(deno) {
+        var _globalThis$location2;
+        try {
+          if (typeof (deno === null || deno === void 0 ? void 0 : deno.hostname) === "function") {
+            var value = deno.hostname();
+            if (value != null && value.length > 0) {
+              return value;
+            }
+          }
+        } catch (_unused4) {}
+        var locationHostname = (_globalThis$location2 = globalThis.location) === null || _globalThis$location2 === void 0 ? void 0 : _globalThis$location2.hostname;
+        if (locationHostname != null && locationHostname.length > 0) {
+          return locationHostname;
+        }
+        return undefined;
+      }
+      function getNodeEnv() {
+        var _globalProcess$env;
+        var globalProcess = globalThis === null || globalThis === void 0 ? void 0 : globalThis.process;
+        return globalProcess === null || globalProcess === void 0 || (_globalProcess$env = globalProcess.env) === null || _globalProcess$env === void 0 ? void 0 : _globalProcess$env.NODE_ENV;
+      }
+      function isNativeError(value) {
+        if (value instanceof Error) {
+          return true;
+        }
+        if (value != null && _typeof(value) === "object") {
+          var objectTag = Object.prototype.toString.call(value);
+          if (/\[object .*Error\]/.test(objectTag)) {
+            return true;
+          }
+          var name = value.name;
+          if (typeof name === "string" && name.endsWith("Error")) {
+            return true;
+          }
+        }
+        return false;
+      }
+    }
+    var ANSI_REGEX = /\u001b\[[0-9;]*m/g;
+    var COLOR_TOKENS = {
+      black: "#000000",
+      red: "#ef5350",
+      green: "#66bb6a",
+      yellow: "#fdd835",
+      blue: "#42a5f5",
+      magenta: "#ab47bc",
+      cyan: "#26c6da",
+      white: "#fafafa",
+      blackBright: "#424242",
+      redBright: "#ff7043",
+      greenBright: "#81c784",
+      yellowBright: "#ffe082",
+      blueBright: "#64b5f6",
+      magentaBright: "#ce93d8",
+      cyanBright: "#4dd0e1",
+      whiteBright: "#ffffff"
+    };
+    var BACKGROUND_TOKENS = {
+      bgBlack: "#000000",
+      bgRed: "#ef5350",
+      bgGreen: "#66bb6a",
+      bgYellow: "#fdd835",
+      bgBlue: "#42a5f5",
+      bgMagenta: "#ab47bc",
+      bgCyan: "#26c6da",
+      bgWhite: "#fafafa",
+      bgBlackBright: "#424242",
+      bgRedBright: "#ff7043",
+      bgGreenBright: "#81c784",
+      bgYellowBright: "#ffe082",
+      bgBlueBright: "#64b5f6",
+      bgMagentaBright: "#ce93d8",
+      bgCyanBright: "#4dd0e1",
+      bgWhiteBright: "#ffffff"
+    };
+    var BROWSER_PATH_REGEX = /(?:(?:file|https?|global code|[^@]+)@)?(?:file:)?((?:\/[^:/]+){2,})(?::(\d+))?(?::(\d+))?/;
+    var runtime = createLoggerEnvironment();
+    exports.loggerEnvironment = runtime;
+    __exportStar(requireInterfaces(), exports);
+    var BaseLogger$1 = /*#__PURE__*/function () {
+      function BaseLogger(settings, logObj) {
+        var _settings$type, _settings$minLevel, _settings$hideLogPosi, _settings$prettyLogTe, _settings$prettyError, _settings$prettyError2, _settings$prettyError3, _settings$prettyError4, _settings$stylePretty, _settings$prettyLogTi, _settings$prettyLogSt2, _settings$prettyInspe, _settings$metaPropert, _settings$maskPlaceho, _settings$maskValuesO, _settings$maskValuesO2, _settings$prefix, _settings$attachedTra, _settings$overwrite, _settings$overwrite2, _settings$overwrite3, _settings$overwrite4, _settings$overwrite5, _settings$overwrite6, _settings$overwrite7, _settings$overwrite8;
+        var stackDepthLevel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Number.NaN;
+        _classCallCheck(this, BaseLogger);
+        this.logObj = logObj;
+        this.stackDepthLevel = stackDepthLevel;
+        this.runtime = runtime;
+        this.maxErrorCauseDepth = 5;
+        this.settings = {
+          type: (_settings$type = settings === null || settings === void 0 ? void 0 : settings.type) !== null && _settings$type !== void 0 ? _settings$type : "pretty",
+          name: settings === null || settings === void 0 ? void 0 : settings.name,
+          parentNames: settings === null || settings === void 0 ? void 0 : settings.parentNames,
+          minLevel: (_settings$minLevel = settings === null || settings === void 0 ? void 0 : settings.minLevel) !== null && _settings$minLevel !== void 0 ? _settings$minLevel : 0,
+          argumentsArrayName: settings === null || settings === void 0 ? void 0 : settings.argumentsArrayName,
+          hideLogPositionForProduction: (_settings$hideLogPosi = settings === null || settings === void 0 ? void 0 : settings.hideLogPositionForProduction) !== null && _settings$hideLogPosi !== void 0 ? _settings$hideLogPosi : false,
+          prettyLogTemplate: (_settings$prettyLogTe = settings === null || settings === void 0 ? void 0 : settings.prettyLogTemplate) !== null && _settings$prettyLogTe !== void 0 ? _settings$prettyLogTe : "{{yyyy}}.{{mm}}.{{dd}} {{hh}}:{{MM}}:{{ss}}:{{ms}}\t{{logLevelName}}\t{{filePathWithLine}}{{nameWithDelimiterPrefix}}\t",
+          prettyErrorTemplate: (_settings$prettyError = settings === null || settings === void 0 ? void 0 : settings.prettyErrorTemplate) !== null && _settings$prettyError !== void 0 ? _settings$prettyError : "\n{{errorName}} {{errorMessage}}\nerror stack:\n{{errorStack}}",
+          prettyErrorStackTemplate: (_settings$prettyError2 = settings === null || settings === void 0 ? void 0 : settings.prettyErrorStackTemplate) !== null && _settings$prettyError2 !== void 0 ? _settings$prettyError2 : "  • {{fileName}}\t{{method}}\n\t{{filePathWithLine}}",
+          prettyErrorParentNamesSeparator: (_settings$prettyError3 = settings === null || settings === void 0 ? void 0 : settings.prettyErrorParentNamesSeparator) !== null && _settings$prettyError3 !== void 0 ? _settings$prettyError3 : ":",
+          prettyErrorLoggerNameDelimiter: (_settings$prettyError4 = settings === null || settings === void 0 ? void 0 : settings.prettyErrorLoggerNameDelimiter) !== null && _settings$prettyError4 !== void 0 ? _settings$prettyError4 : "\t",
+          stylePrettyLogs: (_settings$stylePretty = settings === null || settings === void 0 ? void 0 : settings.stylePrettyLogs) !== null && _settings$stylePretty !== void 0 ? _settings$stylePretty : true,
+          prettyLogTimeZone: (_settings$prettyLogTi = settings === null || settings === void 0 ? void 0 : settings.prettyLogTimeZone) !== null && _settings$prettyLogTi !== void 0 ? _settings$prettyLogTi : "UTC",
+          prettyLogStyles: (_settings$prettyLogSt2 = settings === null || settings === void 0 ? void 0 : settings.prettyLogStyles) !== null && _settings$prettyLogSt2 !== void 0 ? _settings$prettyLogSt2 : {
+            logLevelName: {
+              "*": ["bold", "black", "bgWhiteBright", "dim"],
+              SILLY: ["bold", "white"],
+              TRACE: ["bold", "whiteBright"],
+              DEBUG: ["bold", "green"],
+              INFO: ["bold", "blue"],
+              WARN: ["bold", "yellow"],
+              ERROR: ["bold", "red"],
+              FATAL: ["bold", "redBright"]
+            },
+            dateIsoStr: "white",
+            filePathWithLine: "white",
+            name: ["white", "bold"],
+            nameWithDelimiterPrefix: ["white", "bold"],
+            nameWithDelimiterSuffix: ["white", "bold"],
+            errorName: ["bold", "bgRedBright", "whiteBright"],
+            fileName: ["yellow"],
+            fileNameWithLine: "white"
+          },
+          prettyInspectOptions: (_settings$prettyInspe = settings === null || settings === void 0 ? void 0 : settings.prettyInspectOptions) !== null && _settings$prettyInspe !== void 0 ? _settings$prettyInspe : {
+            colors: true,
+            compact: false,
+            depth: Infinity
+          },
+          metaProperty: (_settings$metaPropert = settings === null || settings === void 0 ? void 0 : settings.metaProperty) !== null && _settings$metaPropert !== void 0 ? _settings$metaPropert : "_meta",
+          maskPlaceholder: (_settings$maskPlaceho = settings === null || settings === void 0 ? void 0 : settings.maskPlaceholder) !== null && _settings$maskPlaceho !== void 0 ? _settings$maskPlaceho : "[***]",
+          maskValuesOfKeys: (_settings$maskValuesO = settings === null || settings === void 0 ? void 0 : settings.maskValuesOfKeys) !== null && _settings$maskValuesO !== void 0 ? _settings$maskValuesO : ["password"],
+          maskValuesOfKeysCaseInsensitive: (_settings$maskValuesO2 = settings === null || settings === void 0 ? void 0 : settings.maskValuesOfKeysCaseInsensitive) !== null && _settings$maskValuesO2 !== void 0 ? _settings$maskValuesO2 : false,
+          maskValuesRegEx: settings === null || settings === void 0 ? void 0 : settings.maskValuesRegEx,
+          prefix: _toConsumableArray((_settings$prefix = settings === null || settings === void 0 ? void 0 : settings.prefix) !== null && _settings$prefix !== void 0 ? _settings$prefix : []),
+          attachedTransports: _toConsumableArray((_settings$attachedTra = settings === null || settings === void 0 ? void 0 : settings.attachedTransports) !== null && _settings$attachedTra !== void 0 ? _settings$attachedTra : []),
+          overwrite: {
+            mask: settings === null || settings === void 0 || (_settings$overwrite = settings.overwrite) === null || _settings$overwrite === void 0 ? void 0 : _settings$overwrite.mask,
+            toLogObj: settings === null || settings === void 0 || (_settings$overwrite2 = settings.overwrite) === null || _settings$overwrite2 === void 0 ? void 0 : _settings$overwrite2.toLogObj,
+            addMeta: settings === null || settings === void 0 || (_settings$overwrite3 = settings.overwrite) === null || _settings$overwrite3 === void 0 ? void 0 : _settings$overwrite3.addMeta,
+            addPlaceholders: settings === null || settings === void 0 || (_settings$overwrite4 = settings.overwrite) === null || _settings$overwrite4 === void 0 ? void 0 : _settings$overwrite4.addPlaceholders,
+            formatMeta: settings === null || settings === void 0 || (_settings$overwrite5 = settings.overwrite) === null || _settings$overwrite5 === void 0 ? void 0 : _settings$overwrite5.formatMeta,
+            formatLogObj: settings === null || settings === void 0 || (_settings$overwrite6 = settings.overwrite) === null || _settings$overwrite6 === void 0 ? void 0 : _settings$overwrite6.formatLogObj,
+            transportFormatted: settings === null || settings === void 0 || (_settings$overwrite7 = settings.overwrite) === null || _settings$overwrite7 === void 0 ? void 0 : _settings$overwrite7.transportFormatted,
+            transportJSON: settings === null || settings === void 0 || (_settings$overwrite8 = settings.overwrite) === null || _settings$overwrite8 === void 0 ? void 0 : _settings$overwrite8.transportJSON
+          }
+        };
+        this.captureStackForMeta = this._shouldCaptureStack();
+      }
+      return _createClass(BaseLogger, [{
+        key: "log",
+        value: function log(logLevelId, logLevelName) {
+          var _this$settings$overwr, _this$settings$overwr2, _this$settings$overwr3, _this$settings$overwr4, _this$settings$overwr5, _this$settings$overwr6, _this$settings$overwr7, _this$settings$overwr9;
+          if (logLevelId < this.settings.minLevel) {
+            return;
+          }
+          for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+            args[_key - 2] = arguments[_key];
+          }
+          var resolvedArgs = this._resolveLogArguments(args);
+          var logArgs = [].concat(_toConsumableArray(this.settings.prefix), _toConsumableArray(resolvedArgs));
+          var maskedArgs = ((_this$settings$overwr = this.settings.overwrite) === null || _this$settings$overwr === void 0 ? void 0 : _this$settings$overwr.mask) != null ? (_this$settings$overwr2 = this.settings.overwrite) === null || _this$settings$overwr2 === void 0 ? void 0 : _this$settings$overwr2.mask(logArgs) : this.settings.maskValuesOfKeys != null && this.settings.maskValuesOfKeys.length > 0 ? this._mask(logArgs) : logArgs;
+          var thisLogObj = this.logObj != null ? this._recursiveCloneAndExecuteFunctions(this.logObj) : undefined;
+          var logObj = ((_this$settings$overwr3 = this.settings.overwrite) === null || _this$settings$overwr3 === void 0 ? void 0 : _this$settings$overwr3.toLogObj) != null ? (_this$settings$overwr4 = this.settings.overwrite) === null || _this$settings$overwr4 === void 0 ? void 0 : _this$settings$overwr4.toLogObj(maskedArgs, thisLogObj) : this._toLogObj(maskedArgs, thisLogObj);
+          var logObjWithMeta = ((_this$settings$overwr5 = this.settings.overwrite) === null || _this$settings$overwr5 === void 0 ? void 0 : _this$settings$overwr5.addMeta) != null ? (_this$settings$overwr6 = this.settings.overwrite) === null || _this$settings$overwr6 === void 0 ? void 0 : _this$settings$overwr6.addMeta(logObj, logLevelId, logLevelName) : this._addMetaToLogObj(logObj, logLevelId, logLevelName);
+          var logMeta = logObjWithMeta === null || logObjWithMeta === void 0 ? void 0 : logObjWithMeta[this.settings.metaProperty];
+          var logMetaMarkup;
+          var logArgsAndErrorsMarkup = undefined;
+          if (((_this$settings$overwr7 = this.settings.overwrite) === null || _this$settings$overwr7 === void 0 ? void 0 : _this$settings$overwr7.formatMeta) != null) {
+            var _this$settings$overwr8;
+            logMetaMarkup = (_this$settings$overwr8 = this.settings.overwrite) === null || _this$settings$overwr8 === void 0 ? void 0 : _this$settings$overwr8.formatMeta(logObjWithMeta === null || logObjWithMeta === void 0 ? void 0 : logObjWithMeta[this.settings.metaProperty]);
+          }
+          if (((_this$settings$overwr9 = this.settings.overwrite) === null || _this$settings$overwr9 === void 0 ? void 0 : _this$settings$overwr9.formatLogObj) != null) {
+            var _this$settings$overwr0;
+            logArgsAndErrorsMarkup = (_this$settings$overwr0 = this.settings.overwrite) === null || _this$settings$overwr0 === void 0 ? void 0 : _this$settings$overwr0.formatLogObj(maskedArgs, this.settings);
+          }
+          if (this.settings.type === "pretty") {
+            logMetaMarkup = logMetaMarkup !== null && logMetaMarkup !== void 0 ? logMetaMarkup : this._prettyFormatLogObjMeta(logObjWithMeta === null || logObjWithMeta === void 0 ? void 0 : logObjWithMeta[this.settings.metaProperty]);
+            logArgsAndErrorsMarkup = logArgsAndErrorsMarkup !== null && logArgsAndErrorsMarkup !== void 0 ? logArgsAndErrorsMarkup : runtime.prettyFormatLogObj(maskedArgs, this.settings);
+          }
+          if (logMetaMarkup != null && logArgsAndErrorsMarkup != null) {
+            var _this$settings$overwr1;
+            if (((_this$settings$overwr1 = this.settings.overwrite) === null || _this$settings$overwr1 === void 0 ? void 0 : _this$settings$overwr1.transportFormatted) != null) {
+              var transport = this.settings.overwrite.transportFormatted;
+              var declaredParams = transport.length;
+              if (declaredParams < 4) {
+                transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors);
+              } else if (declaredParams === 4) {
+                transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta);
+              } else {
+                transport(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
+              }
+            } else {
+              runtime.transportFormatted(logMetaMarkup, logArgsAndErrorsMarkup.args, logArgsAndErrorsMarkup.errors, logMeta, this.settings);
+            }
+          } else {
+            var _this$settings$overwr10;
+            if (((_this$settings$overwr10 = this.settings.overwrite) === null || _this$settings$overwr10 === void 0 ? void 0 : _this$settings$overwr10.transportJSON) != null) {
+              this.settings.overwrite.transportJSON(logObjWithMeta);
+            } else if (this.settings.type !== "hidden") {
+              runtime.transportJSON(logObjWithMeta);
+            }
+          }
+          if (this.settings.attachedTransports != null && this.settings.attachedTransports.length > 0) {
+            this.settings.attachedTransports.forEach(function (transportLogger) {
+              transportLogger(logObjWithMeta);
+            });
+          }
+          return logObjWithMeta;
+        }
+      }, {
+        key: "attachTransport",
+        value: function attachTransport(transportLogger) {
+          this.settings.attachedTransports.push(transportLogger);
+        }
+      }, {
+        key: "getSubLogger",
+        value: function getSubLogger(settings, logObj) {
+          var _this$settings, _this$settings2, _this$settings3, _settings$prefix2;
+          var subLoggerSettings = _objectSpread$1(_objectSpread$1(_objectSpread$1({}, this.settings), settings), {}, {
+            parentNames: ((_this$settings = this.settings) === null || _this$settings === void 0 ? void 0 : _this$settings.parentNames) != null && ((_this$settings2 = this.settings) === null || _this$settings2 === void 0 ? void 0 : _this$settings2.name) != null ? [].concat(_toConsumableArray(this.settings.parentNames), [this.settings.name]) : ((_this$settings3 = this.settings) === null || _this$settings3 === void 0 ? void 0 : _this$settings3.name) != null ? [this.settings.name] : undefined,
+            prefix: [].concat(_toConsumableArray(this.settings.prefix), _toConsumableArray((_settings$prefix2 = settings === null || settings === void 0 ? void 0 : settings.prefix) !== null && _settings$prefix2 !== void 0 ? _settings$prefix2 : []))
+          });
+          var subLogger = new this.constructor(subLoggerSettings, logObj !== null && logObj !== void 0 ? logObj : this.logObj, this.stackDepthLevel);
+          return subLogger;
+        }
+      }, {
+        key: "_mask",
+        value: function _mask(args) {
+          var _this = this;
+          var maskKeys = this._getMaskKeys();
+          return args === null || args === void 0 ? void 0 : args.map(function (arg) {
+            return _this._recursiveCloneAndMaskValuesOfKeys(arg, maskKeys);
+          });
+        }
+      }, {
+        key: "_getMaskKeys",
+        value: function _getMaskKeys() {
+          var _this$settings$maskVa;
+          var maskKeys = (_this$settings$maskVa = this.settings.maskValuesOfKeys) !== null && _this$settings$maskVa !== void 0 ? _this$settings$maskVa : [];
+          var signature = maskKeys.map(String).join("|");
+          if (this.settings.maskValuesOfKeysCaseInsensitive === true) {
+            var _this$maskKeysCache;
+            if (((_this$maskKeysCache = this.maskKeysCache) === null || _this$maskKeysCache === void 0 ? void 0 : _this$maskKeysCache.source) === maskKeys && this.maskKeysCache.caseInsensitive === true && this.maskKeysCache.signature === signature) {
+              return this.maskKeysCache.normalized;
+            }
+            var normalized = maskKeys.map(function (key) {
+              return typeof key === "string" ? key.toLowerCase() : String(key).toLowerCase();
+            });
+            this.maskKeysCache = {
+              source: maskKeys,
+              caseInsensitive: true,
+              normalized: normalized,
+              signature: signature
+            };
+            return normalized;
+          }
+          this.maskKeysCache = {
+            source: maskKeys,
+            caseInsensitive: false,
+            normalized: maskKeys,
+            signature: signature
+          };
+          return maskKeys;
+        }
+      }, {
+        key: "_resolveLogArguments",
+        value: function _resolveLogArguments(args) {
+          if (args.length === 1 && typeof args[0] === "function") {
+            var candidate = args[0];
+            if (candidate.length === 0) {
+              var result = candidate();
+              return Array.isArray(result) ? result : [result];
+            }
+          }
+          return args;
+        }
+      }, {
+        key: "_recursiveCloneAndMaskValuesOfKeys",
+        value: function _recursiveCloneAndMaskValuesOfKeys(source, keys) {
+          var _this2 = this;
+          var seen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+          if (seen.includes(source)) {
+            return _objectSpread$1({}, source);
+          }
+          if (_typeof(source) === "object" && source !== null) {
+            seen.push(source);
+          }
+          if (runtime.isError(source) || runtime.isBuffer(source)) {
+            return source;
+          } else if (source instanceof Map) {
+            return new Map(source);
+          } else if (source instanceof Set) {
+            return new Set(source);
+          } else if (Array.isArray(source)) {
+            return source.map(function (item) {
+              return _this2._recursiveCloneAndMaskValuesOfKeys(item, keys, seen);
+            });
+          } else if (source instanceof Date) {
+            return new Date(source.getTime());
+          } else if (source instanceof URL) {
+            return (0, urlToObj_js_1.urlToObject)(source);
+          } else if (source !== null && _typeof(source) === "object") {
+            var baseObject = runtime.isError(source) ? this._cloneError(source) : Object.create(Object.getPrototypeOf(source));
+            return Object.getOwnPropertyNames(source).reduce(function (o, prop) {
+              var _this2$settings;
+              var lookupKey = ((_this2$settings = _this2.settings) === null || _this2$settings === void 0 ? void 0 : _this2$settings.maskValuesOfKeysCaseInsensitive) !== true ? prop : typeof prop === "string" ? prop.toLowerCase() : String(prop).toLowerCase();
+              o[prop] = keys.includes(lookupKey) ? _this2.settings.maskPlaceholder : function () {
+                try {
+                  return _this2._recursiveCloneAndMaskValuesOfKeys(source[prop], keys, seen);
+                } catch (_unused5) {
+                  return null;
+                }
+              }();
+              return o;
+            }, baseObject);
+          } else {
+            if (typeof source === "string") {
+              var _this$settings4;
+              var modifiedSource = source;
+              var _iterator3 = _createForOfIteratorHelper$1(((_this$settings4 = this.settings) === null || _this$settings4 === void 0 ? void 0 : _this$settings4.maskValuesRegEx) || []),
+                _step3;
+              try {
+                for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                  var _this$settings5;
+                  var regEx = _step3.value;
+                  modifiedSource = modifiedSource.replace(regEx, ((_this$settings5 = this.settings) === null || _this$settings5 === void 0 ? void 0 : _this$settings5.maskPlaceholder) || "");
+                }
+              } catch (err) {
+                _iterator3.e(err);
+              } finally {
+                _iterator3.f();
+              }
+              return modifiedSource;
+            }
+            return source;
+          }
+        }
+      }, {
+        key: "_recursiveCloneAndExecuteFunctions",
+        value: function _recursiveCloneAndExecuteFunctions(source) {
+          var _this3 = this;
+          var seen = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+          if (this.isObjectOrArray(source) && seen.includes(source)) {
+            return this.shallowCopy(source);
+          }
+          if (this.isObjectOrArray(source)) {
+            seen.push(source);
+          }
+          if (Array.isArray(source)) {
+            return source.map(function (item) {
+              return _this3._recursiveCloneAndExecuteFunctions(item, seen);
+            });
+          } else if (source instanceof Date) {
+            return new Date(source.getTime());
+          } else if (this.isObject(source)) {
+            return Object.getOwnPropertyNames(source).reduce(function (o, prop) {
+              var descriptor = Object.getOwnPropertyDescriptor(source, prop);
+              if (descriptor) {
+                Object.defineProperty(o, prop, descriptor);
+                var value = source[prop];
+                o[prop] = typeof value === "function" ? value() : _this3._recursiveCloneAndExecuteFunctions(value, seen);
+              }
+              return o;
+            }, Object.create(Object.getPrototypeOf(source)));
+          } else {
+            return source;
+          }
+        }
+      }, {
+        key: "isObjectOrArray",
+        value: function isObjectOrArray(value) {
+          return _typeof(value) === "object" && value !== null;
+        }
+      }, {
+        key: "isObject",
+        value: function isObject(value) {
+          return _typeof(value) === "object" && !Array.isArray(value) && value !== null;
+        }
+      }, {
+        key: "shallowCopy",
+        value: function shallowCopy(source) {
+          if (Array.isArray(source)) {
+            return _toConsumableArray(source);
+          } else {
+            return _objectSpread$1({}, source);
+          }
+        }
+      }, {
+        key: "_toLogObj",
+        value: function _toLogObj(args) {
+          var _args,
+            _this4 = this;
+          var clonedLogObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+          args = (_args = args) === null || _args === void 0 ? void 0 : _args.map(function (arg) {
+            return runtime.isError(arg) ? _this4._toErrorObject(arg) : arg;
+          });
+          if (this.settings.argumentsArrayName == null) {
+            if (args.length === 1 && !Array.isArray(args[0]) && runtime.isBuffer(args[0]) !== true && !(args[0] instanceof Date)) {
+              clonedLogObj = _typeof(args[0]) === "object" && args[0] != null ? _objectSpread$1(_objectSpread$1({}, args[0]), clonedLogObj) : _objectSpread$1({
+                0: args[0]
+              }, clonedLogObj);
+            } else {
+              clonedLogObj = _objectSpread$1(_objectSpread$1({}, clonedLogObj), args);
+            }
+          } else {
+            clonedLogObj = _objectSpread$1(_objectSpread$1({}, clonedLogObj), {}, _defineProperty({}, this.settings.argumentsArrayName, args));
+          }
+          return clonedLogObj;
+        }
+      }, {
+        key: "_cloneError",
+        value: function _cloneError(error) {
+          var cloned = new error.constructor();
+          Object.getOwnPropertyNames(error).forEach(function (key) {
+            cloned[key] = error[key];
+          });
+          return cloned;
+        }
+      }, {
+        key: "_toErrorObject",
+        value: function _toErrorObject(error) {
+          var _error$name;
+          var depth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+          var seen = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Set();
+          if (!seen.has(error)) {
+            seen.add(error);
+          }
+          var errorObject = {
+            nativeError: error,
+            name: (_error$name = error.name) !== null && _error$name !== void 0 ? _error$name : "Error",
+            message: error.message,
+            stack: runtime.getErrorTrace(error)
+          };
+          if (depth >= this.maxErrorCauseDepth) {
+            return errorObject;
+          }
+          var causeValue = error.cause;
+          if (causeValue != null) {
+            var normalizedCause = (0, errorUtils_js_1.toError)(causeValue);
+            if (!seen.has(normalizedCause)) {
+              errorObject.cause = this._toErrorObject(normalizedCause, depth + 1, seen);
+            }
+          }
+          return errorObject;
+        }
+      }, {
+        key: "_addMetaToLogObj",
+        value: function _addMetaToLogObj(logObj, logLevelId, logLevelName) {
+          return _objectSpread$1(_objectSpread$1({}, logObj), {}, _defineProperty({}, this.settings.metaProperty, runtime.getMeta(logLevelId, logLevelName, this.stackDepthLevel, !this.captureStackForMeta, this.settings.name, this.settings.parentNames)));
+        }
+      }, {
+        key: "_shouldCaptureStack",
+        value: function _shouldCaptureStack() {
+          var _this$settings$pretty;
+          if (this.settings.hideLogPositionForProduction) {
+            return false;
+          }
+          if (this.settings.type === "json") {
+            return true;
+          }
+          var template = (_this$settings$pretty = this.settings.prettyLogTemplate) !== null && _this$settings$pretty !== void 0 ? _this$settings$pretty : "";
+          var stackPlaceholders = /{{\s*(file(Name|Path|Line|PathWithLine|NameWithLine)|fullFilePath)\s*}}/;
+          if (stackPlaceholders.test(template)) {
+            return true;
+          }
+          return false;
+        }
+      }, {
+        key: "_prettyFormatLogObjMeta",
+        value: function _prettyFormatLogObjMeta(logObjMeta) {
+          return (0, metaFormatting_js_1.buildPrettyMeta)(this.settings, logObjMeta).text;
+        }
+      }]);
+    }();
+    exports.BaseLogger = BaseLogger$1;
+  })(BaseLogger);
+  return BaseLogger;
 }
 
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), true).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _callSuper$1(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct$1() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _isNativeReflectConstruct$1() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct$1 = function _isNativeReflectConstruct() { return !!t; })(); }
+function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(t.prototype ), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
 var hasRequiredCjs;
+function requireCjs() {
+  if (hasRequiredCjs) return cjs;
+  hasRequiredCjs = 1;
+  (function (exports) {
 
-function requireCjs () {
-	if (hasRequiredCjs) return cjs;
-	hasRequiredCjs = 1;
-	(function (exports) {
-		var __createBinding = (cjs && cjs.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    var desc = Object.getOwnPropertyDescriptor(m, k);
-		    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-		      desc = { enumerable: true, get: function() { return m[k]; } };
-		    }
-		    Object.defineProperty(o, k2, desc);
-		}) : (function(o, m, k, k2) {
-		    if (k2 === undefined) k2 = k;
-		    o[k2] = m[k];
-		}));
-		var __exportStar = (cjs && cjs.__exportStar) || function(m, exports) {
-		    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-		};
-		Object.defineProperty(exports, "__esModule", { value: true });
-		exports.log = exports.Logger = void 0;
-		const BaseLogger_js_1 = requireBaseLogger();
-		const interfaces_js_1 = requireInterfaces();
-		__exportStar(requireBaseLogger(), exports);
-		__exportStar(requireInterfaces(), exports);
-		class Logger extends BaseLogger_js_1.BaseLogger {
-		    constructor(settings, logObj) {
-		        const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
-		        const normalizedSettings = { ...(settings ?? {}) };
-		        if (isBrowser) {
-		            normalizedSettings.stylePrettyLogs = settings?.stylePrettyLogs ?? true;
-		        }
-		        super(normalizedSettings, logObj, Number.NaN);
-		    }
-		    log(logLevelId, logLevelName, ...args) {
-		        return super.log(logLevelId, logLevelName, ...args);
-		    }
-		    silly(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.SILLY, "SILLY", ...args);
-		    }
-		    trace(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.TRACE, "TRACE", ...args);
-		    }
-		    debug(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.DEBUG, "DEBUG", ...args);
-		    }
-		    info(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.INFO, "INFO", ...args);
-		    }
-		    warn(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.WARN, "WARN", ...args);
-		    }
-		    error(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.ERROR, "ERROR", ...args);
-		    }
-		    fatal(...args) {
-		        return super.log(interfaces_js_1.DefaultLogLevels.FATAL, "FATAL", ...args);
-		    }
-		    getSubLogger(settings, logObj) {
-		        return super.getSubLogger(settings, logObj);
-		    }
-		}
-		exports.Logger = Logger;
-		exports.log = new Logger(); 
-	} (cjs));
-	return cjs;
+    var __createBinding = cjs && cjs.__createBinding || (Object.create ? function (o, m, k, k2) {
+      if (k2 === undefined) k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = {
+          enumerable: true,
+          get: function get() {
+            return m[k];
+          }
+        };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function (o, m, k, k2) {
+      if (k2 === undefined) k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = cjs && cjs.__exportStar || function (m, exports) {
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+    };
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    exports.Logger = void 0;
+    var BaseLogger_js_1 = requireBaseLogger();
+    __exportStar(requireInterfaces(), exports);
+    __exportStar(requireBaseLogger(), exports);
+    var Logger = /*#__PURE__*/function (_BaseLogger_js_1$Base) {
+      function Logger(settings, logObj) {
+        _classCallCheck(this, Logger);
+        var isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+        var normalizedSettings = _objectSpread({}, settings !== null && settings !== void 0 ? settings : {});
+        if (isBrowser) {
+          var _settings$stylePretty;
+          normalizedSettings.stylePrettyLogs = (_settings$stylePretty = settings === null || settings === void 0 ? void 0 : settings.stylePrettyLogs) !== null && _settings$stylePretty !== void 0 ? _settings$stylePretty : true;
+        }
+        return _callSuper$1(this, Logger, [normalizedSettings, logObj, Number.NaN]);
+      }
+      _inherits(Logger, _BaseLogger_js_1$Base);
+      return _createClass(Logger, [{
+        key: "log",
+        value: function log(logLevelId, logLevelName) {
+          for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+            args[_key - 2] = arguments[_key];
+          }
+          return _superPropGet(Logger, "log", this, 3)([logLevelId, logLevelName].concat(args));
+        }
+      }, {
+        key: "silly",
+        value: function silly() {
+          for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+            args[_key2] = arguments[_key2];
+          }
+          return _superPropGet(Logger, "log", this, 3)([0, "SILLY"].concat(args));
+        }
+      }, {
+        key: "trace",
+        value: function trace() {
+          for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+            args[_key3] = arguments[_key3];
+          }
+          return _superPropGet(Logger, "log", this, 3)([1, "TRACE"].concat(args));
+        }
+      }, {
+        key: "debug",
+        value: function debug() {
+          for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+            args[_key4] = arguments[_key4];
+          }
+          return _superPropGet(Logger, "log", this, 3)([2, "DEBUG"].concat(args));
+        }
+      }, {
+        key: "info",
+        value: function info() {
+          for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+            args[_key5] = arguments[_key5];
+          }
+          return _superPropGet(Logger, "log", this, 3)([3, "INFO"].concat(args));
+        }
+      }, {
+        key: "warn",
+        value: function warn() {
+          for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+            args[_key6] = arguments[_key6];
+          }
+          return _superPropGet(Logger, "log", this, 3)([4, "WARN"].concat(args));
+        }
+      }, {
+        key: "error",
+        value: function error() {
+          for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+            args[_key7] = arguments[_key7];
+          }
+          return _superPropGet(Logger, "log", this, 3)([5, "ERROR"].concat(args));
+        }
+      }, {
+        key: "fatal",
+        value: function fatal() {
+          for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {
+            args[_key8] = arguments[_key8];
+          }
+          return _superPropGet(Logger, "log", this, 3)([6, "FATAL"].concat(args));
+        }
+      }, {
+        key: "getSubLogger",
+        value: function getSubLogger(settings, logObj) {
+          return _superPropGet(Logger, "getSubLogger", this, 3)([settings, logObj]);
+        }
+      }]);
+    }(BaseLogger_js_1.BaseLogger);
+    exports.Logger = Logger;
+  })(cjs);
+  return cjs;
 }
 
 var log;
@@ -5603,87 +3763,82 @@ function requireBle() {
 }
 
 var bleExports = requireBle();
-var BLE = /*@__PURE__*/getDefaultExportFromCjs(bleExports);
+var ScratchLinkBLE = /*@__PURE__*/getDefaultExportFromCjs(bleExports);
+
+var bleWebExports = requireBleWeb();
+var WebBLE = /*@__PURE__*/getDefaultExportFromCjs(bleWebExports);
 
 var browserAtob = {exports: {}};
 
 var hasRequiredBrowserAtob;
+function requireBrowserAtob() {
+  if (hasRequiredBrowserAtob) return browserAtob.exports;
+  hasRequiredBrowserAtob = 1;
+  (function (module) {
+    (function (w) {
 
-function requireBrowserAtob () {
-	if (hasRequiredBrowserAtob) return browserAtob.exports;
-	hasRequiredBrowserAtob = 1;
-	(function (module) {
-		(function (w) {
+      function findBest(atobNative) {
+        // normal window
+        if ('function' === typeof atobNative) {
+          return atobNative;
+        }
 
-		  function findBest(atobNative) {
-		    // normal window
-		    if ('function' === typeof atobNative) { return atobNative; }
+        // browserify (web worker)
+        if ('function' === typeof Buffer) {
+          return function atobBrowserify(a) {
+            //!! Deliberately using an API that's deprecated in node.js because
+            //!! this file is for browsers and we expect them to cope with it.
+            //!! Discussion: github.com/node-browser-compat/atob/pull/9
+            return new Buffer(a, 'base64').toString('binary');
+          };
+        }
 
-
-		    // browserify (web worker)
-		    if ('function' === typeof Buffer) {
-		      return function atobBrowserify(a) {
-		        //!! Deliberately using an API that's deprecated in node.js because
-		        //!! this file is for browsers and we expect them to cope with it.
-		        //!! Discussion: github.com/node-browser-compat/atob/pull/9
-		        return new Buffer(a, 'base64').toString('binary');
-		      };
-		    }
-
-		    // ios web worker with base64js
-		    if ('object' === typeof w.base64js) {
-		      // bufferToBinaryString
-		      // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
-		      return function atobWebWorker_iOS(a) {
-		        var buf = w.base64js.b64ToByteArray(a);
-		        return Array.prototype.map.call(buf, function (ch) {
-		          return String.fromCharCode(ch);
-		        }).join('');
-		      };
-		    }
-
-				return function () {
-					// ios web worker without base64js
-					throw new Error("You're probably in an old browser or an iOS webworker." +
-						" It might help to include beatgammit's base64-js.");
-		    };
-		  }
-
-		  var atobBest = findBest(w.atob);
-		  w.atob = atobBest;
-
-		  if (module && module.exports) {
-		    module.exports = atobBest;
-		  }
-		}(window)); 
-	} (browserAtob));
-	return browserAtob.exports;
+        // ios web worker with base64js
+        if ('object' === _typeof(w.base64js)) {
+          // bufferToBinaryString
+          // https://git.coolaj86.com/coolaj86/unibabel.js/blob/master/index.js#L50
+          return function atobWebWorker_iOS(a) {
+            var buf = w.base64js.b64ToByteArray(a);
+            return Array.prototype.map.call(buf, function (ch) {
+              return String.fromCharCode(ch);
+            }).join('');
+          };
+        }
+        return function () {
+          // ios web worker without base64js
+          throw new Error("You're probably in an old browser or an iOS webworker." + " It might help to include beatgammit's base64-js.");
+        };
+      }
+      var atobBest = findBest(w.atob);
+      w.atob = atobBest;
+      if (module && module.exports) {
+        module.exports = atobBest;
+      }
+    })(window);
+  })(browserAtob);
+  return browserAtob.exports;
 }
 
 var btoa = {exports: {}};
 
 var hasRequiredBtoa;
+function requireBtoa() {
+  if (hasRequiredBtoa) return btoa.exports;
+  hasRequiredBtoa = 1;
+  (function () {
 
-function requireBtoa () {
-	if (hasRequiredBtoa) return btoa.exports;
-	hasRequiredBtoa = 1;
-	(function () {
-
-	  function btoa$1(str) {
-	    var buffer;
-
-	    if (str instanceof Buffer) {
-	      buffer = str;
-	    } else {
-	      buffer = Buffer.from(str.toString(), 'binary');
-	    }
-
-	    return buffer.toString('base64');
-	  }
-
-	  btoa.exports = btoa$1;
-	}());
-	return btoa.exports;
+    function btoa$1(str) {
+      var buffer;
+      if (str instanceof Buffer) {
+        buffer = str;
+      } else {
+        buffer = Buffer.from(str.toString(), 'binary');
+      }
+      return buffer.toString('base64');
+    }
+    btoa.exports = btoa$1;
+  })();
+  return btoa.exports;
 }
 
 var base64Util;
@@ -5784,12 +3939,19 @@ var bytesToHex = function bytesToHex(bytes) {
     return value.toString(16).padStart(2, '0');
   }).join(' ');
 };
+var supportsWebBluetooth = function supportsWebBluetooth() {
+  var navigatorObject = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : typeof navigator === 'undefined' ? null : navigator;
+  return Boolean(navigatorObject && navigatorObject.bluetooth && typeof navigatorObject.bluetooth.requestDevice === 'function');
+};
+var selectBLEAdapter = function selectBLEAdapter(navigatorObject) {
+  return supportsWebBluetooth(navigatorObject) ? WebBLE : ScratchLinkBLE;
+};
 var RootProtocol = /*#__PURE__*/function () {
   function RootProtocol() {
-    _classCallCheck(this, RootProtocol);
+    _classCallCheck$1(this, RootProtocol);
     this.packetId = 0;
   }
-  return _createClass(RootProtocol, [{
+  return _createClass$1(RootProtocol, [{
     key: "packet",
     value: function packet(device, command) {
       var payload = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -5892,23 +4054,24 @@ var RootProtocol = /*#__PURE__*/function () {
 }();
 var RootTransport = /*#__PURE__*/function () {
   function RootTransport(runtime, extensionId, onData) {
-    _classCallCheck(this, RootTransport);
+    _classCallCheck$1(this, RootTransport);
     this.runtime = runtime;
     this.extensionId = extensionId;
     this.onData = onData;
     this.ble = null;
-    this.mode = navigator.bluetooth ? 'Web Bluetooth' : 'Scrub Scratch Link';
+    this.mode = supportsWebBluetooth() ? 'Web Bluetooth' : 'Scratch Link / Scrub';
     this.lastError = '';
     this.runtime.registerPeripheralExtension(extensionId, this);
     this.onConnect = this.onConnect.bind(this);
     this.reset = this.reset.bind(this);
   }
-  return _createClass(RootTransport, [{
+  return _createClass$1(RootTransport, [{
     key: "scan",
     value: function scan() {
       if (this.ble) this.ble.disconnect();
       this.lastError = '';
-      this.ble = new BLE(this.runtime, this.extensionId, {
+      var BLEAdapter = selectBLEAdapter();
+      this.ble = new BLEAdapter(this.runtime, this.extensionId, {
         filters: [{
           services: [ROOT_SERVICE]
         }, {
@@ -5970,11 +4133,39 @@ var setupTranslations = function setupTranslations() {
   }
 };
 var EXTENSION_ID = 'irobotRoot';
-var extensionURL = 'https://naominix.github.io/xcx-irobot-root/dist/irobotRoot.mjs';
+var extensionURL = 'https://naominix.github.io/irobotRoot.mjs';
+var FIXED_EVENT_HATS = [['whenLeftBumperPush', '左バンパーが押されたとき'], ['whenLeftBumperRelease', '左バンパーが離されたとき'], ['whenRightBumperPush', '右バンパーが押されたとき'], ['whenRightBumperRelease', '右バンパーが離されたとき'], ['whenBothBumpersPush', '左右のバンパーが同時に押されたとき'], ['whenBothBumpersRelease', '左右のバンパーが同時に離されたとき'], ['whenFLTouch', 'FLタッチセンサーに触れたとき'], ['whenFLRelease', 'FLタッチセンサーを離したとき'], ['whenFRTouch', 'FRタッチセンサーに触れたとき'], ['whenFRRelease', 'FRタッチセンサーを離したとき'], ['whenRLTouch', 'RLタッチセンサーに触れたとき'], ['whenRLRelease', 'RLタッチセンサーを離したとき'], ['whenRRTouch', 'RRタッチセンサーに触れたとき'], ['whenRRRelease', 'RRタッチセンサーを離したとき']].map(function (_ref) {
+  var _ref2 = _slicedToArray$1(_ref, 2),
+    opcode = _ref2[0],
+    text = _ref2[1];
+  return {
+    opcode: opcode,
+    func: 'whenFixedEvent',
+    blockType: BlockType.HAT,
+    text: text,
+    isEdgeActivated: false
+  };
+});
+var FIXED_EVENT_OPCODES = {
+  LEFT_PUSH: 'whenLeftBumperPush',
+  LEFT_RELEASE: 'whenLeftBumperRelease',
+  RIGHT_PUSH: 'whenRightBumperPush',
+  RIGHT_RELEASE: 'whenRightBumperRelease',
+  BOTH_PUSH: 'whenBothBumpersPush',
+  BOTH_RELEASE: 'whenBothBumpersRelease',
+  FL_TOUCH: 'whenFLTouch',
+  FL_RELEASE: 'whenFLRelease',
+  FR_TOUCH: 'whenFRTouch',
+  FR_RELEASE: 'whenFRRelease',
+  RL_TOUCH: 'whenRLTouch',
+  RL_RELEASE: 'whenRLRelease',
+  RR_TOUCH: 'whenRRTouch',
+  RR_RELEASE: 'whenRRRelease'
+};
 var IrobotRootBlocks = /*#__PURE__*/function () {
   function IrobotRootBlocks(runtime) {
     var _this = this;
-    _classCallCheck(this, IrobotRootBlocks);
+    _classCallCheck$1(this, IrobotRootBlocks);
     this.runtime = runtime;
     if (runtime.formatMessage) formatMessage = runtime.formatMessage;
     this.protocol = new RootProtocol();
@@ -5987,7 +4178,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     this.bumperState = 0;
     this.touchState = 0;
   }
-  return _createClass(IrobotRootBlocks, [{
+  return _createClass$1(IrobotRootBlocks, [{
     key: "getInfo",
     value: function getInfo() {
       setupTranslations();
@@ -6194,7 +4385,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
               menu: 'touchActionMenu'
             }
           }
-        }, '---', {
+        }].concat(_toConsumableArray$1(FIXED_EVENT_HATS), ['---', {
           opcode: 'raw',
           blockType: BlockType.COMMAND,
           text: 'デバイス [DEVICE] コマンド [COMMAND] ペイロード [PAYLOAD]',
@@ -6220,7 +4411,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           opcode: 'detailedEvent',
           blockType: BlockType.REPORTER,
           text: '最後の詳細イベント'
-        }],
+        }]),
         menus: {
           markerMenu: {
             acceptReporters: true,
@@ -6435,6 +4626,11 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       return true;
     }
   }, {
+    key: "whenFixedEvent",
+    value: function whenFixedEvent() {
+      return true;
+    }
+  }, {
     key: "raw",
     value: function raw(args) {
       return this._send(this.protocol.packet(Cast.toNumber(args.DEVICE), Cast.toNumber(args.COMMAND), RootProtocol.hexToBytes(args.PAYLOAD)));
@@ -6469,26 +4665,34 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
     value: function _startBumperHat(event) {
       this.lastDetailedEvent = event;
       var _event$split = event.split('_'),
-        _event$split2 = _slicedToArray(_event$split, 2),
+        _event$split2 = _slicedToArray$1(_event$split, 2),
         bumper = _event$split2[0],
         action = _event$split2[1];
       this.runtime.startHats("".concat(EXTENSION_ID, "_whenBumper"), {
         BUMPER: bumper,
         ACTION: action
       });
+      this._startFixedEventHat(event);
     }
   }, {
     key: "_startTouchHat",
     value: function _startTouchHat(event) {
       this.lastDetailedEvent = event;
       var _event$split3 = event.split('_'),
-        _event$split4 = _slicedToArray(_event$split3, 2),
+        _event$split4 = _slicedToArray$1(_event$split3, 2),
         sensor = _event$split4[0],
         action = _event$split4[1];
       this.runtime.startHats("".concat(EXTENSION_ID, "_whenTouchSensor"), {
         SENSOR: sensor,
         ACTION: action
       });
+      this._startFixedEventHat(event);
+    }
+  }, {
+    key: "_startFixedEventHat",
+    value: function _startFixedEventHat(event) {
+      var opcode = FIXED_EVENT_OPCODES[event];
+      if (opcode) this.runtime.startHats("".concat(EXTENSION_ID, "_").concat(opcode));
     }
   }, {
     key: "_receiveBumperEvent",
@@ -6519,7 +4723,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
       this.touchState = next;
       var sensors = [['FL', 0x8], ['FR', 0x4], ['RR', 0x2], ['RL', 0x1]];
       for (var _i = 0, _sensors = sensors; _i < _sensors.length; _i++) {
-        var _sensors$_i = _slicedToArray(_sensors[_i], 2),
+        var _sensors$_i = _slicedToArray$1(_sensors[_i], 2),
           sensor = _sensors$_i[0],
           mask = _sensors$_i[1];
         if ((previous ^ next) & mask) {
