@@ -4,18 +4,18 @@ var img$1 = "data:image/svg+xml,%3c%3fxml version='1.0' encoding='UTF-8' standal
 
 var en$1 = {
 	"irobotRoot.entry.name": "iRobot Root",
-	"irobotRoot.entry.description": "Description of this extension"
+	"irobotRoot.entry.description": "Control an iRobot Root robot over Bluetooth"
 };
 var ja$1 = {
 	"irobotRoot.entry.name": "iRobot Root",
-	"irobotRoot.entry.description": "拡張機能の説明"
+	"irobotRoot.entry.description": "iRobot RootロボットをBluetoothで制御します"
 };
 var translations$1 = {
 	en: en$1,
 	ja: ja$1,
 	"ja-Hira": {
 	"irobotRoot.entry.name": "iRobot Root",
-	"irobotRoot.entry.description": "かくちょうきのうのせつめい"
+	"irobotRoot.entry.description": "iRobot RootロボットをBluetoothでせいぎょします"
 }
 };
 
@@ -45,13 +45,13 @@ var entry = {
     });
   },
   extensionId: 'irobotRoot',
-  extensionURL: 'https://naominix.github.io/xcx-irobot-root/dist/irobotRoot.mjs',
+  extensionURL: 'https://naominix.github.io/irobotRoot.mjs',
   collaborator: 'naominix',
   iconURL: img$2,
   insetIconURL: img$1,
   get description() {
     return "".concat(formatMessage$1({
-      defaultMessage: 'an extension for Xcratch',
+      defaultMessage: 'Control an iRobot Root robot over Bluetooth',
       description: 'Description for this extension',
       id: 'irobotRoot.entry.description'
     }), " (").concat(version, ")");
@@ -155,7 +155,10 @@ function _iterableToArrayLimit$1(r, l) {
       f = true,
       o = false;
     try {
-      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
     } catch (r) {
       o = true, n = r;
     } finally {
@@ -839,17 +842,148 @@ var castExports = requireCast();
 var Cast = /*@__PURE__*/getDefaultExportFromCjs(castExports);
 
 var en = {
-	"irobotRoot.name": "iRobot Root"
+	"irobotRoot.name": "iRobot Root",
+	"irobotRoot.block.connect": "connect to Root",
+	"irobotRoot.block.disconnect": "disconnect Root",
+	"irobotRoot.block.isConnected": "Root is connected?",
+	"irobotRoot.block.transportMode": "Root connection method",
+	"irobotRoot.block.lastConnectionError": "last connection error",
+	"irobotRoot.block.motors": "set left motor [LEFT] right motor [RIGHT]",
+	"irobotRoot.block.drive": "move [MM] mm",
+	"irobotRoot.block.turn": "turn [DEGREES] degrees",
+	"irobotRoot.block.arc": "drive an arc of [DEGREES] degrees with radius [RADIUS] mm",
+	"irobotRoot.block.stop": "stop Root",
+	"irobotRoot.block.marker": "set marker [POSITION]",
+	"irobotRoot.block.led": "set LED red [RED] green [GREEN] blue [BLUE]",
+	"irobotRoot.block.ledAnimation": "set LED [EFFECT] red [RED] green [GREEN] blue [BLUE]",
+	"irobotRoot.block.note": "play [HZ] Hz for [MS] ms",
+	"irobotRoot.block.refreshSensor": "read [SENSOR]",
+	"irobotRoot.block.sensor": "[VALUE] value",
+	"irobotRoot.block.whenEvent": "when [EVENT] changes",
+	"irobotRoot.block.whenBumper": "when [BUMPER] bumper is [ACTION]",
+	"irobotRoot.block.whenTouchSensor": "when [SENSOR] touch sensor is [ACTION]",
+	"irobotRoot.block.raw": "device [DEVICE] command [COMMAND] payload [PAYLOAD]",
+	"irobotRoot.block.lastPacket": "last received packet",
+	"irobotRoot.block.detailedEvent": "last detailed event",
+	"irobotRoot.hat.leftBumperPush": "when left bumper is pushed",
+	"irobotRoot.hat.leftBumperRelease": "when left bumper is released",
+	"irobotRoot.hat.rightBumperPush": "when right bumper is pushed",
+	"irobotRoot.hat.rightBumperRelease": "when right bumper is released",
+	"irobotRoot.hat.bothBumpersPush": "when both bumpers are pushed simultaneously",
+	"irobotRoot.hat.bothBumpersRelease": "when both bumpers are released simultaneously",
+	"irobotRoot.hat.flTouch": "when FL touch sensor is touched",
+	"irobotRoot.hat.flRelease": "when FL touch sensor is released",
+	"irobotRoot.hat.frTouch": "when FR touch sensor is touched",
+	"irobotRoot.hat.frRelease": "when FR touch sensor is released",
+	"irobotRoot.hat.rlTouch": "when RL touch sensor is touched",
+	"irobotRoot.hat.rlRelease": "when RL touch sensor is released",
+	"irobotRoot.hat.rrTouch": "when RR touch sensor is touched",
+	"irobotRoot.hat.rrRelease": "when RR touch sensor is released",
+	"irobotRoot.menu.marker.up": "up",
+	"irobotRoot.menu.marker.down": "down",
+	"irobotRoot.menu.marker.eraser": "eraser",
+	"irobotRoot.menu.sensor.battery": "battery",
+	"irobotRoot.menu.sensor.light": "light",
+	"irobotRoot.menu.sensor.accel": "accelerometer",
+	"irobotRoot.menu.led.off": "off",
+	"irobotRoot.menu.led.on": "on",
+	"irobotRoot.menu.led.blink": "blink",
+	"irobotRoot.menu.led.spin": "spin",
+	"irobotRoot.menu.value.batteryPercent": "battery level (%)",
+	"irobotRoot.menu.value.batteryMv": "battery voltage (mV)",
+	"irobotRoot.menu.value.lightLeft": "left light level",
+	"irobotRoot.menu.value.lightRight": "right light level",
+	"irobotRoot.menu.value.accelX": "acceleration X",
+	"irobotRoot.menu.value.accelY": "acceleration Y",
+	"irobotRoot.menu.value.accelZ": "acceleration Z",
+	"irobotRoot.menu.value.leftBumper": "left bumper",
+	"irobotRoot.menu.value.rightBumper": "right bumper",
+	"irobotRoot.menu.value.touchMask": "touch sensor mask",
+	"irobotRoot.menu.value.cliff": "cliff sensor",
+	"irobotRoot.menu.event.bumper": "bumper",
+	"irobotRoot.menu.event.touch": "touch",
+	"irobotRoot.menu.event.cliff": "cliff sensor",
+	"irobotRoot.menu.event.battery": "battery",
+	"irobotRoot.menu.bumper.left": "left",
+	"irobotRoot.menu.bumper.right": "right",
+	"irobotRoot.menu.bumper.both": "both",
+	"irobotRoot.menu.action.push": "Push",
+	"irobotRoot.menu.action.release": "Release",
+	"irobotRoot.menu.action.touch": "Touch"
 };
 var ja = {
-	"irobotRoot.name": "iRobot Root"
+	"irobotRoot.name": "iRobot Root",
+	"irobotRoot.block.connect": "Rootに接続する",
+	"irobotRoot.block.disconnect": "Rootを切断する",
+	"irobotRoot.block.isConnected": "Rootは接続済み",
+	"irobotRoot.block.transportMode": "Rootの通信方式",
+	"irobotRoot.block.lastConnectionError": "最後の接続エラー",
+	"irobotRoot.block.motors": "左モーター [LEFT] 右モーター [RIGHT]",
+	"irobotRoot.block.drive": "[MM] mm進む",
+	"irobotRoot.block.turn": "[DEGREES] 度回る",
+	"irobotRoot.block.arc": "半径 [RADIUS] mmで [DEGREES] 度弧を進む",
+	"irobotRoot.block.stop": "Rootを停止する",
+	"irobotRoot.block.marker": "マーカーを [POSITION]",
+	"irobotRoot.block.led": "LEDを 赤 [RED] 緑 [GREEN] 青 [BLUE]",
+	"irobotRoot.block.ledAnimation": "LEDを [EFFECT] 赤 [RED] 緑 [GREEN] 青 [BLUE]",
+	"irobotRoot.block.note": "[HZ] Hzを [MS] ミリ秒鳴らす",
+	"irobotRoot.block.refreshSensor": "[SENSOR] を読み取る",
+	"irobotRoot.block.sensor": "[VALUE] の値",
+	"irobotRoot.block.whenEvent": "[EVENT] が変化したとき",
+	"irobotRoot.block.whenBumper": "[BUMPER] バンパーが [ACTION] されたとき",
+	"irobotRoot.block.whenTouchSensor": "[SENSOR] タッチセンサーが [ACTION] されたとき",
+	"irobotRoot.block.raw": "デバイス [DEVICE] コマンド [COMMAND] ペイロード [PAYLOAD]",
+	"irobotRoot.block.lastPacket": "最後の受信パケット",
+	"irobotRoot.block.detailedEvent": "最後の詳細イベント",
+	"irobotRoot.hat.leftBumperPush": "左バンパーが押されたとき",
+	"irobotRoot.hat.leftBumperRelease": "左バンパーが離されたとき",
+	"irobotRoot.hat.rightBumperPush": "右バンパーが押されたとき",
+	"irobotRoot.hat.rightBumperRelease": "右バンパーが離されたとき",
+	"irobotRoot.hat.bothBumpersPush": "左右のバンパーが同時に押されたとき",
+	"irobotRoot.hat.bothBumpersRelease": "左右のバンパーが同時に離されたとき",
+	"irobotRoot.hat.flTouch": "FLタッチセンサーに触れたとき",
+	"irobotRoot.hat.flRelease": "FLタッチセンサーを離したとき",
+	"irobotRoot.hat.frTouch": "FRタッチセンサーに触れたとき",
+	"irobotRoot.hat.frRelease": "FRタッチセンサーを離したとき",
+	"irobotRoot.hat.rlTouch": "RLタッチセンサーに触れたとき",
+	"irobotRoot.hat.rlRelease": "RLタッチセンサーを離したとき",
+	"irobotRoot.hat.rrTouch": "RRタッチセンサーに触れたとき",
+	"irobotRoot.hat.rrRelease": "RRタッチセンサーを離したとき",
+	"irobotRoot.menu.marker.up": "上げる",
+	"irobotRoot.menu.marker.down": "下げる",
+	"irobotRoot.menu.marker.eraser": "消しゴム",
+	"irobotRoot.menu.sensor.battery": "バッテリー",
+	"irobotRoot.menu.sensor.light": "明るさ",
+	"irobotRoot.menu.sensor.accel": "加速度",
+	"irobotRoot.menu.led.off": "消す",
+	"irobotRoot.menu.led.on": "点灯",
+	"irobotRoot.menu.led.blink": "点滅",
+	"irobotRoot.menu.led.spin": "回転",
+	"irobotRoot.menu.value.batteryPercent": "バッテリー残量 (%)",
+	"irobotRoot.menu.value.batteryMv": "バッテリー電圧 (mV)",
+	"irobotRoot.menu.value.lightLeft": "左の明るさ",
+	"irobotRoot.menu.value.lightRight": "右の明るさ",
+	"irobotRoot.menu.value.accelX": "加速度 X",
+	"irobotRoot.menu.value.accelY": "加速度 Y",
+	"irobotRoot.menu.value.accelZ": "加速度 Z",
+	"irobotRoot.menu.value.leftBumper": "左バンパー",
+	"irobotRoot.menu.value.rightBumper": "右バンパー",
+	"irobotRoot.menu.value.touchMask": "タッチセンサーマスク",
+	"irobotRoot.menu.value.cliff": "落下防止センサー",
+	"irobotRoot.menu.event.bumper": "バンパー",
+	"irobotRoot.menu.event.touch": "タッチ",
+	"irobotRoot.menu.event.cliff": "落下防止センサー",
+	"irobotRoot.menu.event.battery": "バッテリー",
+	"irobotRoot.menu.bumper.left": "左",
+	"irobotRoot.menu.bumper.right": "右",
+	"irobotRoot.menu.bumper.both": "左右同時",
+	"irobotRoot.menu.action.push": "Push",
+	"irobotRoot.menu.action.release": "Release",
+	"irobotRoot.menu.action.touch": "タッチ"
 };
 var translations = {
 	en: en,
-	ja: ja,
-	"ja-Hira": {
-	"irobotRoot.name": "iRobot Root"
-}
+	ja: ja
 };
 
 var img = "data:image/png;base64,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";
@@ -4058,25 +4192,40 @@ var formatMessage = function formatMessage(message) {
   return message.default;
 };
 var setupTranslations = function setupTranslations() {
+  if (!formatMessage || typeof formatMessage.setup !== 'function') return;
   var localeSetup = formatMessage.setup();
-  if (localeSetup && localeSetup.translations[localeSetup.locale]) {
-    Object.assign(localeSetup.translations[localeSetup.locale], translations[localeSetup.locale]);
-  }
+  if (!localeSetup || !localeSetup.translations) return;
+  var locale = localeSetup.locale || 'en';
+  var localizedMessages = translations[locale] || translations[locale.split('-')[0]];
+  if (!localizedMessages) return;
+  if (!localeSetup.translations[locale]) localeSetup.translations[locale] = {};
+  Object.assign(localeSetup.translations[locale], localizedMessages);
+};
+var translate = function translate(id, defaultText, description) {
+  return formatMessage({
+    id: "irobotRoot.".concat(id),
+    default: defaultText,
+    description: id
+  });
 };
 var EXTENSION_ID = 'irobotRoot';
 var extensionURL = 'https://naominix.github.io/irobotRoot.mjs';
-var FIXED_EVENT_HATS = [['whenLeftBumperPush', '左バンパーが押されたとき'], ['whenLeftBumperRelease', '左バンパーが離されたとき'], ['whenRightBumperPush', '右バンパーが押されたとき'], ['whenRightBumperRelease', '右バンパーが離されたとき'], ['whenBothBumpersPush', '左右のバンパーが同時に押されたとき'], ['whenBothBumpersRelease', '左右のバンパーが同時に離されたとき'], ['whenFLTouch', 'FLタッチセンサーに触れたとき'], ['whenFLRelease', 'FLタッチセンサーを離したとき'], ['whenFRTouch', 'FRタッチセンサーに触れたとき'], ['whenFRRelease', 'FRタッチセンサーを離したとき'], ['whenRLTouch', 'RLタッチセンサーに触れたとき'], ['whenRLRelease', 'RLタッチセンサーを離したとき'], ['whenRRTouch', 'RRタッチセンサーに触れたとき'], ['whenRRRelease', 'RRタッチセンサーを離したとき']].map(function (_ref) {
-  var _ref2 = _slicedToArray$1(_ref, 2),
-    opcode = _ref2[0],
-    text = _ref2[1];
-  return {
-    opcode: opcode,
-    func: 'whenFixedEvent',
-    blockType: BlockType.HAT,
-    text: text,
-    isEdgeActivated: false
-  };
-});
+var FIXED_EVENT_HAT_MESSAGES = [['whenLeftBumperPush', 'hat.leftBumperPush', 'when left bumper is pushed'], ['whenLeftBumperRelease', 'hat.leftBumperRelease', 'when left bumper is released'], ['whenRightBumperPush', 'hat.rightBumperPush', 'when right bumper is pushed'], ['whenRightBumperRelease', 'hat.rightBumperRelease', 'when right bumper is released'], ['whenBothBumpersPush', 'hat.bothBumpersPush', 'when both bumpers are pushed simultaneously'], ['whenBothBumpersRelease', 'hat.bothBumpersRelease', 'when both bumpers are released simultaneously'], ['whenFLTouch', 'hat.flTouch', 'when FL touch sensor is touched'], ['whenFLRelease', 'hat.flRelease', 'when FL touch sensor is released'], ['whenFRTouch', 'hat.frTouch', 'when FR touch sensor is touched'], ['whenFRRelease', 'hat.frRelease', 'when FR touch sensor is released'], ['whenRLTouch', 'hat.rlTouch', 'when RL touch sensor is touched'], ['whenRLRelease', 'hat.rlRelease', 'when RL touch sensor is released'], ['whenRRTouch', 'hat.rrTouch', 'when RR touch sensor is touched'], ['whenRRRelease', 'hat.rrRelease', 'when RR touch sensor is released']];
+var fixedEventHats = function fixedEventHats() {
+  return FIXED_EVENT_HAT_MESSAGES.map(function (_ref) {
+    var _ref2 = _slicedToArray$1(_ref, 3),
+      opcode = _ref2[0],
+      id = _ref2[1],
+      defaultText = _ref2[2];
+    return {
+      opcode: opcode,
+      func: 'whenFixedEvent',
+      blockType: BlockType.HAT,
+      text: translate(id, defaultText),
+      isEdgeActivated: false
+    };
+  });
+};
 var FIXED_EVENT_OPCODES = {
   LEFT_PUSH: 'whenLeftBumperPush',
   LEFT_RELEASE: 'whenLeftBumperRelease',
@@ -4122,27 +4271,27 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         blocks: [{
           opcode: 'connect',
           blockType: BlockType.COMMAND,
-          text: 'Rootに接続する'
+          text: translate('block.connect', 'connect to Root')
         }, {
           opcode: 'disconnect',
           blockType: BlockType.COMMAND,
-          text: 'Rootを切断する'
+          text: translate('block.disconnect', 'disconnect Root')
         }, {
           opcode: 'isConnected',
           blockType: BlockType.BOOLEAN,
-          text: 'Rootは接続済み'
+          text: translate('block.isConnected', 'Root is connected?')
         }, {
           opcode: 'transportMode',
           blockType: BlockType.REPORTER,
-          text: 'Rootの通信方式'
+          text: translate('block.transportMode', 'Root connection method')
         }, {
           opcode: 'lastConnectionError',
           blockType: BlockType.REPORTER,
-          text: '最後の接続エラー'
+          text: translate('block.lastConnectionError', 'last connection error')
         }, '---', {
           opcode: 'motors',
           blockType: BlockType.COMMAND,
-          text: '左モーター [LEFT] 右モーター [RIGHT]',
+          text: translate('block.motors', 'set left motor [LEFT] right motor [RIGHT]'),
           arguments: {
             LEFT: {
               type: ArgumentType.NUMBER,
@@ -4156,7 +4305,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'drive',
           blockType: BlockType.COMMAND,
-          text: '[MM] mm進む',
+          text: translate('block.drive', 'move [MM] mm'),
           arguments: {
             MM: {
               type: ArgumentType.NUMBER,
@@ -4166,7 +4315,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'turn',
           blockType: BlockType.COMMAND,
-          text: '[DEGREES] 度回る',
+          text: translate('block.turn', 'turn [DEGREES] degrees'),
           arguments: {
             DEGREES: {
               type: ArgumentType.NUMBER,
@@ -4176,7 +4325,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'arc',
           blockType: BlockType.COMMAND,
-          text: '半径 [RADIUS] mmで [DEGREES] 度弧を進む',
+          text: translate('block.arc', 'drive an arc of [DEGREES] degrees with radius [RADIUS] mm'),
           arguments: {
             RADIUS: {
               type: ArgumentType.NUMBER,
@@ -4190,11 +4339,11 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'stop',
           blockType: BlockType.COMMAND,
-          text: 'Rootを停止する'
+          text: translate('block.stop', 'stop Root')
         }, {
           opcode: 'marker',
           blockType: BlockType.COMMAND,
-          text: 'マーカーを [POSITION]',
+          text: translate('block.marker', 'set marker [POSITION]'),
           arguments: {
             POSITION: {
               type: ArgumentType.STRING,
@@ -4204,7 +4353,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'led',
           blockType: BlockType.COMMAND,
-          text: 'LEDを 赤 [RED] 緑 [GREEN] 青 [BLUE]',
+          text: translate('block.led', 'set LED red [RED] green [GREEN] blue [BLUE]'),
           arguments: {
             RED: {
               type: ArgumentType.NUMBER,
@@ -4222,7 +4371,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'ledAnimation',
           blockType: BlockType.COMMAND,
-          text: 'LEDを [EFFECT] 赤 [RED] 緑 [GREEN] 青 [BLUE]',
+          text: translate('block.ledAnimation', 'set LED [EFFECT] red [RED] green [GREEN] blue [BLUE]'),
           arguments: {
             EFFECT: {
               type: ArgumentType.STRING,
@@ -4244,7 +4393,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'note',
           blockType: BlockType.COMMAND,
-          text: '[HZ] Hzを [MS] ミリ秒鳴らす',
+          text: translate('block.note', 'play [HZ] Hz for [MS] ms'),
           arguments: {
             HZ: {
               type: ArgumentType.NUMBER,
@@ -4258,7 +4407,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, '---', {
           opcode: 'refreshSensor',
           blockType: BlockType.COMMAND,
-          text: '[SENSOR] を読み取る',
+          text: translate('block.refreshSensor', 'read [SENSOR]'),
           arguments: {
             SENSOR: {
               type: ArgumentType.STRING,
@@ -4268,7 +4417,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'sensor',
           blockType: BlockType.REPORTER,
-          text: '[VALUE] の値',
+          text: translate('block.sensor', '[VALUE] value'),
           arguments: {
             VALUE: {
               type: ArgumentType.STRING,
@@ -4278,7 +4427,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'whenEvent',
           blockType: BlockType.HAT,
-          text: '[EVENT] が変化したとき',
+          text: translate('block.whenEvent', 'when [EVENT] changes'),
           isEdgeActivated: false,
           arguments: {
             EVENT: {
@@ -4289,7 +4438,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'whenBumper',
           blockType: BlockType.HAT,
-          text: '[BUMPER] バンパーが [ACTION] されたとき',
+          text: translate('block.whenBumper', 'when [BUMPER] bumper is [ACTION]'),
           isEdgeActivated: false,
           arguments: {
             BUMPER: {
@@ -4304,7 +4453,7 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'whenTouchSensor',
           blockType: BlockType.HAT,
-          text: '[SENSOR] タッチセンサーが [ACTION] されたとき',
+          text: translate('block.whenTouchSensor', 'when [SENSOR] touch sensor is [ACTION]'),
           isEdgeActivated: false,
           arguments: {
             SENSOR: {
@@ -4316,10 +4465,10 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
               menu: 'touchActionMenu'
             }
           }
-        }].concat(_toConsumableArray$1(FIXED_EVENT_HATS), ['---', {
+        }].concat(_toConsumableArray$1(fixedEventHats()), ['---', {
           opcode: 'raw',
           blockType: BlockType.COMMAND,
-          text: 'デバイス [DEVICE] コマンド [COMMAND] ペイロード [PAYLOAD]',
+          text: translate('block.raw', 'device [DEVICE] command [COMMAND] payload [PAYLOAD]'),
           arguments: {
             DEVICE: {
               type: ArgumentType.NUMBER,
@@ -4337,91 +4486,124 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
         }, {
           opcode: 'lastPacket',
           blockType: BlockType.REPORTER,
-          text: '最後の受信パケット'
+          text: translate('block.lastPacket', 'last received packet')
         }, {
           opcode: 'detailedEvent',
           blockType: BlockType.REPORTER,
-          text: '最後の詳細イベント'
+          text: translate('block.detailedEvent', 'last detailed event')
         }]),
         menus: {
           markerMenu: {
             acceptReporters: true,
             items: [{
-              text: '上げる',
+              text: translate('menu.marker.up', 'up'),
               value: '0'
             }, {
-              text: '下げる',
+              text: translate('menu.marker.down', 'down'),
               value: '1'
             }, {
-              text: '消しゴム',
+              text: translate('menu.marker.eraser', 'eraser'),
               value: '2'
             }]
           },
           sensorMenu: {
             items: [{
-              text: 'バッテリー',
+              text: translate('menu.sensor.battery', 'battery'),
               value: 'battery'
             }, {
-              text: '明るさ',
+              text: translate('menu.sensor.light', 'light'),
               value: 'light'
             }, {
-              text: '加速度',
+              text: translate('menu.sensor.accel', 'accelerometer'),
               value: 'accel'
             }]
           },
           ledEffectMenu: {
             acceptReporters: true,
             items: [{
-              text: '消す',
+              text: translate('menu.led.off', 'off'),
               value: '0'
             }, {
-              text: '点灯',
+              text: translate('menu.led.on', 'on'),
               value: '1'
             }, {
-              text: '点滅',
+              text: translate('menu.led.blink', 'blink'),
               value: '2'
             }, {
-              text: '回転',
+              text: translate('menu.led.spin', 'spin'),
               value: '3'
             }]
           },
           valueMenu: {
             acceptReporters: true,
-            items: ['batteryPercent', 'batteryMv', 'lightLeft', 'lightRight', 'accelX', 'accelY', 'accelZ', 'leftBumper', 'rightBumper', 'touchMask', 'cliff']
+            items: [{
+              text: translate('menu.value.batteryPercent', 'battery level (%)'),
+              value: 'batteryPercent'
+            }, {
+              text: translate('menu.value.batteryMv', 'battery voltage (mV)'),
+              value: 'batteryMv'
+            }, {
+              text: translate('menu.value.lightLeft', 'left light level'),
+              value: 'lightLeft'
+            }, {
+              text: translate('menu.value.lightRight', 'right light level'),
+              value: 'lightRight'
+            }, {
+              text: translate('menu.value.accelX', 'acceleration X'),
+              value: 'accelX'
+            }, {
+              text: translate('menu.value.accelY', 'acceleration Y'),
+              value: 'accelY'
+            }, {
+              text: translate('menu.value.accelZ', 'acceleration Z'),
+              value: 'accelZ'
+            }, {
+              text: translate('menu.value.leftBumper', 'left bumper'),
+              value: 'leftBumper'
+            }, {
+              text: translate('menu.value.rightBumper', 'right bumper'),
+              value: 'rightBumper'
+            }, {
+              text: translate('menu.value.touchMask', 'touch sensor mask'),
+              value: 'touchMask'
+            }, {
+              text: translate('menu.value.cliff', 'cliff sensor'),
+              value: 'cliff'
+            }]
           },
           eventMenu: {
             items: [{
-              text: 'バンパー',
+              text: translate('menu.event.bumper', 'bumper'),
               value: 'bumper'
             }, {
-              text: 'タッチ',
+              text: translate('menu.event.touch', 'touch'),
               value: 'touch'
             }, {
-              text: '落下防止センサー',
+              text: translate('menu.event.cliff', 'cliff sensor'),
               value: 'cliff'
             }, {
-              text: 'バッテリー',
+              text: translate('menu.event.battery', 'battery'),
               value: 'battery'
             }]
           },
           bumperMenu: {
             items: [{
-              text: '左',
+              text: translate('menu.bumper.left', 'left'),
               value: 'LEFT'
             }, {
-              text: '右',
+              text: translate('menu.bumper.right', 'right'),
               value: 'RIGHT'
             }, {
-              text: '左右同時',
+              text: translate('menu.bumper.both', 'both'),
               value: 'BOTH'
             }]
           },
           bumperActionMenu: {
             items: [{
-              text: 'Push',
+              text: translate('menu.action.push', 'Push'),
               value: 'PUSH'
             }, {
-              text: 'Release',
+              text: translate('menu.action.release', 'Release'),
               value: 'RELEASE'
             }]
           },
@@ -4442,10 +4624,10 @@ var IrobotRootBlocks = /*#__PURE__*/function () {
           },
           touchActionMenu: {
             items: [{
-              text: 'タッチ',
+              text: translate('menu.action.touch', 'Touch'),
               value: 'TOUCH'
             }, {
-              text: 'リリース',
+              text: translate('menu.action.release', 'Release'),
               value: 'RELEASE'
             }]
           }
